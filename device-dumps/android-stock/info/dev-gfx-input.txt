@@ -1,0 +1,14 @@
+ls: /dev/dri: No such file or directory
+/dev/graphics:
+total 0
+drwxr-xr-x  2 root   root          60 2026-11-20 18:21 .
+drwxr-xr-x 20 root   root        3760 2026-11-20 18:22 ..
+crw-rw----  1 system graphics 29,   0 2026-11-20 18:21 fb0
+
+/dev/input:
+total 0
+drwxr-xr-x  2 root root      100 2026-11-20 18:21 .
+drwxr-xr-x 20 root root     3760 2026-11-20 18:22 ..
+crw-rw----  1 root input 13,  64 2026-11-20 18:21 event0
+crw-rw----  1 root input 13,  65 2026-11-20 18:21 event1
+crw-rw----  1 root input 13,  66 2026-11-20 18:21 event2

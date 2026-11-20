@@ -1,0 +1,3 @@
+# Feste WLAN-MAC eintragen (z. B. die Original-MAC aus Android, siehe docs/INSTALLATION.md).
+# Leer lassen = der Treiber waehlt bei jedem Start eine zufaellige MAC.
+WLAN_MAC=""

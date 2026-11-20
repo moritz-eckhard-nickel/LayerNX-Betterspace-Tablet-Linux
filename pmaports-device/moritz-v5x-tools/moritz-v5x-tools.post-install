@@ -1,0 +1,4 @@
+#!/bin/sh
+rc-update add moritz-v5x-touch default
+rc-update add moritz-v5x-fbrefresh default
+exit 0

@@ -1,0 +1,8 @@
+ls: /dev/conn*: No such file or directory
+crw------- 1 system    system    243,   0 2026-11-20 18:21 /dev/btif
+crw-rw---- 1 media     media     500,   0 2026-11-20 18:22 /dev/fm
+crw-rw---- 1 bluetooth bluetooth 192,   0 2026-11-20 18:22 /dev/stpbt
+crw-rw---- 1 gps       gps       191,   0 2026-11-20 18:22 /dev/stpgps
+crw-rw---- 1 system    system    190,   0 2026-11-20 18:22 /dev/stpwmt
+crw-rw---- 1 wifi      wifi      153,   0 2026-11-20 18:22 /dev/wmtWifi
+crw-rw---- 1 system    system    154,   0 2026-11-20 18:22 /dev/wmtdetect

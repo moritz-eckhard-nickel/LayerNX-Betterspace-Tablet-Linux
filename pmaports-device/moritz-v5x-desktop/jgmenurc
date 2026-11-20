@@ -1,0 +1,7 @@
+stay_alive = 0
+position_mode = ipc
+menu_width = 360
+item_height = 56
+font = DejaVu Sans 16
+icon_size = 32
+csv_cmd = apps

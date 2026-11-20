@@ -1,0 +1,14 @@
+#!/bin/sh
+# Stock-Kernel hat CONFIG_ANDROID_PARANOID_NETWORK=y: nur Mitglieder von
+# GID 3003 (inet) / 3004 (net_raw) duerfen Netzwerk-Sockets oeffnen.
+grep -q '^inet:' /etc/group || addgroup -g 3003 inet
+grep -q '^net_raw:' /etc/group || addgroup -g 3004 net_raw
+for u in $(awk -F: '$3 >= 1000 && $3 < 60000 {print $1}' /etc/passwd); do
+	addgroup "$u" inet 2>/dev/null
+	addgroup "$u" net_raw 2>/dev/null
+	addgroup "$u" input 2>/dev/null
+done
+for u in sshd dnsmasq chrony ntp nobody messagebus wpa_supplicant; do
+	grep -q "^$u:" /etc/passwd && addgroup "$u" inet 2>/dev/null
+done
+exit 0

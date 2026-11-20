@@ -1,0 +1,50 @@
+[21:40:20] [92m*** (1/4) PREPARE NATIVE CHROOT ***[0m
+[21:40:21] (native) Creating chroot[0m
+[21:40:22] (native) install cryptsetup util-linux parted[0m
+[21:40:23] [92m*** (2/4) CREATE DEVICE ROOTFS ("betterspace-v5x") ***[0m
+[21:40:23] (native) install qemu-aarch64[0m
+[21:40:24] Register qemu binfmt (aarch64)[0m
+[21:40:24] (rootfs_betterspace-v5x) Creating chroot[0m
+[21:40:28] (rootfs_betterspace-v5x) install postmarketos-base device-betterspace-v5x moritz-v5x-desktop evtest iw nano htop e2fsprogs util-linux postmarketos-base-nofde sudo-rs[0m
+[21:40:57] (rootfs_betterspace-v5x) install postmarketos-mkinitfs[0m
+[21:40:57] (rootfs_betterspace-v5x) mkinitfs[0m
+[21:41:09]  [92m*** SET LOGIN PASSWORD FOR: 'moritz' ***[0m
+[21:41:13] [92m*** (3/4) PREPARE INSTALL BLOCKDEVICE ***[0m
+[21:41:13] (native) create betterspace-v5x.img (1137M)[0m
+[21:41:13] (native) mount /dev/install (betterspace-v5x.img)[0m
+[21:41:13] (native) partition /dev/install (boot: 512M)[0m
+[21:41:14] Mounting partitions of /dev/loop9 inside the chroot[0m
+[21:41:14] (native) install e2fsprogs[0m
+[21:41:14] (native) format /dev/installp2 (pmOS_root, ext4)[0m
+[21:41:14] (native) mount /dev/installp2 to /mnt/install[0m
+[21:41:14] (native) install e2fsprogs[0m
+[21:41:15] (native) format /dev/installp1 (pmOS_boot, ext2)[0m
+[21:41:15] (native) create /etc/fstab[0m
+[21:41:15] (rootfs_betterspace-v5x) mkinitfs[0m
+[21:41:28] [92m*** (4/4) FILL INSTALL BLOCKDEVICE ***[0m
+[21:41:28] (native) copy rootfs_betterspace-v5x to /mnt/install/[0m
+[21:41:38] [0m
+[21:41:38] [92m*** FLASHING INFORMATION ***[0m
+[21:41:38] Run the following to flash your installation to the target device:[0m
+[21:41:38] * pmbootstrap flasher flash_rootfs[0m
+[21:41:38]   Flashes the generated rootfs image to your device:[0m
+[21:41:38]   /home/moritz/moritz-betterspace-v5x/pmb-work/chroot_native/home/pmos/rootfs/betterspace-v5x.img[0m
+[21:41:38]   ([94mNOTE:[0m This file has a partition table, which contains /boot and / subpartitions. That way we don't need to change the partition layout on your device.)[0m
+[21:41:38] * pmbootstrap flasher flash_vbmeta[0m
+[21:41:38]   Flashes vbmeta image with verification disabled flag.[0m
+[21:41:38] * pmbootstrap flasher flash_kernel[0m
+[21:41:38]   Flashes the kernel + initramfs to your device:[0m
+[21:41:38]   /home/moritz/moritz-betterspace-v5x/pmb-work/chroot_rootfs_betterspace-v5x/boot[0m
+[21:41:38]   ([94mNOTE:[0m fastboot also supports booting the kernel/initramfs directly without flashing. Use 'pmbootstrap flasher boot' to do that.)[0m
+[21:41:38] * If the above steps do not work, you can also create symlinks to the generated files with 'pmbootstrap export' and flash outside of pmbootstrap.[0m
+[21:41:38] [0m
+[21:41:38] [92m*** SSH DAEMON INFORMATION ***[0m
+[21:41:38] SSH daemon is enabled (disable with --no-sshd).[0m
+[21:41:38] Login as 'moritz' with the password given during installation.[0m
+[21:41:38] [0m
+[21:41:38] [92m*** FIREWALL INFORMATION ***[0m
+[21:41:38] Firewall is enabled, but may not work (couldn't determine if kernel supports nftables).[0m
+[21:41:38] For more information: https://postmarketos.org/firewall[0m
+[21:41:38] [0m
+[21:41:38] [94mNOTE:[0m chroot is still active (use 'pmbootstrap shutdown' as necessary)[0m
+[21:41:38] [92mDONE![0m[0m

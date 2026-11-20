@@ -1,0 +1,3 @@
+#!/bin/sh
+rc-update add moritz-v5x-xsession default
+exit 0

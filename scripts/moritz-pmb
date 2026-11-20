@@ -1,0 +1,9 @@
+#!/bin/sh
+# moritz-pmb: pmbootstrap als root (--as-root), alles im Projektverzeichnis.
+# Aufruf: MORITZ_SUDO_PW=... scripts/moritz-pmb <pmbootstrap-argumente>
+P=/home/moritz/moritz-betterspace-v5x
+[ -n "$MORITZ_SUDO_PW" ] || { echo "MORITZ_SUDO_PW fehlt" >&2; exit 1; }
+printf '%s\n' "$MORITZ_SUDO_PW" | sudo -S -p '' true || exit 1
+sudo -n env HOME=/root PATH=/usr/sbin:/usr/bin:/sbin:/bin \
+  python3 "$P/sources/pmbootstrap/pmbootstrap.py" --as-root \
+  -c "$P/pmbootstrap.cfg" -w "$P/pmb-work" -p "$P/pmaports" "$@"

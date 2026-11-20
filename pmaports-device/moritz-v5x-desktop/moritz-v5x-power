@@ -1,0 +1,11 @@
+#!/bin/sh
+# Neustart/Ausschalten nur nach Rueckfrage (Touch-Menue loest sonst versehentlich aus)
+case "$1" in
+	reboot) txt="Tablet wirklich neu starten?" ;;
+	poweroff) txt="Tablet wirklich ausschalten?" ;;
+	*) echo "usage: $0 reboot|poweroff" >&2; exit 2 ;;
+esac
+xmessage -center -font "-*-dejavu sans-bold-r-*-*-28-*-*-*-*-*-*-*" \
+	-buttons "  Ja  :0,  Nein  :1" -default "  Nein  " "$txt" 2>/dev/null ||
+xmessage -center -buttons "  Ja  :0,  Nein  :1" -default "  Nein  " "$txt" || exit 0
+exec doas "$1"

@@ -1,0 +1,4265 @@
+on post-fs-data
+#
+# Connectivity related modules and character device nodes (Begin)
+#
+
+#/dev/ttyMT2 for Connectivity BT/FM/GPS usage
+    chmod 0660 /dev/ttyMT2
+    chown system system /dev/ttyMT2
+
+# GPS
+    mkdir /data/vendor/gps 0770 gps system
+    chown gps gps /dev/stpgps
+    chmod 0660 /dev/stpgps
+
+# GPS EMI
+    chmod 666 /dev/gps_emi
+
+# WiFi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wpa_supplicant 0770 wifi wifi
+
+#
+# Connectivity related device nodes & configuration (end)
+#
+
+
+on boot
+
+#
+# Connectivity related services (Begin)
+#
+# WMT
+service wmt_loader /vendor/bin/wmt_loader
+    user system
+    group system
+    oneshot
+
+service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/
+    user system
+    group system
+
+# GPS
+#service mnld /vendor/bin/mnld
+#    class main
+#    user gps
+#    group gps inet misc sdcard_rw sdcard_r media_rw system radio
+#    socket mnld stream 660 gps system
+
+#service BGW /vendor/bin/BGW
+#    user system
+#    group gps system radio
+#    class main
+
+service wlan_assistant /vendor/bin/wlan_assistant
+    class main
+    user wifi
+    group system gps inet
+
+#
+# Connectivity related services (End)
+#
+
+#
+# Connectivity related kernel objects (Begin)
+#
+
+# load wmt_drv
+on boot
+    insmod /vendor/lib/modules/wmt_drv.ko
+
+# load bt_drv
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/bt_drv.ko
+
+# load wifi chrdev driver and wlan driver after wmt_loader finish
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/wmt_chrdev_wifi.ko
+    insmod /vendor/lib/modules/wlan_drv_${ro.vendor.wlan.gen}.ko
+    start wlan_assistant
+
+# load fmradio_drv
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/fmradio_drv.ko
+
+# load gps_drv
+on property:vendor.connsys.driver.ready=yes
+  insmod /vendor/lib/modules/gps_drv.ko
+
+#
+# Connectivity related kernel objects (End)
+#
+
+mkdir /data/misc/sensors 0664 system system
+
+service msensord /vendor/bin/msensord
+    user system
+    group system
+    oneshot
+
+service akmd8963 /vendor/bin/akmd8963
+    disabled
+    user system
+    group system
+
+
+on post-fs
+
+
+
+
+
+    chown bluetooth net_bt_stack /dev/stpbt
+
+
+
+on boot
+
+
+
+
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+import ${ro.vendor.rc}factory_init.connectivity.rc
+import /init.environ.rc
+import /vendor/etc/init/trustonic.rc
+import ${ro.vendor.rc}init.nvdata.rc
+import /vendor/etc/init/microtrust.rc
+import /vendor/etc/init/trustkernel.rc
+import /vendor/etc/init/hw/init.aee.rc
+import /system/etc/init/hw/init.aee.rc
+import /vendor/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc
+import /vendor/etc/init/android.hardware.boot@1.0-service.rc
+
+#copy from system/etc for APEX
+import /system/etc/init/apexd.rc
+import /system/etc/init/art_apex_boot_integrity.rc
+
+
+import /vendor/etc/init/hw/factory_init.project.rc
+import /system/etc/init/servicemanager.rc
+import /system/etc/init/hwservicemanager.rc
+import /system/etc/init/android.hidl.allocator@1.0-service.rc
+import /system/etc/init/vold.rc
+
+import fatory_init.items.rc
+
+on early-init
+    # Set init and its forked children's oom_adj.
+    write /proc/1/oom_score_adj -1000
+
+    # Disable sysrq from keyboard
+    write /proc/sys/kernel/sysrq 0
+
+    # Set the security context of /adb_keys if present.
+    restorecon /adb_keys
+
+    # Set the security context of /postinstall if present.
+    restorecon /postinstall
+
+    start ueventd
+
+
+    # Run apexd-bootstrap so that APEXes that provide critical libraries
+    # become available. Note that this is executed as exec_start to ensure that
+    # the libraries are available to the processes started after this statement.
+    exec_start apexd-bootstrap
+
+#INTERNAL_START
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+#INTERNAL_END
+
+on init
+
+sysclktz 0
+
+    start servicemanager
+    start hwservicemanager
+    start hidl_memory
+
+    # Mix device-specific information into the entropy pool
+    copy /proc/cmdline /dev/urandom
+    copy /default.prop /dev/urandom
+
+    write /proc/bootprof "INIT: on init start"
+
+    # Backward compatibility.
+    symlink /system/etc /etc
+    symlink /sys/kernel/debug /d
+
+# Temp Backward compatibility
+    symlink /dev/block/platform/bootdevice/by-name/boot /dev/bootimg
+    symlink /dev/block/platform/bootdevice/by-name/recovery /dev/recovery
+    symlink /dev/block/platform/bootdevice/by-name/secro  /dev/sec_ro
+    symlink /dev/block/platform/bootdevice/by-name/kb /dev/kb
+    symlink /dev/block/platform/bootdevice/by-name/dkb /dev/dkb
+    symlink /dev/block/platform/bootdevice/by-name/seccfg /dev/seccfg
+    symlink /dev/block/platform/bootdevice/by-name/proinfo /dev/pro_info
+    symlink /dev/block/platform/bootdevice/by-name/nvram /dev/nvram
+    symlink /dev/block/platform/bootdevice/by-name/para /dev/misc
+    symlink /dev/block/platform/bootdevice/by-name/logo /dev/logo
+
+
+# Link /vendor to /system/vendor for devices without a vendor partition.
+    symlink /system/vendor /vendor
+
+    # Mount cgroup mount point for cpu accounting
+    mount cgroup none /acct cpuacct
+    mkdir /acct/uid
+
+    # Create energy-aware scheduler tuning nodes
+    mkdir /dev/stune
+    mount cgroup none /dev/stune schedtune
+    mkdir /dev/stune/foreground
+    chown system system /dev/stune
+    chown system system /dev/stune/foreground
+    chown system system /dev/stune/tasks
+    chown system system /dev/stune/foreground/tasks
+    chmod 0664 /dev/stune/tasks
+    chmod 0664 /dev/stune/foreground/tasks
+#Create nvdata mount point
+    mkdir /mnt/vendor/nvdata 0771 system system
+
+    restorecon_recursive /mnt
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+
+    mount configfs none /config
+    chmod 0775 /config/sdcardfs
+    chown system package_info /config/sdcardfs
+
+    mkdir /mnt/secure 0700 root root
+    mkdir /mnt/secure/asec 0700 root root
+    mkdir /mnt/asec 0755 root system
+    mkdir /mnt/obb 0755 root system
+    mkdir /mnt/media_rw 0750 root media_rw
+    mkdir /mnt/user 0755 root root
+    mkdir /mnt/user/0 0755 root root
+    mkdir /mnt/expand 0771 system system
+    mkdir /mnt/appfuse 0711 root root
+
+    # Permissions for System Server and daemons.
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+    chmod 0660 /sys/power/wakeup_count
+
+
+    # Storage views to support runtime permissions
+    mkdir /mnt/runtime 0700 root root
+    mkdir /mnt/runtime/default 0755 root root
+    mkdir /mnt/runtime/default/self 0755 root root
+    mkdir /mnt/runtime/read 0755 root root
+    mkdir /mnt/runtime/read/self 0755 root root
+    mkdir /mnt/runtime/write 0755 root root
+    mkdir /mnt/runtime/write/self 0755 root root
+
+    # Symlink to keep legacy apps working in multi-user world
+    symlink /storage/self/primary /sdcard
+    symlink /storage/self/primary /mnt/sdcard
+    symlink /mnt/user/0/primary /mnt/runtime/default/self/primary
+
+    # root memory control cgroup, used by lmkd
+    mkdir /dev/memcg 0700 root system
+    mount cgroup none /dev/memcg memory
+    # app mem cgroups, used by activity manager, lmkd and zygote
+    mkdir /dev/memcg/apps/ 0755 system system
+
+    write /proc/sys/kernel/panic_on_oops 1
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+    write /proc/cpu/alignment 4
+
+    # scheduler tunables
+    # Disable auto-scaling of scheduler tunables with hotplug. The tunables
+    # will vary across devices in unpredictable ways if allowed to scale with
+    # cpu cores.
+    write /proc/sys/kernel/sched_tunable_scaling 0
+    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_child_runs_first 0
+    write /proc/sys/kernel/randomize_va_space 2
+    write /proc/sys/vm/mmap_min_addr 32768
+    write /proc/sys/net/ipv4/ping_group_range "0 2147483647"
+    write /proc/sys/net/unix/max_dgram_qlen 600
+    write /proc/sys/kernel/sched_rt_runtime_us 950000
+    write /proc/sys/kernel/sched_rt_period_us 1000000
+    # Assign reasonable ceiling values for socket rcv/snd buffers.
+    # These should almost always be overridden by the target per the
+    # the corresponding technology maximums.
+    write /proc/sys/net/core/rmem_max  262144
+    write /proc/sys/net/core/wmem_max  262144
+    # reflect fwmark from incoming packets onto generated replies
+    write /proc/sys/net/ipv4/fwmark_reflect 1
+    write /proc/sys/net/ipv6/fwmark_reflect 1
+    # set fwmark on accepted sockets
+    write /proc/sys/net/ipv4/tcp_fwmark_accept 1
+    # disable icmp redirects
+    write /proc/sys/net/ipv4/conf/all/accept_redirects 0
+    write /proc/sys/net/ipv6/conf/all/accept_redirects 0
+
+    #INTERNAL_START
+    mkdir /mnt/vendor/protect_f 0771 system system
+    mkdir /mnt/vendor/protect_s 0771 system system
+    #Create CIP mount point
+    mkdir /custom
+
+    mkdir /mnt/cd-rom 0000 system system
+    #INTERNAL_END
+    # enable armv8_deprecated instruction hooks
+    write /proc/sys/abi/swp 1
+    # Linux's execveat() syscall may construct paths containing /dev/fd
+    # expecting it to point to /proc/self/fd
+    symlink /proc/self/fd /dev/fd
+    # set RLIMIT_NICE to allow priorities from 19 to -20
+    setrlimit 13 40 40
+    # Healthd can trigger a full boot from charger mode by signaling this
+    # property when the power button is held.
+    on property:sys.boot_from_charger_mode=1
+    class_stop charger
+    trigger late-init
+
+# Load properties from /system/ + /factory after fs mount.
+    on load_system_props_action
+    load_system_props
+
+    on load_persist_props_action
+    load_persist_props
+    start logd
+    start logd-reinit
+
+# Indicate to fw loaders that the relevant mounts are up.
+on firmware_mounts_complete
+    rm /dev/.booting
+
+    # Mount filesystems and start core system services.
+    on late-init
+    trigger early-fs
+    trigger fs
+    trigger post-fs
+
+    # Load properties from /system/ + /factory after fs mount. Place
+    # this in another action so that the load will be scheduled after the prior
+    # issued fs triggers have completed.
+    trigger load_system_props_action
+
+    # Mount fstab in init.{$device}.rc by mount_all with '--late' parameter
+    # to only mount entries with 'latemount'. This is needed if '--early' is
+    # specified in the previous mount_all command on the fs stage.
+    # With /system mounted and properties form /system + /factory available,
+    # some services can be started.
+    trigger late-fs
+
+    # Now we can mount /data. File encryption requires keymaster to decrypt
+    # /data, which in turn can only be loaded when system properties are present
+    trigger post-fs-data
+    trigger load_persist_props_action
+
+    trigger firmware_mounts_complete
+
+    trigger early-boot
+    trigger boot
+
+ on early-fs
+    # Once metadata has been mounted, we'll need vold to deal with userdata checkpointing
+    start vold
+
+# mount different fs start
+on fs
+    #USB configfs
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mkdir /config/usb_gadget/g1 0770 shell shell
+    write /config/usb_gadget/g1/idVendor 0x0E8D
+    write /config/usb_gadget/g1/bcdDevice 0xFFFF
+    write /config/usb_gadget/g1/bcdUSB 0x0200
+    mkdir /config/usb_gadget/g1/strings/0x409 0770
+    write /config/usb_gadget/g1/strings/0x409/manufacturer "Android"
+    write /config/usb_gadget/g1/strings/0x409/product "Android"
+    write /config/usb_gadget/g1/bDeviceClass 0
+    write /config/usb_gadget/g1/bDeviceSubClass 0
+    write /config/usb_gadget/g1/bDeviceProtocol 0
+    mkdir /config/usb_gadget/g1/functions/mass_storage.usb0
+    mkdir /config/usb_gadget/g1/functions/ffs.adb
+    mkdir /config/usb_gadget/g1/functions/acm.gs0
+    mkdir /config/usb_gadget/g1/functions/acm.gs1
+    mkdir /config/usb_gadget/g1/functions/acm.gs2
+    mkdir /config/usb_gadget/g1/functions/acm.gs3
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
+    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+
+#INTERNAL_START
+    write /proc/bootprof "INIT:Mount_START"
+    symlink /dev/block/platform/soc/11230000.mmc   /dev/block/platform/bootdevice
+    wait_for_prop hwservicemanager.ready "true"
+    start vendor.boot-hal-1-0
+    mount_all /vendor/etc/fstab.mt8168 ${ro.vendor.rc}multi_init.rc
+    write /proc/bootprof "INIT:Mount_END"
+#INTERNAL_END
+# mount different fs end
+
+on post-fs
+    start logd
+    start nfc_hal_service
+    start light-hal-2-0
+    start merged_hal_service
+    start capi-2-0
+    start power-hal-1-0
+    # once everything is setup, no need to modify /
+    mount rootfs rootfs / ro remount
+    # Mount shared so changes propagate into child namespaces
+    mount rootfs rootfs / shared rec
+    # Mount default storage into root namespace
+    mount none /mnt/runtime/default /storage slave bind rec
+
+    # Make sure /sys/kernel/debug (if present) is labeled properly
+    restorecon_recursive /sys/kernel/debug
+
+    # Support legacy paths
+    symlink /sdcard /storage/sdcard0
+
+    chown system system /system/data
+    mkdir /system/cache 0770 system cache
+    # We restorecon /cache in case the cache partition has been reset.
+    restorecon_recursive /cache
+
+    # Same reason as /data above
+    chown system cache /cache
+    chmod 0770 /cache
+
+    # This may have been created by the recovery system with odd permissions
+    chown system cache /cache/recovery
+    chmod 0770 /cache/recovery
+
+    #change permissions on vmallocinfo so we can grab it from bugreports
+    chown root log /proc/vmallocinfo
+    chmod 0440 /proc/vmallocinfo
+
+    #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
+    chown root system /proc/kmsg
+    chmod 0440 /proc/kmsg
+    chown root system /proc/sysrq-trigger
+    chmod 0220 /proc/sysrq-trigger
+    chown system log /proc/last_kmsg
+    chmod 0440 /proc/last_kmsg
+
+    # make the selinux kernel policy world-readable
+    chmod 0444 /sys/fs/selinux/policy
+
+    # create the lost+found directories, so as to enforce our permissions
+    mkdir /cache/lost+found 0770 root root
+
+#INTERNAL_START
+    mkdir /cache/recovery 0770 system system
+    chown system system /mnt/vendor/protect_f
+    chmod 0770 /mnt/vendor/protect_f
+
+    chown system system /mnt/vendor/protect_s
+    chmod 0770 /mnt/vendor/protect_s
+
+#INTERNAL_END
+
+on late-fs
+    # HALs required before storage encryption can get unlocked (FBE/FDE)
+    class_start early_hal
+
+    start vendor.keymaster-3-0
+    start vendor.keymaster-3-0-trustonic
+    start vendor.keymaster-4-0
+    start vendor.keymaster-4-0-trustonic
+    start vendor.keymaster-4-0-beanpod
+    start vendor.keymaster-4-0-trustkernel
+    start vendor.keymaster-4-0-mtee
+    start keymaster_attestation-1-1
+
+on post-fs-data
+    mark_post_data
+
+    # Start checkpoint before we touch data
+    start vold
+    exec - system system -- /system/bin/vdc checkpoint prepareCheckpoint
+
+ # We chown/chmod /data again so because mount is run as root + defaults
+    chown system system /data
+    chmod 0771 /data
+    # We restorecon /data in case the userdata partition has been reset.
+    restorecon /data
+
+    # Make sure we have the device encryption key.
+    installkey /data
+
+# create basic filesystem structure
+    #mkdir /mnt/vendor/nvdata 2770 root system
+    # We chown/chmod /mnt/vendor/nvdata again so because mount is run as root + defaults
+    chown root system /mnt/vendor/nvdata
+    chmod 0771 /mnt/vendor/nvdata
+    mkdir /mnt/vendor/nvdata/media 0771 media audio
+
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /mnt/vendor/nvdata
+
+	#Thermal
+	mkdir /data/.tp/ 0775 system system
+
+    chown root system /proc/sysrq-trigger
+    chmod 0220 /proc/sysrq-trigger
+
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+
+# create basic filesystem structure
+
+    # symlink to bugreport storage location
+    rm /data/bugreports
+    symlink /data/user_de/0/com.android.shell/files/bugreports /data/bugreports
+
+
+    # VIA flashlessd service
+    mkdir /data/flashless 0770 radio nvram
+    chmod 0660 /dev/ttyMT4
+    chown radio radio /dev/ttyMT4
+    chmod 0660 /dev/vmodem
+    chown radio radio /dev/vmodem
+
+    #VIA pppd service
+    mkdir /data/pppd_via 0770 radio system
+
+    # md32 boot
+    chown root system /dev/md32
+    chmod 0440 /dev/md32
+    chown root system /sys/class/misc/md32/md32_mobile_log
+    chmod 0660 /sys/class/misc/md32/md32_mobile_log
+    write /sys/class/misc/md32/md32_boot 1
+
+    # device info interface
+    chmod 0440 /dev/devmap
+    chown root system /dev/devmap
+
+
+
+    #change partition permission
+    exec /vendor/etc/partition_permission.sh
+#INTERNAL_START
+#SeLinux
+    mkdir /data/ccci_cfg 0770 system radio
+    restorecon /data/ccci_cfg
+    restorecon_recursive /mnt/vendor/protect_f
+    restorecon_recursive /mnt/vendor/protect_s
+
+## Custom pos-fs area (START)
+# Please add custom fs operation below
+
+    # Touch Panel
+    chown root diag /sys/module/tpd_setting/parameters/tpd_calmat
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_debounce_time
+    chown root diag /sys/module/tpd_debug/parameters/tpd_em_log
+    chown root diag /sys/module/tpd_debug/parameters/tpd_em_log_to_fs
+
+    # RTC
+    mkdir /data/misc/rtc 0770 system system
+
+    # Modem related device nodes
+    mkdir /data/md3	0770 root system
+
+    chown radio radio /sys/kernel/ccci/boot
+
+    #set mlock limit to infinate (for m4u operation)
+    setrlimit 8 -1 -1
+
+    # Sensor
+    chmod 0666 /dev/hwmsensor
+    chmod 0666 /dev/gyroscope
+    chmod 0666 /dev/msensor
+    chmod 0666 /dev/gsensor
+    chmod 0666 /dev/als_ps
+    chmod 0666 /dev/humidity
+    chmod 0666 /dev/barometer
+
+    chown system system /dev/hwmsensor
+    chown system system /dev/msensor
+    chown system system /dev/gsensor
+    chown radio system /dev/als_ps
+    chown system system /dev/gyroscope
+    chown system system /dev/barometer
+    chown system system /dev/humidity
+    #VideoCodec
+    chmod 0666 /dev/Vcodec
+
+
+    mkdir /data/amit/
+
+    # GPIO
+    chmod 0666 /dev/mtgpio
+
+    chmod 0666 /dev/exm0
+
+    #NFC
+    rm /data/mtknfc_server
+
+## Custom pos_fs area (END)
+#INTERNAL_END
+
+    # Separate location for storing security policy files on data
+    mkdir /data/security 0711 system system
+
+    # Reload policy from /data/security if present.
+    setprop selinux.reload_policy 1
+
+# It is recommended to put unnecessary data/ initialization from post-fs-data
+# to start-zygote in device's init.rc to unblock zygote start.
+on zygote-start && property:ro.crypto.state=unencrypted
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier_nonencrypted
+    start netd
+    start zygote
+    start zygote_secondary
+
+on zygote-start && property:ro.crypto.state=unsupported
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier_nonencrypted
+    start netd
+    start zygote
+    start zygote_secondary
+
+on zygote-start && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier_nonencrypted
+    start netd
+    start zygote
+    start zygote_secondary
+
+on boot
+    setprop sys.usb.configfs 1
+    setprop sys.usb.ffs.aio_compat 1
+    setprop vendor.usb.clear boot
+    setprop sys.usb.controller "11201000.usb"
+
+    # Permissions for System Server and daemons.
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+    chmod 0660 /sys/power/wakeup_count
+
+    # TTY
+    chmod 0660 /dev/ttyGS0
+    chown system radio /dev/ttyGS0
+    chmod 0660 /dev/ttyGS1
+    chown system radio /dev/ttyGS1
+    # For BT relayer
+    chown bluetooth radio /dev/ttyGS2
+    chmod 0660 /dev/ttyGS2
+    # For MD Logger
+    chown system radio /dev/ttyGS3
+    chmod 0660 /dev/ttyGS3
+
+    #VIA device property
+    setprop viatel.device.asci uart.4.ttyMT
+    setprop viatel.device.fls  sdio.3.ttySDIO
+    setprop viatel.device.at   sdio.4.ttySDIO
+    setprop viatel.device.data sdio.1.ttySDIO
+
+    # For backlight
+    chmod 0664 /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/brightness
+
+# basic network init
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    #INTERNAL_START
+    # Start default class, this line is very important!!
+    class_start default
+    #INTERNAL_END
+
+    # Start standard binderized HAL daemons
+    class_start hal
+
+    class_start core
+
+on nonencrypted
+    class_start main
+    class_start late_start
+
+on property:vold.decrypt=trigger_default_encryption
+    start defaultcrypto
+
+on property:vold.decrypt=trigger_encryption
+    start surfaceflinger
+    start encrypt
+
+on property:sys.init_log_level=*
+    loglevel ${sys.init_log_level}
+
+on property:vold.decrypt=trigger_reset_main
+    class_reset main
+
+on property:vold.decrypt=trigger_load_persist_props
+    load_persist_props
+    start logd
+    start logd-reinit
+
+on property:vold.decrypt=trigger_post_fs_data
+    trigger post-fs-data
+    trigger zygote-start
+
+on property:vold.decrypt=trigger_restart_min_framework
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier
+    class_start main
+
+on property:vold.decrypt=trigger_restart_framework
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier
+    class_start main
+    class_start late_start
+
+on property:vold.decrypt=trigger_shutdown_framework
+    class_reset late_start
+    class_reset main
+
+# One shot invocation to deal with encrypted volume.
+on defaultcrypto
+    exec - root -- /system/bin/vdc --wait cryptfs mountdefaultencrypted
+    # vold will set vold.decrypt to trigger_restart_framework (default
+    # encryption) or trigger_restart_min_framework (other encryption)
+
+# One shot invocation to encrypt unencrypted volumes
+# mtk modification:
+#   To speed up the booting in meta/factory mode, we don't encrypt the device.
+#   And then handle it as 'unencrypted' state.
+on encrypt && property:ro.vendor.mtk_f2fs_enable=0
+    mount ext4 /dev/block/platform/bootdevice/by-name/userdata /data noatime nosuid nodev noauto_da_alloc discard wait
+
+on encrypt && property:ro.vendor.mtk_f2fs_enable=1
+    mount f2fs /dev/block/platform/bootdevice/by-name/userdata /data noatime nosuid nodev discard wait
+
+on encrypt
+    setprop vendor.crypto.fake_encrypt 1
+    setprop vold.post_fs_data_done 0
+    trigger post-fs-data
+on property:vendor.crypto.fake_encrypt=1 && property:vold.post_fs_data_done=1
+    trigger load_persist_props_action
+    # setprop ro.crypto.state unencrypted
+    setprop vendor.soter.teei.crypto.state unencrypted
+    exec_start update_verifier
+    class_start main
+    class_start late_start
+    start mount_all_storages
+
+service ueventd /system/bin/ueventd
+    class core
+    critical
+    seclabel u:r:ueventd:s0
+
+service console /system/bin/sh
+    class core
+    console
+    disabled
+    user shell
+    group shell log readproc
+    seclabel u:r:shell:s0
+
+on property:sys.powerctl=*
+    powerctl ${sys.powerctl}
+
+on property:ro.debuggable=1
+    # Give writes to anyone for the trace folder on debug builds.
+    # The folder is used to store method traces.
+    chmod 0773 /data/misc/trace
+    start console
+
+# adbd is controlled via property triggers in init.<platform>.usb.rc
+service adbd /system/bin/adbd --root_seclabel=u:r:su:s0
+    class core
+    socket adbd stream 660 system system
+    disabled
+    seclabel u:r:adbd:s0
+
+#INTERNAL_START
+## Custom service area (START)
+# Please add custom service below
+
+service thermal_manager /vendor/bin/thermal_manager
+    user root
+	group system
+    oneshot
+
+service permission_check /vendor/bin/permission_check
+    user root
+    group system radio
+    oneshot
+
+service vendor.ccci_fsd /vendor/bin/ccci_fsd 0
+    user radio
+    group radio system
+    oneshot
+
+service ccci_mdinit /vendor/bin/ccci_mdinit 0
+    user system
+    group radio system
+    oneshot
+
+service vendor.ccci3_fsd /vendor/bin/ccci_fsd 2
+    user radio
+    group radio system
+    oneshot
+
+service ccci3_mdinit /vendor/bin/ccci_mdinit 2
+    user system
+    group radio system
+    oneshot
+
+service ccci_rpcd /vendor/bin/ccci_rpcd 0
+    user radio
+    group radio system
+    oneshot
+
+service kisd /vendor/bin/kisd
+    user root
+    group system drmrpc
+
+service fuelgauged /vendor/bin/fuelgauged
+    class core
+    user system
+    group system
+
+service mdlogger /system/bin/mdlogger
+    class main
+    user shell
+    group shell system radio sdcard_rw inet
+    disabled
+    oneshot
+
+service dualmdlogger /system/bin/dualmdlogger
+    class main
+    user shell
+    group shell system radio sdcard_rw inet
+    disabled
+    oneshot
+
+service factory_no_image /vendor/bin/factory
+    user radio system wifi media audio gps
+    group radio system wifi media audio gps bluetooth wakelock
+    capabilities BLOCK_SUSPEND NET_RAW NET_ADMIN SYS_ADMIN SYS_BOOT
+
+service emdlogger1 /system/bin/emdlogger1
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service emdlogger2 /system/bin/emdlogger2
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service emdlogger3 /system/bin/emdlogger3
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service emdlogger5 /system/bin/emdlogger5
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service emdlogger6 /system/bin/emdlogger6
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service connsyslogger /vendor/bin/connsyslogger
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw bluetooth gps wifi
+
+## Custom service area (END)
+
+#Log too much setting
+on property:ro.vendor.mtklog_internal=1
+    setprop vendor.logmuch.value 10000
+
+on property:vendor.usb.clear=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/bDeviceClass 0
+    write /config/usb_gadget/g1/bDeviceSubClass 0
+    write /config/usb_gadget/g1/bDeviceProtocol 0
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    write /sys/devices/platform/mt_usb/saving 0
+    setprop vendor.usb.clear 2
+
+#mass_storage,adb,acm
+on property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber $ro.serialno
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_acm"
+    write /config/usb_gadget/g1/idProduct 0x2006
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+
+#acm
+on property:ro.boot.usbconfig=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber " "
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "acm"
+    write /config/usb_gadget/g1/idProduct 0x2007
+    write /config/usb_gadget/g1/bDeviceClass 02
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+
+#singloe modem comport for factory mode
+on property:sys.usb.config=gs3,dual_acm && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs3,dual_acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs3_dual_acm"
+    write /config/usb_gadget/g1/idProduct 0x202E
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=gs1gs3,dual_acm && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs1gs3,dual_acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs1gs3_dual_acm"
+    write /config/usb_gadget/g1/idProduct 0x202F
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=gs1gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs1gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs1gs3"
+    write /config/usb_gadget/g1/idProduct 0x2029
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop vendor.usb.clear 0
+
+#INTERNAL_END
+on post-fs-data
+
+    mkdir /data/vendor/aee_exp 0775 root root
+    mkdir /data/vendor/dumpsys 0775 system system
+    mkdir /data/vendor/core 0775 system system
+    mkdir /data/vendor/tombstones 0775 system system
+
+on post-fs
+    start aee_aedv
+    start aee_aedv64
+# ago_default is the init flow for the project > 1G
+
+on init
+    write /sys/block/zram0/comp_algorithm lz4
+
+on post-fs-data && property:ro.crypto.type=block
+    mkdir /data/unencrypted
+
+on post-fs-data && property:ro.crypto.state=unencrypted
+    mkdir /data/unencrypted
+
+on post-fs-data
+    write /proc/sys/vm/page-cluster 0
+    swapon_all /vendor/etc/fstab.enableswap
+    write /dev/memcg/memory.swappiness 150
+    write /dev/memcg/apps/memory.swappiness 150
+    write /dev/memcg/system/memory.swappiness 150
+    write /proc/sys/vm/swappiness 150
+# MTK connectivity .rc configure
+
+on post-fs-data
+
+
+#
+# Connectivity related device nodes & configuration (begin)
+#
+
+#/dev/ttyMT2 for Connectivity BT/FM/GPS usage
+    chmod 0660 /dev/ttyMT2
+    chown system system /dev/ttyMT2
+
+#/dev/ttyMT1 for GPS 3337 usage
+    chmod 0660 /dev/ttyMT1
+    chown system system /dev/ttyMT1
+
+# GPS
+    mkdir /data/vendor/gps 0770 gps system
+
+# GPS EMI
+    chmod 666 /dev/gps_emi
+
+# WiFi
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
+# BT relayer mode used VCOM
+    chown bluetooth bluetooth /dev/ttyGS2
+    chmod 0660 /dev/ttyGS2
+
+#
+# Connectivity related device nodes & configuration (end)
+#
+
+
+on boot
+
+#
+# Connectivity related services (Begin)
+#
+# GPS
+service mnld /vendor/bin/mnld
+    class main
+    user gps
+    group gps inet misc sdcard_rw sdcard_r media_rw system radio wakelock
+    socket mnld stream 660 gps system
+
+# GPS Debug Process
+service lbs_dbg /system/bin/lbs_dbg
+    class main
+    user system
+    group gps inet misc sdcard_rw sdcard_r media_rw system radio
+    socket lbs_dbg stream 660 gps system
+
+#service BGW /vendor/bin/BGW
+#    user system
+#    group gps system radio
+#    class main
+
+# Wlan
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
+    -g@android:wpa_wlan0
+    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
+    socket wpa_wlan0 dgram 660 wifi wifi
+    class main
+    disabled
+    oneshot
+
+#
+# Connectivity related services (End)
+#
+
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+   
+on post-fs-data
+
+    write /proc/bootprof "post-fs-data: on modem start"
+ 
+    # Encrypt phone function
+    setprop vold.post_fs_data_done 1
+# MTK platform .rc configure
+
+import ${ro.vendor.rc}init.connectivity.rc
+import /vendor/etc/init/hw/init.mt8168.usb.rc
+import /vendor/etc/init/hw/init.project.rc
+import /FWUpgradeInit.rc
+import /vendor/etc/init/hw/init.aee.rc
+import /system/etc/init/hw/init.aee.rc
+import ${ro.vendor.rc}init.volte.rc
+import ${ro.vendor.rc}init.mal.rc
+import ${ro.vendor.rc}init.sensor_1_0.rc
+
+import init.items.rc
+
+# init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
+import ${ro.vendor.rc}init.modem.rc
+# *** DO NOT import the new rc file after this line ***
+
+on early-init
+    write /proc/bootprof "INIT:early-init"
+
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
+    write /sys/devices/platform/soc/10012000.dvfsrc/helio-dvfsrc/dvfsrc_req_ddr_opp 0
+
+on init
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+
+    # if primary storage is physical, set ro.vold.primary_physical to 1
+    # setprop ro.vold.primary_physical 1
+
+    # BATTERY proc
+    chown shell system /proc/mtk_battery_cmd/current_cmd
+    chown shell system /proc/mtk_battery_cmd/discharging_cmd
+
+# Temp Backward compatibility
+    symlink /dev/block/platform/bootdevice/by-name/boot /dev/bootimg
+    symlink /dev/block/platform/bootdevice/by-name/recovery /dev/recovery
+    symlink /dev/block/platform/bootdevice/by-name/kb /dev/kb
+    symlink /dev/block/platform/bootdevice/by-name/dkb /dev/dkb
+    symlink /dev/block/platform/bootdevice/by-name/seccfg /dev/seccfg
+    symlink /dev/block/platform/bootdevice/by-name/logo /dev/logo
+    symlink /dev/block/platform/bootdevice/by-name/misc2 /dev/misc2
+
+    #create mountpoint for persist partition
+    mkdir /mnt/vendor/persist 0771 system system
+#Create nvdata mount point
+    mkdir /mnt/vendor/nvdata 0771 system system
+# Create CIP mount point
+    mkdir /mnt/vendor/custom
+
+    mkdir /mnt/cd-rom 0000 system system
+
+# Change ION driver permission
+    chmod 0666 /dev/ion
+
+# change lk_env permission
+    chown root system /proc/lk_env
+    chmod 0660 /proc/lk_env
+
+# mount different fs start
+
+on charger
+    symlink /dev/block/platform/soc/11230000.mmc /dev/block/platform/bootdevice
+    # mount ext4 /dev/block/platform/bootdevice/by-name/system /system ro wait
+
+    # Permissions for System Server and daemons.
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+    chmod 0660 /sys/power/wakeup_count
+    start kpoc_charger
+
+    chmod 0666 /dev/kmsg
+    chmod 0775 /mnt/vendor
+    mkdir /mnt/vendor/nvcfg
+    mount ext4 /dev/block/platform/bootdevice/by-name/nvcfg /mnt/vendor/nvcfg rw wait
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
+    write /sys/bus/platform/devices/battery/FG_daemon_log_level 7
+    start fuelgauged
+    start fuelgauged_nvram
+
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+
+    start servicemanager
+    start hwservicemanager
+    start light-hal-2-0
+    start health-hal-2-0
+
+    # disable USB
+    write /sys/devices/platform/mt_usb/cmode 0
+
+on fs
+    write /proc/bootprof "INIT:Mount_START"
+    symlink /dev/block/platform/soc/11230000.mmc /dev/block/platform/bootdevice
+    wait_for_prop hwservicemanager.ready "true"
+    start vendor.boot-hal-1-0
+    mount_all /vendor/etc/fstab.mt8168
+    write /proc/bootprof "INIT:Mount_END"
+    write /sys/block/zram0/comp_algorithm lz4
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 100
+    swapon_all /vendor/etc/fstab.enableswap
+
+on fs
+
+   mount iso9660 loop@/vendor/etc/iAmCdRom.iso /mnt/cd-rom ro
+
+on post-fs
+    write /proc/bootprof "INIT:post-fs"
+
+    # Support legacy paths
+    symlink /sdcard /storage/sdcard0
+
+    #change permissions for mediaserver
+    chown root media /proc/clkmgr/mipi_test
+
+    #change permission for engineer mode
+    chown radio system /proc/clkmgr/pll_test
+    chown radio system /proc/clkmgr/pll_fsel
+    chmod 0664 /proc/clkmgr/pll_test
+    chmod 0664 /proc/clkmgr/pll_fsel
+    #change permission for engineer mode
+    chown radio system /proc/freqhopping/dramc
+    chown radio system /proc/freqhopping/dumpregs
+    chown radio system /proc/freqhopping/freqhopping_debug
+    chown radio system /proc/freqhopping/status
+    chown radio system /proc/freqhopping/userdef
+    # Support A/B feature for emmc boot region
+    symlink /dev/block/sda /dev/block/mmcblk0boot0
+    symlink /dev/block/sdb /dev/block/mmcblk0boot1
+    symlink /dev/block/mmcblk0boot0 /dev/block/platform/bootdevice/by-name/preloader_a
+    symlink /dev/block/mmcblk0boot1 /dev/block/platform/bootdevice/by-name/preloader_b
+
+# change owner
+    chown system system /proc/bootprof
+    chown root system /proc/mtprof/cputime
+    chown root system /proc/mtprof/reboot_pid
+
+on post-fs-data
+    write /proc/bootprof "INIT:post-fs-data"
+
+    chown system system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+
+    # boot time fs tuning
+    write /sys/block/mmcblk0/queue/iostats 0
+    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    write /sys/block/mmcblk0/queue/nr_requests 256
+    write /sys/block/dm-0/queue/read_ahead_kb 2048
+    write /sys/block/dm-1/queue/read_ahead_kb 2048
+    write /sys/block/dm-2/queue/read_ahead_kb 2048
+    write /sys/block/dm-3/queue/read_ahead_kb 2048
+    write /sys/block/dm-4/queue/read_ahead_kb 2048
+    write /sys/block/dm-5/queue/read_ahead_kb 2048
+
+    #Create cct mount point
+    mkdir /mnt/vendor/cct
+    chown root system /mnt/vendor/cct
+    chmod 0771 /mnt/vendor/cct
+
+    # create basic filesystem structure
+    # mkdir /mnt/vendor/nvdata 2770 root system
+    # We chown/chmod /mnt/vendor/nvdata again so because mount is run as root + defaults
+    chown root system /mnt/vendor/nvdata
+    chmod 0771 /mnt/vendor/nvdata
+    mkdir /mnt/vendor/nvdata/media 0771 media audio
+
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /mnt/vendor/nvdata
+
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+    chown system system /mnt/vendor/nvcfg/fg
+    chown system system /mnt/vendor/nvcfg/fg/old_fg_data
+    chown system system /mnt/vendor/nvcfg/fg/car_tune_value
+
+    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
+
+    #give system access to rfkill device node
+    chmod 0660 /dev/rfkill
+
+    # create for muxd pts device node , to operate without root
+    mkdir /dev/radio 0770 radio radio
+
+    mkdir /data/drm/wv 0770 drm system
+
+    # NFC
+    mkdir /data/nfc_socket 0771 nfc radio
+
+# -----------------------
+# Add by MTK
+    # md32 boot
+    chown root system /dev/md32
+    chmod 0440 /dev/md32
+    chown root system /sys/class/misc/md32/md32_mobile_log
+    chmod 0660 /sys/class/misc/md32/md32_mobile_log
+    write /sys/class/misc/md32/md32_boot 1
+
+    # dhcp server
+    mkdir /data/misc/dhcp 0770 dhcp wifi
+    chown dhcp wifi /data/misc/dhcp
+
+    # dhcpv6 server
+    mkdir /data/misc/wide-dhcpv6 0770 dhcp wifi
+    chown dhcp wifi /data/misc/wide-dhcpv6
+
+    mkdir /persistbackup
+    chmod 0771 /persistbackup
+    chown system system /persistbackup
+
+    # radvd
+    mkdir /data/misc/radvd 0770 system system
+    chmod 444 /etc/radvd/radvd.conf
+
+    # DRM
+    # playready data and control dirs
+    mkdir /data/vendor/playready 0770 drm drmrpc
+
+    # Mali 3D GPU driver
+    #insmod /vendor/lib/modules/mali.ko
+    chmod 666 /dev/mali0
+    #chown system graphics /dev/mali
+
+
+
+    # Touch Panel
+    # chmod 0664 /dev/touch
+    chown root diag /sys/module/tpd_setting/parameters/tpd_calmat
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_debounce_time
+    chown root diag /sys/module/tpd_setting/parameters/tpd_mode
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_debounce_time0
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_debounce_time1
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_spl_num
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_pressure_threshold
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_auto_time_interval
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_sample_cnt
+    chown root diag /sys/module/tpd_setting/parameters/tpd_em_asamp
+    chown root diag /sys/module/tpd_debug/parameters/tpd_em_log
+    chown root diag /sys/module/tpd_debug/parameters/tpd_em_log_to_fs
+
+    chmod 0666 /dev/pmem_multimedia
+
+    # set ptmx group to non-root
+    chown root radio /dev/ptmx
+
+    # RTC
+    mkdir /data/misc/rtc 0770 system system
+
+    # M4U
+    #insmod /vendor/lib/modules/m4u.ko
+    chmod 0444 /dev/m4u
+    chmod 0640 /proc/m4u
+    chown system media /proc/m4u
+
+    #set mlock limit to infinate (for m4u operation)
+    setrlimit 8 -1 -1
+
+    # CMDQ
+    chmod 0644 /dev/mtk_cmdq
+    chown system system /dev/mtk_cmdq
+
+    # MDP SYNC
+    chmod 0644 /dev/mdp_sync
+    chown system system /dev/mdp_sync
+
+    #Accdet
+    chown root radio /sys/devices/platform/Accdet_Driver/driver/accdet_call_state
+
+    #v4l2 codec
+    chmod 0660 /dev/vcu
+    chown media system /dev/vcu
+
+    #vpu
+    chmod 0666 /dev/vpu
+
+    #MJC
+    chmod 0660 /dev/MJC
+    chown media system /dev/MJC
+
+    #kpd
+    chown radio radio /sys/devices/platform/mtk-kpd/driver/kpd_call_state
+
+    #Charging Battery
+    chown radio radio /sys/devices/platform/battery/Charging_CallState
+
+    # PMIC property
+    chown radio system /sys/devices/platform/mt-pmic/low_battery_protect_stop
+    chown radio system /sys/devices/platform/mt-pmic/low_battery_protect_ut
+
+    chown system /sys/class/input/input1/enable
+    chown system /sys/class/input/input1/delay
+    chown system /sys/class/input/input1/wake
+    chown system /sys/class/input/input1/offsets
+    chown system /sys/class/input/input2/enable
+    chown system /sys/class/input/input2/delay
+    chown system /sys/class/input/input2/wake
+    chown system /sys/class/input/input2/offsets
+    chown system /sys/class/input/input3/enable
+    chown system /sys/class/input/input3/delay
+    chown system /sys/class/input/input3/wake
+    chown system /sys/class/input/input3/offsets
+    chown system /sys/class/input/input4/enable
+    chown system /sys/class/input/input4/delay
+    chown system /sys/class/input/input4/wake
+    chown system /sys/class/input/input4/offsets
+    chown system /sys/class/input/input5/enable
+    chown system /sys/class/input/input5/delay
+    chown system /sys/class/input/input5/wake
+    chown system /sys/class/input/input5/offsets
+    chown system /sys/class/input/input6/enable
+    chown system /sys/class/input/input6/delay
+    chown system /sys/class/input/input6/wake
+    chown system /sys/class/input/input6/offsets
+    chown system /sys/class/input/input7/enable
+    chown system /sys/class/input/input7/delay
+    chown system /sys/class/input/input7/wake
+    chown system /sys/class/input/input7/offsets
+    chown system /sys/class/input/input8/enable
+    chown system /sys/class/input/input8/delay
+    chown system /sys/class/input/input8/wake
+    chown system /sys/class/input/input8/offsets
+    chown system /sys/class/input/input9/enable
+    chown system /sys/class/input/input9/delay
+    chown system /sys/class/input/input9/wake
+    chown system /sys/class/input/input9/offsets
+    chown system /sys/class/input/input10/enable
+    chown system /sys/class/input/input10/delay
+    chown system /sys/class/input/input10/wake
+    chown system /sys/class/input/input10/offsets
+
+    #EM eint
+    chown root diag /sys/bus/platform/drivers/eint/current_eint
+
+    # Display
+    chmod 0660 /dev/graphics/fb0
+    chown system graphics /dev/graphics/fb0
+
+    chmod 0660 /dev/mtk_disp_mgr
+    chown system graphics /dev/mtk_disp_mgr
+
+    chmod 0660 /dev/mtkfb_vsync
+    chown system graphics /dev/mtkfb_vsync
+
+    chmod 0660 /dev/sw_sync
+    chown system graphics /dev/sw_sync
+
+    # EM baseband file
+    chown root diag /vendor/bin/baseband_regdump
+    chmod 4750 /vendor/bin/baseband_regdump
+
+    #pmu
+    chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank0
+    chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank1
+    chown root radio /sys/devices/platform/mt6311-user/mt6311_access
+    chown root radio /sys/devices/platform/mt-pmic/pmic_access
+    chmod 0664 /sys/devices/platform/mt-pmic/pmic_access_bank0
+    chmod 0664 /sys/devices/platform/mt-pmic/pmic_access_bank1
+    chmod 0664 /sys/devices/platform/mt6311-user/mt6311_access
+    chmod 0664 /sys/devices/platform/mt-pmic/pmic_access
+
+    # EM CPU Speed Stress
+    chown root radio /proc/cpu_ss/cpu_ss_debug_mode
+    chown root radio /proc/cpu_ss/cpu_ss_mode
+    chown root radio /proc/cpu_ss/cpu_ss_period
+    chown root radio /proc/cpu_ss/cpu_ss_period_mode
+    chmod 0664 /proc/cpu_ss/cpu_ss_debug_mode
+    chmod 0664 /proc/cpu_ss/cpu_ss_mode
+    chmod 0664 /proc/cpu_ss/cpu_ss_period
+    chmod 0664 /proc/cpu_ss/cpu_ss_period_mode
+
+    #EM eint
+    chown root diag /sys/bus/platform/drivers/eint/current_eint
+
+    # for ppp options file
+    mkdir /data/misc/ppp 0770 bluetooth net_bt
+
+    # Android SEC related device nodes
+    chmod 0660 /dev/sec
+    chown root system /dev/sec
+
+    # FM Radio device node
+    chmod 0660 /dev/fm
+    chown media media /dev/fm
+
+    # device apc settings
+
+    # device info /proc interface
+    chmod 0444 /dev/devmap
+    chown root media /dev/devmap
+
+    # bluetooth
+    mkdir /data/@btmtk 0770 bluetooth net_bt
+    chown bluetooth bluetooth /dev/hid-keyboard
+    chmod 0660 /dev/hid-keyboard
+    #Use uinput's default permission
+    chown system net_bt_admin /dev/uinput
+
+    # UIBC
+    chown system media /dev/uibc
+    chmod 0660 /dev/uibc
+
+    #TV-out
+    chmod 0664 /dev/TV-out
+
+    #HDMI
+    chown media system /dev/hdmitx
+    chmod 0660 /dev/hdmitx
+
+    # JPEG
+    #chmod 0444 /dev/mtk_jpeg
+
+    # almk
+    chmod 0440 /dev/mtk_almk
+
+    # DISP
+    chmod 0444 /dev/mtk_disp
+
+    #VOW
+    chmod 0640 /dev/vow
+    chown media media /dev/vow
+
+    #ADSP
+    chmod 0666 /dev/adsp_misc
+    chown media media /dev/adsp_misc
+
+	#RRC
+	chmod 0660 /dev/mtk_rrc
+	chown system media /dev/mtk_rrc
+
+    #Camera
+    chmod 0660 /dev/camera-sysram
+    chmod 0660 /dev/camera-isp
+    chmod 0660 /dev/camera-fdvt
+    chmod 0660 /dev/camera-pipemgr
+    chmod 0660 /dev/kd_camera_hw
+    chmod 0660 /dev/kd_camera_flashlight
+    chmod 0660 /dev/flashlight
+    chmod 0660 /dev/kd_camera_hw_bus2
+    chmod 0660 /dev/FM50AF
+    chmod 0660 /dev/DW9718AF
+    chmod 0660 /dev/CAM_CAL_DRV
+    chmod 0660 /dev/mtk_mmdvfs
+    chmod 0660 /dev/MAINAF
+    chown system camera /dev/MAINAF
+    
+    chmod 0660 /dev/BU6424AF
+    chown system camera /dev/BU6424AF
+
+    chown system camera /dev/camera-sysram
+    chown system camera /dev/camera-isp
+    chown system camera /dev/camera-fdvt
+    chown system camera /dev/camera-pipemgr
+    chown system camera /dev/kd_camera_hw
+    chown system camera /dev/kd_camera_flashlight
+    chown system camera /dev/flashlight
+    chown system camera /dev/kd_camera_hw_bus2
+    chown system camera /dev/FM50AF
+    chown system camera /dev/DW9718AF
+    chown system camera /dev/CAM_CAL_DRV
+    chown system camera /dev/mtk_mmdvfs
+
+    #MATV
+    chmod 0660 /dev/MATV
+    chown system media /dev/MATV
+
+    # otg_test
+    chown root radio /dev/mt_otg_test
+    chmod 0660 /dev/mt_otg_test
+
+    # MDP
+    chmod 0660 /dev/mt-mdp
+    chown system media /dev/mt-mdp
+
+    # G2D
+    chmod 0660 /dev/mtkg2d
+    chown system media /dev/mtkg2d
+
+    # SMI
+    chmod 0660 /dev/MTK_SMI
+    chown media media /dev/MTK_SMI
+
+    #for eng mode
+    chmod 0664 /dev/misc-sd
+
+   #change partition permission
+
+    chmod 0640 /mtd@sec_ro
+    chown root system /mtd@sec_ro
+
+    chmod 0640 /mtd@preloader
+    chown root system /mtd@preloader
+
+    chmod 0660 /mtd@pro_info
+    chown root system /mtd@pro_info
+
+    chmod 0640 /mtd@bootimg
+    chown root system /mtd@bootimg
+
+    chmod 0640 /mtd@recovery
+    chown root system /mtd@recovery
+
+    chmod 0660 /mtd@nvram
+    chown root system /mtd@nvram
+
+    chmod 0660 /mtd@seccfg
+    chown root system /mtd@seccfg
+
+    chmod 0660 /mtd@misc
+    chown root system /mtd@misc
+
+    chmod 0664 /sys/bus/platform/drivers/emi_ctrl/concurrency_scenario
+    chown media media /sys/bus/platform/drivers/emi_ctrl/concurrency_scenario
+
+    #mtk_sched
+    chmod 0660 /dev/mtk_sched
+    chown system media /dev/mtk_sched
+
+    #BT SCO CVSD, for MT6572 and MT6582 CVSD codec on AP
+    chmod 0660 /dev/ebc
+    chown media media /dev/ebc
+
+    chmod 0666 /dev/uio0
+
+    #otp
+    chmod 0660 /proc/driver/otp
+    chown root system /proc/driver/otp
+
+    #autok
+    chown root system /sys/autok/debug
+    chown root system /sys/autok/param_count
+    chown root system /sys/autok/ready
+    chown root system /sys/autok/ss_corner
+    chown root system /sys/autok/suggest_vol
+    chown root system /sys/autok/stage1/3/DONE
+    chown root system /sys/autok/stage1/3/PARAMS
+    chown root system /sys/autok/stage1/3/VOLTAGE
+    chown root system /sys/autok/stage1/3/LOG
+    chown root system /sys/autok/stage2/3
+
+    #usb
+    chown system system /sys/class/android_usb/android0/f_acm/port_index
+    chmod 0660 /sys/class/android_usb/android0/f_acm/port_index
+
+    # secure memory
+    chown system system /proc/secmem0
+
+    #Thermal
+    mkdir /data/vendor/.tp/ 0775 system system
+
+
+# End of adding by MTK drivers
+# -----------------------
+
+on boot
+    write /proc/bootprof "INIT:boot"
+
+    write /proc/sys/vm/dirty_writeback_centisecs 300
+    chmod 0660 /sys/power/autosleep
+
+    chmod 0664 /sys/class/leds/lcd-backlight/brightness
+
+    chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
+    chmod 0660 /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
+    chown root   system /sys/kernel/debug/binder/transaction_log_enable
+    chown root   system /sys/kernel/debug/binder/perf_evalue
+
+    chown system /sys/module/mlog/parameters/do_mlog
+    chown system /sys/module/mlog/parameters/timer_intval
+
+    chown root   radio  /sys/class/leds/lcd-backlight/duty
+    chown root   radio  /sys/class/leds/lcd-backlight/div
+    chown system system /sys/class/leds/lcd-backlight/trigger
+    chown system system /sys/class/leds/button-backlight/trigger
+    chown system system /sys/class/leds/keyboard-backlight/trigger
+    chown system system /sys/class/leds/jogball-backlight/trigger
+    chown system system /sys/class/leds/red/trigger
+    chown system system /sys/class/leds/green/trigger
+    chown system system /sys/class/leds/blue/trigger
+
+# Smartbook Handler Framework
+    chown system system /sys/power/sb_state
+    chmod 0660 /sys/power/sb_state
+
+# HMP CPU hotplug strategy
+    chown system system /proc/hps/num_base_perf_serv
+    chmod 0660 /proc/hps/num_base_perf_serv
+    chown system system /proc/hps/num_limit_power_serv
+    chmod 0660 /proc/hps/num_limit_power_serv
+
+# CPU freq
+    chown system system /proc/cpufreq/cpufreq_limited_by_hevc
+    chmod 0660 /proc/cpufreq/cpufreq_limited_by_hevc
+    chown system system /proc/cpufreq/cpufreq_limited_max_freq_by_user
+    chmod 0660 /proc/cpufreq/cpufreq_limited_max_freq_by_user
+
+##Netlog tool
+   #change permissions about terminal
+    chown root radio /proc/net/vlan/config
+    chmod 0640 /proc/net/vlan/config
+    chown root radio /proc/net/ip6_tables_matches
+    chown root radio /proc/net/ip6_tables_names
+    chown root radio /proc/net/ip6_tables_targets
+    chown root radio /proc/net/arp_tables_targets
+    chown root radio /proc/net/arp_tables_matches
+    chown root radio /proc/net/arp_tables_names
+    chown root radio /proc/net/ip_tables_targets
+    chown root radio /proc/net/ip_tables_matches
+    chown root radio /proc/net/ip_tables_names
+    chown root radio /proc/net/ip_conntrack_expect
+    chown root radio /proc/net/ip_conntrack
+    chown root radio /proc/net/nf_conntrack
+    chown root radio /proc/net/nf_conntrack_expect
+    chown root radio /proc/net/netfilter/nfnetlink_log
+    chown root radio /proc/net/netfilter/nfnetlink_queue
+
+# WMT proc
+    chown shell system /proc/driver/wmt_dbg
+    chown shell system /proc/driver/wmt_aee
+
+on property:vold.decrypt=trigger_reset_main
+    write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+on property:vold.decrypt=trigger_post_fs_data
+    write /proc/bootprof "INIT:vold.decrypt=trigger_post_fs_data"
+
+on property:vold.decrypt=trigger_restart_min_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_min_framework"
+    start nvram_daemon
+    start msensord
+    start permission_check
+
+on property:vold.decrypt=trigger_restart_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_framework"
+    start nvram_daemon
+    start msensord
+    start permission_check
+
+on property:vold.decrypt=trigger_shutdown_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_shutdown_framework"
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+# Set enableflags for boot Systrace
+on early-init && property:ro.boot.boot_trace=1
+    setprop debug.atrace.tags.enableflags 0x1fffffe
+
+## mtk printk uart controller
+on property:persist.vendor.uartconsole.enable=1
+    write /proc/mtprintk 1
+
+on property:dev.bootcomplete=1
+    write /sys/power/pm_print_times 0
+
+#stop bootprof
+on property:sys.boot_completed=1
+    write /proc/bootprof 0
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/dumpstate -d -p -B -z \
+        -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
+    class late_start
+    disabled
+    oneshot
+    keycodes 114 115 116
+
+
+#
+# MTK Wi-Fi related services (Begin)
+#
+
+# monitor property and power on/off wlan
+on property:wlan.driver.status=ok
+    write /dev/wmtWifi "1"
+
+on property:wlan.driver.status=unloaded
+    write /dev/wmtWifi "0"
+
+# open /dev/watchdog
+service watchdogd /system/bin/watchdogd  20 10
+    class core
+    seclabel u:r:watchdogd:s0
+
+service bluetoothd /system/bin/bluetoothd -n
+    class main
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+    # init.rc does not yet support applying capabilities, so run as root and
+    # let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled
+
+# start EAS+
+on property:sys.boot_completed=1
+
+    write /sys/devices/system/cpu/eas/enable 2
+    write /proc/cpufreq/cpufreq_sched_disable 0
+    chown system system /dev/stune/foreground/schedtune.prefer_idle
+    chown system system /dev/stune/top-app/schedtune.prefer_idle
+    chown system system /dev/stune/rt/schedtune.prefer_idle
+    write /dev/stune/foreground/schedtune.prefer_idle 0
+    write /dev/stune/top-app/schedtune.prefer_idle 0
+    write /dev/stune/rt/schedtune.prefer_idle 0
+    write /proc/sys/kernel/sched_migration_cost_ns 200000
+
+# end boot time fs tuning
+on property:sys.boot_completed=1
+    write /sys/block/mmcblk0/queue/iostats 1
+    write /sys/block/mmcblk0/queue/read_ahead_kb 512
+    write /sys/block/mmcblk0/queue/nr_requests 128
+    write /sys/block/dm-0/queue/read_ahead_kb 128
+    write /sys/block/dm-1/queue/read_ahead_kb 128
+    write /sys/block/dm-2/queue/read_ahead_kb 128
+    write /sys/block/dm-3/queue/read_ahead_kb 128
+    write /sys/block/dm-4/queue/read_ahead_kb 128
+    write /sys/block/dm-5/queue/read_ahead_kb 128
+
+    # switch to sched-dvfs
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor "schedutil"
+
+	write /sys/class/net/p2p0/queues/rx-0/rps_cpus "e"
+	write /sys/class/net/p2p0/queues/rx-1/rps_cpus "e"
+	write /sys/class/net/p2p0/queues/rx-2/rps_cpus "e"
+	write /sys/class/net/p2p0/queues/rx-3/rps_cpus "e"
+
+    write /sys/devices/platform/soc/10012000.dvfsrc/helio-dvfsrc/dvfsrc_req_ddr_opp 2
+
+#service dpfd /vendor/bin/dpfd
+#	user root
+#	group system media
+
+#
+#  External Modme control related services
+#
+
+#add for power-off alarm
+#service poad /vendor/bin/poad
+#    class main
+#    user system
+#    group system
+#    oneshot
+
+#service BGW /vendor/xbin/BGW
+#	user system
+#	group gps system radio
+#	class main
+
+# Battery info
+on property:persist.vendor.mediatek.fg.disable=1
+    write /sys/devices/platform/battery_meter/FG_daemon_disable 1
+    write /sys/bus/platform/devices/battery/FG_daemon_disable 1
+
+on property:persist.vendor.mediatek.fg.force25c=1
+    write /sys/devices/platform/battery_meter/FG_drv_force25c 1
+    write /sys/bus/platform/devices/battery/Battery_Temperature 25
+
+on property:persist.vendor.mediatek.fg.force25c=0
+    write /sys/devices/platform/battery_meter/FG_drv_force25c 0
+    write /sys/bus/platform/devices/battery/Battery_Temperature 65535
+
+on property:persist.vendor.mediatek.fg.log.enable=1
+    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
+    write /sys/bus/platform/devices/battery/FG_daemon_log_level 7
+    write /proc/sys/kernel/printk 8
+
+# Program binary service
+service program_binary /vendor/bin/program_binary_service
+    class late_start
+    user system
+    group graphics
+    oneshot
+
+# 26M Clock calibration
+service DcxoSetCap /vendor/bin/DcxoSetCap
+    class main
+    oneshot
+
+# FPSGO FBT Game
+on boot
+    insmod /vendor/lib/modules/fpsgo.ko
+on post-fs
+    setprop vendor.usb.vid "0x0E8D"
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mkdir /config/usb_gadget/g1 0770 shell shell
+    write /config/usb_gadget/g1/idVendor ${vendor.usb.vid}
+    write /config/usb_gadget/g1/bcdDevice 0x0223
+    write /config/usb_gadget/g1/bcdUSB 0x0200
+    mkdir /config/usb_gadget/g1/strings/0x409 0770
+    write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
+    write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
+    write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
+    mkdir /config/usb_gadget/g1/functions/accessory.gs2
+    mkdir /config/usb_gadget/g1/functions/audio_source.gs3
+    mkdir /config/usb_gadget/g1/functions/ffs.adb
+    mkdir /config/usb_gadget/g1/functions/mtp.gs0
+    write /config/usb_gadget/g1/functions/mtp.gs0/os_desc/interface.MTP/compatible_id "MTP"
+    mkdir /config/usb_gadget/g1/functions/ptp.gs1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    mkdir /config/usb_gadget/g1/functions/midi.gs5
+    mkdir /config/usb_gadget/g1/functions/acm.gs0
+    mkdir /config/usb_gadget/g1/functions/acm.gs1
+    mkdir /config/usb_gadget/g1/functions/acm.gs2
+    mkdir /config/usb_gadget/g1/functions/acm.gs3
+    mkdir /config/usb_gadget/g1/functions/mass_storage.usb0
+    mkdir /config/usb_gadget/g1/functions/hid.gs0
+    mkdir /config/usb_gadget/g1/functions/via_modem.gs0
+    mkdir /config/usb_gadget/g1/functions/via_ets.gs0
+    mkdir /config/usb_gadget/g1/functions/via_atc.gs0
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/os_desc/b_vendor_code 0x1
+    write /config/usb_gadget/g1/os_desc/qw_sign "MSFT100"
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
+    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+
+on boot
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "11201000.usb"
+    setprop sys.usb.ffs.aio_compat 1
+    setprop vendor.usb.acm_cnt 0
+    setprop vendor.usb.acm_port0 ""
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.temp ""
+    setprop vendor.usb.acm_enable 0
+    chown radio system /sys/class/usb_rawbulk/data/enable
+    chmod 0660 /sys/class/usb_rawbulk/data/enable
+    chown radio system /sys/class/usb_rawbulk/ets/enable
+    chmod 0660 /sys/class/usb_rawbulk/ets/enable
+    chown radio system /sys/class/usb_rawbulk/atc/enable
+    chmod 0660 /sys/class/usb_rawbulk/atc/enable
+    chown radio system /sys/class/usb_rawbulk/pcv/enable
+    chmod 0660 /sys/class/usb_rawbulk/pcv/enable
+    chown radio system /sys/class/usb_rawbulk/gps/enable
+    chmod 0660 /sys/class/usb_rawbulk/gps/enable
+    chown system radio /dev/ttyGS0
+    chmod 0660 /dev/ttyGS0
+    chown system radio /dev/ttyGS1
+    chmod 0660 /dev/ttyGS1
+    chown system radio /dev/ttyGS2
+    chmod 0660 /dev/ttyGS2
+    chown system radio /dev/ttyGS3
+    chmod 0660 /dev/ttyGS3
+
+on charger
+    mkdir /config/usb_gadget/g1 0770 shell shell
+    write /config/usb_gadget/g1/idVendor 0x0E8D
+    write /config/usb_gadget/g1/bcdDevice 0x0223
+    write /config/usb_gadget/g1/bcdUSB 0x0200
+    mkdir /config/usb_gadget/g1/strings/0x409 0770
+    write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
+    write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
+    write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
+    mkdir /config/usb_gadget/g1/functions/hid.gs0
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "11201000.usb"
+    setprop vendor.usb.acm_cnt 0
+    setprop vendor.usb.acm_port0 ""
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_enable 0
+    setprop vendor.usb.clear boot
+    setprop sys.usb.config hid
+
+### more command at init.usb.configfs.rc ###
+on property:sys.usb.config=none && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor ${vendor.usb.vid}
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    write /sys/devices/platform/mt_usb/saving 0
+
+on property:vendor.usb.clear=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/bDeviceClass 0
+    write /config/usb_gadget/g1/bDeviceSubClass 0
+    write /config/usb_gadget/g1/bDeviceProtocol 0
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    rmdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /sys/devices/platform/mt_usb/saving 0
+    setprop vendor.usb.clear 2
+
+### HID for KPOC ###
+on property:sys.usb.config=hid && property:sys.usb.configfs=1
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.config=hid && property:sys.usb.configfs=1 && \
+property:vendor.usb.clear=2
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "HID"
+    write /config/usb_gadget/g1/idProduct 0x20FF
+    write /config/usb_gadget/g1/functions/hid.gs0/protocol 0
+    write /config/usb_gadget/g1/functions/hid.gs0/subclass 0
+    #write /config/usb_gadget/g1/functions/hid.gs0/report_length 4
+    #write /config/usb_gadget/g1/functions/hid.gs0/report_desc \\x05\\x01\\x09\\x00\\xa1\\x01\\xc0
+    symlink /config/usb_gadget/g1/functions/hid.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.clear 0
+
+
+
+### main function : adb ###
+### start adbd at init.usb.configfs.rc ###
+on property:sys.usb.config=adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x201C
+on property:sys.usb.config=adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2006
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2029
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : mtp ###
+on property:sys.usb.config=mtp && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2008
+on property:sys.usb.config=mtp && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2012
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=mtp && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x202A
+
+on property:sys.usb.config=mtp && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mtp && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### start adbd at init.usb.configfs.rc ###
+on property:sys.usb.config=mtp,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x201D
+on property:sys.usb.config=mtp,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x200A
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=mtp,adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2026
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : ptp ###
+on property:sys.usb.config=ptp && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x200B
+on property:sys.usb.config=ptp && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2013
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=ptp && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x202B
+
+on property:sys.usb.config=ptp && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/ptp.gs1 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=ptp && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/ptp.gs1 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### start adbd at init.usb.configfs.rc ###
+on property:sys.usb.config=ptp,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x200C
+on property:sys.usb.config=ptp,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x200D
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=ptp,adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2027
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=ptp,adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/ptp.gs1 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=ptp,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ptp_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/ptp.gs1 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : rndis ###
+on property:sys.usb.config=rndis && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2004
+on property:sys.usb.config=rndis && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2011
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=rndis && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x202C
+
+on property:sys.usb.config=rndis && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=rndis && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=rndis,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2005
+on property:sys.usb.config=rndis,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2010
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=rndis,adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2028
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : midi ###
+on property:sys.usb.config=midi && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idProduct 0x2046
+
+on property:sys.usb.config=midi,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idProduct 0x2048
+
+### main function : accessory ###
+on property:sys.usb.config=accessory && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x2d00
+
+on property:sys.usb.config=accessory,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x2d01
+
+### main function : audio_source ###
+on property:sys.usb.config=audio_source && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x2d02
+
+on property:sys.usb.config=audio_source,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x2d03
+
+### main function : accessory,audio_source ###
+on property:sys.usb.config=accessory,audio_source && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x2d04
+
+on property:sys.usb.config=accessory,audio_source,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x2d05
+
+on property:sys.usb.config=via_bypass && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2031
+on property:sys.usb.config=via_bypass && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2033
+    setprop vendor.usb.acm_port1 ""
+
+##via_modem,via_ets,via_atc,acm
+on property:sys.usb.config=via_bypass && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "via_bypass"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/via_modem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/via_ets.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/via_atc.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+##via_modem,via_ets,via_atc,adb
+on property:sys.usb.config=via_bypass && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "via_bypass"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/via_modem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/via_ets.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/via_atc.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=via_bypass,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2032
+on property:sys.usb.config=via_bypass,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2034
+    #setprop sys.usb.via_func via_modem,via_ets,via_atc,adb,acm
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=via_bypass,adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2050
+    #setprop sys.usb.via_func via_modem,acm,adb
+
+on property:sys.usb.config=via_bypass,adb && property:sys.usb.configfs=1
+    start adbd
+
+##via_modem,via_ets,via_atc,adb,acm
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=via_bypass,adb && \
+property:vendor.usb.acm_enable=1 && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/via_modem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/via_ets.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/via_atc.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f4
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f5
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+##via_modem,acm,adb
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=via_bypass,adb && \
+property:vendor.usb.acm_enable=1 && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb_acm2"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/via_modem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+##via_modem,via_ets,via_atc,adb
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=via_bypass,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/via_modem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/via_ets.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/via_atc.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : mass_storage ###
+on property:sys.usb.config=mass_storage && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2002
+on property:sys.usb.config=mass_storage && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x200F
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=mass_storage && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x202D
+
+on property:sys.usb.config=mass_storage && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mass_storage && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mass_storage,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2003
+on property:sys.usb.config=mass_storage,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2006
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=mass_storage,adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2029
+
+on property:sys.usb.config=mass_storage,adb && property:sys.usb.configfs=1
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mass_storage,adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mass_storage,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : bicr ###
+on property:sys.usb.config=bicr && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2002
+on property:sys.usb.config=bicr && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x200F
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=bicr && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x202D
+
+on property:sys.usb.config=bicr && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/cdrom 1
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/file "/dev/block/loop0"
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=bicr && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/cdrom 1
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/file "/dev/block/loop0"
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=bicr,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2003
+on property:sys.usb.config=bicr,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2006
+    setprop vendor.usb.acm_port1 ""
+on property:sys.usb.config=bicr,adb && property:vendor.usb.acm_cnt=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2029
+
+on property:sys.usb.config=bicr,adb && property:sys.usb.configfs=1
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=bicr,adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /sys/devices/platform/mt_usb/saving 1
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/cdrom 1
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/file "/dev/block/loop0"
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=bicr,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "ums_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/cdrom 1
+    write /config/usb_gadget/g1/functions/mass_storage.usb0/lun.0/file "/dev/block/loop0"
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### main function : eem ###
+on property:sys.usb.config=eem && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2026
+on property:sys.usb.config=eem && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2027
+    setprop vendor.usb.acm_port1 ""
+
+on property:sys.usb.config=eem && property:vendor.usb.acm_enable=1 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "eem_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/eem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=eem && property:vendor.usb.acm_enable=0 && \
+property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "eem"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    symlink /config/usb_gadget/g1/functions/eem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+### start adbd at init.usb.configfs.rc ###
+on property:sys.usb.config=eem,adb && property:vendor.usb.acm_cnt=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2028
+on property:sys.usb.config=eem,adb && property:vendor.usb.acm_cnt=1 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.pid 0x2030
+    setprop vendor.usb.acm_port1 ""
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=eem,adb && \
+property:vendor.usb.acm_enable=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "eem_adb_acm"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/eem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port0} /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs${vendor.usb.acm_port1} /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=eem,adb && \
+property:vendor.usb.acm_enable=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "eem_adb"
+    write /config/usb_gadget/g1/idProduct ${vendor.usb.pid}
+    write /config/usb_gadget/g1/os_desc/use 1
+    symlink /config/usb_gadget/g1/functions/eem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+### main function : eem  end ###
+
+### ttyGS series begin ###
+# From mdlogger/emdlogger/pcengine.cpp
+on property:sys.usb.config=via_bypass,gs1gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=via_bypass,gs1gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "via_bypass_gs1gs3"
+    write /config/usb_gadget/g1/idProduct 0x2050
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/via_modem.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2050
+    setprop vendor.usb.acm_port0 1
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=rndis,gs1gs3 && property:sys.usb.configfs=1
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.config=rndis,gs1gs3 && property:sys.usb.configfs=1 && \
+property:vendor.usb.clear=2
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_gs1gs3"
+    write /config/usb_gadget/g1/idProduct 0x2043
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2043
+    setprop vendor.usb.acm_port0 1
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+# MD logger USB mode From mdlogger/emdlogger/pcengine.cpp
+on property:sys.usb.config=gs3 && property:sys.usb.configfs=1 && \
+property:vendor.usb.acm_enable=0
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1 && \
+property:vendor.usb.acm_enable=0
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs3"
+    write /config/usb_gadget/g1/idProduct 0x2044
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2044
+    setprop vendor.usb.acm_port0 3
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 1
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+# ATCI + MD logger USB mode
+on property:sys.usb.config=gs3 && property:sys.usb.configfs=1 && \
+property:persist.vendor.radio.port_index=1
+    start adbd
+    setprop vendor.usb.clear 1
+    setprop vendor.usb.temp atci
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1 && \
+property:vendor.usb.temp=atci
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "acti_gs3"
+    write /config/usb_gadget/g1/idProduct 0x202E
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x202E
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+    setprop vendor.usb.temp ""
+
+on property:sys.usb.config=gs3,dual_acm && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs3,dual_acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs3_dual_acm"
+    write /config/usb_gadget/g1/idProduct 0x202E
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x202E
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+# From mdlogger/emdlogger/pcengine.cpp
+on property:sys.usb.config=gs1gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs1gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs1gs3"
+    write /config/usb_gadget/g1/idProduct 0x2029
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2029
+    setprop vendor.usb.acm_port0 1
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+# From mdlogger/emdlogger/pcengine.cpp
+on property:sys.usb.config=mtp,gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_gs3"
+    write /config/usb_gadget/g1/idProduct 0x205A
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x205A
+    setprop vendor.usb.acm_port0 3
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 1
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=mtp,gs3,dual_acm && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,gs3,dual_acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_gs3_dual_acm"
+    write /config/usb_gadget/g1/idProduct 0x205F
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x205F
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+# From mdlogger/emdlogger/pcengine.cpp
+on property:sys.usb.config=mtp,gs1gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,gs1gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_gs1gs3"
+    write /config/usb_gadget/g1/idProduct 0x205B
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x205B
+    setprop vendor.usb.acm_port0 1
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=mtp,gs0gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,gs0gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_gs0gs3"
+    write /config/usb_gadget/g1/idProduct 0x205C
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x205C
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=mtp,gs0gs1 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,gs0gs1 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_gs0gs1"
+    write /config/usb_gadget/g1/idProduct 0x2060
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2060
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 1
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=gs0gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs0gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs0gs3"
+    write /config/usb_gadget/g1/idProduct 0x2040
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2040
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=gs0gs1 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs0gs1 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs0gs1"
+    write /config/usb_gadget/g1/idProduct 0x2041
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2041
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 1
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=rndis,gs0gs3 && property:sys.usb.configfs=1
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.config=rndis,gs0gs3 && property:sys.usb.configfs=1 && \
+property:vendor.usb.clear=2
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_gs0gs3"
+    write /config/usb_gadget/g1/idProduct 0x2042
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2042
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=rndis,gs0gs1 && property:sys.usb.configfs=1
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.config=rndis,gs0gs1 && property:sys.usb.configfs=1 && \
+property:vendor.usb.clear=2
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_gs0gs1"
+    write /config/usb_gadget/g1/idProduct 0x2045
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2045
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 1
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=rndis,adb,gs0gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb,gs0gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb_gs0gs3"
+    write /config/usb_gadget/g1/idProduct 0x2061
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2061
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 3
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=rndis,adb,gs0gs1 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,adb,gs0gs1 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    mkdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_adb_gs0gs1"
+    write /config/usb_gadget/g1/idProduct 0x2062
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/rndis.gs4 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2062
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 1
+    setprop vendor.usb.acm_cnt 2
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.clear 0
+
+### ttyGS series end ###
+
+### radio series begin ###
+# Add vendor.usb.clear=0, Because after enable/disable ACM by EM.
+# persist.vendor.radio.port_index set as "". At boot, the init trigger
+# this property. So at "on boot", set vendor.usb.clear as 2.
+# Skip this action.
+on property:vendor.usb.em.clear=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/bDeviceClass 0
+    write /config/usb_gadget/g1/bDeviceSubClass 0
+    write /config/usb_gadget/g1/bDeviceProtocol 0
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    rmdir /config/usb_gadget/g1/functions/rndis.gs4
+    write /sys/devices/platform/mt_usb/saving 0
+    setprop vendor.usb.em.clear 2
+
+on property:persist.vendor.radio.port_index="" && property:vendor.usb.em.clear=0 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.em.clear 1
+    setprop persist.vendor.radio.port_index none
+
+on property:persist.vendor.radio.port_index=none && property:vendor.usb.em.clear=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.acm_port0 ""
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 0
+    setprop vendor.usb.acm_enable 0
+    setprop vendor.usb.em.clear 0
+
+#atci/atciActivity.java
+on property:persist.vendor.radio.port_index=1 && property:sys.usb.configfs=1
+    setprop vendor.usb.em.clear 1
+
+on property:persist.vendor.radio.port_index=1 && property:vendor.usb.em.clear=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 1
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.em.clear 0
+
+on property:persist.vendor.radio.port_index=2 && property:sys.usb.configfs=1
+    setprop vendor.usb.em.clear 1
+
+on property:persist.vendor.radio.port_index=2 && property:vendor.usb.em.clear=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.acm_port0 1
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 1
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.em.clear 0
+
+on property:persist.vendor.radio.port_index=3 && property:sys.usb.configfs=1
+    setprop vendor.usb.em.clear 1
+
+on property:persist.vendor.radio.port_index=3 && property:vendor.usb.em.clear=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.acm_port0 2
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 1
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.em.clear 0
+
+on property:persist.vendor.radio.port_index=4 && property:sys.usb.configfs=1
+    setprop vendor.usb.em.clear 1
+
+on property:persist.vendor.radio.port_index=4 && property:vendor.usb.em.clear=2 && \
+property:sys.usb.configfs=1
+    setprop vendor.usb.acm_port0 3
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.acm_cnt 1
+    setprop vendor.usb.acm_enable 1
+    setprop vendor.usb.em.clear 0
+
+### radio series end ###
+
+### PC trigger series begin ###
+# BT relayer at Engineer mode
+on property:sys.usb.config=acm_third && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=acm_third && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "acm_third"
+    write /config/usb_gadget/g1/idProduct 0x2006
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs2 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2006
+    setprop vendor.usb.acm_port0 2
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.clear 0
+
+# Meta mode under Normal boot, execute by META
+on property:sys.usb.config=mass_storage,adb,acm && property:sys.usb.configfs=1
+    stop adbd
+    setprop vendor.usb.ffs.ready 0
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=0 && property:sys.usb.config=mass_storage,adb,acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mass_storage,adb,acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mass_storage_adb_acm"
+    write /config/usb_gadget/g1/idProduct 0x2006
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2006
+    setprop vendor.usb.acm_port0 0
+    setprop vendor.usb.acm_port1 ""
+    setprop vendor.usb.clear 0
+
+### PC trigger series end ###
+
+
+#34.USB Charging Only configuration
+on property:sys.usb.config=charging
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.charging cdp
+
+on property:vendor.usb.charging=cdp && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
+    write /config/usb_gadget/g1/idProduct 0x2008
+    write /config/usb_gadget/g1/os_desc/use 1
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.pid 0x2008
+
+#on property:vendor.usb.charging=cdp
+#	write /sys/class/android_usb/android0/enable 0
+#	write /sys/class/android_usb/android0/idVendor ${vendor.usb.vid}
+#	write /sys/class/android_usb/android0/idProduct 2008
+#	write /sys/class/android_usb/android0/functions mtp
+#	write /sys/class/android_usb/android0/enable 1
+#	write /sys/class/udc/musb-hdrc/device/cmode 2
+
+on property:vendor.usb.charging=yes
+    write /sys/devices/platform/mt_usb/cmode 2
+
+on property:vendor.usb.charging=no
+    write /sys/devices/platform/mt_usb/cmode 1
+
+
+on property:vendor.usb.bicr=yes
+    write /sys/class/android_usb/android0/f_mass_storage/bicr 1
+    write /sys/class/android_usb/android0/f_mass_storage/lun/file "/dev/block/loop0"
+
+on property:vendor.usb.bicr=no
+    write /sys/class/android_usb/android0/f_mass_storage/bicr 0
+    write /sys/class/android_usb/android0/f_mass_storage/lun/file "0"
+
+on property:vendor.usb.port.mode=usb
+      write /sys/devices/platform/mt_usb/portmode 0
+
+on property:vendor.usb.port.mode=uart
+      write /sys/devices/platform/mt_usb/portmode 1
+
+### vendor process start ###
+on property:vendor.usb.config=*
+    setprop sys.usb.config ${vendor.usb.config}
+### vendor process end ###
+
+on property:vendor.em.usb.bypass.enable=0
+    write /sys/class/usb_rawbulk/gps/enable 1
+on property:vendor.em.usb.bypass.enable=1
+    write /sys/class/usb_rawbulk/pcv/enable 1
+on property:vendor.em.usb.bypass.enable=2
+    write /sys/class/usb_rawbulk/atc/enable 1
+on property:vendor.em.usb.bypass.enable=3
+    write /sys/class/usb_rawbulk/ets/enable 1
+on property:vendor.em.usb.bypass.enable=4
+    write /sys/class/usb_rawbulk/data/enable 1
+on property:vendor.em.usb.bypass.disable=0
+    write /sys/class/usb_rawbulk/gps/enable 0
+on property:vendor.em.usb.bypass.disable=1
+    write /sys/class/usb_rawbulk/pcv/enable 0
+on property:vendor.em.usb.bypass.disable=2
+    write /sys/class/usb_rawbulk/atc/enable 0
+on property:vendor.em.usb.bypass.disable=3
+    write /sys/class/usb_rawbulk/ets/enable 0
+on property:vendor.em.usb.bypass.disable=4
+    write /sys/class/usb_rawbulk/data/enable 0
+
+### test command start ###
+on property:vendor.usb.test=*
+    setprop sys.usb.config none
+    setprop sys.usb.config ${vendor.usb.test}
+### test command end ###
+# MTK project .rc configure
+on post-fs-data
+#Camera
+    chmod 0660 /dev/MAINAF
+    chown system camera /dev/MAINAF
+
+    chmod 0660 /dev/MAINAF2
+    chown system camera /dev/MAINAF2
+
+    chmod 0660 /dev/SUBAF
+    chown system camera /dev/SUBAF
+
+    chmod 0660 /dev/GAF001AF
+    chown system camera /dev/GAF001AF
+
+    chmod 0660 /dev/DW9714AF
+    chown system camera /dev/DW9714AF
+
+    chmod 0660 /dev/AD5820AF
+    chown system camera /dev/AD5820AF
+
+    chmod 0660 /dev/BU64745GWZAF
+    chown system camera /dev/BU64745GWZAF
+
+    chmod 0660 /dev/FM50AF
+    chown system camera /dev/FM50AF
+    
+    chmod 0660 /dev/BU6424AF
+    chown system camera /dev/BU6424AF
+
+#SMB
+    chown system system /proc/smb/ScreenComm
+    chmod 0660 /proc/smb/ScreenComm
+
+#Set mlock resource to unlimited
+    setrlimit 8 4294967295 4294967295
+
+#Define device for ATCID
+    chmod 660 /dev/ttyGS0
+    chown system /dev/ttyGS0
+    chmod 660 /dev/ttyGS1
+    chown system /dev/ttyGS1
+
+
+
+
+on init
+    # Refer to http://source.android.com/devices/tech/storage/index.html
+    # It said, "Starting in Android 4.4, multiple external storage devices are surfaced to developers through
+    #           Context.getExternalFilesDirs(), Context.getExternalCacheDirs(), and Context.getObbDirs().
+    #           External storage devices surfaced through these APIs must be a semi-permanent part of the device (such as an SD card slot in a battery compartment).
+    #           Developers expect data stored in these locations to be available over long periods of time."
+    # Therefore, if the target doesn't support sd hot-plugging (Ex: the SD card slot in a battery compartment), we need to export SECONDARY_STORAGE in 'boot' section
+    #
+    # export SECONDARY_STORAGE /storage/sdcard1
+
+service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbotg /storage/usbotg
+    class late_start
+    disabled
+
+
+# MTK platform .rc configure
+on post-fs-data
+    # calibration
+    mkdir /data/misc/sensor 0774 system system
+    # Sensor
+    chmod 0660 /dev/hwmsensor
+    chmod 0660 /dev/msensor
+    chmod 0660 /dev/gsensor
+    chmod 0660 /dev/als_ps
+    chmod 0660 /dev/gyroscope
+    chmod 0660 /dev/aal_als
+    chmod 0660 /dev/humidity
+    chmod 0660 /dev/barometer
+    chmod 0660 /dev/m_als_misc
+    chmod 0660 /dev/m_baro_misc
+    chmod 0660 /dev/m_hmdy_misc
+    chmod 0660 /dev/m_ps_misc
+    chmod 0660 /dev/m_acc_misc
+    chmod 0660 /dev/m_mag_misc
+    chmod 0660 /dev/m_gyro_misc
+    chmod 0660 /dev/m_act_misc
+    chmod 0660 /dev/m_pedo_misc
+    chmod 0660 /dev/m_situ_misc
+    chmod 0660 /dev/m_step_c_misc
+    chmod 0660 /dev/m_fusion_misc
+    chmod 0660 /dev/m_bio_misc
+    chmod 0666 /dev/mid_sensor
+    chmod 0777 /dev/ctrl
+
+    chown system system /dev/hwmsensor
+    chown system system /dev/msensor
+    chown radio system /dev/gsensor
+    chown radio system /dev/als_ps
+    chown radio system /dev/gyroscope
+    chown system system /dev/aal_als
+    chown system system /dev/humidity
+    chown system system /dev/barometer
+    chown system system /dev/m_als_misc
+    chown system system /dev/m_baro_misc
+    chown system system /dev/m_hmdy_misc
+    chown system system /dev/m_ps_misc
+    chown system system /dev/m_acc_misc
+    chown system system /dev/m_mag_misc
+    chown system system /dev/m_gyro_misc
+    chown system system /dev/m_act_misc
+    chown system system /dev/m_pedo_misc
+    chown system system /dev/m_situ_misc
+    chown system system /dev/m_step_c_misc
+    chown system system /dev/m_fusion_misc
+    chown system system /dev/m_bio_misc
+    chown system system /dev/mid_sensor
+    chown system system /dev/ctrl
+
+    chmod 0660 /sys/class/sensor/m_acc_misc/accenablenodata
+    chmod 0660 /sys/class/sensor/m_acc_misc/accactive
+    chmod 0660 /sys/class/sensor/m_acc_misc/accdelay
+    chmod 0660 /sys/class/sensor/m_acc_misc/accbatch
+    chmod 0660 /sys/class/sensor/m_acc_misc/accflush
+    chmod 0660 /sys/class/sensor/m_acc_misc/acccali
+    chown system system /sys/class/sensor/m_acc_misc/accenablenodata
+    chown system system /sys/class/sensor/m_acc_misc/accactive
+    chown system system /sys/class/sensor/m_acc_misc/accdelay
+    chown system system /sys/class/sensor/m_acc_misc/accbatch
+    chown system system /sys/class/sensor/m_acc_misc/accflush
+    chown system system /sys/class/sensor/m_acc_misc/acccali
+
+    chmod 0660 /sys/class/sensor/m_mag_misc/magactive
+    chmod 0660 /sys/class/sensor/m_mag_misc/magdelay
+    chmod 0660 /sys/class/sensor/m_mag_misc/magbatch
+    chmod 0660 /sys/class/sensor/m_mag_misc/magflush
+    chmod 0660 /sys/class/sensor/m_mag_misc/magcali
+    chmod 0660 /sys/class/sensor/m_mag_misc/maglibinfo
+    chown system system /sys/class/sensor/m_mag_misc/magactive
+    chown system system /sys/class/sensor/m_mag_misc/magdelay
+    chown system system /sys/class/sensor/m_mag_misc/magbatch
+    chown system system /sys/class/sensor/m_mag_misc/magflush
+    chown system system /sys/class/sensor/m_mag_misc/magcali
+    chown system system /sys/class/sensor/m_mag_misc/maglibinfo
+
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyroenablenodata
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyroactive
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyrodelay
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyrobatch
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyroflush
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyrocali
+    chown system system /sys/class/sensor/m_gyro_misc/gyroenablenodata
+    chown system system /sys/class/sensor/m_gyro_misc/gyroactive
+    chown system system /sys/class/sensor/m_gyro_misc/gyrodelay
+    chown system system /sys/class/sensor/m_gyro_misc/gyrobatch
+    chown system system /sys/class/sensor/m_gyro_misc/gyroflush
+    chown system system /sys/class/sensor/m_gyro_misc/gyrocali
+
+    chmod 0660 /sys/class/sensor/m_als_misc/alsactive
+    chmod 0660 /sys/class/sensor/m_als_misc/alsdelay
+    chmod 0660 /sys/class/sensor/m_als_misc/alsbatch
+    chmod 0660 /sys/class/sensor/m_als_misc/alsflush
+    chmod 0660 /sys/class/sensor/m_ps_misc/psactive
+    chmod 0660 /sys/class/sensor/m_ps_misc/psdelay
+    chmod 0660 /sys/class/sensor/m_ps_misc/psbatch
+    chmod 0660 /sys/class/sensor/m_ps_misc/psflush
+    chown system system /sys/class/sensor/m_als_misc/alsactive
+    chown system system /sys/class/sensor/m_als_misc/alsdelay
+    chown system system /sys/class/sensor/m_als_misc/alsbatch
+    chown system system /sys/class/sensor/m_als_misc/alsflush
+    chown system system /sys/class/sensor/m_ps_misc/psactive
+    chown system system /sys/class/sensor/m_ps_misc/psdelay
+    chown system system /sys/class/sensor/m_ps_misc/psbatch
+    chown system system /sys/class/sensor/m_ps_misc/psflush
+
+    chmod 0660 /sys/class/sensor/m_baro_misc/baroenablenodata
+    chmod 0660 /sys/class/sensor/m_baro_misc/baroactive
+    chmod 0660 /sys/class/sensor/m_baro_misc/barodelay
+    chmod 0660 /sys/class/sensor/m_baro_misc/barobatch
+    chmod 0660 /sys/class/sensor/m_baro_misc/baroflush
+    chown system system /sys/class/sensor/m_baro_misc/baroenablenodata
+    chown system system /sys/class/sensor/m_baro_misc/baroactive
+    chown system system /sys/class/sensor/m_baro_misc/barodelay
+    chown system system /sys/class/sensor/m_baro_misc/barobatch
+    chown system system /sys/class/sensor/m_baro_misc/baroflush
+
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdyenablenodata
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdyactive
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdydelay
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdybatch
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdyflush
+
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdyenablenodata
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdyactive
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdydelay
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdybatch
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdyflush
+
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedoactive
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedodelay
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedobatch
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedoflush
+    chown system system /sys/class/sensor/m_pedo_misc/pedoactive
+    chown system system /sys/class/sensor/m_pedo_misc/pedodelay
+    chown system system /sys/class/sensor/m_pedo_misc/pedobatch
+    chown system system /sys/class/sensor/m_pedo_misc/pedoflush
+
+    chmod 0660 /sys/class/sensor/m_situ_misc/situactive
+    chmod 0660 /sys/class/sensor/m_situ_misc/situdelay
+    chmod 0660 /sys/class/sensor/m_situ_misc/situbatch
+    chmod 0660 /sys/class/sensor/m_situ_misc/situflush
+    chown system system /sys/class/sensor/m_situ_misc/situactive
+    chown system system /sys/class/sensor/m_situ_misc/situdelay
+    chown system system /sys/class/sensor/m_situ_misc/situbatch
+    chown system system /sys/class/sensor/m_situ_misc/situflush
+
+    chmod 0660 /sys/class/sensor/m_act_misc/actactive
+    chmod 0660 /sys/class/sensor/m_act_misc/actdelay
+    chmod 0660 /sys/class/sensor/m_act_misc/actbatch
+    chmod 0660 /sys/class/sensor/m_act_misc/actflush
+    chown system system /sys/class/sensor/m_act_misc/actactive
+    chown system system /sys/class/sensor/m_act_misc/actdelay
+    chown system system /sys/class/sensor/m_act_misc/actbatch
+    chown system system /sys/class/sensor/m_act_misc/actflush
+
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cactive
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cdelay
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cbatch
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cflush
+    chown system system /sys/class/sensor/m_step_c_misc/step_cactive
+    chown system system /sys/class/sensor/m_step_c_misc/step_cdelay
+    chown system system /sys/class/sensor/m_step_c_misc/step_cbatch
+    chown system system /sys/class/sensor/m_step_c_misc/step_cflush
+
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusionactive
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusiondelay
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusionbatch
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusionflush
+    chown system system /sys/class/sensor/m_fusion_misc/fusionactive
+    chown system system /sys/class/sensor/m_fusion_misc/fusiondelay
+    chown system system /sys/class/sensor/m_fusion_misc/fusionbatch
+    chown system system /sys/class/sensor/m_fusion_misc/fusionflush
+
+    chmod 0660 /sys/class/sensor/m_bio_misc/bioactive
+    chmod 0660 /sys/class/sensor/m_bio_misc/biodelay
+    chmod 0660 /sys/class/sensor/m_bio_misc/biobatch
+    chmod 0660 /sys/class/sensor/m_bio_misc/bioflush
+    chown system system /sys/class/sensor/m_bio_misc/bioactive
+    chown system system /sys/class/sensor/m_bio_misc/biodelay
+    chown system system /sys/class/sensor/m_bio_misc/biobatch
+    chown system system /sys/class/sensor/m_bio_misc/bioflush
+#INTERNAL_START
+on post-fs-data
+#
+# Connectivity related modules and character device nodes (Begin)
+#
+
+#/dev/ttyMT2 for Connectivity BT/FM/GPS usage
+    chmod 0660 /dev/ttyMT2
+    chown system system /dev/ttyMT2
+
+#GPS
+    mkdir /data/vendor/gps 0770 gps system
+
+# GPS EMI
+    chmod 666 /dev/gps_emi
+
+#
+# Connectivity related device nodes & configuration (end)
+#
+
+
+on boot
+
+#
+# Connectivity related services (Begin)
+#
+# WMT
+service wmt_loader /vendor/bin/wmt_loader
+    user system
+    group system
+    oneshot
+
+service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/
+    user system
+    group system
+
+# GPS
+#service mnld /vendor/bin/mnld
+#    class main
+#    user gps
+#    group gps inet misc sdcard_rw sdcard_r media_rw system radio
+#    socket mnld stream 660 gps system
+
+#service BGW /vendor/bin/BGW
+#    user system
+#    group gps system radio
+#    class main
+
+service wlan_assistant /vendor/bin/wlan_assistant
+    class main
+    user wifi
+    group system gps inet
+
+#
+# Connectivity related services (End)
+#
+
+#
+# Connectivity related kernel objects (Begin)
+#
+
+# load wmt_drv
+on boot
+    insmod /vendor/lib/modules/wmt_drv.ko
+
+# load bt_drv
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/bt_drv.ko
+
+# load wifi chrdev driver and wlan driver after wmt_loader finish
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/wmt_chrdev_wifi.ko
+    insmod /vendor/lib/modules/wlan_drv_${ro.vendor.wlan.gen}.ko
+    start wlan_assistant
+
+# load fmradio_drv
+on property:vendor.connsys.driver.ready=yes
+    insmod /vendor/lib/modules/fmradio_drv.ko
+
+# load gps_drv
+on property:vendor.connsys.driver.ready=yes
+  insmod /vendor/lib/modules/gps_drv.ko
+
+#
+# Connectivity related kernel objects (End)
+#
+
+#INTERNAL_END
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+
+on post-fs-data
+
+    write /proc/bootprof "post-fs-data: on meta modem start"
+
+    # Modem related device nodes
+    mkdir /data/vendor/nvram/md  0770 root system
+
+#  Build-in Modified - S
+#    insmod /vendor/lib/modules/ccci_plat.ko
+#    insmod /vendor/lib/modules/ccci.ko
+#  Build-in Modified - E
+    chown radio radio /sys/kernel/ccci/boot
+
+#SeLinux
+    mkdir /data/ccci_cfg 0700 system radio
+    restorecon /data/ccci_cfg
+    
+    # Encrypt phone function
+    setprop vold.post_fs_data_done 1
+
+service permission_check /vendor/bin/permission_check
+    class main
+    user root
+    group system radio
+    oneshot
+
+service ccci_fsd /vendor/bin/ccci_fsd 0
+    user radio
+    group radio system
+    oneshot
+
+service ccci2_fsd /vendor/bin/ccci_fsd 1
+    user radio
+    group  radio system
+    oneshot
+
+service ccci_mdinit /vendor/bin/ccci_mdinit 0
+    user system
+    group radio system
+    oneshot
+
+service ccci2_mdinit /vendor/bin/ccci_mdinit 1
+    user system
+    group radio system
+    oneshot
+
+service ccci_rpcd /vendor/bin/ccci_rpcd 0
+    user radio
+    group radio system
+    oneshot
+
+service ccci2_rpcd /vendor/bin/ccci_rpcd 1
+    user radio
+    group radio system
+    oneshot
+
+#INTERNAL_START
+on post-fs
+
+
+on boot
+
+
+
+
+#INTERNAL_END
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+import /system/etc/init/hw/vendor_init_as_system.rc
+import /init.environ.rc
+import /vendor/etc/init/hw/init.aee.rc
+import /system/etc/init/hw/init.aee.rc
+import /vendor/etc/init/trustonic.rc
+import ${ro.vendor.rc}meta_init.connectivity.rc
+import /vendor/etc/init/hw/meta_init.project.rc
+import /vendor/etc/init/microtrust.rc
+#copy from system/etc for APEX
+import /system/etc/init/apexd.rc
+import /system/etc/init/art_apex_boot_integrity.rc
+
+import /system/etc/init/vold.rc
+import /system/etc/init/servicemanager.rc
+import /system/etc/init/hwservicemanager.rc
+import /system/etc/init/android.hidl.allocator@1.0-service.rc
+import /vendor/etc/init/android.hardware.boot@1.0-service.rc
+
+#Make sure meta_init.modem.rc is the last rc file.
+import ${ro.vendor.rc}meta_init.modem.rc
+
+on early-init
+    write /proc/bootprof "INIT:early-init"
+
+    # Set init and its forked children's oom_adj.
+    write /proc/1/oom_score_adj -1000
+
+    # Disable sysrq from keyboard
+    write /proc/sys/kernel/sysrq 0
+
+    # Set the security context of /adb_keys if present.
+    restorecon /adb_keys
+
+    # Set the security context of /postinstall if present.
+    restorecon /postinstall
+
+    start ueventd
+
+    # Run apexd-bootstrap so that APEXes that provide critical libraries
+    # become available. Note that this is executed as exec_start to ensure that
+    # the libraries are available to the processes started after this statement.
+    exec_start apexd-bootstrap
+
+#INTERNAL_START
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+#INTERNAL_END
+
+on init
+    sysclktz 0
+
+    start servicemanager
+    start hwservicemanager
+    start hidl_memory
+    # Mix device-specific information into the entropy pool
+    copy /proc/cmdline /dev/urandom
+    copy /default.prop /dev/urandom
+
+    write /proc/bootprof "INIT: on init start"
+
+    # Backward compatibility.
+    symlink /system/bin /bin
+    symlink /system/etc /etc
+    symlink /sys/kernel/debug /d
+
+    # Link /vendor to /system/vendor for devices without a vendor partition.
+    symlink /system/vendor /vendor
+
+# Temp Backward compatibility
+    symlink /dev/block/platform/bootdevice/by-name/boot /dev/bootimg
+    symlink /dev/block/platform/bootdevice/by-name/recovery /dev/recovery
+    symlink /dev/block/platform/bootdevice/by-name/secro  /dev/sec_ro
+    symlink /dev/block/platform/bootdevice/by-name/kb /dev/kb
+    symlink /dev/block/platform/bootdevice/by-name/dkb /dev/dkb
+    symlink /dev/block/platform/bootdevice/by-name/seccfg /dev/seccfg
+    symlink /dev/block/platform/bootdevice/by-name/proinfo /dev/pro_info
+    symlink /dev/block/platform/bootdevice/by-name/nvram /dev/nvram
+    symlink /dev/block/platform/bootdevice/by-name/para /dev/misc
+    symlink /dev/block/platform/bootdevice/by-name/logo /dev/logo
+
+    # Mount cgroup mount point for cpu accounting
+    mount cgroup none /acct cpuacct
+    mkdir /acct/uid
+
+    # Create energy-aware scheduler tuning nodes
+    mkdir /dev/stune
+    mount cgroup none /dev/stune schedtune
+    mkdir /dev/stune/foreground
+    mkdir /dev/stune/background
+    mkdir /dev/stune/top-app
+    mkdir /dev/stune/rt
+    chown system system /dev/stune
+    chown system system /dev/stune/foreground
+    chown system system /dev/stune/background
+    chown system system /dev/stune/top-app
+    chown system system /dev/stune/rt
+    chown system system /dev/stune/tasks
+    chown system system /dev/stune/foreground/tasks
+    chown system system /dev/stune/background/tasks
+    chown system system /dev/stune/top-app/tasks
+    chown system system /dev/stune/rt/tasks
+    chmod 0664 /dev/stune/tasks
+    chmod 0664 /dev/stune/foreground/tasks
+    chmod 0664 /dev/stune/background/tasks
+    chmod 0664 /dev/stune/top-app/tasks
+    chmod 0664 /dev/stune/rt/tasks
+
+    restorecon_recursive /mnt
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+
+    mount configfs none /config
+    chmod 0775 /config/sdcardfs
+    chown system package_info /config/sdcardfs
+
+    mkdir /mnt/secure 0700 root root
+    mkdir /mnt/secure/asec 0700 root root
+    mkdir /mnt/asec 0755 root system
+    mkdir /mnt/obb 0755 root system
+    mkdir /mnt/media_rw 0750 root media_rw
+    mkdir /mnt/user 0755 root root
+    mkdir /mnt/user/0 0755 root root
+    mkdir /mnt/expand 0771 system system
+    mkdir /mnt/appfuse 0711 root root
+
+    # Storage views to support runtime permissions
+    mkdir /mnt/runtime 0700 root root
+    mkdir /mnt/runtime/default 0755 root root
+    mkdir /mnt/runtime/default/self 0755 root root
+    mkdir /mnt/runtime/read 0755 root root
+    mkdir /mnt/runtime/read/self 0755 root root
+    mkdir /mnt/runtime/write 0755 root root
+    mkdir /mnt/runtime/write/self 0755 root root
+
+    # Symlink to keep legacy apps working in multi-user world
+    symlink /storage/self/primary /sdcard
+    symlink /storage/self/primary /mnt/sdcard
+    symlink /mnt/user/0/primary /mnt/runtime/default/self/primary
+
+    # root memory control cgroup, used by lmkd
+    mkdir /dev/memcg 0700 root system
+    mount cgroup none /dev/memcg memory
+    # app mem cgroups, used by activity manager, lmkd and zygote
+    mkdir /dev/memcg/apps/ 0755 system system
+
+    write /proc/sys/kernel/panic_on_oops 1
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+    write /proc/cpu/alignment 4
+
+    # scheduler tunables
+    # Disable auto-scaling of scheduler tunables with hotplug. The tunables
+    # will vary across devices in unpredictable ways if allowed to scale with
+    # cpu cores.
+    write /proc/sys/kernel/sched_tunable_scaling 0
+    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_child_runs_first 0
+
+#INTERNAL_START
+    #Create CIP mount point
+    mkdir /mnt/vendor/custom
+
+    mkdir /mnt/cd-rom 0000 system system
+#INTERNAL_END
+
+
+# Healthd can trigger a full boot from charger mode by signaling this
+# property when the power button is held.
+on property:sys.boot_from_charger_mode=1
+    class_stop charger
+    trigger late-init
+
+# Load properties from /system/ + /factory after fs mount.
+on load_system_props_action
+    load_system_props
+
+on load_persist_props_action
+    load_persist_props
+    start logd
+    start logd-reinit
+
+# Indicate to fw loaders that the relevant mounts are up.
+on firmware_mounts_complete
+    rm /dev/.booting
+
+# Mount filesystems and start core system services.
+on late-init
+    write /proc/bootprof "INIT:late-init"
+
+    trigger early-fs
+
+    # Mount fstab in init.{$device}.rc by mount_all command. Optional parameter
+    # '--early' can be specified to skip entries with 'latemount'.
+    # /system and /vendor must be mounted by the end of the fs stage,
+    # while /data is optional.
+    trigger fs
+    trigger post-fs
+
+    # Load properties from /system/ + /factory after fs mount. Place
+    # this in another action so that the load will be scheduled after the prior
+    # issued fs triggers have completed.
+    trigger load_system_props_action
+
+    # Mount fstab in init.{$device}.rc by mount_all with '--late' parameter
+    # to only mount entries with 'latemount'. This is needed if '--early' is
+    # specified in the previous mount_all command on the fs stage.
+    # With /system mounted and properties form /system + /factory available,
+    # some services can be started.
+    trigger late-fs
+
+    # Now we can mount /data. File encryption requires keymaster to decrypt
+    # /data, which in turn can only be loaded when system properties are present.
+    trigger post-fs-data
+
+    # Load persist properties and override properties (if enabled) from /data.
+    trigger load_persist_props_action
+
+    # Remove a file to wake up anything waiting for firmware.
+    trigger firmware_mounts_complete
+
+    trigger early-boot
+    trigger boot
+
+ on early-fs
+    # Once metadata has been mounted, we'll need vold to deal with userdata checkpointing
+   start vold
+
+on fs
+    ## USB configfs
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mkdir /config/usb_gadget/g1 0770 shell shell
+    write /config/usb_gadget/g1/idVendor 0x0E8D
+    write /config/usb_gadget/g1/bcdDevice 0xFFFF
+    write /config/usb_gadget/g1/bcdUSB 0x0200
+    mkdir /config/usb_gadget/g1/strings/0x409 0770
+    write /config/usb_gadget/g1/strings/0x409/manufacturer "Android"
+    write /config/usb_gadget/g1/strings/0x409/product "Android"
+    write /config/usb_gadget/g1/bDeviceClass 0
+    write /config/usb_gadget/g1/bDeviceSubClass 0
+    write /config/usb_gadget/g1/bDeviceProtocol 0
+    mkdir /config/usb_gadget/g1/functions/mass_storage.usb0
+    mkdir /config/usb_gadget/g1/functions/ffs.adb
+    mkdir /config/usb_gadget/g1/functions/acm.gs0
+    mkdir /config/usb_gadget/g1/functions/acm.gs1
+    mkdir /config/usb_gadget/g1/functions/acm.gs2
+    mkdir /config/usb_gadget/g1/functions/acm.gs3
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
+    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
+
+    write /proc/bootprof "INIT:fs"
+#INTERNAL_START
+    write /proc/bootprof "INIT:Mount_START"
+    symlink /dev/block/platform/soc/11230000.mmc /dev/block/platform/bootdevice
+    wait_for_prop hwservicemanager.ready "true"
+    start vendor.boot-hal-1-0
+    mount_all /vendor/etc/fstab.mt8168 ${ro.vendor.rc}multi_init.rc
+    write /proc/bootprof "INIT:Mount_END"
+#INTERNAL_END
+
+on post-fs
+    write /proc/bootprof "INIT:post-fs"
+
+    start logd
+    #start servicemanager
+    #start hwservicemanager
+    start vendor.keymaster-3-0
+    start vendor.keymaster-4-0
+    start vendor.keymaster-4-0-mtee
+    start keymaster_attestation-1-1
+
+    # once everything is setup, no need to modify /
+    mount rootfs rootfs / ro remount
+    # Mount shared so changes propagate into child namespaces
+    mount rootfs rootfs / shared rec
+    # Mount default storage into root namespace
+    mount none /mnt/runtime/default /storage bind rec
+    mount none none /storage slave rec
+
+    # Make sure /sys/kernel/debug (if present) is labeled properly
+    # Note that tracefs may be mounted under debug, so we need to cross filesystems
+    restorecon --recursive --cross-filesystems /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug/tracing
+
+    # Support legacy paths
+    symlink /sdcard /storage/sdcard0
+
+    # We chown/chmod /cache again so because mount is run as root + defaults
+    chown system cache /cache
+    chmod 0770 /cache
+    # We restorecon /cache in case the cache partition has been reset.
+    restorecon_recursive /cache
+
+    #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
+    chown root system /proc/kmsg
+    chmod 0440 /proc/kmsg
+    chown root system /proc/sysrq-trigger
+    chmod 0220 /proc/sysrq-trigger
+    chown system log /proc/last_kmsg
+    chmod 0440 /proc/last_kmsg
+
+    # make the selinux kernel policy world-readable
+    chmod 0444 /sys/fs/selinux/policy
+
+    # create the lost+found directories, so as to enforce our permissions
+    mkdir /cache/lost+found 0770 root root
+
+#INTERNAL_START
+    #Create nvdata mount point
+    mkdir /mnt/vendor/nvdata 0771 system system
+    mkdir /mnt/vendor/nvdata 0771 root system
+    mkdir /mnt/vendor/nvdata/media 0771 media audio
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /mnt/vendor/nvdata
+
+    #Create cct mount point
+    mkdir /data/cct
+    chown root system /data/cct
+    chmod 0771 /data/cct
+
+on post-fs-data
+    write /proc/bootprof "INIT:post-fs-data"
+
+    # WiFi
+    mkdir /data/misc/wifi 0770 system wifi
+    mkdir /data/misc/wifi/sockets 0770 system wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    #give system access to rfkill device node
+    chmod 0660 /dev/rfkill
+
+    # RTC
+    mkdir /data/misc/rtc 0770 system system
+
+    # Android SEC related device nodes
+    chmod 0660 /dev/sec
+    chown root system /dev/sec
+
+    # change key_provisioning
+    mkdir /data/vendor/key_provisioning 0770 system system
+
+    chmod 0666 /dev/exm0
+
+#INTERNAL_END
+
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon --recursive --skip-ce /data
+
+    # Check any timezone data in /data is newer than the copy in /system, delete if not.
+    exec - system system -- /system/bin/tzdatacheck /system/usr/share/zoneinfo /data/misc/zoneinfo
+
+    # If there is no post-fs-data action in the init.<device>.rc file, you
+    # must uncomment this line, otherwise encrypted filesystems
+    # won't work.
+    # Set indication (checked by vold) that we have finished this action
+    #setprop vold.post_fs_data_done 1
+
+# It is recommended to put unnecessary data/ initialization from post-fs-data
+# to start-zygote in device's init.rc to unblock zygote start.
+on zygote-start && property:ro.crypto.state=unencrypted
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier_nonencrypted
+    start netd
+    start zygote
+    start zygote_secondary
+
+on zygote-start && property:ro.crypto.state=unsupported
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier_nonencrypted
+    start netd
+    start zygote
+    start zygote_secondary
+
+on zygote-start && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    # A/B update verifier that marks a successful boot.
+    exec_start update_verifier_nonencrypted
+    start netd
+    start zygote
+    start zygote_secondary
+
+on boot
+    write /proc/bootprof "INIT:boot"
+
+    # Permissions for System Server and daemons.
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+
+# basic network init
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+#INTERNAL_START
+    class_start default
+#INTERNAL_END
+
+    # Start standard binderized HAL daemons
+    class_start hal
+
+    class_start core
+
+#USB configfs
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    chown system radio /dev/ttyGS3
+    chmod 0660 /dev/ttyGS3
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "11201000.usb"
+
+on nonencrypted
+    # A/B update verifier that marks a successful boot.
+    exec - root cache -- /system/bin/update_verifier nonencrypted
+    class_start main
+    class_start late_start
+
+on property:vold.decrypt=trigger_reset_main
+    class_reset main
+
+on property:vold.decrypt=trigger_load_persist_props
+    load_persist_props
+    start logd
+    start logd-reinit
+
+on property:vold.decrypt=trigger_post_fs_data
+    trigger post-fs-data
+    trigger zygote-start
+
+on property:vold.decrypt=trigger_restart_min_framework
+    # A/B update verifier that marks a successful boot.
+    exec - root cache -- /system/bin/update_verifier trigger_restart_min_framework
+    class_start main
+
+on property:vold.decrypt=trigger_restart_framework
+    stop surfaceflinger
+    start surfaceflinger
+    # A/B update verifier that marks a successful boot.
+    exec - root cache -- /system/bin/update_verifier trigger_restart_framework
+    class_start main
+    class_start late_start
+
+on property:vold.decrypt=trigger_shutdown_framework
+    class_reset late_start
+    class_reset main
+
+# One shot invocation to deal with encrypted volume.
+on defaultcrypto
+    exec - root -- /system/bin/vdc --wait cryptfs mountdefaultencrypted
+    # vold will set vold.decrypt to trigger_restart_framework (default
+    # encryption) or trigger_restart_min_framework (other encryption)
+
+# One shot invocation to encrypt unencrypted volumes
+# mtk modification:
+#   To speed up the booting in meta/factory mode, we don't encrypt the device.
+#   And then handle it as 'unencrypted' state.
+on encrypt && property:ro.mtk_f2fs_enable=0
+    mount ext4 /dev/block/platform/bootdevice/by-name/userdata /data noatime nosuid nodev noauto_da_alloc discard wait
+
+on encrypt && property:ro.mtk_f2fs_enable=1
+    mount f2fs /dev/block/platform/bootdevice/by-name/userdata /data noatime nosuid nodev discard wait
+
+on encrypt
+    setprop vendor.crypto.fake_encrypt 1
+    setprop vold.post_fs_data_done 0
+    trigger post-fs-data
+on property:vendor.crypto.fake_encrypt=1 && property:vold.post_fs_data_done=1
+    trigger load_persist_props_action
+    # setprop ro.crypto.state unencrypted
+    exec_start update_verifier
+    class_start main
+    class_start late_start
+    start mount_all_storages
+
+on property:sys.powerctl=*
+    powerctl ${sys.powerctl}
+## Daemon processes to be run by init.
+##
+service ueventd /system/bin/ueventd
+    class core
+    critical
+    seclabel u:r:ueventd:s0
+    shutdown critical
+
+service console /system/bin/sh
+    class core
+    console
+    disabled
+    user shell
+    group shell log readproc
+    seclabel u:r:shell:s0
+
+on property:ro.debuggable=1
+    # Give writes to anyone for the trace folder on debug builds.
+    # The folder is used to store method traces.
+    chmod 0773 /data/misc/trace
+    start console
+
+# adbd is controlled via property triggers in init.<platform>.usb.rc
+service adbd /system/bin/adbd --root_seclabel=u:r:su:s0
+    class core
+    socket adbd stream 660 system system
+    disabled
+    seclabel u:r:adbd:s0
+
+#INTERNAL_START
+service meta_tst /vendor/bin/meta_tst
+    group radio system wifi audio bluetooth media gps
+
+service kisd /vendor/bin/kisd
+    user root
+    group system drmrpc
+
+#adb,acm
+on property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
+    write /proc/bootprof "INIT:start adbd"
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
+    write /proc/bootprof "INIT:on property:ro.boot.usbconfig=0"
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber $ro.serialno
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_acm"
+    write /config/usb_gadget/g1/idProduct 0x200E
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+
+#acm
+on property:ro.boot.usbconfig=1 && property:sys.usb.configfs=1
+    write /proc/bootprof "INIT:on property:ro.boot.usbconfig 1"
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber " "
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "acm"
+    write /config/usb_gadget/g1/idProduct 0x2007
+    write /config/usb_gadget/g1/bDeviceClass 02
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+
+#META+ELT
+on property:ro.boot.usbconfig=2 && property:sys.usb.configfs=1
+    write /proc/bootprof "INIT:on property:ro.boot.usbconfig 2"
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber $ro.serialno
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "meta_elt"
+    write /config/usb_gadget/g1/idProduct 0x202d
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+
+#META+ELT+ADB
+on property:ro.boot.usbconfig=3 && property:sys.usb.configfs=1
+    write /proc/bootprof "INIT:start adbd"
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:ro.boot.usbconfig=3 && property:sys.usb.configfs=1
+    write /proc/bootprof "INIT:on property:ro.boot.usbconfig 3"
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber $ro.serialno
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "meta_elt_adb"
+    write /config/usb_gadget/g1/idProduct 0x2040
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop vendor.usb.acm_idx 1,4
+
+#INTERNAL_END
+
+# 26M Clock calibration
+service DcxoSetCap /vendor/bin/DcxoSetCap
+    class main
+    oneshot
+
+# import AOSP service related rc in meta mode and factory mode.
+#
+import /system/etc/init/aee_aed.rc
+import /system/etc/init/aee_aed64.rc
+import /vendor/etc/init/aee_aedv.rc
+import /vendor/etc/init/aee_aedv64.rc
+import /system/etc/init/logd.rc
+import /system/etc/init/logd_e.rc
+import /system/etc/init/logcatd.rc
+import /system/etc/init/storagemanagerd.rc
+import /system/etc/init/mobile_log_d.rc
+import /system/etc/init/android.system.suspend@1.0-service.rc
+import /vendor/etc/init/storageproxyd.rc
+import /vendor/etc/init/android.hardware.keymaster@3.0-service.rc
+import /vendor/etc/init/android.hardware.keymaster@3.0-service.trustonic.rc
+import /vendor/etc/init/android.hardware.keymaster@4.0-service.rc
+import /vendor/etc/init/android.hardware.keymaster@4.0-service.trustonic.rc
+import /vendor/etc/init/android.hardware.keymaster@4.0-service.beanpod.rc
+import /vendor/etc/init/android.hardware.keymaster@4.0-service.trustkernel.rc
+import /vendor/etc/init/android.hardware.keymaster@4.0-service.mtee.rc
+import /vendor/etc/init/vendor.mediatek.hardware.keyinstall@1.0-service.rc
+import /vendor/etc/init/vendor.mediatek.hardware.keymanage@1.0-service.rc
+import /vendor/etc/init/android.hardware.audio@4.0-service-mediatek.rc
+import /vendor/etc/init/vendor.mediatek.hardware.keymaster_attestation@1.1-service.rc
+import /vendor/etc/init/android.hardware.nfc@1.2-service-st.rc
+import /vendor/etc/init/tee.rc
+import /vendor/etc/init/vendor.mediatek.hardware.nvram@1.1-sevice.rc
+import /vendor/etc/init/vendor.mediatek.hardware.nvram@1.1-sevice-lazy.rc
+import /vendor/etc/init/android.hardware.light@2.0-service-mediatek.rc
+import /vendor/etc/init/android.hardware.light@2.0-service-mediatek-lazy.rc
+import /vendor/etc/init/merged_hal_service.rc
+import /vendor/etc/init/vendor.microtrust.hardware.capi@2.0-service.rc
+import /vendor/etc/init/spm_script.rc
+import /vendor/etc/init/nvram_daemon.rc
+# MTK connectivity .rc configure
+
+on post-fs-data
+    mkdir /data/vendor/stp_dump 0755 system system
+    mkdir /data/vendor/connsyslog 0755 system system
+
+on boot
+
+# WMT
+service wmt_loader /vendor/bin/wmt_loader
+    class early_hal
+    user system
+    group system
+    oneshot
+
+service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/
+    class early_hal
+    user system
+    group system
+
+on property:ro.build.type=eng
+    write /sys/kernel/debug/tracing/tracing_on 1
+
+on property:persist.vendor.connsys.coredump.mode=1
+    start stp_dump
+
+on property:persist.vendor.connsys.coredump.mode=2
+    start stp_dump
+
+on property:persist.vendor.connsys.coredump.mode=0
+    stop stp_dump
+
+on property:vendor.connsys.driver.ready=yes && property:persist.vendor.connsys.coredump.mode=*
+    write /proc/driver/wmt_dbg "0x15 ${persist.vendor.connsys.coredump.mode}"
+
+on property:vendor.connsys.driver.ready=yes && property:debug.vendor.connsys.suspend.alarm=*
+    write /proc/driver/wmt_dbg "0x2e ${debug.vendor.connsys.suspend.alarm}"
+
+on property:vendor.connsys.driver.ready=yes
+    write /proc/driver/wmt_dbg "0x7 9 1"
+
+service stp_dump /vendor/bin/stp_dump3
+    user system
+    group system sdcard_rw misc
+    class core
+    disabled
+service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi@1.0-service-lazy-mediatek
+    interface android.hardware.wifi@1.0::IWifi default
+    oneshot
+    disabled
+    class hal
+    capabilities NET_ADMIN NET_RAW SYS_MODULE
+    user wifi
+    group wifi gps
+on boot
+    insmod /vendor/lib/modules/wmt_drv.ko

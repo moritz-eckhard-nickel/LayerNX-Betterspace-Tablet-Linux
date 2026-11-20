@@ -1,0 +1,16 @@
+#!/bin/sh
+# Openbox-Sitzung fuer das Betterspace V5x (Touch, Hochformat)
+export DISPLAY="${DISPLAY:-:0}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/runtime-$(id -u)}"
+mkdir -p "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
+C=/usr/share/moritz-v5x
+mkdir -p "$HOME/.cache"
+echo "=== Sitzung $(date)" >>"$HOME/.cache/moritz-v5x-session.log"
+mkdir -p "$HOME/.config/jgmenu"
+[ -f "$HOME/.config/jgmenu/jgmenurc" ] || cp "$C/jgmenurc" "$HOME/.config/jgmenu/jgmenurc"
+cp "$C/jgmenu-append.csv" "$HOME/.config/jgmenu/append.csv"
+xrdb -merge "$C/Xresources"
+xsetroot -solid "#2e3440"
+xset s off -dpms 2>/dev/null
+tint2 -c "$C/tint2rc" >>"$HOME/.cache/moritz-v5x-session.log" 2>&1 &
+exec openbox --config-file "$C/openbox-rc.xml" >>"$HOME/.cache/moritz-v5x-session.log" 2>&1

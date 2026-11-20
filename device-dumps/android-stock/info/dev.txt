@@ -1,0 +1,189 @@
+total 16
+drwxr-xr-x 20 root      root             3760 2026-11-20 18:22 .
+drwxr-xr-x 21 root      root             4096 2009-01-01 01:00 ..
+----------  1 root      root                0 2026-11-20 18:21 .coldboot_done
+-rw-------  1 root      shell               0 2026-11-20 18:22 .su.d
+-rw-------  1 root      shell               0 2026-11-20 18:22 .su.d.complete
+crw-------  1 root      root         254,   0 2026-11-20 18:21 BOOT
+crw-rw----  1 system    camera       511,   0 2026-11-20 18:21 MAINAF
+crw-rw----  1 media     media        245,   0 2026-11-20 18:21 MTK_SMI
+crw-------  1 root      root         508,   0 2026-11-20 18:21 MT_pmic_adc_cali
+crw-------  1 system    system        10, 119 2026-11-20 18:21 RT_Monitor
+drwx--x--x  2 root      root             7200 2026-11-20 18:21 __properties__
+crw-rw----  1 system    system        10,  80 2026-11-20 18:21 aal_als
+crw-------  1 root      root         242,   0 2026-11-20 18:21 accdet
+crw-rw-rw-  1 media     media         10,  81 2026-11-20 18:21 adsp_misc
+crw-------  1 root      root          10, 121 2026-11-20 18:21 aed0
+crw-------  1 root      root          10, 120 2026-11-20 18:21 aed1
+crw-rw----  1 root      system        10, 114 2026-11-20 18:21 alarm
+crw-------  1 root      root          10,  83 2026-11-20 18:21 apu_memory_bandwidth
+crw-rw-rw-  1 root      root          10, 115 2026-11-20 18:21 ashmem
+crw-------  1 root      root          10, 125 2026-11-20 18:21 atf_log
+crw-------  1 root      root          10, 122 2026-11-20 18:21 audio_ipi
+crw-rw-rw-  1 root      root          10, 113 2026-11-20 18:21 binder
+drwxr-xr-x  3 system    system            100 2026-11-20 18:21 blkio
+drwxr-xr-x  6 root      root             1660 2026-11-20 18:21 block
+lrwxrwxrwx  1 root      root               43 2026-11-20 18:21 bootimg -> /dev/block/platform/bootdevice/by-name/boot
+crw-------  1 system    system       243,   0 2026-11-20 18:21 btif
+drwxr-xr-x  3 root      root               60 2026-11-20 18:21 bus
+crw-------  1 root      root          10,  86 2026-11-20 18:21 cam_freq
+crw-rw----  1 system    camera       241,   0 2026-11-20 18:21 camera-isp
+drw-------  2 root      root                0 2026-11-20 18:21 cg2_bpf
+drwx--x--x  2 system    system             60 2026-11-20 18:21 cgroup_info
+crw-------  1 root      root         504,   0 2026-11-20 18:21 charger_ftm
+crw-------  1 root      root           5,   1 2026-11-20 18:22 console
+crw-------  1 root      root          10, 110 2026-11-20 18:21 cpu_dma_latency
+crw-------  1 root      root          10,   0 2026-11-20 18:21 cpu_loading
+crw-------  1 root      root          10, 106 2026-11-20 18:21 cpu_memory_bandwidth
+-r--r--r--  1 root      root               10 2026-11-20 18:21 cpu_variant:arm
+-r--r--r--  1 root      root               10 2026-11-20 18:21 cpu_variant:arm64
+dr-xr-xr-x  2 system    system              0 2026-11-20 18:21 cpuctl
+dr-xr-xr-x  7 system    system              0 2026-11-20 18:21 cpuset
+crwxrwxrwx  1 system    system       505,   0 2026-11-20 18:21 ctrl
+crw-------  1 root      root          10,  99 2026-11-20 18:21 ddr_opp
+crw-------  1 root      root          10, 236 2026-11-20 18:21 device-mapper
+cr--r--r--  1 root      media        196,   0 2026-11-20 18:21 devmap
+crw-------  1 root      root          10,  91 2026-11-20 18:21 disp_freq
+lrwxrwxrwx  1 root      root               42 2026-11-20 18:21 dkb -> /dev/block/platform/bootdevice/by-name/dkb
+crw-------  1 root      root          10,  85 2026-11-20 18:21 dpe_freq
+crw-------  1 root      root         237,   0 2026-11-20 18:21 edmcctl
+crw-------  1 root      root          10,  98 2026-11-20 18:21 emi_opp
+-rw-r--r--  1 logd      logd               24 2026-11-20 18:22 event-log-tags
+lrwxrwxrwx  1 root      root               13 2026-11-20 18:21 fd -> /proc/self/fd
+crw-rw----  1 system    camera       238,   0 2026-11-20 18:21 flashlight
+crw-rw----  1 media     media        500,   0 2026-11-20 18:22 fm
+drwxrwx---  2 root      system             40 2026-11-20 18:23 fscklogs
+crw-rw-rw-  1 root      root           1,   7 2026-11-20 18:21 full
+crw-------  1 root      root          10, 229 2026-11-20 18:21 fuse
+crw-rw----  1 bluetooth bluetooth    501,   0 2026-11-20 18:22 fw_log_bt
+crw-rw----  1 gps       gps          499,   0 2026-11-20 18:22 fw_log_gps
+crw-rw----  1 wifi      wifi         498,   0 2026-11-20 18:22 fw_log_wifi
+crw-------  1 root      root         502,   0 2026-11-20 18:22 fw_log_wmt
+crw-------  1 root      root         253,   0 2026-11-20 18:21 gpiochip0
+crw-------  1 root      root          10, 105 2026-11-20 18:21 gpu_memory_bandwidth
+drwxr-xr-x  2 root      root               60 2026-11-20 18:21 graphics
+crw-rw----  1 radio     system        10,  79 2026-11-20 18:21 gsensor
+cr--r-----  1 root      system        10, 183 2026-11-20 18:21 hw_random
+crw-rw-rw-  1 root      root          10, 112 2026-11-20 18:21 hwbinder
+crw-------  1 root      root         248,   0 2026-11-20 18:21 iio:device0
+crw-------  1 root      root         248,   1 2026-11-20 18:21 iio:device1
+crw-------  1 root      root          10,  87 2026-11-20 18:21 img_freq
+drwxr-xr-x  2 root      root              100 2026-11-20 18:21 input
+crw-rw-rw-  1 root      root          10, 126 2026-11-20 18:21 ion
+crw-------  1 root      root          10,  84 2026-11-20 18:21 isp_hrt_bandwidth
+crw-------  1 root      root         167,   0 2026-11-20 18:21 items
+lrwxrwxrwx  1 root      root               41 2026-11-20 18:21 kb -> /dev/block/platform/bootdevice/by-name/kb
+crw-rw----  1 system    camera       239,   0 2026-11-20 18:21 kd_camera_hw
+crw-------  1 root      root           1,  11 2026-11-20 18:21 kmsg
+lrwxrwxrwx  1 root      root               43 2026-11-20 18:21 logo -> /dev/block/platform/bootdevice/by-name/logo
+crw-------  1 root      root          10, 237 2026-11-20 18:21 loop-control
+crw-rw----  1 system    system       251,   0 2026-11-20 18:21 m_acc_misc
+crw-rw-rw-  1 root      root          10, 124 2026-11-20 18:21 mali0
+crw-------  1 root      root          10, 103 2026-11-20 18:21 md_peri_memory_bandwidth
+crw-------  1 root      root          10,  90 2026-11-20 18:21 mdp_freq
+crw-r--r--  1 system    system        10, 118 2026-11-20 18:21 mdp_sync
+dr-xr-xr-x  4 root      root                0 2026-11-20 18:21 memcg
+crw-------  1 root      root          10, 107 2026-11-20 18:21 memory_bandwidth
+lrwxrwxrwx  1 root      root               44 2026-11-20 18:21 misc2 -> /dev/block/platform/bootdevice/by-name/misc2
+crw-------  1 root      root          10, 101 2026-11-20 18:21 mm0_bandwidth_limiter
+crw-------  1 root      root          10, 100 2026-11-20 18:21 mm1_bandwidth_limiter
+crw-------  1 root      root          10, 104 2026-11-20 18:21 mm_memory_bandwidth
+crw-------  1 root      root          10, 116 2026-11-20 18:21 mt_xgpt
+crw-------  1 root      root          10, 127 2026-11-20 18:21 mtfreqhopping
+crw-r--r--  1 system    system       506,   0 2026-11-20 18:21 mtk_cmdq
+crw-rw----  1 system    graphics     236,   0 2026-11-20 18:21 mtk_disp_mgr
+crw-rw----  1 system    camera       244,   0 2026-11-20 18:21 mtk_mmdvfs
+crw-rw----  1 root      mtp           10,  76 2026-11-20 18:22 mtp_usb
+crw-------  1 root      root          10, 109 2026-11-20 18:21 network_latency
+crw-------  1 root      root          10, 108 2026-11-20 18:21 network_throughput
+crw-rw-rw-  1 root      root           1,   3 2026-11-20 18:21 null
+crw-------  1 root      root          10, 102 2026-11-20 18:21 other_memory_bandwidth
+crw-------  1 root      root          10, 254 2026-11-20 18:21 picachu
+crw-------  1 root      root         246,   0 2026-11-20 18:21 pmic_ftm
+c-w--w--w-  1 root      log          252,   0 2026-11-20 18:21 pmsg0
+crw-------  1 root      root          10,  94 2026-11-20 18:21 power_model_ddr_req
+crw-------  1 root      root          10,  93 2026-11-20 18:21 power_model_vcore_req
+crw-rw----  1 radio     vpn          108,   0 2026-11-20 18:21 ppp
+crw-rw-rw-  1 root      radio          5,   2 2026-11-20 18:21 ptmx
+drwxr-xr-x  2 root      root                0 2026-11-20 18:21 pts
+crw-------  1 root      root           2,   0 2026-11-20 18:21 ptyp0
+crw-------  1 root      root           2,   1 2026-11-20 18:21 ptyp1
+crw-------  1 root      root           2,   2 2026-11-20 18:21 ptyp2
+crw-------  1 root      root           2,   3 2026-11-20 18:21 ptyp3
+crw-------  1 root      root           2,   4 2026-11-20 18:21 ptyp4
+crw-------  1 root      root           2,   5 2026-11-20 18:21 ptyp5
+crw-------  1 root      root           2,   6 2026-11-20 18:21 ptyp6
+crw-------  1 root      root           2,   7 2026-11-20 18:21 ptyp7
+crw-------  1 root      root           2,   8 2026-11-20 18:21 ptyp8
+crw-------  1 root      root           2,   9 2026-11-20 18:21 ptyp9
+crw-------  1 root      root           2,  10 2026-11-20 18:21 ptypa
+crw-------  1 root      root           2,  11 2026-11-20 18:21 ptypb
+crw-------  1 root      root           2,  12 2026-11-20 18:21 ptypc
+crw-------  1 root      root           2,  13 2026-11-20 18:21 ptypd
+crw-------  1 root      root           2,  14 2026-11-20 18:21 ptype
+crw-------  1 root      root           2,  15 2026-11-20 18:21 ptypf
+drwxrwx---  2 radio     radio              40 2026-11-20 18:22 radio
+crw-rw-rw-  1 root      root           1,   8 2026-11-20 18:21 random
+lrwxrwxrwx  1 root      root               47 2026-11-20 18:21 recovery -> /dev/block/platform/bootdevice/by-name/recovery
+crw-r-----  1 system    system       249,   0 2026-11-20 18:21 rtc0
+crw-------  1 root      root          10,  95 2026-11-20 18:21 scp_vcore_req
+lrwxrwxrwx  1 root      root               45 2026-11-20 18:21 seccfg -> /dev/block/platform/bootdevice/by-name/seccfg
+crw-------  1 root      root          10, 123 2026-11-20 18:21 sensorlist
+drwxr-xr-x  2 root      root              400 2026-11-20 18:21 snd
+drwxr-xr-x  3 root      root              480 2026-11-20 18:24 socket
+lrwxrwxrwx  1 root      root               15 2026-11-20 18:21 stderr -> /proc/self/fd/2
+lrwxrwxrwx  1 root      root               15 2026-11-20 18:21 stdin -> /proc/self/fd/0
+lrwxrwxrwx  1 root      root               15 2026-11-20 18:21 stdout -> /proc/self/fd/1
+crw-rw----  1 bluetooth bluetooth    192,   0 2026-11-20 18:22 stpbt
+crw-rw----  1 gps       gps          191,   0 2026-11-20 18:22 stpgps
+crw-rw----  1 system    system       190,   0 2026-11-20 18:22 stpwmt
+dr-xr-xr-x  6 system    system              0 2026-11-20 18:21 stune
+crw-------  1 root      root          10,  78 2026-11-20 18:21 touch
+crw-------  1 root      root          10, 117 2026-11-20 18:21 tpd_em_log
+crw-rw----  1 system    drmrpc       197,   0 2026-11-20 18:21 trustzone
+crw-rw-rw-  1 root      root           5,   0 2026-11-20 18:21 tty
+crw-rw----  1 system    radio        235,   0 2026-11-20 18:22 ttyGS0
+crw-rw----  1 system    radio        235,   1 2026-11-20 18:22 ttyGS1
+crw-rw----  1 system    radio        235,   2 2026-11-20 18:22 ttyGS2
+crw-rw----  1 system    radio        235,   3 2026-11-20 18:22 ttyGS3
+crw-------  1 root      root           4,  64 2026-11-20 18:21 ttyS0
+crw-------  1 root      root           4,  65 2026-11-20 18:21 ttyS1
+crw-------  1 root      root           4,  66 2026-11-20 18:21 ttyS2
+crw-------  1 root      root           3,   0 2026-11-20 18:21 ttyp0
+crw-------  1 root      root           3,   1 2026-11-20 18:21 ttyp1
+crw-------  1 root      root           3,   2 2026-11-20 18:21 ttyp2
+crw-------  1 root      root           3,   3 2026-11-20 18:21 ttyp3
+crw-------  1 root      root           3,   4 2026-11-20 18:21 ttyp4
+crw-------  1 root      root           3,   5 2026-11-20 18:21 ttyp5
+crw-------  1 root      root           3,   6 2026-11-20 18:21 ttyp6
+crw-------  1 root      root           3,   7 2026-11-20 18:21 ttyp7
+crw-------  1 root      root           3,   8 2026-11-20 18:21 ttyp8
+crw-------  1 root      root           3,   9 2026-11-20 18:21 ttyp9
+crw-------  1 root      root           3,  10 2026-11-20 18:21 ttypa
+crw-------  1 root      root           3,  11 2026-11-20 18:21 ttypb
+crw-------  1 root      root           3,  12 2026-11-20 18:21 ttypc
+crw-------  1 root      root           3,  13 2026-11-20 18:21 ttypd
+crw-------  1 root      root           3,  14 2026-11-20 18:21 ttype
+crw-------  1 root      root           3,  15 2026-11-20 18:21 ttypf
+crw-rw----  1 system    vpn           10, 200 2026-11-20 18:21 tun
+crw-rw----  1 uhid      uhid          10, 239 2026-11-20 18:21 uhid
+crw-rw----  1 system    net_bt_admin  10, 223 2026-11-20 18:21 uinput
+crw-rw-rw-  1 root      root           1,   9 2026-11-20 18:21 urandom
+drwxrwx---  3 shell     shell              60 2026-11-20 18:22 usb-ffs
+crw-rw----  1 root      usb           10,  77 2026-11-20 18:22 usb_accessory
+crw-------  1 root      root          10,  96 2026-11-20 18:21 vcore_dvfs_fixed_opp
+crw-------  1 root      root          10,  92 2026-11-20 18:21 vcore_dvfs_force_opp
+crw-------  1 root      root          10,  97 2026-11-20 18:21 vcore_opp
+crw-rw----  1 media     system       509,   0 2026-11-20 18:21 vcu
+crw-------  1 root      root          10,  89 2026-11-20 18:21 vdec_freq
+crw-------  1 root      root          10,  88 2026-11-20 18:21 venc_freq
+crw-rw----  1 camera    system        81,   0 2026-11-20 18:21 video0
+crw-rw----  1 camera    system        81,   1 2026-11-20 18:21 video1
+crw-rw----  1 camera    system        81,   2 2026-11-20 18:21 video2
+crw-rw-rw-  1 root      root          10, 111 2026-11-20 18:21 vndbinder
+crw-------  1 root      root          10,  82 2026-11-20 18:21 vvpu_opp
+crw-------  1 root      root          10, 130 2026-11-20 18:21 watchdog
+crw-------  1 root      root         247,   0 2026-11-20 18:21 watchdog0
+crw-rw----  1 wifi      wifi         153,   0 2026-11-20 18:22 wmtWifi
+crw-rw----  1 system    system       154,   0 2026-11-20 18:22 wmtdetect
+crw-rw-rw-  1 root      root           1,   5 2026-11-20 18:21 zero

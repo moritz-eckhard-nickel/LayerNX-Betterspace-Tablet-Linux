@@ -1,0 +1,14 @@
+/sys/class/graphics/fb0/bits_per_pixel: 32
+/sys/class/graphics/fb0/blank:
+/sys/class/graphics/fb0/console:
+/sys/class/graphics/fb0/cursor:
+/sys/class/graphics/fb0/dev: 29:0
+/sys/class/graphics/fb0/mode:
+/sys/class/graphics/fb0/modes: U:800x1280p-0
+/sys/class/graphics/fb0/name: mtkfb
+/sys/class/graphics/fb0/pan: 0,2560
+/sys/class/graphics/fb0/rotate: 0
+/sys/class/graphics/fb0/state: 0
+/sys/class/graphics/fb0/stride: 3200
+/sys/class/graphics/fb0/uevent: MAJOR=29 MINOR=0 DEVNAME=fb0
+/sys/class/graphics/fb0/virtual_size: 800,3840

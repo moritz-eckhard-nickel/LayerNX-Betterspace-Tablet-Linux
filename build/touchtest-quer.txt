@@ -1,0 +1,75 @@
+motion a[0]=5 a[1]=9 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=5 a[1]=9 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=5 a[1]=9 
+button release 1 a[0]=5 a[1]=9 
+motion a[0]=24 a[1]=25 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=24 a[1]=25 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=24 a[1]=25 
+button release 1 a[0]=24 a[1]=25 
+motion a[0]=18 a[1]=37 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=18 a[1]=37 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=18 a[1]=37 
+button release 1 a[0]=18 a[1]=37 
+motion a[0]=10 a[1]=33 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=10 a[1]=33 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=10 a[1]=33 
+button release 1 a[0]=10 a[1]=33 
+motion a[0]=18 a[1]=32 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=18 a[1]=32 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=18 a[1]=32 
+button release 1 a[0]=18 a[1]=32 
+motion a[0]=1274 a[1]=782 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=1274 a[1]=782 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=1274 a[1]=782 
+button release 1 a[0]=1274 a[1]=782 
+motion a[0]=1229 a[1]=33 
+button release 1 a[0]=1229 a[1]=33 
+motion a[0]=1272 a[1]=23 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=1272 a[1]=23 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=1272 a[1]=23 
+button release 1 a[0]=1272 a[1]=23 
+motion a[0]=1263 a[1]=32 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=1263 a[1]=32 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=1263 a[1]=32 
+button release 1 a[0]=1263 a[1]=32 
+motion a[0]=1253 a[1]=36 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=1253 a[1]=36 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=1253 a[1]=36 
+button release 1 a[0]=1253 a[1]=36 
+motion a[0]=1251 a[1]=37 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=1251 a[1]=37 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=1251 a[1]=37 
+button release 1 a[0]=1251 a[1]=37 
+motion a[0]=29 a[1]=30 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=29 a[1]=30 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=29 a[1]=32 
+motion a[0]=29 a[1]=38 
+motion a[0]=31 a[1]=39 
+motion a[0]=31 a[1]=39 
+button release 1 a[0]=31 a[1]=39 
+motion a[0]=1249 a[1]=743 a[2]=0 a[3]=0 a[4]=0 
+button press   1 a[0]=1249 a[1]=743 a[2]=0 a[3]=0 a[4]=0 
+motion a[0]=1248 a[1]=743 
+motion a[0]=1247 a[1]=743 
+motion a[0]=1244 a[1]=745 
+motion a[0]=1243 a[1]=746 
+motion a[0]=1241 a[1]=746 
+motion a[0]=1241 a[1]=752 
+motion a[0]=1240 a[1]=752 
+motion a[0]=1239 a[1]=752 
+motion a[0]=1237 a[1]=754 
+motion a[0]=1237 a[1]=754 
+motion a[0]=1241 a[1]=754 
+motion a[0]=1253 a[1]=753 
+motion a[0]=1253 a[1]=753 
+button release 1 a[0]=1253 a[1]=753 
+motion a[0]=1247 a[1]=44 
+motion a[0]=1249 a[1]=44 
+motion a[0]=1251 a[1]=44 
+motion a[0]=1254 a[1]=44 
+motion a[0]=1255 a[1]=44 
+motion a[0]=1255 a[1]=50 
+motion a[0]=1255 a[1]=50 
+button release 1 a[0]=1255 a[1]=50 
+Terminated
+Connection to 192.168.0.207 closed.

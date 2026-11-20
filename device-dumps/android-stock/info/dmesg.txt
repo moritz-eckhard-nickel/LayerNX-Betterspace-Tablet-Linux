@@ -1,0 +1,1150 @@
+[ 1888.149355] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1888.155746] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1046 us]
+[ 1888.162972] -(0)[0:swapper/0]mtk_charger_alarm_timer_func: not suspend, wake up charger
+[ 1888.166062] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60f6, adc_result=4090
+[ 1888.167847] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x493, adc_result=514
+[ 1888.169224] .(0)[220:charger_thread]Vbat=4090,Ibat=17160,I=0,VChr=4863,T=25,Soc=45:23,CT:3:3 hv:1 pd:0:0
+[ 1888.170489] .(0)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1898 140103726
+[ 1888.171602] -(0)[220:charger_thread]alarmtimer_enqueue, 1898140103726
+[ 1888.173706] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x493, adc_result=514
+[ 1888.175413] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x491, adc_result=513
+[ 1888.176780] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1888.177925] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1861
+[ 1888.178896] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1888.180108] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:2100 2100 type:3 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1888.245616] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1888.410902] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 7216 > [42][860] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1888.412630] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1888.413656] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1888.414759] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2907, retry:7436, fail:14957, rts_fail:21, ack_fail:14936), Rx(rate:10, total:135247, dup:0, fcs_fail:38188), PER(0), Congestion(180)
+[ 1888.955154] .(0)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-52, NewRssi=-52
+[ 1888.957127] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-52, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27065, RxOK=183409
+[ 1889.082873] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1889.380834] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1889.384366] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1889.434886] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 13152 > [0][1644] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1889.436626] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1889.437652] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1889.438775] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2907, retry:7436, fail:14957, rts_fail:21, ack_fail:14936), Rx(rate:10, total:135266, dup:0, fcs_fail:38197), PER(0), Congestion(71)
+[ 1889.441684] -(0)[0:swapper/0]mtk_axi_interrupt: 56 callbacks suppressed
+[ 1889.441691] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1889.443242] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1889.443248] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1889.444958] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1889.444963] .(0)[8272:kworker/0:0][connlog] irq counter=1940 module=0x0001
+[ 1889.668095] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1889.691540] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1042 us]
+[ 1889.908543] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1890.101078] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1890.107105] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5dc, adc_result=659
+[ 1890.298899] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1890.458905] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 3568 > [0][446] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1890.460621] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1890.461647] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1890.462713] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2907, retry:7438, fail:14960, rts_fail:21, ack_fail:14939), Rx(rate:10, total:135294, dup:0, fcs_fail:38207), PER(100), Congestion(60)
+[ 1890.803659] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1890.818274] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1891.131120] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1891.482885] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 0 > [0][0] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1891.484549] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1891.485576] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1891.486665] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2907, retry:7439, fail:14961, rts_fail:21, ack_fail:14940), Rx(rate:10, total:135304, dup:0, fcs_fail:38216), PER(100), Congestion(66)
+[ 1891.489708] -(0)[0:swapper/0]mtk_axi_interrupt: 23 callbacks suppressed
+[ 1891.489716] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1891.491461] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1891.491468] .(0)[8272:kworker/0:0][connlog] irq counter=1942 module=0x0001
+[ 1891.969770] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-52, NewRssi=-52
+[ 1891.972481] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-52, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27065, RxOK=183423
+[ 1892.011446] -(1)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] BE: T[009252] R[000000] T_D[000000] T_F[000001]
+[ 1892.013063] -(1)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] BK: T[000000] R[000000] T_D[000000] T_F[000000]
+[ 1892.014654] -(1)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] VI: T[000000] R[000000] T_D[000000] T_F[000000]
+[ 1892.016245] -(1)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] VO: T[000044] R[000000] T_D[000000] T_F[000000]
+[ 1892.155109] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1892.506906] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 13160 > [598][1047] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1892.508665] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1892.509691] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1892.510760] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2907, retry:7439, fail:14961, rts_fail:21, ack_fail:14940), Rx(rate:10, total:135312, dup:0, fcs_fail:38223), PER(0), Congestion(542)
+[ 1892.708053] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1892.763533] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1036 us]
+[ 1893.174753] .(0)[408:watchdogd][WDK]: kick Ex WDT
+[ 1893.178847] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1893.469312] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1893.480434] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1893.530802] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 10120 > [0][1265] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1893.532538] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1893.533563] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1893.534622] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2908, retry:7440, fail:14963, rts_fail:21, ack_fail:14942), Rx(rate:10, total:135326, dup:0, fcs_fail:38233), PER(66), Congestion(69)
+[ 1893.537540] -(0)[1170:hif_thread]mtk_axi_interrupt: 42 callbacks suppressed
+[ 1893.537546] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1893.539382] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1893.539389] .(0)[8272:kworker/0:0][connlog] irq counter=1944 module=0x0001
+[ 1894.203357] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1894.554902] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 0 > [0][0] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1894.556568] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1894.557595] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1894.558702] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2909, retry:7441, fail:14967, rts_fail:21, ack_fail:14946), Rx(rate:10, total:135344, dup:0, fcs_fail:38242), PER(80), Congestion(10339)
+[ 1894.984197] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT STATE) Skip FW OWN due to pending INT
+[ 1894.985414] .(0)[1170:hif_thread][wlan][1170]wlanIST:(REQ WARN) Fail in nicProcessIST! status [-1073676269]
+[ 1894.987286] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-52, NewRssi=-52
+[ 1894.988774] .(2)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1894.992129] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[2396 us]
+[ 1894.995500] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-52, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27067, RxOK=183441
+[ 1895.227213] .(1)[8089:kworker/1:2]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1895.234438] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1895.241261] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[2070 us]
+[ 1895.265781] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1895.418905] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1895.430478] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1106 us]
+[ 1895.576804] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1895.576821] .(0)[8272:kworker/0:0][connlog] irq counter=1946 module=0x0001
+[ 1895.578995] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 10392 > [0][1299] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1895.580708] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1895.581735] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1895.582780] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2910, retry:7441, fail:14967, rts_fail:21, ack_fail:14946), Rx(rate:10, total:135352, dup:0, fcs_fail:38250), PER(0), Congestion(74)
+[ 1895.585679] -(0)[1170:hif_thread]mtk_axi_interrupt: 31 callbacks suppressed
+[ 1895.585685] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1895.649820] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1895.835419] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1043 us]
+[ 1896.129281] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1896.142712] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1036 us]
+[ 1896.251134] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1896.602903] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 5976 > [0][747] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1896.604620] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1896.605647] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1896.606754] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7444, fail:14971, rts_fail:21, ack_fail:14950), Rx(rate:10, total:135369, dup:0, fcs_fail:38261), PER(80), Congestion(8716)
+[ 1896.610418] -(0)[8272:kworker/0:0]connlog_log_data_handler: 29 callbacks suppressed
+[ 1896.610425] .(0)[8272:kworker/0:0][connlog] bt_fw emi ring is empty!!
+[ 1897.278976] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1897.468003] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1897.474161] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1334 us]
+[ 1897.626901] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1897.628595] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1897.629622] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1897.630689] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7445, fail:14973, rts_fail:21, ack_fail:14952), Rx(rate:10, total:135380, dup:0, fcs_fail:38266), PER(100), Congestion(50)
+[ 1897.633614] -(0)[1170:hif_thread]mtk_axi_interrupt: 25 callbacks suppressed
+[ 1897.633621] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1897.635432] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1897.635439] .(0)[8272:kworker/0:0][connlog] irq counter=1948 module=0x0001
+[ 1898.007603] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-52, NewRssi=-52
+[ 1898.009789] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-52, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27067, RxOK=183456
+[ 1898.098493] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1898.170693] -(0)[0:swapper/0]mtk_charger_alarm_timer_func: not suspend, wake up charger
+[ 1898.173865] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x611f, adc_result=4097
+[ 1898.175753] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x491, adc_result=513
+[ 1898.177129] .(0)[220:charger_thread]Vbat=4097,Ibat=17828,I=0,VChr=4853,T=25,Soc=45:23,CT:3:3 hv:1 pd:0:0
+[ 1898.178364] .(0)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1908 147979419
+[ 1898.179501] -(0)[220:charger_thread]alarmtimer_enqueue, 1908147979419
+[ 1898.180712] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x48e, adc_result=512
+[ 1898.182415] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x492, adc_result=514
+[ 1898.183781] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1898.184926] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1871
+[ 1898.185871] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1898.187107] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:2100 2100 type:3 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1898.248913] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1898.295603] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1898.299518] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1898.508733] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1898.601013] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1045 us]
+[ 1898.650907] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1448 > [0][181] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1898.652626] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1898.653653] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1898.654758] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7447, fail:14978, rts_fail:21, ack_fail:14957), Rx(rate:10, total:135389, dup:0, fcs_fail:38275), PER(100), Congestion(4274)
+[ 1899.322835] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1899.674823] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 4832 > [0][604] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1899.676538] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1899.677564] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1899.678623] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7448, fail:14983, rts_fail:21, ack_fail:14962), Rx(rate:10, total:135397, dup:0, fcs_fail:38282), PER(100), Congestion(77)
+[ 1899.681551] -(0)[1170:hif_thread]mtk_axi_interrupt: 28 callbacks suppressed
+[ 1899.681557] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1899.683367] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1899.683374] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1899.685110] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1899.685115] .(0)[8272:kworker/0:0][connlog] irq counter=1950 module=0x0001
+[ 1899.828685] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1899.931381] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1040 us]
+[ 1900.163825] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1900.341761] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1046 us]
+[ 1900.347111] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1900.538926] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1900.698902] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 6152 > [0][769] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1900.700616] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1900.701643] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1900.702748] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7448, fail:14983, rts_fail:21, ack_fail:14962), Rx(rate:10, total:135407, dup:0, fcs_fail:38292), PER(0), Congestion(1166)
+[ 1901.022675] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-52, NewRssi=-52
+[ 1901.024651] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-52, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27067, RxOK=183464
+[ 1901.370945] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5dc, adc_result=659
+[ 1901.446802] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1901.468136] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1046 us]
+[ 1901.720427] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1901.720444] .(0)[8272:kworker/0:0][connlog] irq counter=1952 module=0x0001
+[ 1901.722600] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1901.724269] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1901.725296] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1901.726309] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7449, fail:14986, rts_fail:21, ack_fail:14965), Rx(rate:10, total:135418, dup:0, fcs_fail:38301), PER(100), Congestion(48)
+[ 1901.729321] -(0)[0:swapper/0]mtk_axi_interrupt: 29 callbacks suppressed
+[ 1901.729328] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1902.395541] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1902.586946] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1902.594026] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1046 us]
+[ 1902.746835] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 0 > [0][0] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1902.748496] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1902.749522] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1902.750601] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7450, fail:14988, rts_fail:21, ack_fail:14967), Rx(rate:10, total:135427, dup:0, fcs_fail:38310), PER(100), Congestion(59)
+[ 1903.419100] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1903.610507] .(1)[8271:kworker/1:1][HIF-SDIO][I]wmt_dev_tra_poll:**poll_during_time = 26624 > 3000, during_count = 5928 > 200, query
+[ 1903.610549] .(2)[130:hang_detect][Hang_Detect] hang_detect thread counts down 10:10, status 1.
+[ 1903.612103] .(1)[8271:kworker/1:1][STP-PSM] [I]_stp_psm_do_wait: STP is waiting state for ACT, i=1, state = 2
+[ 1903.613328] .(2)[130:hang_detect][Hang_Detect] system_server found pid:804.
+[ 1903.642821] .(1)[8271:kworker/1:1][STP-PSM] [I]_stp_psm_do_wait: +Total waits for ACT takes 30712 usec
+[ 1903.648088] .(1)[8271:kworker/1:1][HIF-SDIO][I]wmt_dev_tm_temp_query:[Thermal] current_temp = 0x22
+[ 1903.770840] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 960 > [0][120] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1903.772544] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1903.773570] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1903.774664] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7451, fail:14989, rts_fail:21, ack_fail:14968), Rx(rate:10, total:135434, dup:0, fcs_fail:38321), PER(100), Congestion(10192)
+[ 1903.777679] -(0)[0:swapper/0]mtk_axi_interrupt: 20 callbacks suppressed
+[ 1903.777686] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1903.779234] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1903.779241] .(0)[8272:kworker/0:0][connlog] irq counter=1954 module=0x0001
+[ 1903.783925] .(2)[46:irq/157-mt6358-]mt6358-pmic 1000d000.pwrap:mt6357-pmic: Reg[0xf9e]=0x200,name=nag_c_dltv,hwirq=121,type=4
+[ 1903.785460] .(2)[46:irq/157-mt6358-][read_nafg_vbat] i:0 nag_vbat_reg 0xe103 nag_vbat_mv 40926:24835
+[ 1903.786798] .(2)[46:irq/157-mt6358-][read_nafg_vbat1] 1 1 10 1 0 1 22416 5388 0
+[ 1903.787825] .(2)[46:irq/157-mt6358-][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 1 0 1
+[ 1903.788788] .(2)[46:irq/157-mt6358-]GM3log-nafg 1903 1903 36942 40926 104013 3 -11988
+[ 1903.789814] .(2)[46:irq/157-mt6358-][fg_nafg_int_handler][fg_bat_nafg] [3:104013:-11988]
+[ 1903.790904] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=121, en=0, depth=1
+[ 1903.791936] .(2)[46:irq/157-mt6358-][fg_bat_temp_int_sw_check] tmp 25 lt 24 ht 26
+[ 1903.793511] .(0)[422:fuelgauged][read_nafg_vbat] i:0 nag_vbat_reg 0xe103 nag_vbat_mv 40926:24835
+[ 1903.794747] .(0)[422:fuelgauged][read_nafg_vbat1] 0 0 10 1 0 0 22416 5388 0
+[ 1903.795721] .(0)[422:fuelgauged][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 0 0 0
+[ 1903.796621] .(0)[422:fuelgauged][read_nafg_vbat] i:0 nag_vbat_reg 0xe103 nag_vbat_mv 40926:24835
+[ 1903.797807] .(0)[422:fuelgauged][read_nafg_vbat1] 0 0 10 1 0 0 22416 5388 0
+[ 1903.798807] .(0)[422:fuelgauged][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 0 0 0
+[ 1903.799847] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=121, en=1, depth=0
+[ 1903.800905] .(0)[422:fuelgauged]MTK_FG: [fg_bat_int1_handler]g_bat_cycle_ncar=31822
+[ 1903.802756] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1903.804738] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1903.806076] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1903.808137] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1903.809104] .(0)[422:fuelgauged][fr] FG_DAEMON_CMD_SET_FG_BAT_INT1_GAP = 216 car:7914
+[ 1903.810463] .(0)[422:fuelgauged]MTK_FG: [fg_bat_int2_handler]car:7914 pre_car:7808 ht:150 lt:94 u_type:0 type:2
+[ 1903.812426] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1903.814415] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1903.815376] .(0)[422:fuelgauged][fr][fg_bat_int2] FG_DAEMON_CMD_SET_FG_BAT_INT2_LT_GAP = 96
+[ 1903.816899] .(0)[422:fuelgauged][fr] FG_DAEMON_CMD_GET_FG_CURRENT_IAVG_VALID = 1
+[ 1903.819663] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x6104, adc_result=4092
+[ 1903.821207] .(0)[422:fuelgauged]MTK_FG: [FGADC_info] tmp:25 25 25 rdnafg:0 vc:0 disable_fg:0:0 fg_v:9621:379:34856:18109:43278:5437:4563:4563 low_temp:0 0 0
+[ 1903.823110] .(0)[422:fuelgauged]MTK_FG: [FGADC_intr_end][FG_INTR_NAFG_VOLTAGE]soc:4563 fg_c_soc:3626 fg_v_soc:4563 ui_soc:2256 vc_diff:-937 vc_mode 0 VBAT 40920 T:[25 V 25 C 25 avg:25] D0_C 1798 D0_V 379 CAR[c:7914 v:18109] Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0(0):0:0] UI[0:0] Chr[1:0:0] pseudo1 0  DC_ratio 100 dodinit[1][0],I:17280
+[ 1903.829021] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60fe, adc_result=4091
+[ 1903.831008] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0x97
+[ 1903.832312] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_set_spare_register: cmd[0], set rg[0x2a, 0xff , 8] = 0x97
+[ 1903.833821] .(0)[422:fuelgauged][fg_res] FG_DAEMON_CMD_SET_CON0_SOC = 4613
+[ 1903.834699] .(1)[395:health@2.0-serv]healthd: battery l=23 v=4091 t=25.0 h=2 st=2 c=1715 fc=5799000 cc=229 chg=a
+[ 1903.836802] .(1)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60ef, adc_result=4089
+[ 1903.840370] .(1)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60cf, adc_result=4084
+[ 1903.841768] .(1)[422:fuelgauged]get_shutdown_cond ret:0 0 0 0 vbat:4084
+[ 1904.035747] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-52, NewRssi=-52
+[ 1904.037729] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-52, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27067, RxOK=183467
+[ 1904.110431] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1904.130653] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1163 us]
+[ 1904.443141] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1904.794903] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 0 > [0][0] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1904.796603] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1904.797630] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1904.798695] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7451, fail:14989, rts_fail:21, ack_fail:14968), Rx(rate:10, total:135443, dup:0, fcs_fail:38330), PER(0), Congestion(50)
+[ 1905.250518] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1905.255532] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1133 us]
+[ 1905.467115] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1905.471195] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1905.658692] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1905.666517] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1095 us]
+[ 1905.818879] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1905.820573] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1905.821600] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1905.822688] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7452, fail:14993, rts_fail:21, ack_fail:14972), Rx(rate:10, total:135451, dup:0, fcs_fail:38341), PER(100), Congestion(1812)
+[ 1905.825743] -(0)[0:swapper/0]mtk_axi_interrupt: 26 callbacks suppressed
+[ 1905.825750] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1905.827486] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1905.827493] .(0)[8272:kworker/0:0][connlog] irq counter=1956 module=0x0001
+[ 1906.491750] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5dc, adc_result=659
+[ 1906.842918] .(2)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 14768 > [0][1846] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1906.844656] .(2)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1906.845683] .(2)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1906.846798] .(2)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7453, fail:14994, rts_fail:21, ack_fail:14973), Rx(rate:10, total:135459, dup:0, fcs_fail:38349), PER(100), Congestion(77)
+[ 1906.850722] -(0)[8272:kworker/0:0]connlog_log_data_handler: 29 callbacks suppressed
+[ 1906.850738] .(0)[8272:kworker/0:0][connlog] bt_fw emi ring is empty!!
+[ 1906.902463] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1906.908907] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1033 us]
+[ 1906.930932] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1906.997717] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1907.048553] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-60, NewRssi=-60
+[ 1907.050777] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-60, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27067, RxOK=183505
+[ 1907.515118] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1907.866906] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 14856 > [0][1857] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1907.868646] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1907.869672] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1907.870804] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7453, fail:14997, rts_fail:21, ack_fail:14976), Rx(rate:10, total:135489, dup:0, fcs_fail:38357), PER(100), Congestion(379)
+[ 1907.873748] -(0)[0:swapper/0]mtk_axi_interrupt: 63 callbacks suppressed
+[ 1907.873755] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1907.875317] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1907.875324] .(0)[8272:kworker/0:0][connlog] irq counter=1958 module=0x0001
+[ 1907.905238] .(2)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1907.917869] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1049 us]
+[ 1908.178599] -(0)[0:swapper/0]mtk_charger_alarm_timer_func: not suspend, wake up charger
+[ 1908.181774] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x6106, adc_result=4093
+[ 1908.183543] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x490, adc_result=513
+[ 1908.184919] .(0)[220:charger_thread]Vbat=4093,Ibat=17435,I=0,VChr=4853,T=25,Soc=46:23,CT:3:3 hv:1 pd:0:0
+[ 1908.186153] .(0)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1918 155768035
+[ 1908.187294] -(0)[220:charger_thread]alarmtimer_enqueue, 1918155768035
+[ 1908.188508] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x492, adc_result=514
+[ 1908.190191] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x492, adc_result=514
+[ 1908.191582] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1908.192728] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1882
+[ 1908.193674] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1908.194909] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:2100 2100 type:3 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1908.264158] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1908.539100] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1908.553198] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1908.740670] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[2069 us]
+[ 1908.890665] .(2)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 14760 > [0][1845] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1908.892402] .(2)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1908.893429] .(2)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1908.894518] .(2)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7455, fail:15005, rts_fail:21, ack_fail:14984), Rx(rate:10, total:135515, dup:0, fcs_fail:38368), PER(100), Congestion(80)
+[ 1909.563101] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1909.805965] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1909.864885] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1909.914949] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1624 > [0][203] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1909.916667] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1909.917694] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1909.918829] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7458, fail:15010, rts_fail:21, ack_fail:14989), Rx(rate:10, total:135533, dup:0, fcs_fail:38376), PER(100), Congestion(11210)
+[ 1909.921933] -(0)[0:swapper/0]mtk_axi_interrupt: 35 callbacks suppressed
+[ 1909.921942] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1909.923468] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1909.923474] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1909.925184] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1909.925189] .(0)[8272:kworker/0:0][connlog] irq counter=1960 module=0x0001
+[ 1910.070213] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-57, NewRssi=-57
+[ 1910.073086] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-57, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27068, RxOK=183525
+[ 1910.405784] .(0)[825:watchdog]AEEIOCTL_RT_MON_Kick ( 300)
+[ 1910.407289] .(0)[825:watchdog][Hang_Detect] hang_detect enabled 10
+[ 1910.587795] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1910.778927] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1910.938629] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 5288 > [71][590] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1910.940353] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1910.941380] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1910.942465] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2911, retry:7458, fail:15010, rts_fail:21, ack_fail:14989), Rx(rate:10, total:135544, dup:0, fcs_fail:38383), PER(0), Congestion(72)
+[ 1910.945413] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT STATE) Skip FW OWN due to pending INT
+[ 1910.947902] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1910.990615] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1206 us]
+[ 1911.419207] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1911.503220] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1040 us]
+[ 1911.611138] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1911.962908] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 10192 > [0][1274] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1911.964648] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1911.965674] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1911.966811] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2912, retry:7459, fail:15012, rts_fail:21, ack_fail:14991), Rx(rate:10, total:135555, dup:0, fcs_fail:38393), PER(66), Congestion(423)
+[ 1911.969702] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1911.969710] .(0)[8272:kworker/0:0][connlog] irq counter=1962 module=0x0001
+[ 1911.970725] -(0)[8272:kworker/0:0]mtk_axi_interrupt: 40 callbacks suppressed
+[ 1911.970730] -(0)[8272:kworker/0:0][wlan] In HIF ISR.
+[ 1912.634872] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1912.986821] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 22960 > [0][2870] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1912.988559] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1912.989585] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1912.990646] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2913, retry:7461, fail:15017, rts_fail:21, ack_fail:14996), Rx(rate:10, total:135574, dup:0, fcs_fail:38400), PER(83), Congestion(50)
+[ 1913.085604] .(3)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-56, NewRssi=-56
+[ 1913.087760] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-56, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27068, RxOK=183573
+[ 1913.175888] .(0)[408:watchdogd][WDK]: kick Ex WDT
+[ 1913.226584] .(2)[46:irq/157-mt6358-]mt6358-pmic 1000d000.pwrap:mt6357-pmic: Reg[0xc38]=0x1,name=fg_bat0_h,hwirq=80,type=4
+[ 1913.228235] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1913.230256] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1913.231466] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1913.233484] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1913.235028] .(0)[148:gauge_coulomb_t][fg_bat_int2_h_handler] car:7959 ht:150
+[ 1913.236156] .(0)[148:gauge_coulomb_t][fg_sw_bat_cycle_accu]ERROR!drop diff_car
+[ 1913.237477] .(0)[148:gauge_coulomb_t][fg_sw_bat_cycle_accu]car[o:7808 n:7959],diff_car:151,ncar[o:31822 n:31822 hw:0] thr 43278
+[ 1913.239004] .(0)[148:gauge_coulomb_t][fg_bat_temp_int_sw_check] tmp 25 lt 24 ht 26
+[ 1913.240249] .(0)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1913.242278] .(0)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1913.243581] .(0)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1913.245610] .(0)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1913.247822] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1913.249805] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1913.250866] .(1)[422:fuelgauged][fr][fg_bat_int2] FG_DAEMON_CMD_SET_FG_BAT_INT2_HT_GAP = 152
+[ 1913.252672] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1913.254652] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1913.255614] .(1)[422:fuelgauged][fr][fg_bat_int2] FG_DAEMON_CMD_SET_FG_BAT_INT2_LT_GAP = 85
+[ 1913.256787] .(1)[422:fuelgauged]MTK_FG: [fg_bat_int1_handler]g_bat_cycle_ncar=31822
+[ 1913.258656] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1913.260633] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1913.261976] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1913.264031] .(1)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1913.264992] .(1)[422:fuelgauged][fr] FG_DAEMON_CMD_SET_FG_BAT_INT1_GAP = 216 car:7959
+[ 1913.266461] .(1)[422:fuelgauged][fr] FG_DAEMON_CMD_GET_FG_CURRENT_IAVG_VALID = 1
+[ 1913.269327] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x6103, adc_result=4092
+[ 1913.270875] .(0)[422:fuelgauged]MTK_FG: [FGADC_info] tmp:25 25 25 rdnafg:0 vc:0 disable_fg:0:0 fg_v:9621:379:34856:18109:43278:5437:4563:4563 low_temp:0 0 0
+[ 1913.272741] .(0)[422:fuelgauged]MTK_FG: [FGADC_intr_end][FG_INTR_UISOC_HT]soc:4563 fg_c_soc:3637 fg_v_soc:4563 ui_soc:2305 vc_diff:-926 vc_mode 0 VBAT 40920 T:[25 V 25 C 25 avg:25] D0_C 1798 D0_V 379 CAR[c:7959 v:18109] Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0(0):0:0] UI[0:0] Chr[1:0:0] pseudo1 0  DC_ratio 100 dodinit[1][0],I:17280
+[ 1913.278565] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x610c, adc_result=4094
+[ 1913.280480] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0x97
+[ 1913.281788] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_set_spare_register: cmd[0], set rg[0x2a, 0xff , 8] = 0x97
+[ 1913.283350] .(0)[422:fuelgauged][fg_res] FG_DAEMON_CMD_SET_CON0_SOC = 4613
+[ 1913.284185] .(3)[395:health@2.0-serv]healthd: battery l=23 v=4094 t=25.0 h=2 st=2 c=1734 fc=5799000 cc=229 chg=a
+[ 1913.286232] .(2)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60f3, adc_result=4090
+[ 1913.289604] .(2)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60d6, adc_result=4085
+[ 1913.291131] .(2)[422:fuelgauged]get_shutdown_cond ret:0 0 0 0 vbat:4085
+[ 1913.335388] -(0)[8131:kworker/u9:0]CPU0: update max cpu_capacity 505
+[ 1913.362703] -(3)[25:ksoftirqd/3]CPU3: update max cpu_capacity 1024
+[ 1913.659103] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1913.750037] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1913.755294] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1042 us]
+[ 1914.010898] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 26944 > [0][3368] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1914.012637] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1914.013663] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1914.014755] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2914, retry:7461, fail:15017, rts_fail:21, ack_fail:14996), Rx(rate:10, total:135611, dup:0, fcs_fail:38409), PER(0), Congestion(179)
+[ 1914.017664] -(0)[1170:hif_thread]mtk_axi_interrupt: 62 callbacks suppressed
+[ 1914.017670] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1914.019512] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1914.019519] .(0)[8272:kworker/0:0][connlog] irq counter=1964 module=0x0001
+[ 1914.570896] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1914.575012] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1036 us]
+[ 1914.683847] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1915.034573] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 824 > [0][103] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1915.036279] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1915.037306] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1915.038318] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7461, fail:15021, rts_fail:21, ack_fail:15000), Rx(rate:10, total:135624, dup:0, fcs_fail:38417), PER(80), Congestion(35)
+[ 1915.130693] .(2)[0:swapper/2][wlan][0]kalArpFrameClassifier:(TX INFO) ARP REQ PKT[0x00000000c9c32364] TAR MAC/IP[00:00:00:00:00:00]/[192.168.1.1], SeqNo: 53
+[ 1915.132764] .(0)[1169:main_thread][wlan][1169]nicTxFillDesc:(NIC INFO) Compose TXD by Msdu info
+[ 1915.136106] .(1)[1169:main_thread][wlan][1169]wlanPktTxDone:(TX INFO) TX DONE, Type[ARP] Tag[0x2f54e600] WIDX:PID[5:40] Status[0], SeqNo: 53
+[ 1915.707133] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1915.886427] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1915.898909] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1915.906488] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1102 us]
+[ 1916.058866] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 816 > [42][60] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1916.060570] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1916.061597] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1916.062671] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7462, fail:15023, rts_fail:21, ack_fail:15002), Rx(rate:10, total:135634, dup:0, fcs_fail:38428), PER(100), Congestion(48)
+[ 1916.065615] -(0)[0:swapper/0]mtk_axi_interrupt: 24 callbacks suppressed
+[ 1916.065624] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1916.067175] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1916.067182] .(0)[8272:kworker/0:0][connlog] irq counter=1966 module=0x0001
+[ 1916.100805] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-56, NewRssi=-56
+[ 1916.103435] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-56, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27069, RxOK=183582
+[ 1916.731132] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1917.027795] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1917.032312] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1060 us]
+[ 1917.082812] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1917.084505] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1917.085532] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1917.086593] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7462, fail:15023, rts_fail:21, ack_fail:15002), Rx(rate:650, total:135642, dup:0, fcs_fail:38440), PER(0), Congestion(78)
+[ 1917.090500] -(0)[8272:kworker/0:0]connlog_log_data_handler: 29 callbacks suppressed
+[ 1917.090514] .(0)[8272:kworker/0:0][connlog] bt_fw emi ring is empty!!
+[ 1917.755112] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1918.106832] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 3000 > [0][375] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1918.108547] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1918.109574] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1918.110666] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7463, fail:15025, rts_fail:21, ack_fail:15004), Rx(rate:10, total:135650, dup:0, fcs_fail:38449), PER(100), Congestion(98)
+[ 1918.113670] -(0)[0:swapper/0]mtk_axi_interrupt: 27 callbacks suppressed
+[ 1918.113678] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1918.115226] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1918.115233] .(0)[8272:kworker/0:0][connlog] irq counter=1968 module=0x0001
+[ 1918.186355] -(0)[0:swapper/0]mtk_charger_alarm_timer_func: not suspend, wake up charger
+[ 1918.189524] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x610b, adc_result=4094
+[ 1918.191591] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x490, adc_result=513
+[ 1918.192967] .(0)[220:charger_thread]Vbat=4094,Ibat=17299,I=0,VChr=4853,T=25,Soc=46:23,CT:3:3 hv:1 pd:0:0
+[ 1918.194202] .(0)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1928 163816959
+[ 1918.195337] -(0)[220:charger_thread]alarmtimer_enqueue, 1928163816959
+[ 1918.196563] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x491, adc_result=513
+[ 1918.198249] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x490, adc_result=513
+[ 1918.199648] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1918.200795] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1892
+[ 1918.201740] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1918.202975] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:2100 2100 type:3 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1918.270316] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1918.550261] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1918.568763] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1918.779993] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1919.115637] .(0)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-56, NewRssi=-56
+[ 1919.117604] .(2)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-56, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27069, RxOK=183587
+[ 1919.130595] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1919.132288] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1919.133315] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1919.134328] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7465, fail:15031, rts_fail:21, ack_fail:15010), Rx(rate:10, total:135661, dup:0, fcs_fail:38460), PER(100), Congestion(61)
+[ 1919.687755] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1919.694483] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1040 us]
+[ 1919.802874] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1920.154960] .(2)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 3056 > [0][382] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1920.156675] .(2)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1920.157702] .(2)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1920.158773] .(2)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7465, fail:15031, rts_fail:21, ack_fail:15010), Rx(rate:10, total:135669, dup:0, fcs_fail:38472), PER(0), Congestion(66)
+[ 1920.161676] -(0)[1170:hif_thread]mtk_axi_interrupt: 27 callbacks suppressed
+[ 1920.161682] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1920.163491] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1920.163497] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1920.165234] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1920.165242] .(0)[8272:kworker/0:0][connlog] irq counter=1970 module=0x0001
+[ 1920.826872] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1921.018874] .(1)[8089:kworker/1:2]usb_state<DISCONNECTED>
+[ 1921.182753] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 38064 > [282][4476] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1921.184553] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1921.185587] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1921.186660] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2915, retry:7465, fail:15031, rts_fail:21, ack_fail:15010), Rx(rate:10, total:135679, dup:0, fcs_fail:38480), PER(0), Congestion(57)
+[ 1921.204792] .(1)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1921.230256] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1033 us]
+[ 1921.851419] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1922.130041] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-54, NewRssi=-54
+[ 1922.132477] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-54, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27071, RxOK=183635
+[ 1922.202842] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 960 > [0][120] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1922.204547] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1922.205574] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1922.206660] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2916, retry:7465, fail:15032, rts_fail:21, ack_fail:15011), Rx(rate:10, total:135729, dup:0, fcs_fail:38497), PER(50), Congestion(70)
+[ 1922.209572] -(0)[0:swapper/0]mtk_axi_interrupt: 71 callbacks suppressed
+[ 1922.209579] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1922.211144] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1922.211151] .(0)[8272:kworker/0:0][connlog] irq counter=1972 module=0x0001
+[ 1922.350262] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1922.356838] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1049 us]
+[ 1922.878170] .(1)[548:HwBinder:393_2][ION][ion_dbg] alloc_pages order=4 cache=0
+[ 1922.880273] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1922.911805] .(0)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0x6, MAX:0x6
+[ 1922.925688] .(3)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0x6, MAX:0x6
+[ 1922.954586] -(3)[8:rcu_preempt]CPU3: update max cpu_capacity 784
+[ 1922.961194] .(0)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0x6, MAX:0x6
+[ 1922.973570] -(2)[8131:kworker/u9:0]CPU2: update max cpu_capacity 1024
+[ 1922.978776] -(2)[417:surfaceflinger]CPU2: update max cpu_capacity 669
+[ 1922.998494] .(2)[0:swapper/2]CPU2: update max cpu_capacity 505
+[ 1923.070478] .(2)[0:swapper/2]CPU2: update max cpu_capacity 540
+[ 1923.086507] .(2)[0:swapper/2]CPU2: update max cpu_capacity 505
+[ 1923.226513] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 5800 > [0][725] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1923.228258] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1923.229485] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1923.230653] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2917, retry:7465, fail:15032, rts_fail:21, ack_fail:15011), Rx(rate:10, total:135739, dup:0, fcs_fail:38506), PER(0), Congestion(63)
+[ 1923.378241] .(2)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1923.380444] .(2)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1055 us]
+[ 1923.448373] -(2)[1551:sugov:0]CPU2: update max cpu_capacity 1024
+[ 1923.450592] -(2)[8:rcu_preempt]CPU2: update max cpu_capacity 505
+[ 1923.498735] -(2)[1551:sugov:0]CPU2: update max cpu_capacity 1024
+[ 1923.502863] -(2)[461:DispSync]CPU2: update max cpu_capacity 505
+[ 1923.533653] -(2)[6908:kworker/u8:1]CPU2: update max cpu_capacity 1024
+[ 1923.536247] -(2)[1106:Binder:804_5]CPU2: update max cpu_capacity 505
+[ 1923.551710] -(1)[843:Binder:417_3]CPU1: update max cpu_capacity 1024
+[ 1923.555261] -(1)[456:Binder:417_1]CPU1: update max cpu_capacity 505
+[ 1923.583403] -(0)[1170:hif_thread]CPU0: update max cpu_capacity 1024
+[ 1923.602284] -(0)[968:Jit thread pool]CPU0: update max cpu_capacity 505
+[ 1923.626448] .(2)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0xa, MAX:0x6
+[ 1923.631938] -(2)[454:HwBinder:394_2]CPU2: update max cpu_capacity 622
+[ 1923.638745] -(2)[244:kworker/u8:4]CPU2: update max cpu_capacity 505
+[ 1923.641894] .(0)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0xa, MAX:0x6
+[ 1923.659816] -(3)[417:surfaceflinger]CPU3: update max cpu_capacity 1024
+[ 1923.662477] .(3)[0:swapper/3]CPU3: update max cpu_capacity 505
+[ 1923.684220] -(0)[7058:kworker/u9:3]CPU0: update max cpu_capacity 1024
+[ 1923.706824] -(0)[463:app]CPU0: update max cpu_capacity 505
+[ 1923.706839] .(1)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1923.734851] -(0)[8272:kworker/0:0]CPU0: update max cpu_capacity 1024
+[ 1923.741718] -(0)[417:surfaceflinger]CPU0: update max cpu_capacity 505
+[ 1923.786663] -(0)[1496:mali-cmar-backe]CPU0: update max cpu_capacity 1024
+[ 1923.792010] -(0)[463:app]CPU0: update max cpu_capacity 505
+[ 1923.855439] -(2)[8278:kworker/2:1]CPU2: update max cpu_capacity 1024
+[ 1923.860263] -(2)[461:DispSync]CPU2: update max cpu_capacity 505
+[ 1923.892463] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1037 us]
+[ 1923.899031] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1923.905761] -(3)[1551:sugov:0]CPU3: update max cpu_capacity 1024
+[ 1923.907711] -(3)[5:kworker/u8:0]CPU3: update max cpu_capacity 505
+[ 1923.974300] -(3)[1551:sugov:0]CPU3: update max cpu_capacity 1024
+[ 1923.983099] -(3)[1551:sugov:0]CPU3: update max cpu_capacity 505
+[ 1924.117068] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1924.202636] -(0)[8272:kworker/0:0]CPU0: update max cpu_capacity 1024
+[ 1924.250812] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1488 > [0][186] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1924.252559] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1924.253586] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1924.254643] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2918, retry:7465, fail:15032, rts_fail:21, ack_fail:15011), Rx(rate:10, total:135749, dup:0, fcs_fail:38513), PER(0), Congestion(2213)
+[ 1924.264002] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1924.264018] .(0)[8272:kworker/0:0][connlog] irq counter=1974 module=0x0001
+[ 1924.265176] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[7626 us]
+[ 1924.267358] -(0)[0:swapper/0]mtk_axi_interrupt: 25 callbacks suppressed
+[ 1924.267363] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1924.289410] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1924.303109] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1040 us]
+[ 1924.923143] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1925.008029] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1925.019162] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1041 us]
+[ 1925.143678] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-58, NewRssi=-58
+[ 1925.145649] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-58, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27071, RxOK=183645
+[ 1925.173252] -(0)[464:sf]CPU0: update max cpu_capacity 505
+[ 1925.230066] -(0)[8272:kworker/0:0]CPU0: update max cpu_capacity 1024
+[ 1925.274833] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 4192 > [0][524] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1925.276550] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1925.277614] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1925.278675] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2919, retry:7466, fail:15036, rts_fail:21, ack_fail:15015), Rx(rate:10, total:135758, dup:0, fcs_fail:38519), PER(80), Congestion(64)
+[ 1925.946849] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1926.138941] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1926.254486] .(3)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0xa, MAX:0x6
+[ 1926.298561] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 6464 > [0][808] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1926.300280] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1926.301312] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1926.302322] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7467, fail:15037, rts_fail:21, ack_fail:15016), Rx(rate:10, total:135767, dup:0, fcs_fail:38530), PER(50), Congestion(145)
+[ 1926.306313] -(0)[417:surfaceflinger]mtk_axi_interrupt: 33 callbacks suppressed
+[ 1926.306325] -(0)[417:surfaceflinger][wlan] In HIF ISR.
+[ 1926.308640] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1926.308654] .(0)[8272:kworker/0:0][connlog] irq counter=1976 module=0x0001
+[ 1926.362483] .(0)[0:swapper/0]CPU0: update max cpu_capacity 575
+[ 1926.370440] .(0)[0:swapper/0]CPU0: update max cpu_capacity 505
+[ 1926.527467] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1926.556641] .(2)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1089 us]
+[ 1926.588371] -(3)[1551:sugov:0]CPU3: update max cpu_capacity 1024
+[ 1926.594469] .(3)[0:swapper/3]CPU3: update max cpu_capacity 505
+[ 1926.657069] -(1)[463:app]CPU1: update max cpu_capacity 1024
+[ 1926.659283] -(1)[1551:sugov:0]CPU1: update max cpu_capacity 505
+[ 1926.690401] -(3)[1551:sugov:0]CPU3: update max cpu_capacity 1024
+[ 1926.702833] -(3)[8:rcu_preempt]CPU3: update max cpu_capacity 669
+[ 1926.710470] .(3)[0:swapper/3]CPU3: update max cpu_capacity 540
+[ 1926.718539] .(0)[0:swapper/0]CPU0: update max cpu_capacity 1024
+[ 1926.746477] .(0)[0:swapper/0]CPU0: update max cpu_capacity 540
+[ 1926.758070] -(0)[8272:kworker/0:0]CPU0: update max cpu_capacity 1024
+[ 1926.770211] -(0)[1504:hwuiTask0]CPU0: update max cpu_capacity 505
+[ 1926.788509] -(0)[52:ion_history]CPU0: update max cpu_capacity 1024
+[ 1926.801680] -(0)[1279:RenderThread]CPU0: update max cpu_capacity 505
+[ 1926.806445] .(3)[0:swapper/3]CPU3: update max cpu_capacity 540
+[ 1926.813123] -(3)[1279:RenderThread]CPU3: update max cpu_capacity 1024
+[ 1926.821833] -(3)[5:kworker/u8:0]CPU3: update max cpu_capacity 505
+[ 1926.842126] -(1)[5:kworker/u8:0]CPU1: update max cpu_capacity 1024
+[ 1926.854499] .(1)[0:swapper/1]CPU1: update max cpu_capacity 505
+[ 1926.878410] .(2)[0:swapper/2]CPU2: update max cpu_capacity 1024
+[ 1926.902582] -(2)[8278:kworker/2:1]CPU2: update max cpu_capacity 575
+[ 1926.914577] -(2)[8278:kworker/2:1]CPU2: update max cpu_capacity 1024
+[ 1926.972398] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1926.974449] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1927.070013] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[2069 us]
+[ 1927.311617] -(0)[8272:kworker/0:0]connlog_log_data_handler: 29 callbacks suppressed
+[ 1927.311641] .(0)[8272:kworker/0:0][connlog] bt_fw emi ring is empty!!
+[ 1927.322653] .(2)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 2512 > [0][314] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1927.325653] .(2)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1927.327420] .(2)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1927.328453] .(2)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7467, fail:15041, rts_fail:21, ack_fail:15020), Rx(rate:10, total:135778, dup:0, fcs_fail:38550), PER(100), Congestion(64)
+[ 1927.342449] .(2)[904:InputReader]CPU2: update max cpu_capacity 981
+[ 1927.353431] -(1)[1505:hwuiTask1]CPU1: update max cpu_capacity 1024
+[ 1927.382497] .(1)[0:swapper/1]CPU1: update max cpu_capacity 938
+[ 1927.390445] .(2)[0:swapper/2]CPU2: update max cpu_capacity 1024
+[ 1927.398442] .(2)[0:swapper/2]CPU2: update max cpu_capacity 750
+[ 1927.403544] -(1)[1551:sugov:0]CPU1: update max cpu_capacity 1024
+[ 1927.422502] .(1)[0:swapper/1]CPU1: update max cpu_capacity 835
+[ 1927.462490] .(1)[0:swapper/1]CPU1: update max cpu_capacity 750
+[ 1927.489997] -(1)[1279:RenderThread]CPU1: update max cpu_capacity 505
+[ 1927.510008] -(1)[463:app]CPU1: update max cpu_capacity 1024
+[ 1927.534458] .(1)[0:swapper/1]CPU1: update max cpu_capacity 669
+[ 1927.546436] .(1)[0:swapper/1]CPU1: update max cpu_capacity 505
+[ 1927.562553] -(0)[456:Binder:417_1]CPU0: update max cpu_capacity 1024
+[ 1927.578159] -(0)[464:sf]CPU0: update max cpu_capacity 505
+[ 1927.644048] -(0)[8272:kworker/0:0]CPU0: update max cpu_capacity 1024
+[ 1927.815331] -(0)[8131:kworker/u9:0]CPU0: update max cpu_capacity 669
+[ 1927.890670] -(2)[8278:kworker/2:1]CPU2: update max cpu_capacity 1024
+[ 1927.995152] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5d9, adc_result=657
+[ 1928.162201] .(0)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-67, NewRssi=-67
+[ 1928.164738] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-67, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27071, RxOK=183655
+[ 1928.194225] -(0)[1496:mali-cmar-backe]mtk_charger_alarm_timer_func: not suspend, wake up charger
+[ 1928.197631] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60c9, adc_result=4083
+[ 1928.199498] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x493, adc_result=514
+[ 1928.200888] .(0)[220:charger_thread]Vbat=4083,Ibat=16915,I=0,VChr=4863,T=25,Soc=46:23,CT:3:3 hv:1 pd:0:0
+[ 1928.202243] .(0)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1938 171798344
+[ 1928.203829] -(0)[220:charger_thread]alarmtimer_enqueue, 1938171798344
+[ 1928.205148] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x495, adc_result=515
+[ 1928.206900] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x492, adc_result=514
+[ 1928.208293] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1928.209505] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1902
+[ 1928.210588] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1928.211849] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:2100 2100 type:3 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1928.269607] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1928.319944] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1928.319960] .(0)[8272:kworker/0:0][connlog] irq counter=1978 module=0x0001
+[ 1928.346735] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1928 > [0][241] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1928.348450] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1928.349476] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1928.350532] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7469, fail:15044, rts_fail:21, ack_fail:15023), Rx(rate:10, total:135789, dup:0, fcs_fail:38571), PER(100), Congestion(1138)
+[ 1928.353479] -(0)[1170:hif_thread]mtk_axi_interrupt: 31 callbacks suppressed
+[ 1928.353486] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1928.513296] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1928.603894] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1045 us]
+[ 1929.019279] .(1)[8089:kworker/1:2]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1929.370837] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 2576 > [0][322] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1929.372553] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1929.373579] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1929.374638] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7470, fail:15046, rts_fail:21, ack_fail:15025), Rx(rate:10, total:135799, dup:0, fcs_fail:38579), PER(100), Congestion(48)
+[ 1930.042868] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1930.234582] .(1)[8271:kworker/1:1][HIF-SDIO][I]wmt_dev_tra_poll:**poll_during_time = 26624 > 3000, during_count = 7092 > 200, query
+[ 1930.236179] .(1)[8271:kworker/1:1][STP-PSM] [I]_stp_psm_do_wait: STP is waiting state for ACT, i=1, state = 2
+[ 1930.262823] .(1)[8271:kworker/1:1][STP-PSM] [I]_stp_psm_do_wait: +Total waits for ACT takes 26639 usec
+[ 1930.268050] .(1)[8271:kworker/1:1][HIF-SDIO][I]wmt_dev_tm_temp_query:[Thermal] current_temp = 0x22
+[ 1930.320785] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1930.320801] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1930.322629] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1930.322636] .(0)[8272:kworker/0:0][connlog] irq counter=1980 module=0x0001
+[ 1930.328923] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1930.344682] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1930.394847] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 18600 > [0][2325] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1930.396588] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1930.397614] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1930.398690] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7470, fail:15046, rts_fail:21, ack_fail:15025), Rx(rate:10, total:135811, dup:0, fcs_fail:38589), PER(0), Congestion(8305)
+[ 1930.401628] -(0)[0:swapper/0]mtk_axi_interrupt: 41 callbacks suppressed
+[ 1930.401636] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1930.469057] .(0)[899:AlarmManager]alarm_dev: alarm 2 set 1996.413000000
+[ 1930.469963] -(0)[899:AlarmManager]alarmtimer_enqueue, 1996413000000
+[ 1930.470893] .(0)[899:AlarmManager]alarm_dev: alarm 3 set 1990.438000000
+[ 1930.473508] .(1)[899:AlarmManager]alarm_dev: alarm 2 set 1996.413000000
+[ 1930.474516] -(1)[899:AlarmManager]alarmtimer_enqueue, 1996413000000
+[ 1930.475381] .(1)[899:AlarmManager]alarm_dev: alarm 3 set 1990.438000000
+[ 1930.506725] -(2)[8276:kworker/u8:2]CPU2: update max cpu_capacity 505
+[ 1930.522217] -(1)[1551:sugov:0]CPU1: update max cpu_capacity 1024
+[ 1931.068554] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1931.178066] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-53, NewRssi=-53
+[ 1931.180854] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-53, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27071, RxOK=183686
+[ 1931.214768] -(1)[501:mali-cmar-backe]CPU1: update max cpu_capacity 575
+[ 1931.226500] -(2)[461:DispSync]CPU2: update max cpu_capacity 1024
+[ 1931.258716] .(1)[8271:kworker/1:1]usb_state<DISCONNECTED>
+[ 1931.314149] -(2)[454:HwBinder:394_2][name:uclamp&] invalid CPU[2] clamp group [0:0] value
+[ 1931.418666] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 5544 > [0][693] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1931.420479] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1931.421521] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1931.422581] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7470, fail:15046, rts_fail:21, ack_fail:15025), Rx(rate:10, total:135835, dup:0, fcs_fail:38600), PER(0), Congestion(99)
+[ 1931.672571] .(2)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1931.675570] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[2036 us]
+[ 1931.791805] .(1)[149:battery_thread][fg_bat_temp_int_sw_check] tmp 25 lt 24 ht 26
+[ 1931.793015] .(1)[149:battery_thread][read_boot_battery_plug_out_status] rtc_invalid 0 plugout 1 bat_plug_out_time 31 sp3:0x80 pl:1 1
+[ 1931.796741] .(0)[149:battery_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60ef, adc_result=4089
+[ 1931.798427] .(0)[149:battery_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x492, adc_result=514
+[ 1931.799785] .(0)[149:battery_thread]lbat 0 35000 1 34500
+[ 1931.800491] .(0)[149:battery_thread]car[8047,8175,7743,8111,7874, cycle_car:7959,ncar:31822] c:1 17107 vbat:4089 vbus:4863 soc:46 23 gm3:0 0 0 0
+[ 1931.802188] .(0)[149:battery_thread]tmp:25 65535 65535 hcar2:152 lcar2:85 time:1931 sw_iavg:17280 17280 0 nafg_m:2 0 0
+[ 1931.803709] .(0)[149:battery_thread][read_nafg_vbat] i:0 nag_vbat_reg 0xe0b5 nag_vbat_mv 40798:24757
+[ 1931.804981] .(0)[149:battery_thread][read_nafg_vbat1] 0 1 10 1 0 1 22436 5369 0
+[ 1931.806002] .(0)[149:battery_thread][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 1 0 0
+[ 1931.807002] .(0)[149:battery_thread]GM3log-nint-nafg 1931 1931 36975 40798 104175 2 -7776
+[ 1931.808285] .(2)[422:fuelgauged]MTK_FG: get_kernel_cmd:1 0
+[ 1931.810972] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60d4, adc_result=4084
+[ 1931.815456] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60d0, adc_result=4084
+[ 1931.816963] .(0)[422:fuelgauged]MTK_FG: {FGADC}soc:4563 fg_c_soc:3637 fg_v_soc:4563 ui_soc:2305 vc_diff:-926 vc_mode 0 VBAT 40840 T:[25 V 25 C 25] D0_C 1798 D0_V 379 CAR[c:7959 v:18109]Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0:0:0] UI[0:0] Chr[1:0:0] pseudo1 0 DC_ratio 100 vboot:34514 34514 dod_init[1]
+[ 1932.091034] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1932.363621] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1932.363635] .(0)[8272:kworker/0:0][connlog] irq counter=1982 module=0x0001
+[ 1932.442610] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1808 > [0][226] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1932.444344] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1932.445377] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1932.446384] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7472, fail:15048, rts_fail:21, ack_fail:15027), Rx(rate:10, total:135851, dup:0, fcs_fail:38608), PER(100), Congestion(67)
+[ 1932.449458] -(0)[0:swapper/0]mtk_axi_interrupt: 36 callbacks suppressed
+[ 1932.449467] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1932.987228] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1933.006764] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1023 us]
+[ 1933.114926] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1933.176687] .(1)[408:watchdogd][WDK]: kick Ex WDT
+[ 1933.302755] .(2)[46:irq/157-mt6358-]mt6358-pmic 1000d000.pwrap:mt6357-pmic: Reg[0xf9e]=0x200,name=nag_c_dltv,hwirq=121,type=4
+[ 1933.304304] .(2)[46:irq/157-mt6358-][read_nafg_vbat] i:0 nag_vbat_reg 0xe0a5 nag_vbat_mv 40771:24741
+[ 1933.305538] .(2)[46:irq/157-mt6358-][read_nafg_vbat1] 1 1 10 1 0 1 22436 5369 0
+[ 1933.306614] .(2)[46:irq/157-mt6358-][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 1 0 1
+[ 1933.307586] .(2)[46:irq/157-mt6358-]GM3log-nafg 1933 1933 36975 40771 104201 3 -11575
+[ 1933.308611] .(2)[46:irq/157-mt6358-][fg_nafg_int_handler][fg_bat_nafg] [3:104201:-11575]
+[ 1933.309677] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=121, en=0, depth=1
+[ 1933.310747] .(2)[46:irq/157-mt6358-][fg_bat_temp_int_sw_check] tmp 25 lt 24 ht 26
+[ 1933.312251] .(3)[422:fuelgauged][read_nafg_vbat] i:0 nag_vbat_reg 0xe0a5 nag_vbat_mv 40771:24741
+[ 1933.313453] .(3)[422:fuelgauged][read_nafg_vbat1] 0 0 10 1 0 0 22436 5369 0
+[ 1933.314530] .(3)[422:fuelgauged][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 0 0 0
+[ 1933.315433] .(3)[422:fuelgauged][read_nafg_vbat] i:0 nag_vbat_reg 0xe0a5 nag_vbat_mv 40771:24741
+[ 1933.316627] .(3)[422:fuelgauged][read_nafg_vbat1] 0 0 10 1 0 0 22436 5369 0
+[ 1933.317603] .(3)[422:fuelgauged][read_nafg_vbat2] 1 0 1 1 1 0 1 0 0 0 0 0
+[ 1933.318686] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=121, en=1, depth=0
+[ 1933.319744] .(3)[422:fuelgauged]MTK_FG: [fg_bat_int1_handler]g_bat_cycle_ncar=31822
+[ 1933.321580] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1933.323585] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1933.324905] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1933.326879] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1933.327840] .(3)[422:fuelgauged][fr] FG_DAEMON_CMD_SET_FG_BAT_INT1_GAP = 216 car:8054
+[ 1933.329211] .(3)[422:fuelgauged]MTK_FG: [fg_bat_int2_handler]car:8054 pre_car:7959 ht:152 lt:85 u_type:0 type:2
+[ 1933.331192] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1933.333168] .(3)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1933.334128] .(3)[422:fuelgauged][fr][fg_bat_int2] FG_DAEMON_CMD_SET_FG_BAT_INT2_LT_GAP = 86
+[ 1933.335666] .(3)[422:fuelgauged][fr] FG_DAEMON_CMD_GET_FG_CURRENT_IAVG_VALID = 1
+[ 1933.338559] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60fb, adc_result=4091
+[ 1933.340222] .(0)[422:fuelgauged]MTK_FG: [FGADC_info] tmp:25 25 25 rdnafg:0 vc:0 disable_fg:0:0 fg_v:9621:379:34856:18391:43278:5372:4628:4628 low_temp:0 0 0
+[ 1933.342089] .(0)[422:fuelgauged]MTK_FG: [FGADC_intr_end][FG_INTR_NAFG_VOLTAGE]soc:4628 fg_c_soc:3658 fg_v_soc:4628 ui_soc:2305 vc_diff:-970 vc_mode 0 VBAT 40910 T:[25 V 25 C 25 avg:25] D0_C 1798 D0_V 379 CAR[c:8054 v:18391] Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0(0):0:0] UI[0:0] Chr[1:0:0] pseudo1 0  DC_ratio 100 dodinit[1][0],I:17280
+[ 1933.348294] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x6109, adc_result=4093
+[ 1933.351751] .(2)[395:health@2.0-serv]healthd: battery l=23 v=4093 t=25.0 h=2 st=2 c=1729 fc=5799000 cc=229 chg=a
+[ 1933.371199] .(0)[422:fuelgauged]MTK_FG: [GM3_old_data] soc:4628 fg_c_soc:3658 fg_v_soc:4628 ui_soc:2305 vc_diff:-970 vc_mode 0 VBAT 40910 T:[25 V 25 C 25] D0_C 1798 D0_V 379 CAR[c:8054 v:18391] Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0(0):0:0] UI[0:0] Chr[1:0:0] pseudo1 0  DC_ratio 100 dodinit[1][0] Iavg:17280,dis[0 0 0],ncar[31822],dlpt_sd[0]
+[ 1933.376054] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0x97
+[ 1933.377725] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_set_spare_register: cmd[0], set rg[0x2a, 0xff , 8] = 0x97
+[ 1933.379492] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0x97
+[ 1933.380974] -(0)[422:fuelgauged]mt6358_misc: mtk_rtc_set_spare_register: cmd[0], set rg[0x2a, 0xff , 8] = 0x97
+[ 1933.382676] .(0)[422:fuelgauged][fg_res] FG_DAEMON_CMD_SET_CON0_SOC = 4678
+[ 1933.385576] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60cc, adc_result=4083
+[ 1933.388952] .(2)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x60c4, adc_result=4082
+[ 1933.390344] .(2)[422:fuelgauged]get_shutdown_cond ret:0 0 0 0 vbat:4082
+[ 1933.466840] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1933.468536] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1933.469562] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1933.470628] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7475, fail:15051, rts_fail:21, ack_fail:15030), Rx(rate:10, total:135861, dup:0, fcs_fail:38617), PER(100), Congestion(3969)
+[ 1934.029655] .(1)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1934.075841] -(2)[7058:kworker/u9:3][name:uclamp&] invalid CPU[2] clamp group [0:0] value
+[ 1934.133199] .(2)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1064 us]
+[ 1934.138862] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1934.192783] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-57, NewRssi=-57
+[ 1934.194954] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-57, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27071, RxOK=183690
+[ 1934.330636] .(3)[130:hang_detect][Hang_Detect] hang_detect thread counts down 10:10, status 1.
+[ 1934.331942] .(3)[130:hang_detect][Hang_Detect] system_server found pid:804.
+[ 1934.362596] .(0)[6908:kworker/u8:1][BND][DC Charger]dc_timer_work_handler iddig_gpio_value = 1
+[ 1934.363738] .(0)[6908:kworker/u8:1][BND][DC Charger]dc_timer_work_handler dc_gpio_value = 1
+[ 1934.364896] .(0)[6908:kworker/u8:1][BND][DC Charger]dc_timer_work_handler usb_int_gpio_value = 1
+[ 1934.366609] .(0)[6908:kworker/u8:1]charger type: charger IN 6390
+[ 1934.414267] -(0)[0:swapper/0]mtu3 11201000.usb: mtu3_link_isr: high-speed
+[ 1934.415192] -(0)[0:swapper/0]mtu3 11201000.usb: gadget RESET
+[ 1934.416647] .(0)[8272:kworker/0:0]android_work: did not send uevent (0 0           (null))
+[ 1934.490580] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 744 > [0][93] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1934.492382] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1934.493440] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1934.494505] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7476, fail:15053, rts_fail:21, ack_fail:15032), Rx(rate:10, total:135869, dup:0, fcs_fail:38627), PER(100), Congestion(4227)
+[ 1934.497419] -(0)[7:ksoftirqd/0]mtk_axi_interrupt: 26 callbacks suppressed
+[ 1934.497426] -(0)[7:ksoftirqd/0][wlan] In HIF ISR.
+[ 1934.499351] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1934.499361] .(0)[8272:kworker/0:0][connlog] irq counter=1984 module=0x0001
+[ 1934.527630] .(0)[8272:kworker/0:0]android_work: sent uevent USB_STATE=CONNECTED
+[ 1934.533383] -(0)[821:android.io]mtu3 11201000.usb: gadget RESET
+[ 1934.535279] .(0)[8272:kworker/0:0]android_work: sent uevent USB_STATE=DISCONNECTED
+[ 1934.560970] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1934.645171] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1934.898643] .(1)[6908:kworker/u8:1]charger type: 2, Charging USB Host
+[ 1934.899829] .(1)[6908:kworker/u8:1]charger type: chrdet_inform_psy_changed: online = 1, type = 2
+[ 1934.901267] .(1)[6908:kworker/u8:1]mt_charger_set_property
+[ 1934.902019] .(1)[6908:kworker/u8:1]mt_charger_set_property
+[ 1934.903153] .(1)[6908:kworker/u8:1]dump_charger_name: charger type: 2, Charging USB Host
+[ 1934.905297] .(0)[413:kworker/u8:7]mtk_charger_int_handler
+[ 1934.905684] .(1)[6908:kworker/u8:1]mt_brightness_set_pmic...here...
+[ 1934.908071] .(1)[6908:kworker/u8:1]BND_CDP   is_meta_mode 1  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1934.908359] .(0)[395:health@2.0-serv]healthd: battery l=23 v=4093 t=25.0 h=2 st=2 c=1463 fc=5799000 cc=229 chg=u
+[ 1934.915912] .(0)[413:kworker/u8:7]battery_callback:1
+[ 1934.916120] .(0)[413:kworker/u8:7][fg_sw_bat_cycle_accu]ERROR!drop diff_car
+[ 1934.916591] .(0)[413:kworker/u8:7][fg_sw_bat_cycle_accu]car[o:7959 n:8062],diff_car:103,ncar[o:31822 n:31822 hw:0] thr 43278
+[ 1934.918968] .(0)[413:kworker/u8:7]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x604e, adc_result=4062
+[ 1934.922891] .(0)[413:kworker/u8:7]wake_up_charger
+[ 1934.925864] .(1)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x6027, adc_result=4056
+[ 1934.950219] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x493, adc_result=514
+[ 1934.953583] .(0)[395:health@2.0-serv]healthd: battery l=23 v=4062 t=25.0 h=2 st=2 c=1483 fc=5799000 cc=229 chg=u
+[ 1934.955203] .(0)[395:health@2.0-serv]healthd: battery l=23 v=4062 t=25.0 h=2 st=2 c=1493 fc=5799000 cc=229 chg=u
+[ 1934.961681] .(2)[220:charger_thread]Vbat=4056,Ibat=14719,I=0,VChr=4863,T=25,Soc=46:23,CT:2:3 hv:1 pd:0:0
+[ 1934.963212] .(2)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1944 932822575
+[ 1934.964360] -(2)[220:charger_thread]alarmtimer_enqueue, 1944932822575
+[ 1934.967811] .(1)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x492, adc_result=514
+[ 1934.973018] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1934.976421] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1912
+[ 1934.977405] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1934.978981] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:1500 1500 type:2 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1935.037343] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1935.061313] -(0)[0:swapper/0]mtu3 11201000.usb: gadget RESET
+[ 1935.062109] .(0)[8272:kworker/0:0]android_work: did not send uevent (0 0           (null))
+[ 1935.127154] -(0)[0:swapper/0]mtu3 11201000.usb: gadget RESET
+[ 1935.128046] .(0)[8272:kworker/0:0]android_work: did not send uevent (0 0           (null))
+[ 1935.162825] -(1)[8271:kworker/1:1]mt635x_auxadc_read_raw: 1 callbacks suppressed
+[ 1935.162848] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5d8, adc_result=657
+[ 1935.454516] .(0)[6908:kworker/u8:1]charger type: 2, Charging USB Host
+[ 1935.455392] .(0)[6908:kworker/u8:1][BND][DC Charger]Charger Type = 2
+[ 1935.460675] .(3)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1935.463122] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1059 us]
+[ 1935.514577] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 3736 > [0][467] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1935.516319] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1935.517429] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1935.518556] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7477, fail:15055, rts_fail:21, ack_fail:15034), Rx(rate:10, total:135877, dup:0, fcs_fail:38636), PER(100), Congestion(62)
+[ 1935.541150] -(0)[1551:sugov:0]mtu3 11201000.usb: gadget RESET
+[ 1935.542328] .(0)[8272:kworker/0:0]android_work: did not send uevent (0 0           (null))
+[ 1935.798726] .(0)[8272:kworker/0:0]android_work: sent uevent USB_STATE=CONNECTED
+[ 1935.804335] -(0)[501:mali-cmar-backe]mtu3 11201000.usb: gadget RESET
+[ 1935.807589] .(0)[8272:kworker/0:0]android_work: sent uevent USB_STATE=DISCONNECTED
+[ 1935.924158] .(0)[8272:kworker/0:0]android_work: sent uevent USB_STATE=CONNECTED
+[ 1935.930918] -(0)[4701:Thread-3]configfs-gadget gadget: high-speed config #1: b
+[ 1935.931938] -(0)[4701:Thread-3]configfs-gadget gadget: USB_REQ_SET_CONFIGURATION: value=0
+[ 1935.934910] .(0)[8272:kworker/0:0]android_work: sent uevent USB_STATE=CONFIGURED
+[ 1936.176091] -(1)[395:health@2.0-serv]alarmtimer_enqueue, 1996145598538
+[ 1936.180502] .(1)[395:health@2.0-serv]healthd: battery l=23 v=4062 t=25.0 h=2 st=2 c=994 fc=5799000 cc=229 chg=u
+[ 1936.186959] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5d8, adc_result=657
+[ 1936.378558] .(1)[8271:kworker/1:1]usb_state<CONFIGURED>
+[ 1936.538572] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 0 > [0][0] [0][0] [0][0] [0][0],Pending[0], Used[1] PER[0 0]
+[ 1936.540257] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1936.541299] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1936.542483] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7479, fail:15057, rts_fail:21, ack_fail:15036), Rx(rate:10, total:135888, dup:0, fcs_fail:38644), PER(100), Congestion(65)
+[ 1936.545765] -(0)[510:OverlayEngine_0]mtk_axi_interrupt: 24 callbacks suppressed
+[ 1936.545777] -(0)[510:OverlayEngine_0][wlan] In HIF ISR.
+[ 1936.548057] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1936.548074] .(0)[8272:kworker/0:0][connlog] irq counter=1986 module=0x0001
+[ 1936.580645] -(1)[8131:kworker/u9:0][name:uclamp&] invalid CPU[1] clamp group [0:0] value
+[ 1936.754377] .(3)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0x6, MAX:0x6
+[ 1936.757731] -(2)[5:kworker/u8:0][name:uclamp&] invalid CPU[2] clamp group [0:0] value
+[ 1936.768087] -(2)[461:DispSync][name:uclamp&] invalid CPU[2] clamp group [0:0] value
+[ 1936.771640] -(1)[8271:kworker/1:1][name:uclamp&] invalid CPU[1] clamp group [0:0] value
+[ 1936.772169] -(2)[501:mali-cmar-backe][name:uclamp&] invalid CPU[2] clamp group [0:0] value
+[ 1936.782692] -(0)[1357:Binder:962_5][name:uclamp&] invalid CPU[0] clamp group [0:0] value
+[ 1936.784893] .(3)[548:HwBinder:393_2][ION][ion_dbg] alloc_pages order=4 cache=0
+[ 1936.790673] .(1)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1936.795897] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1849 us]
+[ 1936.823192] .(1)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0x6, MAX:0x6
+[ 1936.892513] .(2)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0x6, MAX:0x6
+[ 1936.988618] -(3)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] BE: T[009258] R[000000] T_D[000000] T_F[000001]
+[ 1936.990250] -(3)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] BK: T[000000] R[000000] T_D[000000] T_F[000000]
+[ 1936.991844] -(3)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] VI: T[000000] R[000000] T_D[000000] T_F[000000]
+[ 1936.993432] -(3)[1169:main_thread][wlan][1169]wlanDumpBssStatistics:(SW4 INFO) LLS BSS[0] VO: T[000044] R[000000] T_D[000000] T_F[000000]
+[ 1937.207005] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-54, NewRssi=-54
+[ 1937.210671] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-54, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27072, RxOK=183697
+[ 1937.211430] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5d7, adc_result=656
+[ 1937.549783] -(0)[8272:kworker/0:0]connlog_log_data_handler: 29 callbacks suppressed
+[ 1937.549798] .(0)[8272:kworker/0:0][connlog] bt_fw emi ring is empty!!
+[ 1937.562600] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 10080 > [71][1189] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1937.564377] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1937.565415] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1937.566486] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2920, retry:7479, fail:15057, rts_fail:21, ack_fail:15036), Rx(rate:10, total:135895, dup:0, fcs_fail:38652), PER(0), Congestion(367)
+[ 1937.630199] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1937.717222] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1099 us]
+[ 1938.237097] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5d9, adc_result=657
+[ 1938.580131] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1938.580146] .(0)[8272:kworker/0:0][connlog] irq counter=1988 module=0x0001
+[ 1938.586611] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1448 > [0][181] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1938.588335] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1938.589358] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1938.590445] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7481, fail:15060, rts_fail:21, ack_fail:15039), Rx(rate:10, total:135907, dup:0, fcs_fail:38661), PER(75), Congestion(82)
+[ 1938.593492] -(0)[1496:mali-cmar-backe]mtk_axi_interrupt: 37 callbacks suppressed
+[ 1938.593502] -(0)[1496:mali-cmar-backe][wlan] In HIF ISR.
+[ 1939.258929] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5d8, adc_result=657
+[ 1939.449607] .(3)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1939.458364] .(3)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1858 us]
+[ 1939.610578] .(3)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 4376 > [0][547] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1939.612321] .(3)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1939.613365] .(3)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1939.614498] .(3)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7483, fail:15063, rts_fail:21, ack_fail:15042), Rx(rate:10, total:135916, dup:0, fcs_fail:38669), PER(100), Congestion(47)
+[ 1940.227545] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-60, NewRssi=-60
+[ 1940.229736] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-60, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27072, RxOK=183710
+[ 1940.282818] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5da, adc_result=658
+[ 1940.409443] .(0)[825:watchdog]AEEIOCTL_RT_MON_Kick ( 300)
+[ 1940.410965] .(0)[825:watchdog][Hang_Detect] hang_detect enabled 10
+[ 1940.592170] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1940.634880] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 9888 > [0][1236] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1940.636633] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1940.637661] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1940.638755] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7484, fail:15075, rts_fail:21, ack_fail:15054), Rx(rate:10, total:135927, dup:0, fcs_fail:38683), PER(100), Congestion(72)
+[ 1940.648245] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1940.648261] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1940.648268] .(1)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[6606 us]
+[ 1940.649313] -(0)[8272:kworker/0:0]mtk_axi_interrupt: 33 callbacks suppressed
+[ 1940.649318] -(0)[8272:kworker/0:0][wlan] In HIF ISR.
+[ 1940.652833] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1940.652839] .(0)[8272:kworker/0:0][connlog] irq counter=1990 module=0x0001
+[ 1940.673167] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1940.686890] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1041 us]
+[ 1940.966837] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1940.994153] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1941.098272] -(2)[1169:main_thread]CPU2: update max cpu_capacity 669
+[ 1941.307133] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1941.431054] -(3)[454:HwBinder:394_2]CPU3: update max cpu_capacity 1024
+[ 1941.498661] .(1)[8271:kworker/1:1]usb_state<CONFIGURED>
+[ 1941.586477] .(3)[0:swapper/3]CPU3: update max cpu_capacity 835
+[ 1941.633960] -(3)[962:ndroid.systemui]CPU3: update max cpu_capacity 750
+[ 1941.651113] -(3)[962:ndroid.systemui]CPU3: update max cpu_capacity 575
+[ 1941.658567] .(2)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 960 > [0][120] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1941.660305] .(2)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1941.661347] .(2)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1941.662538] .(2)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7485, fail:15081, rts_fail:21, ack_fail:15060), Rx(rate:10, total:135941, dup:0, fcs_fail:38694), PER(100), Congestion(172)
+[ 1941.710536] -(1)[1279:RenderThread]CPU1: update max cpu_capacity 1024
+[ 1941.783602] -(1)[962:ndroid.systemui]CPU1: update max cpu_capacity 505
+[ 1941.790738] .(2)[548:HwBinder:393_2][ION][ion_dbg] alloc_pages order=4 cache=0
+[ 1941.801059] -(2)[413:kworker/u8:7]CPU2: update max cpu_capacity 669
+[ 1941.802015] .(1)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0xa, MAX:0x6
+[ 1941.815288] -(2)[413:kworker/u8:7]CPU2: update max cpu_capacity 540
+[ 1941.819314] .(0)[49:ion_mm_heap]iova_rcache_insert, 1026, size:0xa, MAX:0x6
+[ 1941.822509] .(2)[0:swapper/2]CPU2: update max cpu_capacity 505
+[ 1941.826491] .(3)[0:swapper/3]CPU3: update max cpu_capacity 1024
+[ 1941.839400] -(3)[6908:kworker/u8:1]CPU3: update max cpu_capacity 505
+[ 1941.861035] -(2)[1551:sugov:0]CPU2: update max cpu_capacity 1024
+[ 1941.866455] -(2)[461:DispSync]CPU2: update max cpu_capacity 505
+[ 1941.947163] -(0)[510:OverlayEngine_0]CPU0: update max cpu_capacity 1024
+[ 1941.951805] -(0)[464:sf]CPU0: update max cpu_capacity 505
+[ 1941.997305] -(2)[1551:sugov:0]CPU2: update max cpu_capacity 1024
+[ 1941.999227] -(2)[20:ksoftirqd/2]CPU2: update max cpu_capacity 505
+[ 1942.010653] .(0)[511:Dispatcher_0][wlan][511]kalArpFrameClassifier:(TX INFO) ARP REQ PKT[0x00000000175124e8] TAR MAC/IP[00:00:00:00:00:00]/[192.168.1.1], SeqNo: 54
+[ 1942.012927] .(3)[1169:main_thread][wlan][1169]nicTxFillDesc:(NIC INFO) Compose TXD by Msdu info
+[ 1942.099796] .(2)[1169:main_thread][wlan][1169]wlanPktTxDone:(TX INFO) TX DONE, Type[ARP] Tag[0x17d82600] WIDX:PID[5:41] Status[0], SeqNo: 54
+[ 1942.220187] -(1)[8271:kworker/1:1]CPU1: update max cpu_capacity 1024
+[ 1942.331131] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5db, adc_result=658
+[ 1942.487549] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1942.530155] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1942.682683] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1888 > [42][194] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1942.684410] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1942.685438] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1942.686056] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1942.686066] .(0)[8272:kworker/0:0][connlog] irq counter=1992 module=0x0001
+[ 1942.686492] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7487, fail:15086, rts_fail:21, ack_fail:15065), Rx(rate:10, total:135951, dup:0, fcs_fail:38704), PER(100), Congestion(68)
+[ 1942.691309] -(0)[1170:hif_thread]mtk_axi_interrupt: 27 callbacks suppressed
+[ 1942.691314] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1943.245272] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-58, NewRssi=-58
+[ 1943.248370] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-58, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27073, RxOK=183720
+[ 1943.356907] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5dc, adc_result=659
+[ 1943.629378] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1943.656534] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1943.706881] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 656 > [0][82] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1943.708579] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1943.709606] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1943.710695] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7488, fail:15087, rts_fail:21, ack_fail:15066), Rx(rate:10, total:135960, dup:0, fcs_fail:38714), PER(100), Congestion(38)
+[ 1944.379150] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5dd, adc_result=659
+[ 1944.730563] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 8736 > [0][1092] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1944.732289] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1944.733316] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1944.734328] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7488, fail:15088, rts_fail:21, ack_fail:15067), Rx(rate:10, total:135968, dup:0, fcs_fail:38719), PER(100), Congestion(77)
+[ 1944.737467] -(0)[0:swapper/0]mtk_axi_interrupt: 34 callbacks suppressed
+[ 1944.737476] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1944.739210] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1944.739217] .(0)[8272:kworker/0:0][connlog] irq counter=1994 module=0x0001
+[ 1944.963411] -(2)[0:swapper/2]mtk_charger_alarm_timer_func: not suspend, wake up charger
+[ 1944.967147] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x5eb9, adc_result=3996
+[ 1944.968953] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x4a0, adc_result=520
+[ 1944.970333] .(0)[220:charger_thread]Vbat=3996,Ibat=11348,I=0,VChr=4920,T=25,Soc=46:23,CT:2:2 hv:1 pd:0:0
+[ 1944.971654] .(0)[220:charger_thread]mtk_charger_start_timer: alarm timer start:1954 941268576
+[ 1944.972768] -(0)[220:charger_thread]alarmtimer_enqueue, 1954941268576
+[ 1944.973976] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x49c, adc_result=518
+[ 1944.975684] .(0)[220:charger_thread]mt635x-auxadc mt635x-auxadc: name:VCDT, channel=2, adc_out=0x49e, adc_result=519
+[ 1944.977051] .(0)[220:charger_thread]tmp:25 (jeita:0 sm:0 cv:0 en:0) (sm:1) en:1 c:0 s:0 ov:0 1 1
+[ 1944.978196] .(0)[220:charger_thread]mtk_switch_charging_run [1 0], timer=1918
+[ 1944.979166] .(0)[220:charger_thread]pe40_ready:0 hv:1 thermal:-1,-1 tmp:25,39,16 pps:0 en:0 ibus:0 80
+[ 1944.980379] .(0)[220:charger_thread]force:0 thermal:-1,-1 pe4:-1,-1,0 setting:1500 1500 type:2 usb_unlimited:0 usbif:0 usbsm:0 aicl:-1 atm:0
+[ 1945.040561] .(0)[220:charger_thread]BND_CDP  PMIC_CHRIND_EN =1 ,PMIC_ISINK_CH1_EN =0 
+[ 1945.403108] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5de, adc_result=660
+[ 1945.754902] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 24448 > [0][3056] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1945.756640] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1945.757666] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1945.758735] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7488, fail:15089, rts_fail:21, ack_fail:15068), Rx(rate:10, total:135986, dup:0, fcs_fail:38728), PER(100), Congestion(10650)
+[ 1946.107746] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1946.113364] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1038 us]
+[ 1946.261196] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-58, NewRssi=-58
+[ 1946.263815] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-58, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27073, RxOK=183762
+[ 1946.427148] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5de, adc_result=660
+[ 1946.618932] .(1)[8271:kworker/1:1]usb_state<CONFIGURED>
+[ 1946.778930] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 736 > [0][92] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1946.780624] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1946.781651] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1946.782807] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7489, fail:15091, rts_fail:21, ack_fail:15070), Rx(rate:10, total:136023, dup:0, fcs_fail:38746), PER(100), Congestion(32)
+[ 1946.785885] -(0)[0:swapper/0]mtk_axi_interrupt: 53 callbacks suppressed
+[ 1946.785894] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1946.787645] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1946.787653] .(0)[8272:kworker/0:0][connlog] irq counter=1996 module=0x0001
+[ 1947.430233] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1947.444716] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1044 us]
+[ 1947.451110] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5de, adc_result=660
+[ 1947.796854] -(0)[8272:kworker/0:0]connlog_log_data_handler: 29 callbacks suppressed
+[ 1947.796869] .(0)[8272:kworker/0:0][connlog] bt_fw emi ring is empty!!
+[ 1947.802827] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 480 > [0][60] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1947.804519] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1947.805546] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1947.806606] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7490, fail:15094, rts_fail:21, ack_fail:15073), Rx(rate:10, total:136032, dup:0, fcs_fail:38749), PER(100), Congestion(6086)
+[ 1948.069058] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1948.263654] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1044 us]
+[ 1948.475113] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5df, adc_result=660
+[ 1948.567011] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1948.571540] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1143 us]
+[ 1948.826828] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 2016 > [0][252] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1948.828543] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1948.829570] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1948.830632] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7491, fail:15098, rts_fail:21, ack_fail:15077), Rx(rate:10, total:136040, dup:0, fcs_fail:38758), PER(100), Congestion(68)
+[ 1948.833674] -(0)[0:swapper/0]mtk_axi_interrupt: 23 callbacks suppressed
+[ 1948.833682] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1948.835427] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1948.835434] .(0)[8272:kworker/0:0][connlog] irq counter=1998 module=0x0001
+[ 1949.276128] .(0)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-58, NewRssi=-58
+[ 1949.278086] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-58, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27073, RxOK=183770
+[ 1949.498838] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5e0, adc_result=660
+[ 1949.851075] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 20400 > [0][2550] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1949.852810] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1949.853837] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1949.854901] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7492, fail:15099, rts_fail:21, ack_fail:15078), Rx(rate:10, total:136050, dup:0, fcs_fail:38767), PER(100), Congestion(157)
+[ 1950.082476] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1950.107816] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1038 us]
+[ 1950.527107] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5df, adc_result=660
+[ 1950.874908] .(0)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 10384 > [0][1298] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1950.876648] .(0)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1950.877675] .(0)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1950.878780] .(0)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7493, fail:15110, rts_fail:21, ack_fail:15089), Rx(rate:10, total:136065, dup:0, fcs_fail:38775), PER(100), Congestion(56)
+[ 1950.881721] -(0)[0:swapper/0]mtk_axi_interrupt: 45 callbacks suppressed
+[ 1950.881729] -(0)[0:swapper/0][wlan] In HIF ISR.
+[ 1950.883271] -(0)[8272:kworker/0:0]connlog_ring_emi_to_cache: 9 callbacks suppressed
+[ 1950.883278] .(0)[8272:kworker/0:0]wifi_fw cache is full.
+[ 1950.884988] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1950.884994] .(0)[8272:kworker/0:0][connlog] irq counter=2000 module=0x0001
+[ 1951.128603] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1951.234046] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1047 us]
+[ 1951.547115] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5e0, adc_result=660
+[ 1951.738931] .(1)[8271:kworker/1:1]usb_state<CONFIGURED>
+[ 1951.898901] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 1472 > [0][184] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1951.900618] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1951.901645] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1951.902716] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7494, fail:15112, rts_fail:21, ack_fail:15091), Rx(rate:10, total:136088, dup:0, fcs_fail:38789), PER(100), Congestion(465)
+[ 1952.288784] .(2)[46:irq/157-mt6358-]mt6358-pmic 1000d000.pwrap:mt6357-pmic: Reg[0xc38]=0x1,name=fg_bat0_h,hwirq=80,type=4
+[ 1952.290482] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1952.291345] .(1)[1169:main_thread][wlan][1169]nicUpdateLinkQuality:(RLM INFO) Rssi=-57, NewRssi=-57
+[ 1952.292510] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1952.293610] .(0)[553:wificond][wlan][553]mtk_cfg80211_get_station:(REQ INFO) link speed=650, rssi=-57, BSSID:[xx:xx:xx:xx:xx:xx], TxFail=0, TxTimeOut=0, TxOK=27073, RxOK=183794
+[ 1952.293869] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1952.297726] .(2)[46:irq/157-mt6358-][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1952.299304] .(1)[148:gauge_coulomb_t][fg_bat_int2_h_handler] car:8113 ht:152
+[ 1952.300424] .(1)[148:gauge_coulomb_t][fg_sw_bat_cycle_accu]ERROR!drop diff_car
+[ 1952.301743] .(1)[148:gauge_coulomb_t][fg_sw_bat_cycle_accu]car[o:8062 n:8113],diff_car:51,ncar[o:31822 n:31822 hw:0] thr 43278
+[ 1952.303256] .(1)[148:gauge_coulomb_t][fg_bat_temp_int_sw_check] tmp 25 lt 24 ht 26
+[ 1952.304494] .(1)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1952.306529] .(1)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1952.307909] .(1)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1952.309936] .(1)[148:gauge_coulomb_t][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1952.311874] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1952.313851] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1952.314839] .(0)[422:fuelgauged][fr][fg_bat_int2] FG_DAEMON_CMD_SET_FG_BAT_INT2_HT_GAP = 152
+[ 1952.316574] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1952.318577] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1952.319546] .(0)[422:fuelgauged][fr][fg_bat_int2] FG_DAEMON_CMD_SET_FG_BAT_INT2_LT_GAP = 85
+[ 1952.320730] .(0)[422:fuelgauged]MTK_FG: [fg_bat_int1_handler]g_bat_cycle_ncar=31822
+[ 1952.322648] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=0, depth=1
+[ 1952.324622] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=80, en=1, depth=0
+[ 1952.325943] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=0, depth=1
+[ 1952.327941] .(0)[422:fuelgauged][pmic_enable_interrupt] intNo=81, en=1, depth=0
+[ 1952.328903] .(0)[422:fuelgauged][fr] FG_DAEMON_CMD_SET_FG_BAT_INT1_GAP = 216 car:8113
+[ 1952.330417] .(0)[422:fuelgauged][fr] FG_DAEMON_CMD_GET_FG_CURRENT_IAVG_VALID = 1
+[ 1952.333180] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x5eb6, adc_result=3995
+[ 1952.334707] .(0)[422:fuelgauged]MTK_FG: [FGADC_info] tmp:25 25 25 rdnafg:0 vc:0 disable_fg:0:0 fg_v:9621:379:34856:18391:43278:5372:4628:4628 low_temp:0 0 0
+[ 1952.336574] .(0)[422:fuelgauged]MTK_FG: [FGADC_intr_end][FG_INTR_UISOC_HT]soc:4628 fg_c_soc:3672 fg_v_soc:4628 ui_soc:2355 vc_diff:-956 vc_mode 0 VBAT 39950 T:[25 V 25 C 25 avg:25] D0_C 1798 D0_V 379 CAR[c:8113 v:18391] Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0(0):0:0] UI[0:0] Chr[1:0:0] pseudo1 0  DC_ratio 100 dodinit[1][0],I:17280
+[ 1952.342418] .(0)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x5ec2, adc_result=3997
+[ 1952.345805] .(2)[395:health@2.0-serv]healthd: battery l=24 v=3997 t=25.0 h=2 st=2 c=1140 fc=5799000 cc=229 chg=u
+[ 1952.354934] .(3)[422:fuelgauged]MTK_FG: [GM3_old_data] soc:4628 fg_c_soc:3672 fg_v_soc:4628 ui_soc:2355 vc_diff:-956 vc_mode 0 VBAT 39950 T:[25 V 25 C 25] D0_C 1798 D0_V 379 CAR[c:8113 v:18391] Q:[43278 43278 43278 43278] aging 10000 bat_cycle 229 Trk[0(0):0:0] UI[0:0] Chr[1:0:0] pseudo1 0  DC_ratio 100 dodinit[1][0] Iavg:17280,dis[0 0 0],ncar[31822],dlpt_sd[0]
+[ 1952.359212] -(3)[422:fuelgauged]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0x97
+[ 1952.360532] -(3)[422:fuelgauged]mt6358_misc: mtk_rtc_set_spare_register: cmd[0], set rg[0x2a, 0xff , 8] = 0x98
+[ 1952.362138] -(3)[422:fuelgauged]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0x98
+[ 1952.363539] -(3)[422:fuelgauged]mt6358_misc: mtk_rtc_set_spare_register: cmd[0], set rg[0x2a, 0xff , 8] = 0x98
+[ 1952.364954] .(3)[422:fuelgauged][fg_res] FG_DAEMON_CMD_SET_CON0_SOC = 4678
+[ 1952.367785] .(1)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x5e7c, adc_result=3986
+[ 1952.371362] .(1)[422:fuelgauged]mt635x-auxadc mt635x-auxadc: name:ISENSE, channel=0, adc_out=0x5e7a, adc_result=3985
+[ 1952.372755] .(1)[422:fuelgauged]get_shutdown_cond ret:0 0 0 0 vbat:3985
+[ 1952.402447] .(1)[0:swapper/1]CPU1: update max cpu_capacity 505
+[ 1952.415077] -(1)[1551:sugov:0]CPU1: update max cpu_capacity 1024
+[ 1952.571140] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5e1, adc_result=661
+[ 1952.747446] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1952.770018] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1048 us]
+[ 1952.922833] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 3776 > [0][472] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1952.924551] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1952.925577] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1952.926637] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7494, fail:15113, rts_fail:21, ack_fail:15092), Rx(rate:10, total:136098, dup:0, fcs_fail:38798), PER(100), Congestion(73)
+[ 1952.929565] -(0)[1170:hif_thread]mtk_axi_interrupt: 30 callbacks suppressed
+[ 1952.929571] -(0)[1170:hif_thread][wlan] In HIF ISR.
+[ 1952.931437] -(0)[8272:kworker/0:0]connlog_log_data_handler: 1 callbacks suppressed
+[ 1952.931444] .(0)[8272:kworker/0:0][connlog] irq counter=2002 module=0x0001
+[ 1953.177564] .(0)[408:watchdogd][WDK]: kick Ex WDT
+[ 1953.301073] .(2)[284:logd.auditd]type=1400 audit(1795197134.344:561): avc: denied { associate } for comm="Binder:379_1" name="globalAlert" scontext=u:object_r:proc_net:s0 tcontext=u:object_r:proc:s0 tclass=filesystem permissive=1
+[ 1953.303816] .(2)[284:logd.auditd]type=1400 audit(1795197262.828:562): avc: denied { dac_override } for comm="sh" capability=1 scontext=u:r:shell:s0 tcontext=u:r:shell:s0 tclass=capability permissive=1
+[ 1953.320167] .(2)[8286:getprop]audit: audit_lost=39 audit_rate_limit=5 audit_backlog_limit=64
+[ 1953.320347] .(1)[284:logd.auditd]type=1400 audit(1795197262.828:562): avc: denied { dac_override } for comm="sh" capability=1 scontext=u:r:shell:s0 tcontext=u:r:shell:s0 tclass=capability permissive=1
+[ 1953.321288] .(2)[8286:getprop]audit: rate limit exceeded
+[ 1953.323657] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:563): avc: denied { open } for comm="getprop" path="/dev/__properties__/u:object_r:apexd_prop:s0" dev="tmpfs" ino=9383 scontext=u:r:shell:s0 tcontext=u:object_r:apexd_prop:s0 tclass=file permissive=1
+[ 1953.327552] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:563): avc: denied { open } for comm="getprop" path="/dev/__properties__/u:object_r:apexd_prop:s0" dev="tmpfs" ino=9383 scontext=u:r:shell:s0 tcontext=u:object_r:apexd_prop:s0 tclass=file permissive=1
+[ 1953.330606] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:564): avc: denied { getattr } for comm="getprop" path="/dev/__properties__/u:object_r:apexd_prop:s0" dev="tmpfs" ino=9383 scontext=u:r:shell:s0 tcontext=u:object_r:apexd_prop:s0 tclass=file permissive=1
+[ 1953.333850] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:564): avc: denied { getattr } for comm="getprop" path="/dev/__properties__/u:object_r:apexd_prop:s0" dev="tmpfs" ino=9383 scontext=u:r:shell:s0 tcontext=u:object_r:apexd_prop:s0 tclass=file permissive=1
+[ 1953.336974] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:565): avc: denied { map } for comm="getprop" path="/dev/__properties__/u:object_r:apexd_prop:s0" dev="tmpfs" ino=9383 scontext=u:r:shell:s0 tcontext=u:object_r:apexd_prop:s0 tclass=file permissive=1
+[ 1953.340207] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:565): avc: denied { map } for comm="getprop" path="/dev/__properties__/u:object_r:apexd_prop:s0" dev="tmpfs" ino=9383 scontext=u:r:shell:s0 tcontext=u:object_r:apexd_prop:s0 tclass=file permissive=1
+[ 1953.343248] .(1)[284:logd.auditd]type=1400 audit(1795197262.848:566): avc: denied { open } for comm="getprop" path="/dev/__properties__/u:object_r:atci_sys_prop:s0" dev="tmpfs" ino=9384 scontext=u:r:shell:s0 tcontext=u:object_r:atci_sys_prop:s0 tclass=file permissive=1
+[ 1953.595162] .(1)[8271:kworker/1:1]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x5e0, adc_result=660
+[ 1953.608300] .(0)[1170:hif_thread][wlan][1170]halSetFWOwn:(INIT INFO) FW OWN:1
+[ 1953.691536] .(0)[1170:hif_thread][wlan][1170]halSetDriverOwn:(INIT INFO) DRIVER OWN Done[1038 us]
+[ 1953.946626] .(1)[1169:main_thread][wlan][1169]kalPerMonHandler:(SW4 INFO) Tput: 10584 > [0][1323] [0][0] [0][0] [0][0],Pending[0], Used[0] PER[0 0]
+[ 1953.948369] .(1)[1169:main_thread][wlan][1169]wlanQueryWlanInfo:(RSN INFO) index = 5
+[ 1953.949402] .(1)[1169:main_thread][wlan][1169]wlanQueryMibInfo:(RSN INFO) index = 0
+[ 1953.950473] .(1)[1169:main_thread][wlan][1169]wlanLinkQualityMonitor:(SW4 INFO) Link Quality: Tx(rate:650 total:2921, retry:7494, fail:15120, rts_fail:21, ack_fail:15099), Rx(rate:10, total:136108, dup:0, fcs_fail:38820), PER(100), Congestion(43)

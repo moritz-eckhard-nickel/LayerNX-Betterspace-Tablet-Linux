@@ -1,0 +1,317 @@
+/vendor/bin:
+total 3888
+drwxr-xr-x  3 root shell   4096 2009-01-01 01:00 .
+drwxr-xr-x 13 root shell   4096 2009-01-01 01:00 ..
+-rwxr-xr-x  1 root shell  28632 2009-01-01 01:00 DcxoSetCap
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 acpi -> toybox_vendor
+-rwxr-xr-x  1 root shell 196672 2009-01-01 01:00 aee_aedv
+-rwxr-xr-x  1 root shell 108800 2009-01-01 01:00 aee_aedv64
+-rwxr-xr-x  1 root shell  19912 2009-01-01 01:00 aee_archivev
+-rwxr-xr-x  1 root shell  67436 2009-01-01 01:00 aee_dumpstatev
+-rwxr-xr-x  1 root shell  32704 2009-01-01 01:00 aeev
+-rwxr-xr-x  1 root shell  92880 2009-01-01 01:00 atcid
+-rwxr-xr-x  1 root shell  59624 2009-01-01 01:00 audiocmdservice_atci
+-rwxr-xr-x  1 root shell  32880 2009-01-01 01:00 autobt
+-rwxr-xr-x  1 root shell 142272 2009-01-01 01:00 awk
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 base64 -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 basename -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 bc -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 blockdev -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cal -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cat -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 chcon -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 chgrp -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 chmod -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 chown -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 chroot -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 chrt -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cksum -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 clear -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cmp -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 comm -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cp -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cpio -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 cut -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 date -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 dd -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 devmem -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 df -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 diff -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 dirname -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 dmesg -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 dos2unix -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 du -> toybox_vendor
+-rwxr-xr-x  1 root shell  42560 2009-01-01 01:00 dumpsys
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 echo -> toybox_vendor
+lrwxr-xr-x  1 root shell      4 2009-01-01 01:00 egrep -> grep
+-rwxr-xr-x  1 root shell  42744 2009-01-01 01:00 em_hidl
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 env -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 expand -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 expr -> toybox_vendor
+-rwxr-xr-x  1 root shell 604160 2009-01-01 01:00 factory
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 fallocate -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 false -> toybox_vendor
+lrwxr-xr-x  1 root shell      4 2009-01-01 01:00 fgrep -> grep
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 file -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 find -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 flock -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 fmt -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 free -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 fsync -> toybox_vendor
+-rwxr-xr-x  1 root shell  15468 2009-01-01 01:00 fuelgauged
+-rwxr-xr-x  1 root shell  28768 2009-01-01 01:00 fuelgauged_nvram
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 getconf -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 getenforce -> toybox_vendor
+lrwxr-xr-x  1 root shell      7 2009-01-01 01:00 getevent -> toolbox
+lrwxr-xr-x  1 root shell      7 2009-01-01 01:00 getprop -> toolbox
+-rwxr-xr-x  1 root shell  29120 2009-01-01 01:00 grep
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 groups -> toybox_vendor
+-rwxr-xr-x  1 root shell  87136 2009-01-01 01:00 gsm0710muxd
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 gunzip -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 gzip -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 head -> toybox_vendor
+-rwxr-xr-x  1 root shell  82136 2009-01-01 01:00 hostapd_cli
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 hostname -> toybox_vendor
+drwxr-xr-x  2 root shell   4096 2009-01-01 01:00 hw
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 hwclock -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 i2cdetect -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 i2cdump -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 i2cget -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 i2cset -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 iconv -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 id -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 ifconfig -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 inotifyd -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 insmod -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 install -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 ionice -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 iorenice -> toybox_vendor
+-rwxr-xr-x  1 root shell  19872 2009-01-01 01:00 jpegtool
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 kill -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 killall -> toybox_vendor
+-rwxr-xr-x  1 root shell  24368 2009-01-01 01:00 kisd
+-rwxr-xr-x  1 root shell  11384 2009-01-01 01:00 lbs_hidl_service
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 ln -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 load_policy -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 log -> toybox_vendor
+-rwxr-xr-x  1 root shell  24976 2009-01-01 01:00 loghidlvendorservice
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 logname -> toybox_vendor
+-rwxr-xr-x  1 root shell  20200 2009-01-01 01:00 logwrapper
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 losetup -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 ls -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 lsmod -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 lsof -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 lspci -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 lsusb -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 md5sum -> toybox_vendor
+-rwxr-xr-x  1 root shell 283064 2009-01-01 01:00 meta_tst
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 microcom -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mkdir -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mkfifo -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mknod -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mkswap -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mktemp -> toybox_vendor
+-rwxr-xr-x  1 root shell 241640 2009-01-01 01:00 mnld
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 modinfo -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 modprobe -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 more -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mount -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mountpoint -> toybox_vendor
+-rwxr-xr-x  1 root shell  49728 2009-01-01 01:00 mrdump_tool
+-rwxr-xr-x  1 root shell  41360 2009-01-01 01:00 mtkcam-debug
+-rwxr-xr-x  1 root shell  28072 2009-01-01 01:00 muxreport
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 mv -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 nc -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 netcat -> toybox_vendor
+-rwxr-xr-x  1 root shell  56048 2009-01-01 01:00 netdagent
+-rwxr-xr-x  1 root shell  11704 2009-01-01 01:00 netdc
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 netstat -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 nice -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 nl -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 nohup -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 nproc -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 nsenter -> toybox_vendor
+-rwxr-xr-x  1 root shell  33016 2009-01-01 01:00 nvram_daemon
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 od -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 paste -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 patch -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 pgrep -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 pidof -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 pkill -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 pmap -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 printenv -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 printf -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 ps -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 pwd -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 readlink -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 realpath -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 renice -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 restorecon -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 rm -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 rmdir -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 rmmod -> toybox_vendor
+-rwxr-xr-x  1 root shell  19928 2009-01-01 01:00 rpmb_svc
+-rwxr-xr-x  1 root shell  24448 2009-01-01 01:00 rttv
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 runcon -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sed -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sendevent -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 seq -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 setenforce -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 setprop -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 setsid -> toybox_vendor
+-rwxr-xr-x  1 root shell 303688 2009-01-01 01:00 sh
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sha1sum -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sha224sum -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sha256sum -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sha384sum -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sha512sum -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sleep -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sort -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 split -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 start -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 stat -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 stop -> toybox_vendor
+-rwxr-xr-x  1 root shell  41360 2009-01-01 01:00 stp_dump3
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 strings -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 stty -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 swapoff -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 swapon -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sync -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 sysctl -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 tac -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 tail -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 tar -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 taskset -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 tee -> toybox_vendor
+-rwxr-xr-x  1 root shell  15912 2009-01-01 01:00 thermal
+-rwxr-xr-x  1 root shell  11088 2009-01-01 01:00 thermal_manager
+-rwxr-xr-x  1 root shell  11136 2009-01-01 01:00 thermalloadalgod
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 time -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 timeout -> toybox_vendor
+-rwxr-xr-x  1 root shell  57392 2009-01-01 01:00 toolbox
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 top -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 touch -> toybox_vendor
+-rwxr-xr-x  1 root shell 486696 2009-01-01 01:00 toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 tr -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 true -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 truncate -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 tty -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 ulimit -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 umount -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 uname -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 uniq -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 unix2dos -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 unlink -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 unshare -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 uptime -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 usleep -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 uudecode -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 uuencode -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 uuidgen -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 vmstat -> toybox_vendor
+-rwxr-xr-x  1 root shell  33568 2009-01-01 01:00 vndservice
+-rwxr-xr-x  1 root shell  24528 2009-01-01 01:00 vndservicemanager
+-rwxr-xr-x  1 root shell  28820 2009-01-01 01:00 vpud
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 watch -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 wc -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 which -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 whoami -> toybox_vendor
+-rwxr-xr-x  1 root shell  28608 2009-01-01 01:00 wifitesttool
+-rwxr-xr-x  1 root shell  15848 2009-01-01 01:00 wlan_assistant
+-rwxr-xr-x  1 root shell  37088 2009-01-01 01:00 wmt_launcher
+-rwxr-xr-x  1 root shell  15672 2009-01-01 01:00 wmt_loader
+-rwxr-xr-x  1 root shell 162032 2009-01-01 01:00 wpa_cli
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 xargs -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 xxd -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 yes -> toybox_vendor
+lrwxr-xr-x  1 root shell     13 2009-01-01 01:00 zcat -> toybox_vendor
+
+/vendor/etc/init:
+total 272
+drwxr-xr-x  3 root shell  4096 2009-01-01 01:00 .
+drwxr-xr-x 12 root shell  4096 2009-01-01 01:00 ..
+-rw-r--r--  1 root root    132 2009-01-01 01:00 aee_aedv.rc
+-rw-r--r--  1 root root    136 2009-01-01 01:00 aee_aedv64.rc
+-rw-r--r--  1 root root    788 2009-01-01 01:00 android.hardware.audio@5.0-service-mediatek.rc
+-rw-r--r--  1 root root    572 2009-01-01 01:00 android.hardware.bluetooth@1.0-service-mediatek.rc
+-rw-r--r--  1 root root    188 2009-01-01 01:00 android.hardware.cas@1.1-service.rc
+-rw-r--r--  1 root root    144 2009-01-01 01:00 android.hardware.configstore@1.1-service.rc
+-rw-r--r--  1 root root    311 2009-01-01 01:00 android.hardware.drm@1.0-service.rc
+-rw-r--r--  1 root root    580 2009-01-01 01:00 android.hardware.drm@1.2-service.clearkey.rc
+-rw-r--r--  1 root root    923 2009-01-01 01:00 android.hardware.drm@1.2-service.widevine.rc
+-rw-r--r--  1 root root    132 2009-01-01 01:00 android.hardware.gatekeeper@1.0-service.rc
+-rw-r--r--  1 root root    130 2009-01-01 01:00 android.hardware.gnss@2.0-service-mediatek.rc
+-rw-r--r--  1 root root    293 2009-01-01 01:00 android.hardware.graphics.allocator@2.0-service.rc
+-rw-r--r--  1 root root    270 2009-01-01 01:00 android.hardware.graphics.composer@2.1-service.rc
+-rw-r--r--  1 root root    170 2009-01-01 01:00 android.hardware.health@2.0-service.rc
+-rw-r--r--  1 root root    153 2009-01-01 01:00 android.hardware.keymaster@4.0-service.mtee.rc
+-rw-r--r--  1 root root    253 2009-01-01 01:00 android.hardware.light@2.0-service-mediatek.rc
+-rw-r--r--  1 root root    283 2009-01-01 01:00 android.hardware.media.omx@1.0-service.rc
+-rw-r--r--  1 root root    132 2009-01-01 01:00 android.hardware.memtrack@1.0-service.rc
+-rw-r--r--  1 root root    172 2009-01-01 01:00 android.hardware.neuralnetworks@1.2-service-neuron-ann.rc
+-rw-r--r--  1 root root    164 2009-01-01 01:00 android.hardware.sensors@2.0-service-mediatek.rc
+-rw-r--r--  1 root root    130 2009-01-01 01:00 android.hardware.thermal@1.0-service.rc
+-rw-r--r--  1 root root    995 2009-01-01 01:00 android.hardware.usb@1.1-service-mediatek.rc
+-rw-r--r--  1 root root    128 2009-01-01 01:00 android.hardware.vibrator@1.0-service.rc
+-rw-r--r--  1 root root    267 2009-01-01 01:00 android.hardware.wifi@1.0-service-lazy-mediatek.rc
+-rw-r--r--  1 root root    492 2009-01-01 01:00 atcid.rc
+-rw-r--r--  1 root root    181 2009-01-01 01:00 audiocmdservice_atci.rc
+-rw-r--r--  1 root root    264 2009-01-01 01:00 bootperf.rc
+-rw-r--r--  1 root root    272 2009-01-01 01:00 camerahalserver.rc
+-rw-r--r--  1 root root    190 2009-01-01 01:00 em_hidl_user.rc
+-rw-r--r--  1 root root     90 2009-01-01 01:00 fuelgauged_init.rc
+-rw-r--r--  1 root root    115 2009-01-01 01:00 fuelgauged_nvram_init.rc
+-rw-r--r--  1 root root    173 2009-01-01 01:00 gsm0710muxd.rc
+-rw-r--r--  1 root root    665 2009-01-01 01:00 hostapd.android.rc
+drwxr-xr-x  2 root shell  4096 2009-01-01 01:00 hw
+-rw-r--r--  1 root root     97 2009-01-01 01:00 init.bt_drv.rc
+-rw-r--r--  1 root root    109 2009-01-01 01:00 init.fmradio_drv.rc
+-rw-r--r--  1 root root    100 2009-01-01 01:00 init.gps_drv.rc
+-rw-r--r--  1 root root     83 2009-01-01 01:00 init.thermal.rc
+-rw-r--r--  1 root root    110 2009-01-01 01:00 init.thermal_manager.rc
+-rw-r--r--  1 root root    102 2009-01-01 01:00 init.thermalloadalgod.rc
+-rw-r--r--  1 root root    222 2009-01-01 01:00 init.wlan_drv.rc
+-rw-r--r--  1 root root     50 2009-01-01 01:00 init.wmt_drv.rc
+-rw-r--r--  1 root root   1236 2009-01-01 01:00 init_connectivity.rc
+-rw-r--r--  1 root root    277 2009-01-01 01:00 kisd.rc
+-rw-r--r--  1 root root    139 2009-01-01 01:00 lbs_hidl_service.rc
+-rw-r--r--  1 root root    432 2009-01-01 01:00 loghidlvendorservice.rc
+-rw-r--r--  1 root root    750 2009-01-01 01:00 mtkrild.rc
+-rw-r--r--  1 root root    211 2009-01-01 01:00 muxreport.rc
+-rw-r--r--  1 root root    267 2009-01-01 01:00 netdagent.rc
+-rw-r--r--  1 root root    136 2009-01-01 01:00 nvram_daemon.rc
+-rw-r--r--  1 root root     83 2009-01-01 01:00 rpmb_svc.rc
+-rw-r--r--  1 root root    128 2009-01-01 01:00 vendor.mediatek.hardware.gpu@1.0-service.rc
+-rw-r--r--  1 root root    131 2009-01-01 01:00 vendor.mediatek.hardware.keymanage@1.0-service.rc
+-rw-r--r--  1 root root    259 2009-01-01 01:00 vendor.mediatek.hardware.keymaster_attestation@1.1-service.rc
+-rw-r--r--  1 root root    211 2009-01-01 01:00 vendor.mediatek.hardware.log@1.0-service.rc
+-rw-r--r--  1 root root    519 2009-01-01 01:00 vendor.mediatek.hardware.mms@1.5-service.rc
+-rw-r--r--  1 root root    267 2009-01-01 01:00 vendor.mediatek.hardware.mtkcodecservice@1.1-service.rc
+-rw-r--r--  1 root root  12018 2009-01-01 01:00 vendor.mediatek.hardware.mtkpower@1.0-init.rc
+-rw-r--r--  1 root root    218 2009-01-01 01:00 vendor.mediatek.hardware.mtkpower@1.0-service.rc
+-rw-r--r--  1 root root    153 2009-01-01 01:00 vendor.mediatek.hardware.nvram@1.1-sevice.rc
+-rw-r--r--  1 root root    127 2009-01-01 01:00 vendor.mediatek.hardware.pq@2.2-service.rc
+-rw-r--r--  1 root root    199 2009-01-01 01:00 vndservicemanager.rc
+-rw-r--r--  1 root root     92 2009-01-01 01:00 vpud.rc
+-rw-r--r--  1 root root    104 2009-01-01 01:00 wlan_assistant.rc
+
+/vendor/etc/init/hw:
+total 212
+drwxr-xr-x 2 root shell  4096 2009-01-01 01:00 .
+drwxr-xr-x 3 root shell  4096 2009-01-01 01:00 ..
+-rw-r--r-- 1 root root   1943 2009-01-01 01:00 factory_init.connectivity.rc
+-rw-r--r-- 1 root root    290 2009-01-01 01:00 factory_init.project.rc
+-rw-r--r-- 1 root root  29101 2009-01-01 01:00 factory_init.rc
+-rw-r--r-- 1 root root    265 2009-01-01 01:00 init.aee.rc
+-rw-r--r-- 1 root root    548 2009-01-01 01:00 init.ago.rc
+-rw-r--r-- 1 root root   1669 2009-01-01 01:00 init.connectivity.rc
+-rw-r--r-- 1 root root    318 2009-01-01 01:00 init.modem.rc
+-rw-r--r-- 1 root root  25483 2009-01-01 01:00 init.mt8168.rc
+-rw-r--r-- 1 root root  63388 2009-01-01 01:00 init.mt8168.usb.rc
+-rw-r--r-- 1 root root   1889 2009-01-01 01:00 init.project.rc
+-rw-r--r-- 1 root root   8895 2009-01-01 01:00 init.sensor_1_0.rc
+-rw-r--r-- 1 root root   1766 2009-01-01 01:00 meta_init.connectivity.rc
+-rw-r--r-- 1 root root   1358 2009-01-01 01:00 meta_init.modem.rc
+-rw-r--r-- 1 root root     55 2009-01-01 01:00 meta_init.project.rc
+-rw-r--r-- 1 root root  20951 2009-01-01 01:00 meta_init.rc
+-rw-r--r-- 1 root root   1891 2009-01-01 01:00 multi_init.rc

@@ -1,0 +1,45 @@
+# Reference: <https://postmarketos.org/deviceinfo>
+# Please use double quotes only. You can source this file in shell scripts.
+
+deviceinfo_format_version="0"
+deviceinfo_name="Betterspace V5x / LANIX Ilium Pad X8"
+deviceinfo_manufacturer="Betterspace"
+deviceinfo_codename="betterspace-v5x"
+deviceinfo_year="2021"
+deviceinfo_dtb="mediatek/betterspace-v5x-stock"
+deviceinfo_arch="aarch64"
+
+# Device related
+deviceinfo_chassis="tablet"
+deviceinfo_keyboard="false"
+deviceinfo_external_storage="true"
+deviceinfo_screen_width="800"
+deviceinfo_screen_height="1280"
+deviceinfo_getty=""
+deviceinfo_usb_network_function="rndis.usb0"
+deviceinfo_usb_idVendor="0x18D1"
+deviceinfo_usb_idProduct="0xD001"
+
+# Stock-Kernel: gzip-Image, Ramdisk muss gzip sein (kein CONFIG_RD_LZ4)
+deviceinfo_initfs_compression="gzip"
+# Bootloader verkraftet keine grosse Ramdisk (7,6 MB -> initrd verworfen): Extra-Teil auslagern
+deviceinfo_create_initfs_extra="true"
+
+# Bootloader related (Werte aus dem originalen boot.img, Header v2)
+deviceinfo_flash_method="fastboot"
+# boot.img nach Initramfs-/Kernel-Updates automatisch in die boot-Partition schreiben
+deviceinfo_flash_kernel_on_update="true"
+deviceinfo_generate_bootimg="true"
+deviceinfo_header_version="2"
+deviceinfo_flash_pagesize="2048"
+deviceinfo_flash_offset_base="0x00000000"
+deviceinfo_flash_offset_kernel="0x40080000"
+deviceinfo_flash_offset_ramdisk="0x55000000"
+deviceinfo_flash_offset_second="0x40f00000"
+deviceinfo_flash_offset_tags="0x54000000"
+deviceinfo_flash_offset_dtb="0x54000000"
+deviceinfo_bootimg_custom_args="--os_version 10.0.0 --os_patch_level 2021-04"
+deviceinfo_flash_fastboot_partition_kernel="boot"
+deviceinfo_flash_fastboot_partition_rootfs="userdata"
+deviceinfo_flash_fastboot_partition_vbmeta="vbmeta"
+deviceinfo_flash_fastboot_max_size="134217728"

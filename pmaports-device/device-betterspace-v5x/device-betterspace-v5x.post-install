@@ -1,0 +1,29 @@
+#!/bin/sh
+# Stock-Kernel ohne devtmpfs: mdev statt udev
+for s in udev udev-trigger udev-settle udev-postmount; do
+	rc-update del $s sysinit 2>/dev/null
+	rc-update del $s default 2>/dev/null
+done
+rc-update add mdev sysinit
+rc-update add local default
+rc-update add moritz-v5x-devnodes sysinit
+rc-update add moritz-v5x-usbnet default
+rc-update add moritz-v5x-wifi default
+rc-update add wpa_supplicant default
+rc-update add networking default
+grep -q "wlan0" /etc/network/interfaces 2>/dev/null || cat >> /etc/network/interfaces <<IF
+auto lo
+iface lo inet loopback
+
+auto wlan0
+iface wlan0 inet dhcp
+IF
+grep -q wpa_supplicant_args /etc/conf.d/wpa_supplicant 2>/dev/null || echo 'wpa_supplicant_args="-i wlan0 -D nl80211"' >> /etc/conf.d/wpa_supplicant
+rc-update add sshd default
+rc-update add syslog boot
+rc-update add klogd boot
+rc-update del nftables default 2>/dev/null
+rc-update del nftables boot 2>/dev/null
+grep -q '^inet:' /etc/group || addgroup -g 3003 inet
+grep -q '^net_raw:' /etc/group || addgroup -g 3004 net_raw
+exit 0

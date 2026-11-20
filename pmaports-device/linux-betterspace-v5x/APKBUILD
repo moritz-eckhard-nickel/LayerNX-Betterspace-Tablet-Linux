@@ -1,0 +1,55 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+# Stock-Kernel (Linux 4.14.141, Clang 9) aus dem boot.img des Geraets
+# (LANIX Ilium Pad X8 / Betterspace V5x, Android 10, Build Pad_X8_TELCEL_SW_02).
+# Binaerpaket: die passenden Quellen (Panel ili9881c_wd101hbm40ab, Touch CST1xx)
+# sind nicht oeffentlich. Module + DT-Tabelle stammen vom selben Geraet.
+pkgname=linux-betterspace-v5x
+pkgver=4.14.141
+pkgrel=4
+pkgdesc="Betterspace V5x / LANIX Ilium Pad X8 stock kernel (prebuilt)"
+arch="aarch64"
+_flavor="betterspace-v5x"
+url="https://github.com/AtillaTokmak/kernel_casper_mt8168"
+license="GPL-2.0-only"
+options="!strip !check !tracedeps pmb:kconfigcheck-none"
+makedepends="kmod"
+depends="kmod"
+install="$pkgname.post-install $pkgname.post-upgrade"
+source="
+	stock-Image.gz
+	stock-dt-table.img
+	config-stock.aarch64
+	wmt_drv.ko
+	wmt_chrdev_wifi.ko
+	wlan_drv_gen4m.ko
+	bt_drv.ko
+"
+
+package() {
+	install -Dm644 "$srcdir"/stock-Image.gz "$pkgdir"/boot/vmlinuz
+	install -Dm644 "$srcdir"/stock-dt-table.img \
+		"$pkgdir"/boot/dtbs/mediatek/betterspace-v5x-stock.dtb
+	install -Dm644 "$srcdir"/config-stock.aarch64 \
+		"$pkgdir"/boot/config-$_flavor
+	for m in wmt_drv wmt_chrdev_wifi wlan_drv_gen4m bt_drv; do
+		install -Dm644 "$srcdir"/$m.ko \
+			"$pkgdir"/usr/lib/modules/$pkgver/extra/$m.ko
+	done
+	for m in wmt_drv wmt_chrdev_wifi wlan_drv_gen4m bt_drv; do
+		echo "extra/$m.ko" >> "$pkgdir"/usr/lib/modules/$pkgver/modules.order
+	done
+	: > "$pkgdir"/usr/lib/modules/$pkgver/modules.builtin
+	: > "$pkgdir"/usr/lib/modules/$pkgver/modules.builtin.modinfo
+	depmod -b "$pkgdir"/usr $pkgver
+	mkdir -p "$pkgdir"/usr/share/kernel/$_flavor
+	echo "$pkgver" > "$pkgdir"/usr/share/kernel/$_flavor/kernel.release
+}
+sha512sums="
+88afb12770a08c056b81728de8d8dcbff87ad72fed5b3bfbcf72fdc0ec1bf87889b58a41f71062582db4520f74cb9355360707c316f9c5919a397c2e820e41cc  stock-Image.gz
+c6f522ab81076a823a118b1316bc14f741397ae3afdc44afa54c91ad265bbcec83aea0410e38c39de018c1fb53c5460f7bdd9b955743e36619c2709355ea93a4  stock-dt-table.img
+18bf452af3b85fefee93792f62f7f74564e9ac8475c941442c04a34c03db49b0af9156c83f6114a88fcb1cbc4262baef5a6b66b7a70f54c8feea7ca82a5c06e5  config-stock.aarch64
+6a7a85bf72b4b56299a64bc6c4ff5d764b8b7f594b9cdaad67c036ed19997a6e93c78b555f1863b2c8ed77a6aa89ab74573fe71120a51295d8970db6d60e5bd1  wmt_drv.ko
+45c150761f41406d3857c23f71669911452009a2f6d0517564eff3aec678c5a27abe51f26ec9f32c13604eedd6ff02fd9403b2aa263023ef934ad7ee879040e3  wmt_chrdev_wifi.ko
+6cab1f5773660dcd438414ee82fb0a2993186eeafd25183009f70c42fbf56c5ec593ee0845ce7a6e38fc79cd9394c57d238229d15f4abbcb30d255acdc25b812  wlan_drv_gen4m.ko
+ad3c0bebeb636b6f12e6a261e924325aec22a4a39a85bfcfcaa9a076bdc31955a77005b871c9deb55f8041073b58ab5e89bc42a8936266ed4fe5e62192393a77  bt_drv.ko
+"

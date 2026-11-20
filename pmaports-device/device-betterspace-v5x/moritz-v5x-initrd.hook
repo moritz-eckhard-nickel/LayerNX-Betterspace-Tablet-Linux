@@ -1,0 +1,25 @@
+#!/bin/sh
+# boot-deploy-Hook (moritz-betterspace-v5x):
+# Der LK-Bootloader des MT8168 uebergibt fuer pmOS-Ramdisks eine unbrauchbare
+# initrd-Angabe im Device-Tree ("initrd not fully accessible via the linear
+# mapping"). Der arm64-Kernel wertet "initrd=<addr>,<size>" auf der Kommandozeile
+# nach dem DT aus - daher hier die exakte Groesse der neuen Initramfs eintragen.
+# Adresse = deviceinfo_flash_offset_ramdisk (0x55000000).
+args="$(tr '\0' '\n' < /proc/$PPID/cmdline)"
+i=""; d=""; prev=""
+for a in $args; do
+	case "$prev" in
+		-i) i="$a" ;;
+		-d) d="$a" ;;
+	esac
+	prev="$a"
+done
+f="$d/$i"
+if [ -z "$i" ] || [ ! -f "$f" ]; then
+	echo "moritz-v5x-initrd: Initramfs nicht gefunden ($f)" >&2
+	exit 0
+fi
+size=$(stat -c %s "$f")
+mkdir -p /etc/kernel-cmdline.d
+echo "initrd=0x55000000,$size" > /etc/kernel-cmdline.d/90-moritz-v5x-initrd.conf
+echo "moritz-v5x-initrd: initrd=0x55000000,$size"

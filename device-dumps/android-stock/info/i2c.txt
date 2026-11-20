@@ -1,0 +1,13 @@
+/sys/bus/i2c/devices/1-006a charger ../../../../../../bus/i2c/drivers/hl7005
+/sys/bus/i2c/devices/2-005d cap_touch ../../../../../../bus/i2c/drivers/mtk-tpd
+/sys/bus/i2c/devices/3-000c msensor
+/sys/bus/i2c/devices/3-0018 gsensor ../../../../../../bus/i2c/drivers/SC7A20
+/sys/bus/i2c/devices/3-0048 alsps
+/sys/bus/i2c/devices/3-004c it66121-i2c
+/sys/bus/i2c/devices/3-0068 gyro
+/sys/bus/i2c/devices/4-000c camera_main_af ../../../../../../bus/i2c/drivers/MAINAF
+/sys/bus/i2c/devices/4-003c camera_main ../../../../../../bus/i2c/drivers/kd_camera_hw
+/sys/bus/i2c/devices/i2c-1 i2c-mt65xx
+/sys/bus/i2c/devices/i2c-2 i2c-mt65xx
+/sys/bus/i2c/devices/i2c-3 i2c-mt65xx
+/sys/bus/i2c/devices/i2c-4 i2c-mt65xx

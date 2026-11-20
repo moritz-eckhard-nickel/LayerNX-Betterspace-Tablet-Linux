@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+description="Betterspace V5x: mtkfb-Refresher (FBIOPAN_DISPLAY, 30 Hz)"
+supervisor=supervise-daemon
+command=/usr/bin/moritz-v5x-fbrefresh
+command_args="30"
+respawn_delay=2
+respawn_max=0
+depend() {
+	need moritz-v5x-devnodes
+	before moritz-v5x-xsession
+}

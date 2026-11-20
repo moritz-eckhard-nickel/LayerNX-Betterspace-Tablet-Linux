@@ -1,0 +1,63 @@
+# Reference: <https://postmarketos.org/devicepkg>
+# Maintainer: moritz-v5x <noreply@example.org>
+pkgname=device-betterspace-v5x
+pkgdesc="Betterspace V5x / LANIX Ilium Pad X8 (MT8168B)"
+pkgver=1
+pkgrel=4
+url="https://nura.eco"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="
+	busybox-mdev-openrc
+	firmware-betterspace-v5x
+	linux-betterspace-v5x
+	mdev-conf
+	mkbootimg
+	moritz-wmt-launcher
+	postmarketos-base
+	unudhcpd
+	wireless-tools
+	wpa_supplicant
+	wpa_supplicant-openrc
+"
+makedepends="devicepkg-dev"
+install="$pkgname.post-install"
+source="
+	deviceinfo
+	moritz-v5x-devnodes.initd
+	moritz-v5x-wifi.initd
+	moritz-v5x-wifi.confd
+	moritz-v5x-usbnet.initd
+	moritz-v5x-groups.start
+	modules-load.conf
+	moritz-v5x-initrd.hook
+	kernel-cmdline.conf
+"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+	install -Dm755 "$srcdir"/moritz-v5x-devnodes.initd "$pkgdir"/etc/init.d/moritz-v5x-devnodes
+	install -Dm755 "$srcdir"/moritz-v5x-wifi.initd "$pkgdir"/etc/init.d/moritz-v5x-wifi
+	install -Dm644 "$srcdir"/moritz-v5x-wifi.confd "$pkgdir"/etc/conf.d/moritz-v5x-wifi
+	install -Dm755 "$srcdir"/moritz-v5x-usbnet.initd "$pkgdir"/etc/init.d/moritz-v5x-usbnet
+	install -Dm755 "$srcdir"/moritz-v5x-groups.start "$pkgdir"/etc/local.d/moritz-v5x-groups.start
+	install -Dm755 "$srcdir"/moritz-v5x-initrd.hook "$pkgdir"/usr/share/boot-deploy/hooks/50-moritz-v5x-initrd
+	install -Dm644 "$srcdir"/kernel-cmdline.conf "$pkgdir"/usr/lib/kernel-cmdline.d/50-betterspace-v5x.conf
+	install -Dm644 "$srcdir"/modules-load.conf "$pkgdir"/etc/modules-load.d/00-betterspace-v5x.conf
+}
+sha512sums="
+435b3140bed01993893e46d9d2af2a26927686574619f487e445de5d29cd3fc4c9821a5299a0e0086b0f482a70c2e45143b92c037d93c3971d7560b4a3d8c2b0  deviceinfo
+3366c111b8ecec9e75cbed07df5af9e8ea2048dee398d1d94d023a8d8a1f3babbc00110eb8409fdd80458eeaf4adc9779be46a415c64ccccd72aa8e6759db43c  moritz-v5x-devnodes.initd
+76878073778dbd8956dae8f18c331efb8129ef52e7473bd773c08ea439630c10114e2e0fc2e3c0f21dd0b671993a05aabcd4942c87338dff38f193f7520fe872  moritz-v5x-wifi.initd
+4526caf0a71cc3592059205b24db53238fef3c37e4c855a268d2e875913463103a01e27d5be358af75d51e691b2999d2af9f65d9c57f3aadb5bae37793d42991  moritz-v5x-wifi.confd
+43bce1de87e99d9281013cf6a22a853045c6b9a72bd89c2fc9ac51ab4279d10ec8a676600fe0aefd03a35941c922a70878ffed299a1863f2231c395d289fb964  moritz-v5x-usbnet.initd
+99c7676085951d624c1ae0cee171bdd78d1a5373c49b3c26d6851245a4be68c7a27b72143a8282dae7a98a01f3c90828db97763f2bf34888467033b1431bd2ac  moritz-v5x-groups.start
+7c7b322360e9082da36858fb6a49bf31bae2370f5efe8972795141aae73c59f730e808d1a9d4fc989c5ecd97798709c66a149a744ed4995728642f17dc8b93c0  modules-load.conf
+4c210b846cfa07ae4815d15cef29e130f623dc8d004c57e5aaf21cffb97970281335f9e9d1892082174af83f8e5adc8bbf04a54b405a2acab1c490bd2755b4e5  moritz-v5x-initrd.hook
+7e666993d81ee7b5101fe5a90f3a68893512138d9b16df460fa59a3b395c2858aaeb9b9a336a78ce1fb7dbe8c54ce94ef0c454e9fd6318723a1c862f0c51ac94  kernel-cmdline.conf
+"

@@ -1,0 +1,8 @@
+# Fremde Repos / Build-Arbeitsverzeichnisse (siehe README "Selbst bauen")
+/pmaports/
+/pmb-work/
+/sources/
+/build/kernel-casper-test/
+/build/apks/
+/build/*.xwd
+/build/fb0.raw.gz

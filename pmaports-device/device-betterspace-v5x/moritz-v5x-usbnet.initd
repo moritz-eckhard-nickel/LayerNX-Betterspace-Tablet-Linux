@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+# USB-Netzwerk (RNDIS-Gadget aus der Initramfs): Tablet 172.16.42.1, Host per DHCP 172.16.42.2
+description="Betterspace V5x: USB-Netzwerk mit DHCP"
+
+depend() {
+	need moritz-v5x-devnodes
+	before sshd
+}
+
+start() {
+	ebegin "USB-Netzwerk 172.16.42.1"
+	iface=""
+	for i in usb0 rndis0; do [ -e /sys/class/net/$i ] && iface=$i && break; done
+	if [ -z "$iface" ]; then
+		eend 1 "kein USB-Netzwerkinterface"
+		return 1
+	fi
+	ip addr add 172.16.42.1/24 dev "$iface" 2>/dev/null
+	ip link set "$iface" up
+	start-stop-daemon --start --background --make-pidfile \
+		--pidfile /run/moritz-unudhcpd.pid --exec /usr/bin/unudhcpd -- \
+		-i "$iface" -s 172.16.42.1 -c 172.16.42.2
+	eend 0
+}
+
+stop() {
+	start-stop-daemon --stop --pidfile /run/moritz-unudhcpd.pid
+}

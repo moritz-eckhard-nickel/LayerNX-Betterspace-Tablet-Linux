@@ -1,0 +1,1864 @@
+[    0.000000] -(0)[0:swapper]Booting Linux on physical CPU 0x0
+[    0.000000] -(0)[0:swapper]Linux version 4.14.141 (nobody@android-build) (Android (5484270 based on r353983c) clang version 9.0.3 (https://android.googlesource.com/toolchain/clang 745b335211bb9eadfa6aa6301f84715cee4b37c5) (https://android.googlesource.com/toolchain/llvm 60cf23e54e46c807513f7a36d0a7b777920b5881) (based on LLVM 9.0.3svn)) #1 SMP PREEMPT Sat Sep 25 15:18:16 CST 2021
+[    0.000000] -(0)[0:swapper]Boot CPU: AArch64 Processor [410fd034]
+[    0.000000] -(0)[0:swapper]Machine model: MT8168B
+[    0.000000] -(0)[0:swapper]earlycon: uart8250 at MMIO32 0x0000000011002000 (options '')
+[    0.000000] -(0)[0:swapper]bootconsole [uart8250] enabled
+[    0.000000] -(0)[0:swapper]efi: Getting EFI parameters from FDT:
+[    0.000000] -(0)[0:swapper]efi: UEFI not found.
+[    0.000000] -(0)[0:swapper]------------[ cut here ]------------
+[    0.000000] -(0)[0:swapper]WARNING: CPU: 0 PID: 0 at /home/bnd_Customer/bnd_xy/Q_10.0_105/Q_mt816x_v1/Q_816x/kernel-4.14/arch/arm64/mm/init.c:482 arm64_memblock_init+0x250/0x25c
+[    0.000000] -(0)[0:swapper]initrd not fully accessible via the linear mapping -- please check your bootloader ...
+[    0.000000] -(0)[0:swapper]Modules linked in:
+[    0.000000] -(0)[0:swapper]CPU: 0 PID: 0 Comm: swapper Not tainted 4.14.141 #1
+[    0.000000] -(0)[0:swapper]Hardware name: MT8168B (DT)
+[    0.000000] -(0)[0:swapper]Call trace:
+[    0.000000] -(0)[0:swapper][<ffffff800808d29c>] dump_backtrace+0x0/0x4b0
+[    0.000000] -(0)[0:swapper][<ffffff800808d760>] show_stack+0x14/0x1c
+[    0.000000] -(0)[0:swapper][<ffffff8008dc8518>] dump_stack+0xc4/0xfc
+[    0.000000] -(0)[0:swapper][<ffffff80080afe20>] __warn+0xdc/0x168
+[    0.000000] -(0)[0:swapper][<ffffff80080aff1c>] warn_slowpath_fmt+0x70/0x94
+[    0.000000] -(0)[0:swapper][<ffffff8009376c24>] arm64_memblock_init+0x250/0x25c
+[    0.000000] -(0)[0:swapper][<ffffff8009373db8>] setup_arch+0x1fc/0x588
+[    0.000000] -(0)[0:swapper][<ffffff8009370558>] start_kernel+0x68/0x470
+[    0.000000] -(0)[0:swapper]random: get_random_bytes called from __warn+0x108/0x168 with crng_init=0
+[    0.000000] -(0)[0:swapper]---[ end trace 0000000000000000 ]---
+[    0.000000] -(0)[0:swapper][CONNADP][W]reserve_memory_wifi_fn: name: wifi-reserve-memory,base: 0xbf000000,size: 0x300000
+[    0.000000] -(0)[0:swapper]OF: reserved mem: initialized node wifi-reserve-memory, compatible id mediatek,wifi-reserve-memory
+[    0.000000] -(0)[0:swapper][CONNADP][W]reserve_memory_consys_fn: name: consys-reserve-memory,base: 0xbe000000,size: 0x400000
+[    0.000000] -(0)[0:swapper]OF: reserved mem: initialized node consys-reserve-memory, compatible id mediatek,consys-reserve-memory
+[    0.000000] -(0)[0:swapper][memblock]mediatek,ram_console: 0x54400000 - 0x54410000 (0x10000)
+[    0.000000] -(0)[0:swapper]OF: reserved mem: initialized node mblock-6-ram_console, compatible id mediatek,ram_console
+[    0.000000] -(0)[0:swapper][memblock]mediatek,pstore: 0x54410000 - 0x544f0000 (0xe0000)
+[    0.000000] -(0)[0:swapper]OF: reserved mem: initialized node mblock-7-pstore, compatible id mediatek,pstore
+[    0.000000] -(0)[0:swapper][memblock]mediatek,minirdump: 0x544f0000 - 0x54500000 (0x10000)
+[    0.000000] -(0)[0:swapper]OF: reserved mem: initialized node mblock-8-minirdump, compatible id mediatek,minirdump
+[    0.000000] -(0)[0:swapper]OF: reserved mem: initialized node mblock-2-atf-log-reserved, compatible id mediatek,atf-log-reserved
+[    0.000000] -(0)[0:swapper]psci: probing for conduit method from DT.
+[    0.000000] -(0)[0:swapper]psci: PSCIv1.1 detected in firmware.
+[    0.000000] -(0)[0:swapper]psci: Using standard PSCI v0.2 function IDs
+[    0.000000] -(0)[0:swapper]psci: Trusted OS migration not required
+[    0.000000] -(0)[0:swapper]psci: SMC Calling Convention v1.1
+[    0.000000] -(0)[0:swapper]percpu: Embedded 26 pages/cpu s67736 r8192 d30568 u106496
+[    0.000000] -(0)[0:swapper]Detected VIPT I-cache on CPU0
+[    0.000000] -(0)[0:swapper]CPU features: enabling workaround for ARM erratum 845719
+[    0.000000] -(0)[0:swapper]Built 1 zonelists, mobility grouping on.  Total pages: 501755
+[    0.000000] -(0)[0:swapper]Kernel command line: console=tty0 console=ttyS0,921600n1 earlycon=uart8250,mmio32,0x11002000 vmalloc=496M androidboot.hardware=mt8168 firmware_class.path=/vendor/firmware loop.max_part=7 has_battery_removed=0 androidboot.boot_devices=bootdevice,soc/11230000.mmc bootopt=64S3,32N2,64N2 loglevel=7  pmos_boot_uuid=832f9d55-9964-4521-ada8-464b0002e7ec pmos_root_uuid=b63ed948-af53-4080-b3a0-8759785d7faf pmos_rootfsopts=defaults lcm=1-ili9881c_wd101hbm40ab_d4_wxga_hsd fps=5858 vram=14352384 androidboot.selinux=permissive printk.disable_uart=1 bootprof.pl_t=6108 bootprof.lk_t=3953 androidboot.serialno=XXXXXXXXXXXXXXXXX androidboot.bootreason=reboot mrdump_ddrsv=no androidboot.dtb_idx=0 androidboot.dtbo_idx=0
+[    0.000000] -(0)[0:swapper]PID hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.000000] -(0)[0:swapper]Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes)
+[    0.000000] -(0)[0:swapper]Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes)
+[    0.000000] -(0)[0:swapper]Memory: 1976200K/2039680K available (13756K kernel code, 1610K rwdata, 5572K rodata, 1024K init, 4315K bss, 63480K reserved, 0K cma-reserved)
+[    0.000000] -(0)[0:swapper]Virtual kernel memory layout:
+[    0.000000] -(0)[0:swapper]    modules : 0xffffff8000000000 - 0xffffff8008000000   (   128 MB)
+[    0.000000] -(0)[0:swapper]    vmalloc : 0xffffff8008000000 - 0xffffffbebfff0000   (   250 GB)
+[    0.000000] -(0)[0:swapper]      .text : 0x        (ptrval) - 0x        (ptrval)   ( 13760 KB)
+[    0.000000] -(0)[0:swapper]    .rodata : 0x        (ptrval) - 0x        (ptrval)   (  5632 KB)
+[    0.000000] -(0)[0:swapper]      .init : 0x        (ptrval) - 0x        (ptrval)   (  1024 KB)
+[    0.000000] -(0)[0:swapper]      .data : 0x        (ptrval) - 0x        (ptrval)   (  1611 KB)
+[    0.000000] -(0)[0:swapper]       .bss : 0x        (ptrval) - 0x        (ptrval)   (  4316 KB)
+[    0.000000] -(0)[0:swapper]    fixed   : 0xffffffbefe7fb000 - 0xffffffbefec00000   (  4116 KB)
+[    0.000000] -(0)[0:swapper]    PCI I/O : 0xffffffbefee00000 - 0xffffffbeffe00000   (    16 MB)
+[    0.000000] -(0)[0:swapper]    vmemmap : 0xffffffbf00000000 - 0xffffffc000000000   (     4 GB maximum)
+[    0.000000] -(0)[0:swapper]              0xffffffbf00000000 - 0xffffffbf01fe5000   (    31 MB actual)
+[    0.000000] -(0)[0:swapper]    memory  : 0xffffffc000000000 - 0xffffffc07f940000   (  2041 MB)
+[    0.000000] -(0)[0:swapper]SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] -(0)[0:swapper]
+[    0.000000] -(0)[0:swapper]**********************************************************
+[    0.000000] -(0)[0:swapper]**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
+[    0.000000] -(0)[0:swapper]**                                                      **
+[    0.000000] -(0)[0:swapper]** trace_printk() being used. Allocating extra memory.  **
+[    0.000000] -(0)[0:swapper]**                                                      **
+[    0.000000] -(0)[0:swapper]** This means that this is a DEBUG kernel and it is     **
+[    0.000000] -(0)[0:swapper]** unsafe for production use.                           **
+[    0.000000] -(0)[0:swapper]**                                                      **
+[    0.000000] -(0)[0:swapper]** If you see this message and you are not debugging    **
+[    0.000000] -(0)[0:swapper]** the kernel, report this immediately to your vendor!  **
+[    0.000000] -(0)[0:swapper]**                                                      **
+[    0.000000] -(0)[0:swapper]**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
+[    0.000000] -(0)[0:swapper]**********************************************************
+[    0.000000] -(0)[0:swapper/0]sched-energy: CPU0: update cpu_capacity 1024
+[    0.000000] -(0)[0:swapper/0]sched-energy: CPU1: update cpu_capacity 1024
+[    0.000000] -(0)[0:swapper/0]sched-energy: CPU2: update cpu_capacity 1024
+[    0.000000] -(0)[0:swapper/0]sched-energy: CPU3: update cpu_capacity 1024
+[    0.000000] -(0)[0:swapper/0]Preemptible hierarchical RCU implementation.
+[    0.000000] -(0)[0:swapper/0]	RCU restricting CPUs from NR_CPUS=64 to nr_cpu_ids=4.
+[    0.000000] -(0)[0:swapper/0]	Tasks RCU enabled.
+[    0.000000] -(0)[0:swapper/0]RCU: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+[    0.000000] -(0)[0:swapper/0]NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] -(0)[0:swapper/0]GICv3: GIC: Using split EOI/Deactivate mode
+[    0.000000] -(0)[0:swapper/0]GICv3: no VLPI support, no direct LPI support
+[    0.000000] -(0)[0:swapper/0]GICv3: CPU0: found redistributor 0 region 0:0x000000000c080000
+[    0.000000] -(0)[0:swapper/0]### IRQ SW mode not support ###
+[    0.000000] -(0)[0:swapper/0]### gic-v3 init done. ###
+[    0.000000] -(0)[0:swapper/0]arch_timer: cp15 timer(s) running at 13.00MHz (phys).
+[    0.000000] -(0)[0:swapper/0]clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x2ff89eacb, max_idle_ns: 440795202429 ns
+[    0.000003] -(0)[0:swapper/0]sched_clock: 56 bits at 13MHz, resolution 76ns, wraps every 4398046511101ns
+[    0.001316] -(0)[0:swapper/0]clocksource: apxgpt: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 147020034397 ns
+[    0.003211]  (0)[0:swapper/0]ram_console:[DT] 0x800@0x10d000, 0x2(0xac0)
+[    0.004089]  (0)[0:swapper/0]ram_console: [DT] 0xe0000@0x54410000-0x10000@0x544f0000
+[    0.005097]  (0)[0:swapper/0]ram_console: using dram:0x54400000
+[    0.005869]  (0)[0:swapper/0]ram_console: buffer start: 0xffffff8008006000, size: 0x10000
+[    0.020144]  (0)[0:swapper/0]pmic & external buck: 0xff
+[    0.020823]  (0)[0:swapper/0]ram_console: CPU notifier status: 0, 0, 0x0, 0
+[    0.021725]  (0)[0:swapper/0]ram_console: CPU HPS footprint: 0, 0x0, 0, 0
+[    0.022603]  (0)[0:swapper/0]ram_console: last init function: 0xffffffffffffffff
+[    0.023934]  (0)[0:swapper/0]Calibrating delay loop (skipped), value calculated using timer frequency.. 26.00 BogoMIPS (lpj=52000)
+[    0.025457]  (0)[0:swapper/0]pid_max: default: 32768 minimum: 301
+[    0.026313]  (0)[0:swapper/0]Security Framework initialized
+[    0.027039]  (0)[0:swapper/0]SELinux:  Initializing.
+[    0.027768]  (0)[0:swapper/0]Mount-cache hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.028839]  (0)[0:swapper/0]Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.030686] -(0)[0:swapper/0]init_heavy_tlb start.
+[    0.030696] -(0)[0:swapper/0]init_heavy_tlb: cpu=0 thresh_l=2147483647 thresh_h=358 max_capaicy=1024
+[    0.030700] -(0)[0:swapper/0]init_heavy_tlb: cpu=1 thresh_l=2147483647 thresh_h=358 max_capaicy=1024
+[    0.030704] -(0)[0:swapper/0]init_heavy_tlb: cpu=2 thresh_l=2147483647 thresh_h=358 max_capaicy=1024
+[    0.030707] -(0)[0:swapper/0]init_heavy_tlb: cpu=3 thresh_l=2147483647 thresh_h=358 max_capaicy=1024
+[    0.049100]  (0)[1:swapper/0]ASID allocator initialised with 32768 entries
+[    0.057098]  (0)[1:swapper/0]Hierarchical SRCU implementation.
+[    0.065266]  (0)[1:swapper/0]tag_devinfo_data size:200, HRID size:2
+[    0.066080]  (0)[1:swapper/0][devinfo][SegCode] Segment Code=0x12
+[    0.066873]  (0)[1:swapper/0]BOOTPROF:        66.871000: ON
+[    0.067634]  (0)[1:swapper/0][BOOT_REASON] 'boot_reason=' is not found
+[    0.068493]  (0)[1:swapper/0]EFI services will not be available.
+[    0.077315]  (0)[1:swapper/0]smp: Bringing up secondary CPUs ...
+[    0.106312] -(1)[0:swapper/1]Detected VIPT I-cache on CPU1
+[    0.106358] -(1)[0:swapper/1]GICv3: CPU1: found redistributor 1 region 0:0x000000000c0a0000
+[    0.106400] -(1)[0:swapper/1]CPU1: Booted secondary processor [410fd034]
+[    0.114525] -(2)[0:swapper/2]Detected VIPT I-cache on CPU2
+[    0.114571] -(2)[0:swapper/2]GICv3: CPU2: found redistributor 2 region 0:0x000000000c0c0000
+[    0.114611] -(2)[0:swapper/2]CPU2: Booted secondary processor [410fd034]
+[    0.116197] -(3)[0:swapper/3]Detected VIPT I-cache on CPU3
+[    0.116239] -(3)[0:swapper/3]GICv3: CPU3: found redistributor 3 region 0:0x000000000c0e0000
+[    0.116278] -(3)[0:swapper/3]CPU3: Booted secondary processor [410fd034]
+[    0.116509]  (0)[1:swapper/0]smp: Brought up 1 node, 4 CPUs
+[    0.125290]  (0)[1:swapper/0]SMP: Total of 4 processors activated.
+[    0.126093]  (0)[1:swapper/0]CPU features: detected feature: GIC system register CPU interface
+[    0.127216]  (0)[1:swapper/0]CPU features: detected feature: 32-bit EL0 Support
+[    0.128165]  (0)[1:swapper/0]------------[ cut here ]------------
+[    0.128969]  (0)[1:swapper/0]WARNING: CPU: 0 PID: 1 at /home/bnd_Customer/bnd_xy/Q_10.0_105/Q_mt816x_v1/Q_816x/kernel-4.14/arch/arm64/kernel/cpufeature.c:755 has_cpuid_feature+0x40c/0x410
+[    0.131124]  (0)[1:swapper/0]Modules linked in:
+[    0.131729] -(0)[1:swapper/0]CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W       4.14.141 #1
+[    0.132865] -(0)[1:swapper/0]Hardware name: MT8168B (DT)
+[    0.133555] -(0)[1:swapper/0]Call trace:
+[    0.134070] -(0)[1:swapper/0][<ffffff800808d29c>] dump_backtrace+0x0/0x4b0
+[    0.134963] -(0)[1:swapper/0][<ffffff800808d760>] show_stack+0x14/0x1c
+[    0.135815] -(0)[1:swapper/0][<ffffff8008dc8518>] dump_stack+0xc4/0xfc
+[    0.136664] -(0)[1:swapper/0][<ffffff80080afe20>] __warn+0xdc/0x168
+[    0.137477] -(0)[1:swapper/0][<ffffff80080afff0>] warn_slowpath_null+0x1c/0x24
+[    0.138413] -(0)[1:swapper/0][<ffffff80080930a0>] has_cpuid_feature+0x40c/0x410
+[    0.139361] -(0)[1:swapper/0][<ffffff800809233c>] update_cpu_capabilities+0x4c/0xd8
+[    0.140356] -(0)[1:swapper/0][<ffffff8009374d80>] setup_cpu_features+0x2c/0x3b0
+[    0.141303] -(0)[1:swapper/0][<ffffff8009375210>] smp_cpus_done+0x28/0x94
+[    0.142186] -(0)[1:swapper/0][<ffffff8009388820>] smp_init+0x108/0x120
+[    0.143034] -(0)[1:swapper/0][<ffffff8009370ee0>] kernel_init_freeable+0xd8/0x234
+[    0.144007] -(0)[1:swapper/0][<ffffff8008ddc3dc>] kernel_init+0x10/0x214
+[    0.144876] -(0)[1:swapper/0][<ffffff8008085d28>] ret_from_fork+0x10/0x18
+[    0.145770]  (0)[1:swapper/0]---[ end trace 26c1441b4822ef7e ]---
+[    0.146566]  (0)[1:swapper/0]CPU: All CPU(s) started at EL2
+[    0.147320] -(0)[11:migration/0]alternatives: patching kernel code
+[    0.148380]  (0)[1:swapper/0]Sort hmp_domains from little to big:
+[    0.149170]  (0)[1:swapper/0]    cpumask: 0x0f
+[    0.149746]  (0)[1:swapper/0]Initializing HMP scheduler:
+[    0.150453]  (0)[1:swapper/0]Initializing HMP scheduler done
+[    0.151266]  (0)[1:swapper/0]CPU3: update max cpu_capacity 1024
+[    0.151282]  (0)[1:swapper/0]WARN: cpu=0, domain=DIE: incr. energy eff 871[0]->920[1]
+[    0.153060]  (0)[1:swapper/0]WARN: cpu=0, domain=DIE: incr. energy eff 920[1]->958[2]
+[    0.154074]  (0)[1:swapper/0]WARN: cpu=0, domain=DIE: incr. energy eff 958[2]->965[3]
+[    0.155098]  (0)[1:swapper/0]WARN: cpu=0, domain=DIE: incr. energy eff 965[3]->965[4]
+[    0.163941]  (0)[1:swapper/0]items: of_get_flat_dt_prop  mem_desc->start = bf600000
+[    0.164946]  (0)[1:swapper/0]kernel items: mem_desc->start = 0xbf600000
+[    0.165803]  (0)[1:swapper/0]kernel items: mem_desc->szie = 0x200000
+[    0.166872]  (0)[1:swapper/0]Registered cp15_barrier emulation handler
+[    0.167742]  (0)[1:swapper/0]Registered setend emulation handler
+[    0.168705] -(1)[16:kworker/1:0]CPU1: update max cpu_capacity 1024
+[    0.168764]  (0)[1:swapper/0]clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.171024]  (0)[1:swapper/0]futex hash table entries: 1024 (order: 4, 65536 bytes)
+[    0.172239]  (0)[1:swapper/0]pinctrl core: initialized pinctrl subsystem
+[    0.173833]  (0)[1:swapper/0]DMI not present or invalid.
+[    0.174700]  (0)[1:swapper/0]NET: Registered protocol family 16
+[    0.175863]  (0)[1:swapper/0]schedtune: configured to support 5 boost groups
+[    0.176910]  (0)[1:swapper/0]ramoops: using module parameters
+[    0.177733]  (0)[1:swapper/0]ramoops: pstore:address is 0x54410000, size is 0xe0000, console_size is 0x40000, pmsg_size is 0x10000
+[    0.183335]  (0)[1:swapper/0]pstore: using zlib compression
+[    0.184662]  (0)[1:swapper/0]console [pstore-1] enabled
+[    0.185418]  (0)[1:swapper/0]pstore: Registered ramoops as persistent store backend
+[    0.186412]  (0)[1:swapper/0]ramoops: attached 0xe0000@0x54410000, ecc: 0/0
+[    0.187660]  (0)[1:swapper/0][PMIC_WRAP] No PMIC real chip, PMIC_WRAP do Nothing.
+[    0.188636]  (0)[1:swapper/0]items *va=0xffffff800a000000 pa=bf600000
+[    0.189483]  (0)[1:swapper/0]kernel item_init
+[    0.191448]  (0)[1:swapper/0]items length: 5490
+[    0.192040]  (0)[1:swapper/0]kernel items test : items exist Not items.kernel.test
+[    0.193021]  (0)[1:swapper/0]item_list
+[    0.193521]  (0)[1:swapper/0]  0: items.start               
+[    0.194256]  (0)[1:swapper/0]  1: ro.odm.LCM                ili9881c_wd101hbm40ab_d4_wxga_hsd
+[    0.195360]  (0)[1:swapper/0]  2: ro.odm.hwrotation         270
+[    0.196128]  (0)[1:swapper/0]  3: ro.odm.LCM.backlight.coefficient  90
+[    0.196973]  (0)[1:swapper/0]  4: ro.odm.LCM.backlight.min  10
+[    0.197749]  (0)[1:swapper/0]  5: ro.odm.LCM.dither.reg6    4080
+[    0.198529]  (0)[1:swapper/0]  6: ro.sf.lcd_density         160
+[    0.199297]  (0)[1:swapper/0]  7: ro.odm.touchpanel.vendor.ic  CTS1XX
+[    0.200132]  (0)[1:swapper/0]  8: ro.odm.touchpanel.cst1xx.tp  cst_mjk_800x1280_fw
+[    0.201113]  (0)[1:swapper/0]  9: ro.odm.touchpanel.eint.pin  5
+[    0.201890]  (0)[1:swapper/0] 10: ro.odm.touchpanel.reset.pin  2
+[    0.202670]  (0)[1:swapper/0] 11: ro.odm.touchpanel.i2c.num  1
+[    0.203427]  (0)[1:swapper/0] 12: ro.odm.touchpanel.power.num  vgp1
+[    0.204239]  (0)[1:swapper/0] 13: ro.odm.touchpanel.gsl.modle  P863_10_TP
+[    0.205119]  (0)[1:swapper/0] 14: ro.odm.touchpanel.xy.swap  1
+[    0.205876]  (0)[1:swapper/0] 15: ro.odm.touchpanel.x.reverse  1
+[    0.206663]  (0)[1:swapper/0] 16: ro.odm.touchpanel.y.reverse  1
+[    0.207443]  (0)[1:swapper/0] 17: ro.odm.touchpanel.xy.deal  0
+[    0.208199]  (0)[1:swapper/0] 18: ro.odm.touchpanel.proximity  0
+[    0.208978]  (0)[1:swapper/0] 19: ro.odm.touchpanel.goodix.tp  defualt
+[    0.209824]  (0)[1:swapper/0] 20: ro.odm.camera.main.imgsensor  gc5025_mipi_raw
+[    0.210780]  (0)[1:swapper/0] 21: ro.odm.camera.sub.imgsensor  gc5025_mipi_raw
+[    0.211717]  (0)[1:swapper/0] 22: ro.odm.camera.mainsub.mclk  1
+[    0.212484]  (0)[1:swapper/0] 23: ro.odm.camera.main.orientation  0
+[    0.213297]  (0)[1:swapper/0] 24: ro.odm.camera.sub.orientation  0
+[    0.214098]  (0)[1:swapper/0] 25: ro.odm.camera.main.port   0
+[    0.214852]  (0)[1:swapper/0] 26: ro.odm.camera.sub.port    0
+[    0.215598]  (0)[1:swapper/0] 27: ro.odm.battery.config.info  BM_708_QTZ_2500_HV
+[    0.216556]  (0)[1:swapper/0] 28: ro.odm.battery.high.voltage.support  1
+[    0.217424]  (0)[1:swapper/0] 29: ro.odm.accelerometer.orientation  6
+[    0.218259]  (0)[1:swapper/0] 30: ro.odm.accelerometer.mc34xx.orientation  7
+[    0.219181]  (0)[1:swapper/0] 31: ro.odm.accelerometer.sc7a20.orientation  6
+[    0.220095]  (0)[1:swapper/0] 32: ro.odm.gyro.accelerometer.orientation  4
+[    0.220985]  (0)[1:swapper/0] 33: ro.odm.stk8ba.accelerometer.orientation  5
+[    0.221899]  (0)[1:swapper/0] 34: ro.odm.accelerometer.mir3da.orientation  6
+[    0.222812]  (0)[1:swapper/0] 35: ro.odm.bnd.sensor_xy_swap  0
+[    0.223577]  (0)[1:swapper/0] 36: ro.odm.accelerometer.exist  1
+[    0.224345]  (0)[1:swapper/0] 37: ro.odm.gyroscope.exist    0
+[    0.225090]  (0)[1:swapper/0] 38: ro.odm.alsps.exist        0
+[    0.225836]  (0)[1:swapper/0] 39: ro.odm.magnetometer.exist  0
+[    0.226592]  (0)[1:swapper/0] 40: ro.odm.enable.stereo.speaker  0
+[    0.227382]  (0)[1:swapper/0] 41: ro.odm.using.extamp.hp    0
+[    0.228136]  (0)[1:swapper/0] 42: ro.odm.using.lo.path      0
+[    0.228882]  (0)[1:swapper/0] 43: ro.odm.magnetometer.orientation  4
+[    0.229706]  (0)[1:swapper/0] 44: ro.odm.gyroscope.orientation  4
+[    0.230496]  (0)[1:swapper/0] 45: ro.odm.hall_eint.used     0
+[    0.231241]  (0)[1:swapper/0] 46: ro.odm.hdmi.exist         0
+[    0.231986]  (0)[1:swapper/0] 47: ro.odm.bnd_autogen_addr   0
+[    0.232739]  (0)[1:swapper/0] 48: ro.odm.typec.usbotg       0
+[    0.233499]  (0)[1:swapper/0]BOOTPROF:       233.496846:initcall: item_map    44.853770ms
+[    0.234852]  (1)[1:swapper/0]cpuidle: using governor menu
+[    0.235924]  (1)[1:swapper/0]vdso: 2 pages (1 code @         (ptrval), 1 data @         (ptrval))
+[    0.237079]  (1)[1:swapper/0]hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.238376]  (0)[1:swapper/0]DMA: preallocated 256 KiB pool for atomic allocations
+[    0.239601]  (0)[1:swapper/0]mrdump_cblock_init: no mrdump_cb
+[    0.240430]  (0)[1:swapper/0]minirdump: [DT] reserved 0x544f0000+0x10000->        (ptrval)
+[    0.241892]  (0)[1:swapper/0]mrdump_full_init: MT-RAMDUMP no control block
+[    0.243055]  (0)[1:swapper/0]
+[    0.243055]  MTK_SIP_KERNEL_WDT - 0x        (ptrval)
+[    0.244097]  (0)[1:swapper/0]
+[    0.244097]  atf_aee_debug_virt_addr = 0x        (ptrval)
+[    0.245250]  (0)[1:swapper/0][CMDQ]cmdq_init enter
+[    0.245338]  (0)[1:swapper/0][cmdq] cmdq_init enter
+[    0.264909]  (0)[1:swapper/0]BOOTPROF:       264.904539:probe: probe=platform_drv_probe drv=clk-mt8168(0xffffff80094ed650)    15.728308ms
+[    0.287551]  (0)[1:swapper/0]BOOTPROF:       287.548616:probe: probe=platform_drv_probe drv=clk-mt8168(0xffffff80094ed650)    20.904000ms
+[    0.292244]  (0)[1:swapper/0]mtk pctrl init OK
+[    0.296086]  (0)[1:swapper/0]mt-pmic-pwrap 1000d000.pwrap: [PWRAP] Write Test pass
+[    0.297831]  (0)[1:swapper/0]systracker probe
+[    0.298417]  (0)[1:swapper/0]of_iomap for systracker @ 0x        (ptrval)
+[    0.299324]  (0)[1:swapper/0][systracker] bus_dbg_con is in infra_ao
+[    0.300161]  (0)[1:swapper/0]systracker_platform_probe_default:119: irq # 175
+[    0.301836]  (0)[1:swapper/0][EMI] module probe.
+[    0.302451]  (0)[1:swapper/0][EMI] get CEN_EMI_BASE @ ffffff8009c0f000
+[    0.303298]  (0)[1:swapper/0][EMI] get EMI_MPU_BASE @ ffffff8009c11000
+[    0.304157]  (0)[1:swapper/0][EMI] get CH0_EMI_BASE @ ffffff8009c13000
+[    0.305005]  (0)[1:swapper/0][EMI] get CH1_EMI_BASE @ ffffff8009c15000
+[    0.305870]  (0)[1:swapper/0][MPU] initialize EMI MPU
+[    0.306548]  (0)[1:swapper/0][MPU] get MPU IRQ: 182
+[    0.307206]  (0)[1:swapper/0]Protect kernel RO start:         (ptrval) (40081000) end:         (ptrval) (40df0000)
+[    0.308748]  (0)[1:swapper/0][DRAMC]get DRAMC_AO_CHA_BASE_ADDR @         (ptrval)
+[    0.309718]  (0)[1:swapper/0][DRAMC]get DRAMC_AO_CHB_BASE_ADDR @         (ptrval)
+[    0.310688]  (0)[1:swapper/0][DRAMC]get DDRPHY_AO_CHA_BASE_ADDR @         (ptrval)
+[    0.311668]  (0)[1:swapper/0][DRAMC]get DDRPHY_AO_CHB_BASE_ADDR @         (ptrval)
+[    0.312659]  (0)[1:swapper/0][DRAMC]get DRAMC_NAO_CHA_BASE_ADDR @         (ptrval)
+[    0.313640]  (0)[1:swapper/0][DRAMC]get DRAMC_NAO_CHB_BASE_ADDR @         (ptrval)
+[    0.314621]  (0)[1:swapper/0][DRAMC]get DDRPHY_NAO_CHA_BASE_ADDR @         (ptrval)
+[    0.315613]  (0)[1:swapper/0][DRAMC]get DDRPHY_NAO_CHB_BASE_ADDR @         (ptrval)
+[    0.316604]  (0)[1:swapper/0][DRAMC]get SLEEP_BASE_ADDR @           (null)
+[    0.317504]  (0)[1:swapper/0][DRAMC]get SYS_TIMER_BASE_ADDR @         (ptrval)
+[    0.318441]  (0)[1:swapper/0][DRAMC] dram type =3
+[    0.319052]  (0)[1:swapper/0][DRAMC] cbt mode =0
+[    0.319653]  (0)[1:swapper/0][DRAMC] Dram Data Rate = 1600
+[    0.320365]  (0)[1:swapper/0][DRAMC] shuffle_status = 0
+[    0.321048]  (0)[1:swapper/0][DRAMC] dram can support DFS
+[    0.322149]  (0)[1:swapper/0][cmdq] cmdq device: addr:0x        (ptrval) va:0x        (ptrval) irq:183 mask:0xffff
+[    0.323492]  (0)[1:swapper/0][cmdq] mbox set dma mask bit:32 result:0
+[    0.323492] 
+[    0.324532]  (0)[1:swapper/0][cmdq][err] failed to get gce timer clk @cmdq_probe,1331
+[    0.326311]  (0)[1:swapper/0][cmdq] cmdq device: addr:0x        (ptrval) va:0x        (ptrval) irq:0
+[    0.327514]  (0)[1:swapper/0][CMDQ][ERR]allocate iwc buffer:        (ptrval)
+[    0.337603]  (0)[1:swapper/0][DAPC] [TEE] dapc_register_ext_handler is called by Type_2B slave(0)
+[    0.339093]  (0)[1:swapper/0][TZ_M4U]sec_pt_va=0x0x10c04000, pa=0xbfc04000, align=0x4000
+[    0.340154]  (0)[1:swapper/0][TZ_M4U]init done.(secva0x10b91dc0-0x10b91dc0 pa0xbfb91dc0 sz4M)
+[    0.341264]  (0)[1:swapper/0][DAPC] [TEE] dapc_register_ext_handler is called by Type_2B slave(3)
+[    0.342416]  (0)[1:swapper/0][DAPC] [TEE] dapc_register_ext_handler is called by Type_2B slave(6)
+[    0.343673]  (0)[1:swapper/0][DAPC][TEE] RequestIrq is successful
+[    0.344518]  (0)[1:swapper/0]MTEE_HDMIInit()
+[    0.346757]  (0)[1:swapper/0]BOOTPROF:       346.754000:initcall: of_platform_default_populate_init    99.408462ms
+[    0.359365]  (0)[1:swapper/0][FH]: init
+[    0.360446]  (0)[1:swapper/0][FH] freqhopping_debug_proc_init
+[    0.360457]  (0)[1:swapper/0][FH]: init success
+[    0.361815]  (0)[1:swapper/0][CMDQ]cmdq_init CMDQ driver init begin
+[    0.362861]  (0)[1:swapper/0][CMDQ]CMDQ driver init end
+[    0.363542]  (0)[1:swapper/0]mt_pwrap_init
+[    0.364566]  (0)[1:swapper/0]SCSI subsystem initialized
+[    0.365373]  (0)[1:swapper/0]usbcore: registered new interface driver usbfs
+[    0.366302]  (0)[1:swapper/0]usbcore: registered new interface driver hub
+[    0.367321]  (0)[1:swapper/0]usbcore: registered new device driver usb
+[    0.368497]  (0)[1:swapper/0]Linux video capture interface: v2.00
+[    0.369382]  (0)[1:swapper/0]mt_charger_probe
+[    0.370133]  (0)[1:swapper/0]mt_charger_probe KPOC(0)
+[    0.370934]  (1)[41:chgdet_thread]chgdet_task_threadfn: ++
+[    0.371232]  (0)[1:swapper/0]mt_charger_probe done
+[    0.372673]  (0)[1:swapper/0]dmi: Firmware registration failed.
+[    0.375395]  (0)[1:swapper/0]Advanced Linux Sound Architecture Driver Initialized.
+[    0.377600]  (0)[1:swapper/0]clocksource: Switched to clocksource arch_sys_counter
+[    0.401395]  (0)[1:swapper/0]BOOTPROF:       401.391308:initcall: tracer_init_tracefs    22.783154ms
+[    0.427637]  (0)[1:swapper/0]BOOTPROF:       427.629308:initcall: event_trace_init    24.995769ms
+[    0.428986]  (0)[1:swapper/0]VFS: Disk quotas dquot_6.6.0
+[    0.429801]  (0)[1:swapper/0]VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.431784]  (0)[1:swapper/0]****[pmic_mt_init] Initialization : DONE !!
+[    0.432680]  (0)[1:swapper/0] pimix = 170
+[    0.433212]  (0)[1:swapper/0]mt6358_init!!
+[    0.433941]  (0)[1:swapper/0]mt6358-pmic 1000d000.pwrap:mt6357-pmic: PMIC irq=157, PMIC HWCID=0x5721, ret=0
+[    0.435833]  (0)[1:swapper/0]******** MT pmic driver probe!! ********
+[    0.439405]  (0)[1:swapper/0]vcn33_bt: Bringing 3500000uV into 3300000-3300000uV
+[    0.440396]  (0)[1:swapper/0]ldo vcn33_bt enable
+[    0.442537]  (0)[1:swapper/0]ldo vcn18 enable
+[    0.445194]  (0)[1:swapper/0]ldo vsim1 enable
+[    0.446359]  (0)[1:swapper/0]ldo vsim2 enable
+[    0.447776]  (0)[1:swapper/0]Get default car_tune_value= 1000
+[    0.448524]  (0)[1:swapper/0]Get default r_fg_value= 100
+[    0.449213]  (0)[1:swapper/0]Get default UNIT_FGCURRENT= 314331
+[    0.450025]  (0)[1:swapper/0][lbat_service_init]
+[    0.450976]  (0)[1:swapper/0][PMIC] no define LOW_BATTERY_PROTECT
+[    0.451768]  (0)[1:swapper/0][PMIC] no define BATTERY_OC_PROTECT
+[    0.452547]  (0)[1:swapper/0][PMIC] no define BATTERY_PERCENT_PROTECT
+[    0.453382]  (0)[1:swapper/0][PMIC] no define DLPT_FEATURE_SUPPORT
+[    0.454217]  (0)[1:swapper/0]POWER_UVLO_VOLT_LEVEL = 2600, RG_UVLO_VTHL = 0x2
+[    0.455373]  (0)[1:swapper/0]BOOTPROF:       455.370770:probe: probe=platform_drv_probe drv=mt-pmic(0xffffff80095060b0)    19.525077ms
+[    0.457295]  (0)[1:swapper/0]BOOTPROF:       457.292924:probe: probe=platform_drv_probe drv=mt6358-pmic(0xffffff8009552c18)    23.412846ms
+[    0.459375]  (0)[1:swapper/0]BOOTPROF:       459.373462:initcall: mt6358_init    26.153539ms
+[    0.460717]  (0)[1:swapper/0][ION]ion_init()
+[    0.461537]  (0)[1:swapper/0][ION]ion_heap_create: Heap type is disabled: 1
+[    0.462456]  (0)[1:swapper/0][ION]ion_mtk_heap_create: error creat heap ion_system_contig_heap type 1 base 0 size 0
+[    0.464258]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap
+[    0.465158]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_protected
+[    0.466166]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_2d_fr
+[    0.467112]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_wfd
+[    0.468034]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_happ
+[    0.468966]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_happ_mem
+[    0.469958]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_sdsp
+[    0.470892]  (0)[1:swapper/0][ION]ion_sec_heap_create enter:ion_sec_heap_sdsp_shared
+[    0.472084]  (0)[1:swapper/0][ION]ion_drv_probe, done
+[    0.472776]  (0)[1:swapper/0][ION]ion_init fd register notifer fail
+[    0.474356]  (0)[1:swapper/0]mt635x-auxadc mt635x-auxadc: mt635x_auxadc_probe done
+[    0.475787]  (0)[1:swapper/0]mt635x-auxadc mt635x-auxadc: name:VBIF, channel=11, adc_out=0xff2, adc_result=1793
+[    0.477096]  (0)[1:swapper/0]****[pmic_auxadc_chip_init] VBIF28 = 1793, MDRT_ADC = 0x19
+[    0.478445]  (0)[1:swapper/0]NET: Registered protocol family 2
+[    0.479612]  (0)[1:swapper/0]TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.480831]  (0)[1:swapper/0]TCP bind hash table entries: 16384 (order: 6, 262144 bytes)
+[    0.482110]  (0)[1:swapper/0]TCP: Hash tables configured (established 16384 bind 16384)
+[    0.483262]  (0)[1:swapper/0]UDP hash table entries: 1024 (order: 3, 32768 bytes)
+[    0.484267]  (0)[1:swapper/0]UDP-Lite hash table entries: 1024 (order: 3, 32768 bytes)
+[    0.485444]  (0)[1:swapper/0]NET: Registered protocol family 1
+[    0.487542]  (0)[1:swapper/0]hw perfevents: enabled with armv8_cortex_a53 PMU driver, 7 counters available
+[    0.491909]  (1)[1:swapper/0]audit: initializing netlink subsys (disabled)
+[    0.492969]  (0)[74:kauditd]audit: type=2000 audit(0.456:1): state=initialized audit_enabled=0 res=1
+[    0.493306]  (1)[1:swapper/0]workingset: timestamp_bits=45 max_order=19 bucket_order=0
+[    0.499119]  (1)[1:swapper/0]Registering sdcardfs 0.1
+[    0.500014]  (1)[1:swapper/0]fuse init (API version 7.26)
+[    0.505430]  (0)[1:swapper/0]io scheduler noop registered
+[    0.506181]  (0)[1:swapper/0]io scheduler deadline registered
+[    0.507073]  (0)[1:swapper/0]io scheduler cfq registered (default)
+[    0.507878]  (0)[1:swapper/0]io scheduler mq-deadline registered
+[    0.508659]  (0)[1:swapper/0]io scheduler kyber registered
+[    0.518188]  (0)[1:swapper/0]Serial: 8250/16550 driver, 3 ports, IRQ sharing disabled
+[    0.519911]  (0)[1:swapper/0]console [ttyS0] disabled
+[    0.540935]  (0)[1:swapper/0]11002000.uart0: ttyS0 at MMIO 0x11002000 (irq = 185, base_baud = 1625000) is a ST16650V2
+[    0.542395]  (0)[1:swapper/0]console [ttyS0] enabled
+[    0.543042]  (0)[1:swapper/0]bootconsole [uart8250] disabled
+[    0.543891]  (0)[1:swapper/0]BOOTPROF:       543.889155:probe: probe=platform_drv_probe drv=mt6577-uart(0xffffff80094f3350)    24.111000ms
+[    0.564269]  (0)[1:swapper/0]11003000.uart1: ttyS1 at MMIO 0x11003000 (irq = 186, base_baud = 1625000) is a ST16650V2
+[    0.564364]  (0)[1:swapper/0]BOOTPROF:       564.362539:probe: probe=platform_drv_probe drv=mt6577-uart(0xffffff80094f3350)    20.320154ms
+[    0.564630]  (0)[1:swapper/0]BOOTPROF:       564.628924:initcall: mtk8250_platform_driver_init    44.950077ms
+[    0.565036]  (0)[1:swapper/0]mtk_rng 1020f000.rng: registered RNG driver
+[    0.565250]  (1)[113:hwrng]random: fast init done
+[    0.565618]  (0)[12:cpuhp/0]cacheinfo: Unable to detect cache hierarchy for CPU 0
+[    0.566219]  (1)[113:hwrng]random: crng init done
+[    0.569488]  (3)[1:swapper/0]brd: module loaded
+[    0.578462]  (0)[1:swapper/0]loop: module loaded
+[    0.578708]  (0)[1:swapper/0]zram: Added device: zram0
+[    0.578784]  (0)[1:swapper/0][Power/spower] 3/3463/18/3/2/
+[    0.580034]  (0)[1:swapper/0]dump_power_table[0] = { .cpufreq_khz = 2001000,	.cpufreq_ncpu = 4,	.cpufreq_power = 931 }
+[    0.580045]  (0)[1:swapper/0]dump_power_table[1] = { .cpufreq_khz = 1917000,	.cpufreq_ncpu = 4,	.cpufreq_power = 836 }
+[    0.580054]  (0)[1:swapper/0]dump_power_table[2] = { .cpufreq_khz = 1834000,	.cpufreq_ncpu = 4,	.cpufreq_power = 751 }
+[    0.580061]  (0)[1:swapper/0]dump_power_table[3] = { .cpufreq_khz = 1767000,	.cpufreq_ncpu = 4,	.cpufreq_power = 686 }
+[    0.580069]  (0)[1:swapper/0]dump_power_table[4] = { .cpufreq_khz = 1700000,	.cpufreq_ncpu = 4,	.cpufreq_power = 625 }
+[    0.580077]  (0)[1:swapper/0]dump_power_table[5] = { .cpufreq_khz = 1633000,	.cpufreq_ncpu = 4,	.cpufreq_power = 568 }
+[    0.580085]  (0)[1:swapper/0]dump_power_table[6] = { .cpufreq_khz = 1533000,	.cpufreq_ncpu = 4,	.cpufreq_power = 490 }
+[    0.580092]  (0)[1:swapper/0]dump_power_table[7] = { .cpufreq_khz = 1466000,	.cpufreq_ncpu = 4,	.cpufreq_power = 441 }
+[    0.580100]  (0)[1:swapper/0]dump_power_table[8] = { .cpufreq_khz = 1400000,	.cpufreq_ncpu = 4,	.cpufreq_power = 396 }
+[    0.580107]  (0)[1:swapper/0]dump_power_table[9] = { .cpufreq_khz = 1308000,	.cpufreq_ncpu = 4,	.cpufreq_power = 347 }
+[    0.580115]  (0)[1:swapper/0]dump_power_table[10] = { .cpufreq_khz = 1216000,	.cpufreq_ncpu = 4,	.cpufreq_power = 302 }
+[    0.580123]  (0)[1:swapper/0]dump_power_table[11] = { .cpufreq_khz = 1125000,	.cpufreq_ncpu = 4,	.cpufreq_power = 261 }
+[    0.580130]  (0)[1:swapper/0]dump_power_table[12] = { .cpufreq_khz = 1056000,	.cpufreq_ncpu = 4,	.cpufreq_power = 232 }
+[    0.580137]  (0)[1:swapper/0]dump_power_table[13] = { .cpufreq_khz = 987000,	.cpufreq_ncpu = 4,	.cpufreq_power = 205 }
+[    0.580145]  (0)[1:swapper/0]dump_power_table[14] = { .cpufreq_khz = 918000,	.cpufreq_ncpu = 4,	.cpufreq_power = 181 }
+[    0.580152]  (0)[1:swapper/0]dump_power_table[15] = { .cpufreq_khz = 850000,	.cpufreq_ncpu = 4,	.cpufreq_power = 158 }
+[    0.580160]  (0)[1:swapper/0]dump_power_table[16] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580167]  (0)[1:swapper/0]dump_power_table[17] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580174]  (0)[1:swapper/0]dump_power_table[18] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580181]  (0)[1:swapper/0]dump_power_table[19] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580189]  (0)[1:swapper/0]dump_power_table[20] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580196]  (0)[1:swapper/0]dump_power_table[21] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580203]  (0)[1:swapper/0]dump_power_table[22] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580211]  (0)[1:swapper/0]dump_power_table[23] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580218]  (0)[1:swapper/0]dump_power_table[24] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580225]  (0)[1:swapper/0]dump_power_table[25] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580233]  (0)[1:swapper/0]dump_power_table[26] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580240]  (0)[1:swapper/0]dump_power_table[27] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580247]  (0)[1:swapper/0]dump_power_table[28] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580255]  (0)[1:swapper/0]dump_power_table[29] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580262]  (0)[1:swapper/0]dump_power_table[30] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580269]  (0)[1:swapper/0]dump_power_table[31] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580276]  (0)[1:swapper/0]dump_power_table[32] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580284]  (0)[1:swapper/0]dump_power_table[33] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580291]  (0)[1:swapper/0]dump_power_table[34] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580298]  (0)[1:swapper/0]dump_power_table[35] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580306]  (0)[1:swapper/0]dump_power_table[36] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580313]  (0)[1:swapper/0]dump_power_table[37] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580320]  (0)[1:swapper/0]dump_power_table[38] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580327]  (0)[1:swapper/0]dump_power_table[39] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580335]  (0)[1:swapper/0]dump_power_table[40] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580342]  (0)[1:swapper/0]dump_power_table[41] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580349]  (0)[1:swapper/0]dump_power_table[42] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580357]  (0)[1:swapper/0]dump_power_table[43] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580364]  (0)[1:swapper/0]dump_power_table[44] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580371]  (0)[1:swapper/0]dump_power_table[45] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580378]  (0)[1:swapper/0]dump_power_table[46] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580386]  (0)[1:swapper/0]dump_power_table[47] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580393]  (0)[1:swapper/0]dump_power_table[48] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580400]  (0)[1:swapper/0]dump_power_table[49] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580408]  (0)[1:swapper/0]dump_power_table[50] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580415]  (0)[1:swapper/0]dump_power_table[51] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580422]  (0)[1:swapper/0]dump_power_table[52] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580429]  (0)[1:swapper/0]dump_power_table[53] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580437]  (0)[1:swapper/0]dump_power_table[54] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580444]  (0)[1:swapper/0]dump_power_table[55] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580451]  (0)[1:swapper/0]dump_power_table[56] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580458]  (0)[1:swapper/0]dump_power_table[57] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580466]  (0)[1:swapper/0]dump_power_table[58] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580473]  (0)[1:swapper/0]dump_power_table[59] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580480]  (0)[1:swapper/0]dump_power_table[60] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580487]  (0)[1:swapper/0]dump_power_table[61] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580495]  (0)[1:swapper/0]dump_power_table[62] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580502]  (0)[1:swapper/0]dump_power_table[63] = { .cpufreq_khz = 0,	.cpufreq_ncpu = 0,	.cpufreq_power = 0 }
+[    0.580527]  (0)[1:swapper/0]cpufreq: cpufreq_online: CPU0: Running at unlisted freq: 1399999 KHz
+[    0.580717]  (0)[1:swapper/0]cpufreq: cpufreq_online: CPU0: Unlisted initial frequency changed to: 1400000 KHz
+[    0.581860]  (0)[1:swapper/0][GPU/DVFS]@__mt_gpufreq_init_clk:main_parent 0x00000000e0b8d4a7,mfg_cg 0x00000000af2334c0,mbist_diag0x00000000bd677e38
+[    0.581871]  (0)[1:swapper/0][GPU/DVFS][INFO]@__mt_gpufreq_init_efuse: g_efuse_id = 0x00000000, g_segment_id = 0
+[    0.581881]  (0)[1:swapper/0]E_WF: mt_gpufreq_get_seg_max_opp_index doesn't exist
+[    0.582110]  (0)[1:swapper/0][GPU/DVFS][INFO]@__mt_gpufreq_pdrv_probe: freq: 800000 KHz, vgpu: 650000 uV, vsram_gpu: 0 uV
+[    0.582116]  (0)[1:swapper/0][GPU/DVFS][INFO]@__mt_gpufreq_pdrv_probe: g_cur_freq = 800000, g_cur_volt = 80000, g_cur_vsram_volt = 90000
+[    0.582121]  (0)[1:swapper/0][GPU/DVFS][INFO]@__mt_gpufreq_pdrv_probe: g_cur_opp_idx = 0
+[    0.583043]  (0)[1:swapper/0]arm-v7s io-pgtable: arm_v7s_alloc_pgtable, 1149, pgd=0xffffffc07b8cc000, cf.ttbr=0xbb8cc06a,pgd_pa=0xbb8cc000
+[    0.583082]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: dm iova 0x7cc50000 ~ 0x7d9fffff
+[    0.583130]  (0)[1:swapper/0][TZ_M4U]m4u session create 0x5
+[    0.583139]  (0)[1:swapper/0][PSEUDO][pseudo_m4u_session_init #194]: create session : 0x5
+[    0.583150]  (0)[1:swapper/0][TZ_M4U]m4u session init second
+[    0.583226]  (0)[1:swapper/0][TZ_M4U]map pte pgtbl: mva 0x600000(+0x8000000), pte tbl VA 0x10c08400, PA 0xbfc08400
+[    0.583235]  (0)[1:swapper/0][TZ_M4U]Dynamic MAP. VA 0x4000000, MVA 0x600000, Size 0x8000000 [success]
+[    0.583252]  (0)[1:swapper/0][TZ_M4U]map pte pgtbl: mva 0x7d100000(+0x900000), pte tbl VA 0x10c00400, PA 0xbfc00400
+[    0.583259]  (0)[1:swapper/0][TZ_M4U]Reserve VPU MAP. MVA 0x7d100000, Size 0x900000 [success]
+[    0.583267]  (0)[1:swapper/0][TZ_M4U]tee mem: (secva0x10b91dc0-0xbfb91dc0 pa0xbfb91dc0 sz4M),4gb 0
+[    0.583275]  (0)[1:swapper/0][TZ_M4U]init NonsecPa bb8cc000 Va 0x0x20000000 Ret 0x0==0 4383296 
+[    0.583283]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: rsv iova 0x0 ~ 0x1842e23f
+[    0.583290]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: rsv iova 0x7d100000 ~ 0x825fffff
+[    0.589456]  (0)[1:swapper/0]iommu: Adding device soc:pseudo-m4u to group 0
+[    0.589467]  (0)[1:swapper/0]pseudo-m4u soc:pseudo-m4u: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.589535]  (0)[1:swapper/0]init_iova_domain, 61, start:0x1, end:0x100000
+[    0.589543]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: dm iova 0x7cc50000 ~ 0x7d9fffff
+[    0.589549]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: rsv iova 0x0 ~ 0x1842e23f
+[    0.589555]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: rsv iova 0x7d100000 ~ 0x825fffff
+[    0.590084]  (0)[1:swapper/0][mmdvfs]vcore_steps: [0, 1, 2, 0, 0, 0], count:3
+[    0.590092]  (0)[1:swapper/0][mmdvfs]start get step node of disp_freq
+[    0.590097]  (0)[1:swapper/0][mmdvfs] node name mm_step0
+[    0.590104]  (0)[1:swapper/0][mmdvfs]mm_step0: 457MHz, clk:2/6/1151921
+[    0.590110]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step0_ext failed (-22)
+[    0.590115]  (0)[1:swapper/0][mmdvfs] node name mm_step1
+[    0.590120]  (0)[1:swapper/0][mmdvfs]mm_step1: 320MHz, clk:2/6/806596
+[    0.590125]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step1_ext failed (-22)
+[    0.590130]  (0)[1:swapper/0][mmdvfs] node name mm_step2
+[    0.590136]  (0)[1:swapper/0][mmdvfs]mm_step2: 200MHz, clk:2/6/504123
+[    0.590141]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step2_ext failed (-22)
+[    0.590146]  (0)[1:swapper/0][mmdvfs]disp_freq: step size:3
+[    0.590152]  (0)[1:swapper/0][mmdvfs]disp_freq: add notifier
+[    0.590156]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590160]  (0)[1:swapper/0][mmdvfs]start get step node of mdp_freq
+[    0.590165]  (0)[1:swapper/0][mmdvfs] node name mm_step0
+[    0.590170]  (0)[1:swapper/0][mmdvfs]mm_step0: 457MHz, clk:2/6/1151921
+[    0.590176]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step0_ext failed (-22)
+[    0.590180]  (0)[1:swapper/0][mmdvfs] node name mm_step1
+[    0.590185]  (0)[1:swapper/0][mmdvfs]mm_step1: 320MHz, clk:2/6/806596
+[    0.590190]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step1_ext failed (-22)
+[    0.590195]  (0)[1:swapper/0][mmdvfs] node name mm_step2
+[    0.590201]  (0)[1:swapper/0][mmdvfs]mm_step2: 200MHz, clk:2/6/504123
+[    0.590206]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step2_ext failed (-22)
+[    0.590210]  (0)[1:swapper/0][mmdvfs]mdp_freq: step size:3
+[    0.590216]  (0)[1:swapper/0][mmdvfs]mdp_freq: add notifier
+[    0.590220]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590225]  (0)[1:swapper/0][mmdvfs]start get step node of vdec_freq
+[    0.590230]  (0)[1:swapper/0][mmdvfs] node name mm_step0
+[    0.590235]  (0)[1:swapper/0][mmdvfs]mm_step0: 457MHz, clk:2/6/1151921
+[    0.590240]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step0_ext failed (-22)
+[    0.590244]  (0)[1:swapper/0][mmdvfs] node name mm_step1
+[    0.590249]  (0)[1:swapper/0][mmdvfs]mm_step1: 320MHz, clk:2/6/806596
+[    0.590255]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step1_ext failed (-22)
+[    0.590259]  (0)[1:swapper/0][mmdvfs] node name mm_step2
+[    0.590265]  (0)[1:swapper/0][mmdvfs]mm_step2: 200MHz, clk:2/6/504123
+[    0.590270]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step2_ext failed (-22)
+[    0.590274]  (0)[1:swapper/0][mmdvfs]vdec_freq: step size:3
+[    0.590280]  (0)[1:swapper/0][mmdvfs]vdec_freq: add notifier
+[    0.590285]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590290]  (0)[1:swapper/0][mmdvfs]start get step node of venc_freq
+[    0.590294]  (0)[1:swapper/0][mmdvfs] node name mm_step0
+[    0.590299]  (0)[1:swapper/0][mmdvfs]mm_step0: 457MHz, clk:2/6/1151921
+[    0.590305]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step0_ext failed (-22)
+[    0.590309]  (0)[1:swapper/0][mmdvfs] node name mm_step1
+[    0.590314]  (0)[1:swapper/0][mmdvfs]mm_step1: 320MHz, clk:2/6/806596
+[    0.590319]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step1_ext failed (-22)
+[    0.590324]  (0)[1:swapper/0][mmdvfs] node name mm_step2
+[    0.590329]  (0)[1:swapper/0][mmdvfs]mm_step2: 200MHz, clk:2/6/504123
+[    0.590334]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step2_ext failed (-22)
+[    0.590339]  (0)[1:swapper/0][mmdvfs]venc_freq: step size:3
+[    0.590344]  (0)[1:swapper/0][mmdvfs]venc_freq: add notifier
+[    0.590348]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590353]  (0)[1:swapper/0][mmdvfs]start get step node of img_freq
+[    0.590358]  (0)[1:swapper/0][mmdvfs]freq setting img_freq is not same as vcore_steps (3)
+[    0.590362]  (0)[1:swapper/0][mmdvfs]img_freq: step size:3
+[    0.590368]  (0)[1:swapper/0][mmdvfs]img_freq: add notifier
+[    0.590372]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590376]  (0)[1:swapper/0][mmdvfs]start get step node of cam_freq
+[    0.590381]  (0)[1:swapper/0][mmdvfs] node name mm_step0
+[    0.590386]  (0)[1:swapper/0][mmdvfs]mm_step0: 457MHz, clk:2/6/1151921
+[    0.590391]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step0_ext failed (-22)
+[    0.590395]  (0)[1:swapper/0][mmdvfs] node name mm_step1
+[    0.590401]  (0)[1:swapper/0][mmdvfs]mm_step1: 320MHz, clk:2/6/806596
+[    0.590406]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step1_ext failed (-22)
+[    0.590411]  (0)[1:swapper/0][mmdvfs] node name mm_step2
+[    0.590416]  (0)[1:swapper/0][mmdvfs]mm_step2: 200MHz, clk:2/6/504123
+[    0.590421]  (0)[1:swapper/0][mmdvfs]read freq steps mm_step2_ext failed (-22)
+[    0.590426]  (0)[1:swapper/0][mmdvfs]cam_freq: step size:3
+[    0.590431]  (0)[1:swapper/0][mmdvfs]cam_freq: add notifier
+[    0.590435]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590439]  (0)[1:swapper/0][mmdvfs]start get step node of dpe_freq
+[    0.590444]  (0)[1:swapper/0][mmdvfs]freq setting dpe_freq is not same as vcore_steps (3)
+[    0.590449]  (0)[1:swapper/0][mmdvfs]dpe_freq: step size:3
+[    0.590454]  (0)[1:swapper/0][mmdvfs]dpe_freq: add notifier
+[    0.590458]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590462]  (0)[1:swapper/0][mmdvfs]start get step node of ipe_freq
+[    0.590467]  (0)[1:swapper/0][mmdvfs]freq setting ipe_freq is not same as vcore_steps (3)
+[    0.590471]  (0)[1:swapper/0][mmdvfs]ipe_freq: step size:3
+[    0.590475]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590480]  (0)[1:swapper/0][mmdvfs]start get step node of ccu_freq
+[    0.590485]  (0)[1:swapper/0][mmdvfs]freq setting ccu_freq is not same as vcore_steps (3)
+[    0.590490]  (0)[1:swapper/0][mmdvfs]ccu_freq: step size:3
+[    0.590494]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590498]  (0)[1:swapper/0][mmdvfs]start get step node of img2_freq
+[    0.590503]  (0)[1:swapper/0][mmdvfs]freq setting img2_freq is not same as vcore_steps (3)
+[    0.590508]  (0)[1:swapper/0][mmdvfs]img2_freq: step size:3
+[    0.590512]  (0)[1:swapper/0][mmdvfs]MMDVFS limit is off
+[    0.590516]  (0)[1:swapper/0][mmdvfs]disp step size:3
+[    0.590521]  (0)[1:swapper/0][mmdvfs] - step[0]: 457
+[    0.590525]  (0)[1:swapper/0][mmdvfs] - step[1]: 320
+[    0.590530]  (0)[1:swapper/0][mmdvfs] - step[2]: 200
+[    0.590695]  (0)[1:swapper/0][mmdvfs]mmdvfs_pmqos_init
+[    0.591244]  (0)[1:swapper/0]atf_log: inited
+[    0.591834]  (0)[1:swapper/0]mt_accdet_probe() begin!
+[    0.591958]  (0)[1:swapper/0]input: ACCDET as /devices/virtual/input/input0
+[    0.592130]  (0)[1:swapper/0][pmic_register_interrupt_callback] intNo=133, callback=accdet_int_handler
+[    0.592138]  (0)[1:swapper/0][pmic_register_interrupt_callback] intNo=134, callback=accdet_eint_handler
+[    0.592601]  (0)[1:swapper/0]accdet mic_vol=6, plugout_deb=1 mic_mode=1 eint_pol=8
+[    0.592607]  (0)[1:swapper/0]accdet key thresh mid = 80, up = 220, down = 400
+[    0.592614]  (0)[1:swapper/0]accdet pwm_width=0x500, thresh=0x500, fall=0x1, rise=0x1f0
+[    0.592619]  (0)[1:swapper/0]deb0=0x800, deb1=0x800, deb3=0x20, deb4=0x44
+[    0.592624]  (0)[1:swapper/0]e_pwm_width=0x0, e_pwm_thresh=0x0
+[    0.592629]  (0)[1:swapper/0]e_deb0=0x0, deb1=0x0, deb2=0x0, deb3=0x0
+[    0.592634]  (0)[1:swapper/0]e_inv_deb=0x0, mdet_en=0x0, e_det_m=0x0, m_det_m=0x0
+[    0.592639]  (0)[1:swapper/0]m_vth=0x0, m_vref2=0x0, e_e_res=0x0, m_e_res=0xffffffff
+[    0.593261]  (0)[1:swapper/0]accdet_get_efuse efuse=0xb00,auxadc_val=0mv
+[    0.593816]  (0)[1:swapper/0]accdet_get_efuse moisture_vdd efuse=0xf00, moisture_vdd_offset=15 mv
+[    0.594266]  (0)[1:swapper/0]accdet_get_efuse moisture_efuse efuse=0x5,moisture_offset=5 mv
+[    0.594368]  (0)[1:swapper/0][pmic_enable_interrupt] intNo=133, en=1, depth=0
+[    0.594401]  (0)[1:swapper/0][pmic_enable_interrupt] intNo=134, en=1, depth=0
+[    0.594407]  (0)[1:swapper/0]mt_accdet_probe done!
+[    0.594517]  (0)[1:swapper/0]accdet_mod_init() done!
+[    0.594620]  (0)[1:swapper/0]l2_parity: probe of l2c_parity failed with error -12
+[    0.598647]  (0)[1:swapper/0][GPU/MALI][INFO]@mtk_platform_init: initialize successfully
+[    0.599116]  (0)[1:swapper/0]mali 13040000.mali: GPU identified as 0x2 arch 7.4.0 r1p0 status 0
+[    0.599511]  (0)[1:swapper/0]mali 13040000.mali: No memory group manager is configured
+[    0.600388]  (1)[1:swapper/0]mali 13040000.mali: Probed as mali0
+[    0.601275]  (1)[1:swapper/0]iommu: Adding device 15004000.ispsys to group 0
+[    0.601288]  (1)[1:swapper/0]camera-isp 15004000.ispsys: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.601316]  (1)[1:swapper/0][ISP]kk:+ ISP_probe
+[    0.601321]  (1)[1:swapper/0][ISP]ISP driver proble.
+[    0.601340]  (1)[1:swapper/0][ISP]DT, i=0, map_addr=0xffffff800a6b0000
+[    0.601373]  (1)[1:swapper/0][ISP]DT, i=1, map_addr=0xffffff8009ebe000
+[    0.601386]  (1)[1:swapper/0][ISP]DT, i=2, map_addr=0xffffff800a700000
+[    0.601396]  (1)[1:swapper/0][ISP]DT, i=3, map_addr=0xffffff800a6a4000
+[    0.601407]  (1)[1:swapper/0][ISP]DT, i=4, map_addr=0xffffff8009ffe000
+[    0.601415]  (1)[1:swapper/0][ISP]DT, i=5, map_addr=0xffffff800a6c0000
+[    0.601426]  (1)[1:swapper/0][ISP]DT, i=6, map_addr=0xffffff800a6a8000
+[    0.601483]  (1)[1:swapper/0][ISP]DT, i=0, map_irq=227
+[    0.601497]  (1)[1:swapper/0][ISP]DT, i=1, map_irq=228
+[    0.601510]  (1)[1:swapper/0][ISP]DT, i=2, map_irq=229
+[    0.601536]  (1)[1:swapper/0][ISP]DT, i=3, map_irq=230
+[    0.601562]  (1)[1:swapper/0][ISP]DT, i=4, map_irq=231
+[    0.602017]  (1)[1:swapper/0][ISP]kk:- ISP_probe, ret=0
+[    0.602553]  (1)[1:swapper/0][FDVT][FDVT_probe] - E. FDVT driver probe.
+[    0.602572]  (1)[1:swapper/0][FDVT][FDVT_probe] nr_FDVT_devs=1, devnode(fdvt), map_addr=0xffffff800a6ab000
+[    0.602607]  (1)[1:swapper/0][FDVT][FDVT_probe] nr_FDVT_devs=1, devnode(fdvt), irq=232, ISR: fdvt
+[    0.602618]  (1)[1:swapper/0][FDVT][FDVT_probe] cannot get CG_IMGSYS_FDVT clock
+[    0.602637]  (1)[1:swapper/0]camera-fdvt: probe of 1500b000.fdvt failed with error -2
+[    0.602696]  (1)[1:swapper/0][imgsensor][camerahw_probe] start
+[    0.603921]  (1)[1:swapper/0]sensordrv kd_camera_hw: kd_camera_hw supply vcama_main2 not found, using dummy regulator
+[    0.603963]  (1)[1:swapper/0]sensordrv kd_camera_hw: kd_camera_hw supply vcamd_main2 not found, using dummy regulator
+[    0.603990]  (1)[1:swapper/0]sensordrv kd_camera_hw: kd_camera_hw supply vcamio_main2 not found, using dummy regulator
+[    0.604022]  (1)[1:swapper/0]sensordrv kd_camera_hw: kd_camera_hw supply vcama_sub2 not found, using dummy regulator
+[    0.604066]  (1)[1:swapper/0]sensordrv kd_camera_hw: kd_camera_hw supply vcamd_sub2 not found, using dummy regulator
+[    0.604094]  (1)[1:swapper/0]sensordrv kd_camera_hw: kd_camera_hw supply vcamio_sub2 not found, using dummy regulator
+[    0.604131]  (1)[1:swapper/0][pmic_register_interrupt_callback] intNo=24, callback=imgsensor_oc_handler1
+[    0.604138]  (1)[1:swapper/0][pmic_register_interrupt_callback] intNo=25, callback=imgsensor_oc_handler2
+[    0.604144]  (1)[1:swapper/0][pmic_register_interrupt_callback] intNo=26, callback=imgsensor_oc_handler3
+[    0.604370]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam0_vcamd_on
+[    0.604376]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam0_vcamd_off
+[    0.604382]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam1_vcama_on
+[    0.604387]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam1_vcama_off
+[    0.604392]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam1_vcamd_on
+[    0.604397]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam1_vcamd_off
+[    0.604402]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam2_pnd1
+[    0.604407]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam2_pnd0
+[    0.604412]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam2_rst1
+[    0.604417]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam2_rst0
+[    0.604422]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam2_vcama_on
+[    0.604427]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam2_vcama_off
+[    0.604432]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam3_pnd1
+[    0.604437]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam3_pnd0
+[    0.604442]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam3_rst1
+[    0.604447]  (1)[1:swapper/0][imgsensor]gpio_init : pinctrl err, cam3_rst0
+[    0.604469]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, cam0_mclk_on
+[    0.604479]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, cam1_mclk_on
+[    0.604484]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, cam2_mclk_on
+[    0.604489]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, cam2_mclk_on
+[    0.604494]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, cam3_mclk_on
+[    0.604499]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, cam3_mclk_on
+[    0.604504]  (1)[1:swapper/0][imgsensor]mclk_init : pinctrl err, (null)
+[    0.604513]  (1)[1:swapper/0]Property cust-sensor not defined
+[    0.604519]  (1)[1:swapper/0]Property cust-sensor not defined
+[    0.604524]  (1)[1:swapper/0]Property cust-sensor not defined
+[    0.605933]  (1)[1:swapper/0]flashlights_led191: led191_parse_dt: Parse no dt, node.
+[    0.605953]  (1)[1:swapper/0]flashlight: flashlight_dev_register: flashlights_led191 0 0 0
+[    0.606091]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: Device Tree Probing
+[    0.606124]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: r_mem start at 0x19030000 end 0x19030fff
+[    0.606130]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: set drvdata
+[    0.606136]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: request_mem_region
+[    0.606142]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: mem_start at 0x19030000 mem_end 0x19030fff
+[    0.606150]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: ioremap_nocache
+[    0.606157]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: platform_get_resource irq: 0xf1
+[    0.606203]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: request_irq
+[    0.606210]  (1)[1:swapper/0]mtk_edmc 19000000.edmc: mtk_edmc at 0x19030000 mapped to 0xffffff800a6ba000, irq=241
+[    0.606257]  (1)[1:swapper/0][eDMC] EDMC: registered correctly with major number 237
+[    0.606303]  (1)[1:swapper/0][edmc_debugfs_init] entry
+[    0.606342]  (1)[1:swapper/0][edmc_debugfs_init] suceess!!!!
+[    0.606479]  (1)[1:swapper/0][vpu] [vpu] vpu_core_probe 00000000782d6063
+[    0.606849]  (1)[1:swapper/0]iommu: Adding device 19020000.vpu to group 0
+[    0.606861]  (1)[1:swapper/0]vpu 19020000.vpu: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.606921]  (1)[1:swapper/0][vpu] fail to get phy address of vpu binary!
+[    0.607173]  (1)[1:swapper/0][vpu] probe, smi_cmn_base: 0x0, vpu_vcorecfg_base:0xffffff800a6bc000
+[    0.608594]  (0)[1:swapper/0][vpu] efuse_data: efuse_data(0x1)
+[    0.608603]  (0)[1:swapper/0][vpu][error] [vpu_0]vpu hw don't support
+[    0.608624]  (0)[1:swapper/0][vpu][error] vpu_init_hw failed
+[    0.609471]  (0)[1:swapper/0][vpu] [vpu_unload_image][584] unload image
+[    0.609563]  (0)[1:swapper/0]vpu: probe of 19020000.vpu failed with error -22
+[    0.610007]  (0)[1:swapper/0][GCPU] [GCPU_TA_Serivce] [66] Init Done:80ffd800!
+[    0.610140]  (0)[1:swapper/0][BND][ALS/PS] stk3x1x_init
+[    0.610158]  (0)[1:swapper/0]stk8ba_driver_init...start
+[    0.610498]  (0)[1:swapper/0]sc7a20_driver_init...start
+[    0.610508]  (0)[1:swapper/0]mir3da_driver_init...start
+[    0.610516]  (0)[1:swapper/0]mc3410_init...start
+[    0.610526]  (0)[1:swapper/0]<GYROSCOPE> icm206xx_gyro_init: OK
+[    0.610687]  (0)[1:swapper/0][ADSP] dram-pbase=0x0000000050000000, dram-size=0x1800000, shared-dram-size=0xc00000
+[    0.610739]  (0)[1:swapper/0][ADSP] cfgreg-vbase=0x000000007468bffb, cfgreg-size=0x1000
+[    0.610745]  (0)[1:swapper/0][ADSP] itcm pbase=0x000000001e100000,0x18000, dtcm pbase=0x000000001e000000,0x60000
+[    0.610966]  (0)[1:swapper/0][ADSP] shared-dtcm vbase=0x00000000ce291e6b, size=0x800
+[    0.610974]  (0)[1:swapper/0][ADSP] shared-dram vbase=0x00000000712a2b76, size=0xc00000
+[    0.610980]  (0)[1:swapper/0]adsp_ipi_device_init
+[    0.611051]  (0)[1:swapper/0]adsp_ipi_device_init irq num 243.
+[    0.611434]  (0)[1:swapper/0]adsp_ipi_device_init finish
+[    0.611858]  (0)[1:swapper/0]scp_ipi_queue_init(), opendsp_id: could not found send handler for dsp 3!!
+[    0.612326]  (0)[1:swapper/0]The vibrator timer from dts is : 25
+[    0.612333]  (0)[1:swapper/0]The vibrator limit from dts is : 9
+[    0.612338]  (0)[1:swapper/0]The vibrator vol from dts is : 9
+[    0.612451]  (0)[1:swapper/0]pvib_cust = 25, 9, 9
+[    0.612457]  (0)[1:swapper/0]vibr_init: vibrator set voltage = 9
+[    0.612939]  (0)[1:swapper/0][BOOT_COMMON] [create_sysfs] No atag,meta found !
+[    0.613224]  (0)[1:swapper/0]mrdump_sysfs_init: done.
+[    0.613915]  (0)[1:swapper/0]mt6357-dcxo mt6357-dcxo: Original cap code: 0x88
+[    0.613928]  (0)[1:swapper/0]mt6357-dcxo mt6357-dcxo: Default cap code: 0x88
+[    0.613934]  (0)[1:swapper/0]mt6357-dcxo mt6357-dcxo: Default dts capid: 0x0
+[    0.619970]  (0)[1:swapper/0]mt6357-dcxo mt6357-dcxo: Current cap code: 0x7d
+[    0.620060]  (0)[1:swapper/0]disp_init
+[    0.620764]  (0)[1:swapper/0][DISP]init_log_buffer success
+[    0.621043]  (0)[1:swapper/0]iommu: Adding device soc:dispsys to group 0
+[    0.621054]  (0)[1:swapper/0]dispsys soc:dispsys: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.621079]  (0)[1:swapper/0]disp_probe start
+[    0.621085]  (0)[1:swapper/0]disp driver(1) disp_probe begin
+[    0.621118]  (0)[1:swapper/0][DDP/ddp_drv]error:earlier than SMI, larb drv null
+[    0.621123]  (0)[1:swapper/0]disp_probe SMI not start probe
+[    0.621249]  (0)[1:swapper/0]mtkfb_init
+[    0.621356]  (0)[1:swapper/0]dispsys not start probe
+[    0.621475]  (0)[1:swapper/0]mtk_disp_mgr_init
+[    0.621700]  (0)[1:swapper/0]mtk_disp_mgr_probe called!
+[    0.621725]  (0)[1:swapper/0]mtk_disp_mgr_probe class_create success
+[    0.621765]  (0)[1:swapper/0]mtk_disp_mgr_probe device_create success
+[    0.621811]  (0)[1:swapper/0]mtk_disp_mgr_init done
+[    0.621976]  (0)[1:swapper/0]iommu: Adding device 17030000.jpgenc to group 0
+[    0.621986]  (0)[1:swapper/0]mtk_jpeg 17030000.jpgenc: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.622564]  (0)[1:swapper/0]mtk_cooler_shutdown: thermal/cooler/shutdown init
+[    0.622577]  (0)[1:swapper/0]mtk_cooler_shutdown: thermal/cooler/shutdown register ltf
+[    0.622685]  (0)[1:swapper/0]mtk_cooler_backlight: thermal/cooler/backlight init
+[    0.622690]  (0)[1:swapper/0]mtk_cooler_backlight: thermal/cooler/backlight register ltf
+[    0.622772]  (0)[1:swapper/0]mtk_cooler_kshutdown: thermal/cooler/kshutdown init
+[    0.622777]  (0)[1:swapper/0]mtk_cooler_kshutdown: thermal/cooler/kshutdown register ltf
+[    0.623102]  (0)[1:swapper/0][Thermal/TZ/CPU]tscpu_init
+[    0.623194]  (0)[1:swapper/0][Thermal/TZ/CPU]thermal_prob
+[    0.623353]  (0)[1:swapper/0][Thermal/TZ/CPU][THERM_CTRL] thermal_base=0x0000000074bfbfc1
+[    0.623377]  (0)[1:swapper/0][Thermal/TZ/CPU][THERM_CTRL] thermal_irq_number=191
+[    0.623434]  (0)[1:swapper/0][Thermal/TZ/CPU][THERM_CTRL] auxadc_ts_base=0x000000003d68f1ae
+[    0.623457]  (0)[1:swapper/0][Thermal/TZ/CPU][THERM_CTRL] infracfg_ao_base=0x0000000016d80c37
+[    0.623489]  (0)[1:swapper/0][Thermal/TZ/CPU][THERM_CTRL] apmixed_base=0x00000000aaa25927
+[    0.623519]  (0)[1:swapper/0][calibration] temp0=0x7c1f325e, temp1=0x8bc5c79, temp2=0x1f17f261
+[    0.623526]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_adc_ge_t      = 496
+[    0.623530]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_adc_oe_t      = 499
+[    0.623535]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_degc_cali     = 60
+[    0.623540]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_adc_cali_en_t = 1
+[    0.623545]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_o_slope       = 2
+[    0.623549]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_o_slope_sign  = 0
+[    0.623554]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_id            = 1
+[    0.623559]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_o_vtsmcu1     = 94
+[    0.623563]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_o_vtsmcu2     = 92
+[    0.623568]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_o_vtsmcu3     = 94
+[    0.623573]  (0)[1:swapper/0][Thermal/TZ/CPU][cal] g_o_vtsabb      = 0
+[    0.623578]  (0)[1:swapper/0][Thermal/TZ/CPU][T_De][cal] g_ge         = -39
+[    0.623583]  (0)[1:swapper/0][Thermal/TZ/CPU][T_De][cal] g_gain       = 9961
+[    0.623588]  (0)[1:swapper/0][Thermal/TZ/CPU][T_De][cal] g_x_roomt0   = 8472
+[    0.623592]  (0)[1:swapper/0][Thermal/TZ/CPU][T_De][cal] g_x_roomt1   = 8468
+[    0.623597]  (0)[1:swapper/0][Thermal/TZ/CPU][T_De][cal] g_x_roomt2   = 8472
+[    0.623864]  (0)[1:swapper/0][Power/CPU_Thermal]get_wd_api doesn't exist
+[    0.623870]  (0)[1:swapper/0][Thermal/TZ/CPU]1319 FAILED TO GET WD API
+[    0.623876]  (0)[1:swapper/0][Thermal/TZ/CPU]1346 FAILED TO GET WD API
+[    0.624176]  (0)[1:swapper/0][Thermal/TZ/PMIC] [mtktspmic_init]
+[    0.624183]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug]  start
+[    0.624224]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_o_vts = 1585
+[    0.624229]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_o_vts_2 = 1535
+[    0.624233]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6358_efuse: g_o_vts_3 = 1546
+[    0.624238]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_degc_cali = 54
+[    0.624243]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_adc_cali_en = 1
+[    0.624248]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_o_slope = 0
+[    0.624252]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_o_slope_sign = 0
+[    0.624257]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] 6357_efuse: g_id = 0
+[    0.624262]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug]  end
+[    0.624267]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_o_vts        = 0x631
+[    0.624271]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_o_vts_2      = 0x5ff
+[    0.624276]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_o_vts_3      = 0x60a
+[    0.624281]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_degc_cali    = 0x36
+[    0.624285]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_adc_cali_en  = 0x1
+[    0.624290]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_o_slope      = 0x0
+[    0.624295]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_o_slope_sign = 0x0
+[    0.624299]  (0)[1:swapper/0][Thermal/TZ/PMIC] [pmic_debug] g_id           = 0x0
+[    0.624305]  (0)[1:swapper/0][Thermal/TZ/PMIC] [Thermal calibration] SLOPE1=1000000 SLOPE2=-1681 INTERCEPT=441039, Vbe = -696000
+[    0.624311]  (0)[1:swapper/0][Thermal/TZ/PMIC] [Thermal calibration] SLOPE1=1000000 SLOPE2=-1863 INTERCEPT=388782, Vbe = -674000
+[    0.624317]  (0)[1:swapper/0][Thermal/TZ/PMIC] [Thermal calibration] SLOPE1=1000000 SLOPE2=-1863 INTERCEPT=391465, Vbe = -679000
+[    0.624747]  (0)[1:swapper/0]mt635x-auxadc mt635x-auxadc: name:CHIP_TEMP, channel=4, adc_out=0x60f, adc_result=681
+[    0.625092]  (0)[1:swapper/0][W]mtk_wcn_cmb_stub_query_ctrl:Thermal query not registered
+[    0.625727]  (3)[1:swapper/0][Thermal/TZ/CPU]tscpu_bind binding OK, 3
+[    0.625916]  (0)[1:swapper/0][Power/CPU_Thermal]get_wd_api doesn't exist
+[    0.625923]  (0)[1:swapper/0][Thermal/TZ/CPU]1319 FAILED TO GET WD API
+[    0.625930]  (0)[1:swapper/0][Thermal/TZ/CPU]1346 FAILED TO GET WD API
+[    0.625942]  (0)[1:swapper/0][Thermal/TZ/CPU]tscpu_bind binding OK, 1
+[    0.626049]  (0)[1:swapper/0][Thermal/TZ/CPU]tscpu_bind binding OK, 2
+[    0.626874]  (0)[1:swapper/0][Power/CPU_Thermal]get_wd_api doesn't exist
+[    0.626880]  (0)[1:swapper/0][Thermal/TZ/CPU]1319 FAILED TO GET WD API
+[    0.626886]  (0)[1:swapper/0][Thermal/TZ/CPU]1346 FAILED TO GET WD API
+[    0.626899]  (0)[1:swapper/0][Thermal/TZ/CPU]tscpu_bind binding OK, 0
+[    0.626999]  (0)[1:swapper/0][Thermal/TZ/BTS] mtkts_bts_prepare_table table_num=7
+[    0.630147]  (0)[1:swapper/0]items driver (c) 2009, 2014 InfoTM
+[    0.630246]  (0)[1:swapper/0]items_dev items_dev_init Ok 
+[    0.631075]  (0)[1:swapper/0]mt6358_misc: mt6358_misc_probe: rtc_misc->addr_base =0x580
+[    0.631859] -(0)[1:swapper/0]mt6358_misc: mtk_rtc_lpsd_restore_al_mask: 1st RTC_AL_MASK = 0x7f
+[    0.631949] -(0)[1:swapper/0]mt6358_misc: mtk_rtc_lpsd_restore_al_mask: 2nd RTC_AL_MASK = 0x10
+[    0.631954]  (0)[1:swapper/0]mt6358_misc: mt6358_misc_probe done
+[    0.632718]  (0)[1:swapper/0]spi_dev_init().
+[    0.633321]  (0)[1:swapper/0]libphy: Fixed MDIO Bus: probed
+[    0.633331]  (0)[1:swapper/0]tun: Universal TUN/TAP device driver, 1.6
+[    0.633383]  (0)[1:swapper/0]PPP generic driver version 2.4.2
+[    0.633437]  (0)[1:swapper/0]PPP BSD Compression module registered
+[    0.633444]  (0)[1:swapper/0]PPP Deflate Compression module registered
+[    0.633475]  (0)[1:swapper/0]PPP MPPE Compression module registered
+[    0.633482]  (0)[1:swapper/0]NET: Registered protocol family 24
+[    0.633499]  (0)[1:swapper/0]PPTP driver version 0.8.5
+[    0.633861]  (0)[1:swapper/0]usbcore: registered new interface driver r8152
+[    0.633883]  (0)[1:swapper/0]usbcore: registered new interface driver asix
+[    0.633926]  (0)[1:swapper/0]usbcore: registered new interface driver ax88179_178a
+[    0.633949]  (0)[1:swapper/0]usbcore: registered new interface driver cdc_ether
+[    0.633967]  (0)[1:swapper/0]usbcore: registered new interface driver net1080
+[    0.633986]  (0)[1:swapper/0]usbcore: registered new interface driver cdc_subset
+[    0.634004]  (0)[1:swapper/0]usbcore: registered new interface driver zaurus
+[    0.634029]  (0)[1:swapper/0]usbcore: registered new interface driver cdc_ncm
+[    0.634565]  (0)[1:swapper/0]mtu3 11201000.usb: couldn't get extcon device
+[    0.635110]  (0)[1:swapper/0]usbcore: registered new interface driver usb-storage
+[    0.635136]  (0)[1:swapper/0]usbcore: registered new interface driver ums-alauda
+[    0.635155]  (0)[1:swapper/0]usbcore: registered new interface driver ums-cypress
+[    0.635173]  (0)[1:swapper/0]usbcore: registered new interface driver ums-datafab
+[    0.635193]  (0)[1:swapper/0]usbcore: registered new interface driver ums-freecom
+[    0.635211]  (0)[1:swapper/0]usbcore: registered new interface driver ums-isd200
+[    0.635229]  (0)[1:swapper/0]usbcore: registered new interface driver ums-jumpshot
+[    0.635246]  (0)[1:swapper/0]usbcore: registered new interface driver ums-karma
+[    0.635264]  (0)[1:swapper/0]usbcore: registered new interface driver ums-onetouch
+[    0.635282]  (0)[1:swapper/0]usbcore: registered new interface driver ums-sddr09
+[    0.635299]  (0)[1:swapper/0]usbcore: registered new interface driver ums-sddr55
+[    0.635317]  (0)[1:swapper/0]usbcore: registered new interface driver ums-usbat
+[    0.635371]  (0)[1:swapper/0]usbcore: registered new interface driver usbserial
+[    0.635391]  (0)[1:swapper/0]usbcore: registered new interface driver option
+[    0.635408]  (0)[1:swapper/0]usbserial: USB Serial support registered for GSM modem (1-port)
+[    0.635427]  (0)[1:swapper/0]usbcore: registered new interface driver trancevibrator
+[    0.635466]  (0)[1:swapper/0]usb_function_register name=acm
+[    0.635478]  (0)[1:swapper/0]usb_function_register name=gser
+[    0.635759]  (0)[1:swapper/0]usb_function_register name=rndis
+[    0.635766]  (0)[1:swapper/0]usb_function_register name=mass_storage
+[    0.635772]  (0)[1:swapper/0]usb_function_register name=ffs
+[    0.635778]  (0)[1:swapper/0]usb_function_register name=midi
+[    0.635784]  (0)[1:swapper/0]usb_function_register name=hid
+[    0.635790]  (0)[1:swapper/0]usb_function_register name=audio_source
+[    0.635796]  (0)[1:swapper/0]usb_function_register name=accessory
+[    0.635802]  (0)[1:swapper/0]usb_function_register name=mtp
+[    0.635808]  (0)[1:swapper/0]usb_function_register name=ptp
+[    0.636180]  (0)[1:swapper/0]kpd: kpd-clk is default set by ccf.
+[    0.636328]  (0)[1:swapper/0]input: mtk-kpd as /devices/platform/soc/10010000.keypad/input/input1
+[    0.636877]  (0)[1:swapper/0][tpd_em_log] :register device successfully
+[    0.636889]  (0)[1:swapper/0][BND][Touch][tpd_driver_init] gsl688 <touchpanel.vendor.ic> is  CTS1XX.
+[    0.636895]  (0)[1:swapper/0][BND][Touch] >>>>>> Sileadinc gslX680 touch panel driver init <<<<<< 
+[    0.637277]  (0)[1:swapper/0][BND][Touch][tpd_driver_init] gt9xx <touchpanel.vendor.ic> is  CTS1XX.
+[    0.637285]  (0)[1:swapper/0][BND][Touch][cst1xx_ts_init] <touchpanel.vendor.ic> is  CTS1XX.
+[    0.637290]  (0)[1:swapper/0][BND][Touch] CST21680 ###[3679]cst1xx_ts_init enter
+[    0.637295]  (0)[1:swapper/0][BND][Touch] CST21680 ###[3680]cst1xx touch panel driver init
+[    0.637501]  (0)[1:swapper/0][BND][Touch] CST21680 ###[3699]cst1xx_ts_init exit
+[    0.638014]  (0)[1:swapper/0]rtc_mt6358: mtk_rtc_pdrv_probe: rtc->irq = 254(254)
+[    0.638025]  (0)[1:swapper/0]rtc_mt6358: mtk_rtc_pdrv_probe: rtc->addr_base =0x580
+[    0.638193]  (0)[1:swapper/0]rtc_mt6358: read al time = 1970/01/01 00:00:16 (0)
+[    0.638289]  (0)[1:swapper/0]mt-rtc mt6357-rtc: rtc core: registered mt-rtc as rtc0
+[    0.638296]  (0)[1:swapper/0]rtc_mt6358: mtk_rtc_pdrv_probe: apply_lpsd_solution
+[    0.639591]  (0)[1:swapper/0]MAINAF [AF_i2c_probe] Start
+[    0.639602]  (0)[1:swapper/0]MAINAF [Register_AF_CharDrv] Start
+[    0.639658]  (0)[1:swapper/0]MAINAF [Register_AF_CharDrv] End
+[    0.639665]  (0)[1:swapper/0]MAINAF [AFRegulatorCtrl] AFIOC_S_SETPOWERCTRL regulator_put           (null)
+[    0.639839]  (0)[1:swapper/0]actuatordrv_main_af MAINAF: MAINAF supply vcamaf not found, using dummy regulator
+[    0.639901]  (0)[1:swapper/0]MAINAF [AFRegulatorCtrl] [Init] regulator_get 000000007fa86989
+[    0.639907]  (0)[1:swapper/0]MAINAF [AF_i2c_probe] Attached!!
+[    0.640325]  (0)[1:swapper/0]lirc_dev: IR Remote Control driver registered, major 510
+[    0.640334]  (0)[1:swapper/0]IR Sharp protocol handler initialized
+[    0.640339]  (0)[1:swapper/0]IR XMP protocol handler initialized
+[    0.640655]  (0)[1:swapper/0]iommu: Adding device 16000000.vcu to group 0
+[    0.640665]  (0)[1:swapper/0]mtk_vcu 16000000.vcu: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.640681]  (0)[1:swapper/0][VCU] vdec_log_info 0000000021f89c23 1024 vcuid 0 vcu_ptr 00000000efe952f7
+[    0.641542]  (0)[1:swapper/0][cmdq][err] no gce-event-names property or no such event:venc_eof_c1 @cmdq_dev_get_event,336
+[    0.641551]  (0)[1:swapper/0][cmdq][err] no gce-event-names property or no such event:venc_wp_2nd_done @cmdq_dev_get_event,336
+[    0.641558]  (0)[1:swapper/0][cmdq][err] no gce-event-names property or no such event:venc_wp_3nd_done @cmdq_dev_get_event,336
+[    0.642386]  (0)[1:swapper/0]iommu: Adding device 16000000.vdec_gcon to group 0
+[    0.642400]  (0)[1:swapper/0]mtk-vcodec-dec 16000000.vdec_gcon: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.643004]  (0)[1:swapper/0][MTK_V4L2] level=0 mtk_vcodec_dec_probe(),364: decoder registered as /dev/video0
+[    0.643538]  (0)[1:swapper/0]------------[ cut here ]------------
+[    0.643556]  (0)[1:swapper/0]WARNING: CPU: 0 PID: 1 at /home/bnd_Customer/bnd_xy/Q_10.0_105/Q_mt816x_v1/Q_816x/kernel-4.14/drivers/base/dd.c:387 driver_probe_device+0x48c/0x490
+[    0.643562]  (0)[1:swapper/0]Modules linked in:
+[    0.643573] -(0)[1:swapper/0]CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W       4.14.141 #1
+[    0.643578] -(0)[1:swapper/0]Hardware name: MT8168B (DT)
+[    0.643584] -(0)[1:swapper/0]Call trace:
+[    0.643595] -(0)[1:swapper/0][<ffffff800808d29c>] dump_backtrace+0x0/0x4b0
+[    0.643602] -(0)[1:swapper/0][<ffffff800808d760>] show_stack+0x14/0x1c
+[    0.643613] -(0)[1:swapper/0][<ffffff8008dc8518>] dump_stack+0xc4/0xfc
+[    0.643621] -(0)[1:swapper/0][<ffffff80080afe20>] __warn+0xdc/0x168
+[    0.643627] -(0)[1:swapper/0][<ffffff80080afff0>] warn_slowpath_null+0x1c/0x24
+[    0.643634] -(0)[1:swapper/0][<ffffff800856b8dc>] driver_probe_device+0x48c/0x490
+[    0.643640] -(0)[1:swapper/0][<ffffff800856bb68>] __driver_attach+0xc0/0xec
+[    0.643647] -(0)[1:swapper/0][<ffffff8008569700>] bus_for_each_dev+0x80/0xc8
+[    0.643653] -(0)[1:swapper/0][<ffffff800856baa0>] driver_attach+0x20/0x28
+[    0.643659] -(0)[1:swapper/0][<ffffff8008569e60>] bus_add_driver+0x11c/0x1e4
+[    0.643665] -(0)[1:swapper/0][<ffffff800856ca28>] driver_register+0xa4/0xf0
+[    0.643672] -(0)[1:swapper/0][<ffffff800856de94>] __platform_driver_register+0x40/0x48
+[    0.643680] -(0)[1:swapper/0][<ffffff80093c2380>] mtk_vcodec_enc_driver_init+0x18/0x20
+[    0.643687] -(0)[1:swapper/0][<ffffff8008084848>] do_one_initcall+0x110/0x1e0
+[    0.643695] -(0)[1:swapper/0][<ffffff8009370fa0>] kernel_init_freeable+0x198/0x234
+[    0.643705] -(0)[1:swapper/0][<ffffff8008ddc3dc>] kernel_init+0x10/0x214
+[    0.643711] -(0)[1:swapper/0][<ffffff8008085d28>] ret_from_fork+0x10/0x18
+[    0.643716]  (0)[1:swapper/0]---[ end trace 26c1441b4822ef7f ]---
+[    0.643961]  (0)[1:swapper/0]iommu: Adding device 17000000.venc_gcon to group 0
+[    0.643972]  (0)[1:swapper/0]mtk-vcodec-enc 17000000.venc_gcon: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.644685]  (0)[1:swapper/0][MTK_V4L2] level=0 mtk_vcodec_enc_probe(),380: encoder registered as /dev/video1
+[    0.645226]  (0)[1:swapper/0]iommu: Adding device 1500c000.wpe to group 0
+[    0.645240]  (0)[1:swapper/0]mtk-warp 1500c000.wpe: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.645702]  (0)[1:swapper/0]mtk-warp 1500c000.wpe: device registered as /dev/video2 (81,2)
+[    0.645977]  (0)[1:swapper/0]usbcore: registered new interface driver uvcvideo
+[    0.645984]  (0)[1:swapper/0]USB Video Class driver (1.1.1)
+[    0.646205]  (0)[1:swapper/0]bat_plug:1 chr:1 info:0x8c0e
+[    0.646229] -(0)[1:swapper/0]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0xc6
+[    0.646235]  (0)[1:swapper/0][fgauge_read_RTC_boot_status] rtc_invalid 0 plugout 1 plugout_time 31 spare3 0xc6
+[    0.646242]  (0)[1:swapper/0][fgauge_get_profile_id]Battery id=(0) en:0,0
+[    0.646249]  (0)[1:swapper/0]fg active table:5
+[    0.646279]  (0)[1:swapper/0][fgauge_get_profile_id]Battery id=(0) en:0,0
+[    0.646284]  (0)[1:swapper/0]fg_custom_init_from_dts
+[    0.646291]  (0)[1:swapper/0]Get MULTI_BATTERY failed
+[    0.646296]  (0)[1:swapper/0]Get ACTIVE_TABLE failed
+[    0.646301]  (0)[1:swapper/0]Get Q_MAX_L_CURRENT failed
+[    0.646307]  (0)[1:swapper/0]Get Q_MAX_H_CURRENT failed
+[    0.646313]  (0)[1:swapper/0]Get g_Q_MAX_SYS_VOLTAGE failed, idx 0
+[    0.646319]  (0)[1:swapper/0]Get PSEUDO1_EN failed
+[    0.646324]  (0)[1:swapper/0]Get PSEUDO100_EN failed
+[    0.646329]  (0)[1:swapper/0]Get PSEUDO100_EN_DIS failed
+[    0.646335]  (0)[1:swapper/0]Get g_FG_PSEUDO1_OFFSET failed, idx 0
+[    0.646341]  (0)[1:swapper/0]Get QMAX_SEL failed
+[    0.646346]  (0)[1:swapper/0]Get IBOOT_SEL failed
+[    0.646351]  (0)[1:swapper/0]Get SHUTDOWN_SYSTEM_IBOOT failed
+[    0.646358]  (0)[1:swapper/0]Get COM_FG_METER_RESISTANCE failed
+[    0.646363]  (0)[1:swapper/0]Get NO_BAT_TEMP_COMPENSATE failed
+[    0.646369]  (0)[1:swapper/0]Get COM_R_FG_VALUE failed
+[    0.646375]  (0)[1:swapper/0]Get FULL_TRACKING_BAT_INT2_MULTIPLY failed
+[    0.646380]  (0)[1:swapper/0]Get enable_tmp_intr_suspend failed
+[    0.646385]  (0)[1:swapper/0]Get AGING_ONE_EN failed
+[    0.646391]  (0)[1:swapper/0]Get AGING1_UPDATE_SOC failed
+[    0.646396]  (0)[1:swapper/0]Get AGING1_LOAD_SOC failed
+[    0.646401]  (0)[1:swapper/0]Get AGING_TEMP_DIFF failed
+[    0.646406]  (0)[1:swapper/0]Get AGING_TEMP_LOW_LIMIT failed
+[    0.646412]  (0)[1:swapper/0]Get AGING_TEMP_HIGH_LIMIT failed
+[    0.646417]  (0)[1:swapper/0]Get AGING_100_EN failed
+[    0.646422]  (0)[1:swapper/0]Get DIFFERENCE_VOLTAGE_UPDATE failed
+[    0.646428]  (0)[1:swapper/0]Get AGING_FACTOR_MIN failed
+[    0.646433]  (0)[1:swapper/0]Get AGING_FACTOR_DIFF failed
+[    0.646438]  (0)[1:swapper/0]Get AGING_TWO_EN failed
+[    0.646443]  (0)[1:swapper/0]Get AGING_THIRD_EN failed
+[    0.646448]  (0)[1:swapper/0]Get DIFF_SOC_SETTING failed
+[    0.646454]  (0)[1:swapper/0]Get DIFFERENCE_FULL_CV failed
+[    0.646459]  (0)[1:swapper/0]Get DIFF_BAT_TEMP_SETTING failed
+[    0.646464]  (0)[1:swapper/0]Get DIFF_BAT_TEMP_SETTING_C failed
+[    0.646469]  (0)[1:swapper/0]Get DISCHARGE_TRACKING_TIME failed
+[    0.646474]  (0)[1:swapper/0]Get CHARGE_TRACKING_TIME failed
+[    0.646480]  (0)[1:swapper/0]Get DIFFERENCE_FULLOCV_VTH failed
+[    0.646486]  (0)[1:swapper/0]Get CHARGE_PSEUDO_FULL_LEVEL failed
+[    0.646491]  (0)[1:swapper/0]Get OVER_DISCHARGE_LEVEL failed
+[    0.646496]  (0)[1:swapper/0]Get FG_PRE_TRACKING_EN failed
+[    0.646501]  (0)[1:swapper/0]Get VBAT2_DET_TIME failed
+[    0.646507]  (0)[1:swapper/0]Get VBAT2_DET_COUNTER failed
+[    0.646512]  (0)[1:swapper/0]Get VBAT2_DET_VOLTAGE1 failed
+[    0.646517]  (0)[1:swapper/0]Get VBAT2_DET_VOLTAGE2 failed
+[    0.646522]  (0)[1:swapper/0]Get VBAT2_DET_VOLTAGE3 failed
+[    0.646528]  (0)[1:swapper/0]Get DIFFERENCE_FGC_FGV_TH1 failed
+[    0.646533]  (0)[1:swapper/0]Get DIFFERENCE_FGC_FGV_TH2 failed
+[    0.646539]  (0)[1:swapper/0]Get DIFFERENCE_FGC_FGV_TH3 failed
+[    0.646544]  (0)[1:swapper/0]Get DIFFERENCE_FGC_FGV_TH_SOC1 failed
+[    0.646549]  (0)[1:swapper/0]Get DIFFERENCE_FGC_FGV_TH_SOC2 failed
+[    0.646554]  (0)[1:swapper/0]Get NAFG_TIME_SETTING failed
+[    0.646560]  (0)[1:swapper/0]Get NAFG_RATIO failed
+[    0.646565]  (0)[1:swapper/0]Get NAFG_RATIO_EN failed
+[    0.646570]  (0)[1:swapper/0]Get NAFG_RATIO_TMP_THR failed
+[    0.646575]  (0)[1:swapper/0]Get NAFG_RESISTANCE failed
+[    0.646581]  (0)[1:swapper/0]Get PMIC_SHUTDOWN_SW_EN failed
+[    0.646586]  (0)[1:swapper/0]Get FORCE_VC_MODE failed
+[    0.646592]  (0)[1:swapper/0]Get LOADING_1_EN failed
+[    0.646597]  (0)[1:swapper/0]Get LOADING_2_EN failed
+[    0.646602]  (0)[1:swapper/0]Get DIFF_IAVG_TH failed
+[    0.646608]  (0)[1:swapper/0]Get SHUTDOWN_GAUGE0 failed
+[    0.646614]  (0)[1:swapper/0]Get SHUTDOWN_GAUGE1_XMINS failed
+[    0.646620]  (0)[1:swapper/0]Get SHUTDOWN_GAUGE1_VBAT_EN failed
+[    0.646625]  (0)[1:swapper/0]Get SHUTDOWN_GAUGE1_VBAT failed
+[    0.646630]  (0)[1:swapper/0]Get ZCV_SUSPEND_TIME failed
+[    0.646636]  (0)[1:swapper/0]Get SLEEP_CURRENT_AVG failed
+[    0.646641]  (0)[1:swapper/0]Get ZCV_CAR_GAP_PERCENTAGE failed
+[    0.646646]  (0)[1:swapper/0]Get HWOCV_OLDOCV_DIFF failed
+[    0.646651]  (0)[1:swapper/0]Get HWOCV_OLDOCV_DIFF_CHR failed
+[    0.646657]  (0)[1:swapper/0]Get HWOCV_SWOCV_DIFF failed
+[    0.646661]  (0)[1:swapper/0]Get HWOCV_SWOCV_DIFF_LT failed
+[    0.646667]  (0)[1:swapper/0]Get HWOCV_SWOCV_DIFF_LT_TEMP failed
+[    0.646672]  (0)[1:swapper/0]Get SWOCV_OLDOCV_DIFF failed
+[    0.646677]  (0)[1:swapper/0]Get SWOCV_OLDOCV_DIFF_CHR failed
+[    0.646682]  (0)[1:swapper/0]Get VBAT_OLDOCV_DIFF failed
+[    0.646687]  (0)[1:swapper/0]Get SWOCV_OLDOCV_DIFF_EMB failed
+[    0.646692]  (0)[1:swapper/0]Get PMIC_SHUTDOWN_TIME failed
+[    0.646697]  (0)[1:swapper/0]Get TNEW_TOLD_PON_DIFF failed
+[    0.646703]  (0)[1:swapper/0]Get TNEW_TOLD_PON_DIFF2 failed
+[    0.646708]  (0)[1:swapper/0]Get EXT_HWOCV_SWOCV failed
+[    0.646713]  (0)[1:swapper/0]Get EXT_HWOCV_SWOCV_LT failed
+[    0.646719]  (0)[1:swapper/0]Get EXT_HWOCV_SWOCV_LT_TEMP failed
+[    0.646724]  (0)[1:swapper/0]Get DC_RATIO_SEL failed
+[    0.646729]  (0)[1:swapper/0]Get DC_R_CNT failed
+[    0.646734]  (0)[1:swapper/0]Get PSEUDO1_SEL failed
+[    0.646740]  (0)[1:swapper/0]Get D0_SEL failed
+[    0.646745]  (0)[1:swapper/0]Get AGING_SEL failed
+[    0.646749]  (0)[1:swapper/0]Get BAT_PAR_I failed
+[    0.646754]  (0)[1:swapper/0]Get RECORD_LOG failed
+[    0.646759]  (0)[1:swapper/0]Get FG_TRACKING_CURRENT failed
+[    0.646765]  (0)[1:swapper/0]Get FG_TRACKING_CURRENT_IBOOT_EN failed
+[    0.646770]  (0)[1:swapper/0]Get UI_FAST_TRACKING_EN failed
+[    0.646775]  (0)[1:swapper/0]Get UI_FAST_TRACKING_GAP failed
+[    0.646781]  (0)[1:swapper/0]Get BAT_PLUG_OUT_TIME failed
+[    0.646786]  (0)[1:swapper/0]Get KEEP_100_PERCENT_MINSOC failed
+[    0.646791]  (0)[1:swapper/0]Get UISOC_UPDATE_TYPE failed
+[    0.646797]  (0)[1:swapper/0]Get BATTERY_TMP_TO_DISABLE_GM30 failed
+[    0.646802]  (0)[1:swapper/0]Get BATTERY_TMP_TO_DISABLE_NAFG failed
+[    0.646808]  (0)[1:swapper/0]Get BATTERY_TMP_TO_ENABLE_NAFG failed
+[    0.646813]  (0)[1:swapper/0]Get LOW_TEMP_MODE failed
+[    0.646818]  (0)[1:swapper/0]Get LOW_TEMP_MODE_TEMP failed
+[    0.646823]  (0)[1:swapper/0]Get UI_FULL_LIMIT_EN failed
+[    0.646829]  (0)[1:swapper/0]Get UI_FULL_LIMIT_SOC0 failed
+[    0.646834]  (0)[1:swapper/0]Get UI_FULL_LIMIT_ITH0 failed
+[    0.646839]  (0)[1:swapper/0]Get UI_FULL_LIMIT_SOC1 failed
+[    0.646844]  (0)[1:swapper/0]Get UI_FULL_LIMIT_ITH1 failed
+[    0.646849]  (0)[1:swapper/0]Get UI_FULL_LIMIT_SOC2 failed
+[    0.646854]  (0)[1:swapper/0]Get UI_FULL_LIMIT_ITH2 failed
+[    0.646859]  (0)[1:swapper/0]Get UI_FULL_LIMIT_SOC3 failed
+[    0.646865]  (0)[1:swapper/0]Get UI_FULL_LIMIT_ITH3 failed
+[    0.646870]  (0)[1:swapper/0]Get UI_FULL_LIMIT_SOC4 failed
+[    0.646875]  (0)[1:swapper/0]Get UI_FULL_LIMIT_ITH4 failed
+[    0.646881]  (0)[1:swapper/0]Get UI_FULL_LIMIT_TIME failed
+[    0.646886]  (0)[1:swapper/0]Get UI_LOW_LIMIT_EN failed
+[    0.646891]  (0)[1:swapper/0]Get UI_LOW_LIMIT_SOC0 failed
+[    0.646897]  (0)[1:swapper/0]Get UI_LOW_LIMIT_VTH0 failed
+[    0.646902]  (0)[1:swapper/0]Get UI_LOW_LIMIT_SOC1 failed
+[    0.646908]  (0)[1:swapper/0]Get UI_LOW_LIMIT_VTH1 failed
+[    0.646913]  (0)[1:swapper/0]Get UI_LOW_LIMIT_SOC2 failed
+[    0.646918]  (0)[1:swapper/0]Get UI_LOW_LIMIT_VTH2 failed
+[    0.646923]  (0)[1:swapper/0]Get UI_LOW_LIMIT_SOC3 failed
+[    0.646929]  (0)[1:swapper/0]Get UI_LOW_LIMIT_VTH3 failed
+[    0.646934]  (0)[1:swapper/0]Get UI_LOW_LIMIT_SOC4 failed
+[    0.646939]  (0)[1:swapper/0]Get UI_LOW_LIMIT_VTH4 failed
+[    0.646944]  (0)[1:swapper/0]Get UI_LOW_LIMIT_TIME failed
+[    0.646949]  (0)[1:swapper/0]Get MOVING_BATTEMP_EN failed
+[    0.646954]  (0)[1:swapper/0]Get MOVING_BATTEMP_THR failed
+[    0.646959]  (0)[1:swapper/0]Get DISABLE_MTKBATTERY failed
+[    0.646964]  (0)[1:swapper/0]Get MULTI_TEMP_GAUGE0 failed
+[    0.646970]  (0)[1:swapper/0]Get FGC_FGV_TH1 failed
+[    0.646975]  (0)[1:swapper/0]Get FGC_FGV_TH2 failed
+[    0.646980]  (0)[1:swapper/0]Get FGC_FGV_TH3 failed
+[    0.646985]  (0)[1:swapper/0]Get UISOC_UPDATE_T failed
+[    0.646991]  (0)[1:swapper/0]Get UIFULLLIMIT_EN failed
+[    0.646996]  (0)[1:swapper/0]Get MTK_CHR_EXIST failed
+[    0.647001]  (0)[1:swapper/0]Get GM30_DISABLE_NAFG failed
+[    0.647006]  (0)[1:swapper/0]Get ACTIVE_TABLE failed
+[    0.647010]  (0)[1:swapper/0]fg active table:5
+[    0.647019]  (0)[1:swapper/0]Get TEMPERATURE_TB0 failed
+[    0.647025]  (0)[1:swapper/0]Get TEMPERATURE_TB1 failed
+[    0.647030]  (0)[1:swapper/0]Get g_temperature failed, idx 0
+[    0.647036]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 0
+[    0.647041]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 0
+[    0.647047]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 0
+[    0.647052]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 0
+[    0.647058]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 0
+[    0.647063]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 0
+[    0.647069]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 0
+[    0.647074]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 0
+[    0.647080]  (0)[1:swapper/0]Get g_temperature failed, idx 1
+[    0.647085]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 4
+[    0.647090]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 4
+[    0.647095]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 4
+[    0.647100]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 4
+[    0.647106]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 4
+[    0.647111]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 4
+[    0.647116]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 4
+[    0.647121]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 4
+[    0.647127]  (0)[1:swapper/0]Get g_temperature failed, idx 2
+[    0.647132]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 8
+[    0.647137]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 8
+[    0.647143]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 8
+[    0.647148]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 8
+[    0.647153]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 8
+[    0.647159]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 8
+[    0.647164]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 8
+[    0.647170]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 8
+[    0.647175]  (0)[1:swapper/0]Get g_temperature failed, idx 3
+[    0.647180]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 12
+[    0.647185]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 12
+[    0.647191]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 12
+[    0.647196]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 12
+[    0.647201]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 12
+[    0.647207]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 12
+[    0.647212]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 12
+[    0.647218]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 12
+[    0.647224]  (0)[1:swapper/0]Get g_temperature failed, idx 4
+[    0.647229]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 16
+[    0.647234]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 16
+[    0.647239]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 16
+[    0.647245]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 16
+[    0.647250]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 16
+[    0.647255]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 16
+[    0.647260]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 16
+[    0.647266]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 16
+[    0.647271]  (0)[1:swapper/0]Get g_temperature failed, idx 5
+[    0.647276]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 20
+[    0.647282]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 20
+[    0.647287]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 20
+[    0.647292]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 20
+[    0.647298]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 20
+[    0.647303]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 20
+[    0.647308]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 20
+[    0.647313]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 20
+[    0.647319]  (0)[1:swapper/0]Get g_temperature failed, idx 6
+[    0.647324]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 24
+[    0.647329]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 24
+[    0.647334]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 24
+[    0.647340]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 24
+[    0.647345]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 24
+[    0.647350]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 24
+[    0.647355]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 24
+[    0.647361]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 24
+[    0.647366]  (0)[1:swapper/0]Get g_temperature failed, idx 7
+[    0.647371]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 28
+[    0.647376]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 28
+[    0.647382]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 28
+[    0.647387]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 28
+[    0.647392]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 28
+[    0.647398]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 28
+[    0.647403]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 28
+[    0.647408]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 28
+[    0.647414]  (0)[1:swapper/0]Get g_temperature failed, idx 8
+[    0.647419]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 32
+[    0.647425]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 32
+[    0.647430]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 32
+[    0.647435]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 32
+[    0.647441]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 32
+[    0.647446]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 32
+[    0.647451]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 32
+[    0.647457]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 32
+[    0.647462]  (0)[1:swapper/0]Get g_temperature failed, idx 9
+[    0.647467]  (0)[1:swapper/0]Get g_Q_MAX failed, idx 36
+[    0.647473]  (0)[1:swapper/0]Get g_Q_MAX_H_CURRENT failed, idx 36
+[    0.647478]  (0)[1:swapper/0]Get g_FG_PSEUDO1 failed, idx 36
+[    0.647484]  (0)[1:swapper/0]Get g_FG_PSEUDO100 failed, idx 36
+[    0.647489]  (0)[1:swapper/0]Get g_PMIC_MIN_VOL failed, idx 36
+[    0.647494]  (0)[1:swapper/0]Get g_PON_SYS_IBOOT failed, idx 36
+[    0.647499]  (0)[1:swapper/0]Get g_QMAX_SYS_VOL failed, idx 36
+[    0.647505]  (0)[1:swapper/0]Get g_SHUTDOWN_HL_ZCV failed, idx 36
+[    0.647512]  (0)[1:swapper/0]Get PSEUDO1_IQ_OFFSET_BAT0 failed
+[    0.647521]  (0)[1:swapper/0]Get battery0_profile_t0_col failed
+[    0.647527]  (0)[1:swapper/0]fg_custom_parse_table: battery0_profile_t0, 90, column:3
+[    0.647678]  (0)[1:swapper/0]Get battery0_profile_t1_col failed
+[    0.647684]  (0)[1:swapper/0]fg_custom_parse_table: battery0_profile_t1, 90, column:3
+[    0.647868]  (0)[1:swapper/0]Get battery0_profile_t2_col failed
+[    0.647873]  (0)[1:swapper/0]fg_custom_parse_table: battery0_profile_t2, 90, column:3
+[    0.648078]  (0)[1:swapper/0]Get battery0_profile_t3_col failed
+[    0.648084]  (0)[1:swapper/0]fg_custom_parse_table: battery0_profile_t3, 90, column:3
+[    0.648327]  (0)[1:swapper/0]Get battery0_profile_t4_col failed
+[    0.648332]  (0)[1:swapper/0]fg_custom_parse_table: battery0_profile_t4, 90, column:3
+[    0.648714]  (1)[1:swapper/0][pmic_register_interrupt_callback] intNo=81, callback=wake_up_gauge_coulomb
+[    0.648722]  (1)[1:swapper/0][pmic_register_interrupt_callback] intNo=80, callback=wake_up_gauge_coulomb
+[    0.649030]  (2)[1:swapper/0][pmic_register_interrupt_callback] intNo=121, callback=fg_nafg_int_handler
+[    0.649039]  (2)[1:swapper/0][pmic_register_interrupt_callback] intNo=84, callback=fg_zcv_int_handler
+[    0.649047]  (2)[1:swapper/0][lbat_user_register] hv=3500, lv1=3450, lv2=3200
+[    0.649264] -(2)[1:swapper/0]mt6358_misc: mtk_rtc_get_spare_register: cmd[0], get rg[0x2a, 0xff , 8] = 0xc6
+[    0.649272]  (2)[1:swapper/0][read_boot_battery_plug_out_status] rtc_invalid 0 plugout 1 bat_plug_out_time 31 sp3:0xc6 pl:0 0
+[    0.649475]  (2)[1:swapper/0][BAT_probe] power_supply_register Battery Success !!
+[    0.649523]  (2)[1:swapper/0] fg_swocv_v = 39941 len 5 fg_swocv_v_tmp 39941 ptim_lk_v[39941]
+[    0.649538]  (2)[1:swapper/0] fg_swocv_i = 8379 len 4 fg_swocv_i_tmp 8379 ptim_lk_i[8379]
+[    0.649552]  (2)[1:swapper/0] shutdown_time = 0379 len 1 shutdown_time_tmp 0 pl_shutdown_time[0]
+[    0.649565]  (2)[1:swapper/0]boot_voltage=0Û len 1 boot_voltage_tmp 0 pl_bat_vol[0]
+[    0.649628]  (2)[1:swapper/0][pmic_register_interrupt_callback] intNo=59, callback=fg_bat_plugout_int_handler_gm25
+[    0.649706]  (2)[1:swapper/0][pmic_enable_interrupt] intNo=59, en=1, depth=0
+[    0.650283]  (2)[1:swapper/0][battery_init] Initialization : DONE
+[    0.650570]  (2)[1:swapper/0]hl7005_parse_dt: no alias name
+[    0.650716]  (0)[148:battery_thread]mt635x-auxadc mt635x-auxadc: name:BATADC, channel=0, adc_out=0x5c53, adc_result=3894
+[    0.656105]  (0)[1:swapper/0][BND][Charger]Success to register hl7005 i2c driver.
+[    0.656525]  (0)[1:swapper/0]Error: Driver 'mtk-thermal' is already registered, aborting...
+[    0.656617]  (0)[1:swapper/0]MTK_WDT_NONRST_REG(0)
+[    0.656729]  (0)[1:swapper/0]mtk-wdt 10007000.toprgu: Watchdog enabled (timeout=31 sec, nowayout=0)
+[    0.657155]  (0)[1:swapper/0]device-mapper: uevent: version 1.0.3
+[    0.657269]  (0)[1:swapper/0]device-mapper: ioctl: 4.37.0-ioctl (2017-09-20) initialised: dm-devel@redhat.com
+[    0.698841]  (1)[1:swapper/0]BOOTPROF:       698.834540:probe: probe=platform_drv_probe drv=mtk-msdc(0xffffff80095b1700)    38.752539ms
+[    0.699281]  (1)[1:swapper/0]mtk-msdc 11240000.mmc: Got CD GPIO
+[    0.703145]  (1)[1:swapper/0]ldo vmch enable
+[    0.721685]  (0)[1:swapper/0]ldo vmc enable
+[    0.742214]  (0)[28:kworker/0:1]ldo vmch disable
+[    0.742231]  (0)[28:kworker/0:1]ldo vmc disable
+[    0.743253]  (0)[1:swapper/0]BOOTPROF:       743.251540:probe: probe=platform_drv_probe drv=mtk-msdc(0xffffff80095b1700)    42.964769ms
+[    0.743721]  (0)[1:swapper/0]BOOTPROF:       743.719617:initcall: mt_msdc_driver_init    85.276000ms
+[    0.743738]  (0)[1:swapper/0]mtk_timer: mtk_timer_mod_init
+[    0.743843]  (0)[1:swapper/0]hidraw: raw HID events driver (C) Jiri Kosina
+[    0.744344]  (0)[1:swapper/0]usbcore: registered new interface driver usbhid
+[    0.744350]  (0)[1:swapper/0]usbhid: USB HID core driver
+[    0.744486]  (0)[1:swapper/0]ashmem: initialized
+[    0.745631] -(3)[0:swapper/3][Thermal/TZ/CPU]Driver is ready to report valid temperatures
+[    0.745728]  (0)[1:swapper/0][BND][IR] ctrl_sda_gpio_number 468
+[    0.745736]  (0)[1:swapper/0][BND][IR] ctrl_scl_gpio_number 437
+[    0.745741]  (0)[1:swapper/0][BND][IR] ctrl_busy_gpio_number 439
+[    0.745749]  (0)[1:swapper/0][BND][xhci-mtk]  bnd_config_gpio() name=host_usb1_power_en, gpio=477
+[    0.745756]  (0)[1:swapper/0][BND][xhci-mtk]  bnd_config_gpio() name=usb1_enable, gpio=473
+[    0.745762]  (2)[133:krtatm][Thermal/TZ/CPU]krtatm_thread c 32700 p 0 cl 2147483647 gl 2147483647 s 0
+[    0.745798]  (0)[1:swapper/0][USB1]usb1_irq=87
+[    0.745853]  (0)[1:swapper/0][BND][xhci-mtk]  bnd_config_gpio() name=iddig_int_gpio, gpio=395
+[    0.745861]  (0)[1:swapper/0][BND][xhci-mtk]  bnd_config_gpio() name=usb_b_5v_en, gpio=475
+[    0.745868]  (0)[1:swapper/0][BND][xhci-mtk]  bnd_config_gpio() name=dc_int_gpio, gpio=425
+[    0.745887]  (0)[1:swapper/0][DC]dc_irq=81
+[    0.745916]  (0)[1:swapper/0][BND][xhci-mtk]  bnd_config_gpio() name=usb_int_gpio, gpio=429
+[    0.745937]  (0)[1:swapper/0][USB]usb_irq=85
+[    0.748289]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: bound 14003000.larb (ops 0xffffff800907ee28)
+[    0.748317]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: bound 17010000.larb (ops 0xffffff800907ee28)
+[    0.748325]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: bound 15001000.larb (ops 0xffffff800907ee28)
+[    0.748332]  (0)[1:swapper/0]mtk-iommu 10205000.m4u: bound 16010000.larb (ops 0xffffff800907ee28)
+[    0.748815]  (0)[1:swapper/0]usbcore: registered new interface driver snd-usb-audio
+[    0.750541]  (0)[1:swapper/0]mt8168-afe-pcm 11220000.audio-controller: MT8168 AFE driver initialized.
+[    0.750955]  (0)[1:swapper/0]mt8168-adsp-pcm soc:adsp_pcm: mt8168_adsp_pcm_dev_probe initialized.
+[    0.751655]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state default -19
+[    0.751664]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_dmic -19
+[    0.751671]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_pcm -19
+[    0.751677]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_i2s0 -19
+[    0.751684]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_i2s1 -19
+[    0.751690]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_i2s2 -19
+[    0.751696]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_tdm_out -19
+[    0.751703]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_tdm_in -19
+[    0.751764]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin default state err
+[    0.751771]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_dmic state err
+[    0.751777]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_pcm state err
+[    0.751783]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_i2s0 state err
+[    0.751788]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_i2s1 state err
+[    0.751794]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_i2s2 state err
+[    0.751814]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_tdm_out state err
+[    0.751820]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_tdm_in state err
+[    0.751991]  (0)[1:swapper/0]mt8168-p1 odm:sound: ASoC: CODEC DAI mt6357-codec-dai not registered
+[    0.752008]  (0)[1:swapper/0]mt8168-p1 odm:sound: mt8168_p1_dev_probe snd_soc_register_card fail -517
+[    0.752410]  (0)[1:swapper/0]drop_monitor: Initializing network drop monitor service
+[    0.752483]  (0)[1:swapper/0]Mirror/redirect action on
+[    0.752497]  (0)[1:swapper/0]u32 classifier
+[    0.752502]  (0)[1:swapper/0]    Performance counters on
+[    0.752506]  (0)[1:swapper/0]    input device check on
+[    0.752511]  (0)[1:swapper/0]    Actions configured
+[    0.752526]  (0)[1:swapper/0]Netfilter messages via NETLINK v0.30.
+[    0.752722]  (0)[1:swapper/0]nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+[    0.752865]  (0)[1:swapper/0]ctnetlink v0.93: registering with nfnetlink.
+[    0.753132]  (0)[1:swapper/0]xt_time: kernel timezone is -0000
+[    0.753214]  (0)[1:swapper/0]ipip: IPv4 and MPLS over IPv4 tunneling driver
+[    0.753471]  (0)[1:swapper/0]gre: GRE over IPv4 demultiplexor driver
+[    0.753479]  (0)[1:swapper/0]IPv4 over IPsec tunneling driver
+[    0.753826]  (0)[1:swapper/0]ip_tables: (C) 2000-2006 Netfilter Core Team
+[    0.754214]  (0)[1:swapper/0]arp_tables: arp_tables: (C) 2002 David S. Miller
+[    0.754286]  (0)[1:swapper/0]Initializing XFRM netlink socket
+[    0.754312]  (0)[1:swapper/0]IPsec XFRM device driver
+[    0.754558]  (0)[1:swapper/0]NET: Registered protocol family 10
+[    0.756182]  (0)[1:swapper/0]Segment Routing with IPv6
+[    0.756271]  (0)[1:swapper/0]mip6: Mobile IPv6
+[    0.756294]  (0)[1:swapper/0]ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    0.756886]  (0)[1:swapper/0]sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    0.757298]  (0)[1:swapper/0]NET: Registered protocol family 17
+[    0.757316]  (0)[1:swapper/0]NET: Registered protocol family 15
+[    0.757352]  (0)[1:swapper/0]Bridge firewalling registered
+[    0.757393]  (0)[1:swapper/0]l2tp_core: L2TP core driver, V2.0
+[    0.757405]  (0)[1:swapper/0]l2tp_ppp: PPPoL2TP kernel driver, V2.0
+[    0.757411]  (0)[1:swapper/0]8021q: 802.1Q VLAN Support v1.8
+[    0.758646]  (0)[1:swapper/0]registered taskstats version 1
+[    0.763763]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: PM_QOS_VCORE_OPP: 0x0
+[    0.765939]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: VCORE_OPP: 0, pass_window: [0xffffffe07fffffff]
+[    0.765965]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: PM_QOS_VCORE_OPP: 0x1
+[    0.768034]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: VCORE_OPP: 1, pass_window: [0xffffffc03fffffff]
+[    0.768054]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: PM_QOS_VCORE_OPP: 0x2
+[    0.769819]  (1)[16:kworker/1:0][CMDQ]CMDQ driver probe begin
+[    0.770030]  (1)[16:kworker/1:0][CMDQ][CMDQ] platform_dev: dev:00000000e22049d2 PA:0x000000001023c000 VA:ffffff800af98000 irqId:183 irqSecId:184
+[    0.770041]  (1)[16:kworker/1:0][CMDQ]set dma mask bit:32 result:0
+[    0.770082]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mmsys_config):0xffffff800a7fe000
+[    0.770103]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_rdma0):0xffffff800af9d000
+[    0.770127]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_rdma1):0xffffff800afb1000
+[    0.770145]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_rsz0):0xffffff800afb3000
+[    0.770163]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_rsz1):0xffffff800afb5000
+[    0.770181]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_wrot0):0xffffff800afb7000
+[    0.770200]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_wrot1):0xffffff800afb9000
+[    0.770225]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_tdshp0):0xffffff800afbb000
+[    0.770245]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_color0):0xffffff800afbd000
+[    0.770264]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mdp_ccorr0):0xffffff800afcb000
+[    0.770272]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(venc):0x0
+[    0.770291]  (1)[16:kworker/1:0][CMDQ]DEV: VA ref(mm_mutex):0xffffff800afcd000
+[    0.771639]  (1)[16:kworker/1:0][CMDQ]DEV: PA ref(mm_mutex): start:0x0000000014001000
+[    0.771653]  (1)[16:kworker/1:0][CMDQ]free CPR size:128 thread:16
+[    0.771669]  (1)[16:kworker/1:0][CMDQ]sec thread index 8 to 10
+[    0.772064]  (1)[16:kworker/1:0][CMDQ]chan 0 0x00000000430112c4 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.772239]  (1)[16:kworker/1:0][CMDQ]chan 1 0x000000007e8b9311 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.772420]  (1)[16:kworker/1:0][CMDQ]chan 2 0x000000004f3e52d2 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.772507]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: VCORE_OPP: 2, pass_window: [0xffffffc03fffffff]
+[    0.772516]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: phase: [map:0xffffffc03fffffff] [maxlen:30] [final:10]
+[    0.772529]  (1)[76:kworker/1:1]mtk-msdc 11230000.mmc: Calibration cost: 8 ms
+[    0.772604]  (1)[16:kworker/1:0][CMDQ]chan 3 0x000000001c72113d dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.772778]  (1)[16:kworker/1:0][CMDQ]chan 4 0x00000000dee8b119 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.772857]  (1)[76:kworker/1:1]mmc0: new HS400 MMC card at address 0001
+[    0.773222]  (1)[16:kworker/1:0][CMDQ]chan 5 0x000000001b36d45f dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.773380]  (1)[76:kworker/1:1]mmcblk0: mmc0:0001 ISOCOM 14.6 GiB 
+[    0.773499]  (1)[16:kworker/1:0][CMDQ]chan 6 0x0000000098abcbf6 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.773663]  (1)[76:kworker/1:1]mmcblk0boot0: mmc0:0001 ISOCOM partition 1 4.00 MiB
+[    0.773811]  (1)[16:kworker/1:0][CMDQ]chan 7 0x00000000427f9962 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.773902]  (1)[76:kworker/1:1]mmcblk0boot1: mmc0:0001 ISOCOM partition 2 4.00 MiB
+[    0.774042]  (1)[76:kworker/1:1]mmcblk0rpmb: mmc0:0001 ISOCOM partition 3 4.00 MiB
+[    0.774648]  (1)[16:kworker/1:0][CMDQ]chan 8 0x00000000e42c5f7c dev:0x00000000e22049d2 mbox:00000000ae314641 mbox->dev:0000000013d5cd38
+[    0.779236]  (1)[16:kworker/1:0][CMDQ]chan 9 0x00000000efb669bd dev:0x00000000e22049d2 mbox:00000000ae314641 mbox->dev:0000000013d5cd38
+[    0.779797]  (1)[16:kworker/1:0][CMDQ]chan 10 0x00000000a9276006 dev:0x00000000e22049d2 mbox:00000000ae314641 mbox->dev:0000000013d5cd38
+[    0.780170]  (1)[16:kworker/1:0][CMDQ]chan 11 0x00000000df35fb70 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.784405]  (1)[16:kworker/1:0][CMDQ]chan 12 0x00000000f5625ed7 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.784819]  (1)[16:kworker/1:0][CMDQ]chan 15 0x00000000671dc4e1 dev:0x00000000e22049d2 mbox:000000004f63aa88 mbox->dev:000000004c125d56
+[    0.784852]  (1)[16:kworker/1:0][CMDQ]available thread pool: max:16
+[    0.806012]  (1)[76:kworker/1:1] mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p30 p31 p32 p33 p34
+[    0.808054]  (1)[76:kworker/1:1]BOOTPROF:       808.048924:probe: probe=mmc_bus_probe drv=mmcblk(0xffffff80095b15d0)    34.967077ms
+[    0.812871]  (1)[16:kworker/1:0][CMDQ]SRAM Chunk New-32bit unit: start:0x0 count:64 Name:Fake SPR
+[    0.812892]  (1)[16:kworker/1:0][CMDQ]CPR for thread allocated, thread:16 free:256
+[    0.812898]  (1)[16:kworker/1:0][CMDQ]SRAM Chunk New-32bit unit: start:0x40 count:10 Name:Delay CPR
+[    0.812904]  (1)[16:kworker/1:0][CMDQ]cmdq_sec_create_shared_memory
+[    0.812913]  (1)[16:kworker/1:0][CMDQ]cmdq_mdp_init
+[    0.813341]  (1)[16:kworker/1:0][CMDQ]cmdq_core_register_status_dump notifier:0x000000008ac59873
+[    0.813376]  (1)[16:kworker/1:0][CMDQ][Res]Init resource engine:10 event:710
+[    0.813644]  (1)[16:kworker/1:0][CMDQ]MDP limit dev create end
+[    0.813650]  (1)[16:kworker/1:0][CMDQ]CMDQ driver probe end
+[    0.813669]  (1)[16:kworker/1:0]BOOTPROF:       813.667309:probe: probe=platform_drv_probe drv=mtk_cmdq(0xffffff8009524b20)    43.884692ms
+[    0.813938]  (1)[16:kworker/1:0]dispsys soc:dispsys: iommu_dma_init_domain, 288, start:0x0, size:0x100000000
+[    0.813991]  (1)[16:kworker/1:0]disp_probe start
+[    0.813996]  (1)[16:kworker/1:0]disp driver(1) disp_probe begin
+[    0.816770]  (1)[16:kworker/1:0]disp_probe end
+[    0.816776]  (1)[16:kworker/1:0]disp driver(1) disp_probe_1 begin
+[    0.818858]  (1)[16:kworker/1:0]disp driver(1) disp_probe_1 end
+[    0.819335]  (1)[16:kworker/1:0]disphal_allocate_fb, pa=0x000000007cc50000, va=0xffffff800c000000 mva=0x7cc50000
+[    0.819559]  (1)[16:kworker/1:0][BND][Kernel/LCM] lcm_get_params() enter
+[    0.821690]  (1)[16:kworker/1:0][GAMMA] disp_gamma_write_lut_reg: table [0] not initialized
+[    0.821690] 
+[    0.823121]  (0)[201:init_decouple_b]init_decouple_buffers done
+[    0.840851]  (1)[16:kworker/1:0][CMDQ][Res]resource clock engine:0x400 enable:true
+[    0.861030]  (1)[16:kworker/1:0]disp driver(2) mtkfb_probe end
+[    0.861064]  (1)[16:kworker/1:0]BOOTPROF:       861.061925:probe: probe=platform_drv_probe drv=mtkfb(0xffffff800954ad80)    41.901462ms
+[    0.861751]  (1)[16:kworker/1:0]mtu3 11201000.usb: dr_mode: 3, is_u3_dr: 0 keep-ao: 1
+[    0.862151]  (1)[16:kworker/1:0]mtu3 11201000.usb: irq 196
+[    0.862171]  (1)[16:kworker/1:0]mtu3 11201000.usb: IP version 0x20160812(U2 IP)
+[    0.862183]  (1)[16:kworker/1:0]mtu3 11201000.usb: fifosz/epnum: Tx=0x2000/8, Rx=0x2000/8
+[    0.862202]  (1)[16:kworker/1:0]mtu3 11201000.usb: max_speed: high-speed
+[    0.862758]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: 11200000.xhci supply vbus not found, using dummy regulator
+[    0.862962]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: xHCI Host Controller
+[    0.862983]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: new USB bus registered, assigned bus number 1
+[    0.863085]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: hcc params 0x01400f99 hci version 0x110 quirks 0x0000000000210010
+[    0.863122]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: irq 256, io mem 0x11200000
+[    0.863207] -(1)[16:kworker/1:0]usb usb1: runtime PM trying to activate child device usb1 but parent (11200000.xhci) is not active
+[    0.863528]  (1)[16:kworker/1:0]hub 1-0:1.0: USB hub found
+[    0.863555]  (1)[16:kworker/1:0]hub 1-0:1.0: 2 ports detected
+[    0.863764]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: xHCI Host Controller
+[    0.863775]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: new USB bus registered, assigned bus number 2
+[    0.863786]  (1)[16:kworker/1:0]xhci-mtk 11200000.xhci: Host supports USB 3.0  SuperSpeed
+[    0.863838]  (1)[16:kworker/1:0]usb usb2: We don't know the algorithms for LPM for this host, disabling LPM.
+[    0.864057]  (1)[16:kworker/1:0]hub 2-0:1.0: USB hub found
+[    0.864082]  (1)[16:kworker/1:0]hub 2-0:1.0: config failed, hub doesn't have any ports! (err -19)
+[    0.864295]  (1)[16:kworker/1:0]mtu3 11201000.usb: xHCI platform device register success...
+[    0.864370]  (1)[16:kworker/1:0]suspend infra power on
+[    0.865189]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state default -19
+[    0.865197]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_dmic -19
+[    0.865203]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_pcm -19
+[    0.865209]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_i2s0 -19
+[    0.865216]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_i2s1 -19
+[    0.865222]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_i2s2 -19
+[    0.865228]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_tdm_out -19
+[    0.865235]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe Can't find pin state aud_tdm_in -19
+[    0.865294]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin default state err
+[    0.865300]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_dmic state err
+[    0.865306]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_pcm state err
+[    0.865312]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_i2s0 state err
+[    0.865318]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_i2s1 state err
+[    0.865323]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_i2s2 state err
+[    0.865341]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_tdm_out state err
+[    0.865347]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt8168_p1_gpio_probe check pin aud_tdm_in state err
+[    0.867236]  (1)[16:kworker/1:0]mt6357_codec_init_reg
+[    0.867332]  (1)[16:kworker/1:0]InitCodecDefault
+[    0.867338]  (1)[16:kworker/1:0]+read_efuse_hp_impedance_current_calibration()
+[    0.867608]  (1)[16:kworker/1:0]read_efuse_hp_impedance_current_calibration(), polling OTP_CON13 = 0x0
+[    0.868627]  (1)[16:kworker/1:0]read_efuse_hp_impedance_current_calibration(), efuse = 0x5
+[    0.868652]  (1)[16:kworker/1:0]-read_efuse_hp_impedance_current_calibration(), efuse: 5
+[    0.869289]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : DL1_FE, memif_id : 0, size : 262144, ret : 0
+[    0.869299]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> DL1 mapping ok
+[    0.869463]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : DL2_FE, memif_id : 1, size : 262144, ret : 0
+[    0.869470]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> DL2 mapping ok
+[    0.869681]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : AWB_FE, memif_id : 3, size : 262144, ret : 0
+[    0.869689]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> AWB mapping ok
+[    0.869871]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : VUL_FE, memif_id : 4, size : 262144, ret : 0
+[    0.869878]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> VUL mapping ok
+[    0.870035]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : VUL2_FE, memif_id : 5, size : 262144, ret : 0
+[    0.870042]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> VUL2 mapping ok
+[    0.870201]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : VUL3_FE, memif_id : 6, size : 262144, ret : 0
+[    0.870208]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> VUL3 mapping ok
+[    0.870369]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : TDM_OUT_FE, memif_id : 2, size : 262144, ret : 0
+[    0.870376]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> TDM_OUT mapping ok
+[    0.870543]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : TDM_IN_FE, memif_id : 7, size : 262144, ret : 0
+[    0.870550]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> TDM_IN mapping ok
+[    0.870610]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> snd-soc-dummy-dai mapping ok
+[    0.870925]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> FE_HOSTLESS_VA mapping ok
+[    0.871182]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> FE_VA mapping ok
+[    0.871445]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> FE_MICR mapping ok
+[    0.871510]  (1)[16:kworker/1:0]mt8168-afe-pcm 11220000.audio-controller: mtk_afe_pcm_new(), dai_link_name : Hostless_FM, memif_id : 15, size : 0, ret : 0
+[    0.871517]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> Hostless FM DAI mapping ok
+[    0.871553]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> I2S mapping ok
+[    0.871597]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> 2ND I2S mapping ok
+[    0.871631]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> PCM1 mapping ok
+[    0.871661]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> VIRTUAL_DL_SRC mapping ok
+[    0.871692]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> VIRTUAL_TDM_OUT_SRC mapping ok
+[    0.871719]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> DMIC mapping ok
+[    0.871752]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: mt6357-codec-dai <-> INT ADDA mapping ok
+[    0.871781]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> TDM_OUT_IO mapping ok
+[    0.871817]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> TDM_IN_IO mapping ok
+[    0.871847]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> GASRC1 mapping ok
+[    0.871885]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> GASRC2 mapping ok
+[    0.871917]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> TDM_ASRC mapping ok
+[    0.871954]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> HW_GAIN1 mapping ok
+[    0.871982]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> BE_VUL2_IN mapping ok
+[    0.872012]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> BE_TDM_IN mapping ok
+[    0.872039]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: snd-soc-dummy-dai <-> BE_VUL_IN mapping ok
+[    0.872245]  (1)[16:kworker/1:0]mt8168-p1 odm:sound: ASoC: no DMI vendor name!
+[    0.877627]  (2)[1:swapper/0]BOOTPROF:       877.581232:initcall: deferred_probe_initcall   108.463462ms
+[    0.878340]  (2)[1:swapper/0][Power/dcm]  : weak function of dcm_pre_init
+[    0.878355]  (2)[1:swapper/0][Power/dcm]  : [dcm_set_default]type:0x000000e3, init_dcm_type=0xe3, INIT_DCM_TYPE_BY_K=0x0
+[    0.878363]  (2)[1:swapper/0][Power/dcm]  : [      MCUSYS_DCM 0x00000001] current state:1 (0)
+[    0.878368]  (2)[1:swapper/0][Power/dcm]  : [       INFRA_DCM 0x00000002] current state:1 (0)
+[    0.878374]  (2)[1:swapper/0][Power/dcm]  : [     ARMCORE_DCM 0x00000020] current state:1 (0)
+[    0.878379]  (2)[1:swapper/0][Power/dcm]  : [    GIC_SYNC_DCM 0x00000040] current state:1 (0)
+[    0.878384]  (2)[1:swapper/0][Power/dcm]  : [    RGU_CORE_DCM 0x00000080] current state:1 (0)
+[    0.878390]  (2)[1:swapper/0][Power/dcm]  : weak function of dcm_smc_msg_send: msg=227
+[    0.878395]  (2)[1:swapper/0][Power/dcm]  : 
+[    0.878395] ******** dcm dump register *********
+[    0.878402]  (2)[1:swapper/0][Power/dcm]  : INFRA_BUS_DCM_CTRL            (0xffffff800bfeb070): 0x005f7fe0
+[    0.878407]  (2)[1:swapper/0][Power/dcm]  : PERI_BUS_DCM_CTRL             (0xffffff800bfeb074): 0x04787fe0
+[    0.878412]  (2)[1:swapper/0][Power/dcm]  : MEM_DCM_CTRL                  (0xffffff800bfeb078): 0x11a007c0
+[    0.878418]  (2)[1:swapper/0][Power/dcm]  : DFS_MEM_DCM_CTRL              (0xffffff800bfeb07c): 0x00000000
+[    0.878423]  (2)[1:swapper/0][Power/dcm]  : P2P_RX_CLK_ON                 (0xffffff800bfeb0a0): 0x0000000f
+[    0.878428]  (2)[1:swapper/0][Power/dcm]  : MP0_CPUCFG_MP0_RGU_DCM_CONFIG (0xffffff800bfee088): 0x00000000
+[    0.878434]  (2)[1:swapper/0][Power/dcm]  : L2C_SRAM_CTRL                 (0xffffff800bfee648): 0x000c0080
+[    0.878439]  (2)[1:swapper/0][Power/dcm]  : CCI_CLK_CTRL                  (0xffffff800bfee660): 0x00000014
+[    0.878444]  (2)[1:swapper/0][Power/dcm]  : BUS_FABRIC_DCM_CTRL           (0xffffff800bfee668): 0x00000000
+[    0.878449]  (2)[1:swapper/0][Power/dcm]  : MCU_MISC_DCM_CTRL             (0xffffff800bfee66c): 0x00000000
+[    0.878455]  (2)[1:swapper/0][Power/dcm]  : CCI_ADB400_DCM_CONFIG         (0xffffff800bfee740): 0x00000000
+[    0.878460]  (2)[1:swapper/0][Power/dcm]  : SYNC_DCM_CONFIG               (0xffffff800bfee744): 0x00000000
+[    0.878465]  (2)[1:swapper/0][Power/dcm]  : MP_GIC_RGU_SYNC_DCM           (0xffffff800bfee758): 0x00000000
+[    0.878471]  (2)[1:swapper/0][Power/dcm]  : BUS_PLL_DIVIDER_CFG           (0xffffff800bfee7c0): 0x000102ff
+[    0.878476]  (2)[1:swapper/0][Power/dcm]  : CHN0_EMI_CHN_EMI_CONB         (0xffffff8009c13008): 0xffff5048
+[    0.878481]  (2)[1:swapper/0][Power/dcm]  : CHN1_EMI_CHN_EMI_CONB         (0xffffff8009c15008): 0xffff5048
+[    0.878500]  (2)[1:swapper/0][Power/dcm]  : weak function of dcm_set_hotplug_nb
+[    0.878522]  (2)[1:swapper/0][pmic_register_interrupt_callback] intNo=54, callback=chrdet_int_handler
+[    0.878622]  (2)[1:swapper/0][pmic_enable_interrupt] intNo=54, en=1, depth=0
+[    0.878635]  (2)[1:swapper/0][mmdvfs]force flip step0 when late_init
+[    0.878736]  (2)[154:kworker/2:1]charger type: charger IN 6390
+[    0.879397]  (1)[1:swapper/0]<ALS/PS> alsps real driver init fail
+[    0.879405]  (1)[1:swapper/0]<ALS/PS> alsps_probe fail !!!
+[    0.879410]  (1)[1:swapper/0]<ALS/PS> failed to register alsps driver
+[    0.879922]  (1)[1:swapper/0]stk8baxx_i2c_probe addr=0x18
+[    0.879929]  (1)[1:swapper/0][BND][sensors] get orientation of stk8baxx accelerometer from item is  = 5.
+[    0.880422]  (1)[1:swapper/0]stk8baxx: probe of 3-0018 failed with error -1
+[    0.880526]  (1)[1:swapper/0][BND][sensors] get orientation of sc7a20 accelerometer from item is  = 6.
+[    0.880959]  (1)[1:swapper/0]<<-GSE INFO->> sc7a20 hw->i2c_num=0x2
+[    0.880965]  (1)[1:swapper/0]<<-GSE INFO->> sc7a20 hw->i2c_addr[0]=0x18
+[    0.880969]  (1)[1:swapper/0]<<-GSE INFO->> sc7a20 hw->direction=0x6
+[    0.905425]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x696c, adc_result=26988
+[    0.909073]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x696b, adc_result=26987
+[    0.945958]  (1)[1:swapper/0]BOOTPROF:       945.954079:probe: probe=i2c_device_probe drv=SC7A20(0xffffff800951b378)    65.447847ms
+[    0.946058]  (1)[1:swapper/0]BOOTPROF:       946.057002:initcall: acc_init    66.574308ms
+[    0.946555]  (2)[1:swapper/0]<GYROSCOPE> gyro real driver init fail
+[    0.946562]  (2)[1:swapper/0]<GYROSCOPE> gyro_probe--- fail !!!
+[    0.946567]  (2)[1:swapper/0]<GYROSCOPE> failed to register gyro driver
+[    0.946930]  (2)[1:swapper/0]<MAG> mag_real_driver_init fail
+[    0.946936]  (2)[1:swapper/0]<MAG> mag_probe fail !!!
+[    0.946941]  (2)[1:swapper/0]<MAG> failed to register mag driver
+[    0.946948]  (2)[1:swapper/0]memory-ssmr: [INIT FAIL]: cma is not inited
+[    0.946952]  (2)[1:swapper/0]memory-ssmr: SSMR sanity fail
+[    0.946958]  (2)[1:swapper/0][LED]mt65xx_leds_init
+[    0.947795]  (2)[1:swapper/0][LED]The red's led mode is : 3
+[    0.947807]  (2)[1:swapper/0][LED]The red's led data is : 2
+[    0.947814]  (2)[1:swapper/0][LED]red's pwm cfg 0 0 0 0 0
+[    0.947971]  (2)[1:swapper/0][LED]Cannot find LED node from dts
+[    0.948048]  (2)[1:swapper/0][LED]Cannot find LED node from dts
+[    0.948119]  (2)[1:swapper/0][LED]Cannot find LED node from dts
+[    0.948190]  (2)[1:swapper/0][LED]Cannot find LED node from dts
+[    0.948261]  (2)[1:swapper/0][LED]Cannot find LED node from dts
+[    0.948325]  (2)[1:swapper/0][LED]The lcd-backlight's led mode is : 5
+[    0.948331]  (2)[1:swapper/0][LED]The lcd-backlight's led data is : 1
+[    0.948336]  (2)[1:swapper/0][LED]lcd-backlight's pwm cfg 0 0 0 0 0
+[    0.948341]  (2)[1:swapper/0][LED]kernel:the BL hw mode is BLS.
+[    0.948437]  (2)[1:swapper/0][LED]last_level= 0, limit= 255, limit_flag= 0, current_level= 0
+[    0.948503]  (2)[1:swapper/0][CMDQ]mdp_late_init begin
+[    0.948510]  (2)[1:swapper/0][CMDQ]mdp_late_init end
+[    0.948516]  (2)[1:swapper/0][CMDQ]CMDQ driver late init begin
+[    0.948523]  (2)[1:swapper/0][BND][Kernel/LCM] lcm_init >>>> enter 
+[    0.948523]  
+[    0.948825]  (2)[1:swapper/0][BND][LCM]lcm_platform_probe enter 
+[    0.948825]  
+[    0.948831]  (2)[1:swapper/0][BND][Kernel/LCM] lcm_driver_probe enter 
+[    0.948831]  
+[    0.948838]  (2)[1:swapper/0][BND][Kernel/LCM]init_vcc_power enter 
+[    0.948838]  
+[    0.948951]  (2)[1:swapper/0][BND][Kernel/LCM]: lcm vcc_vgp_ldo get supply ok.
+[    0.948962]  (2)[1:swapper/0][BND][Kernel/LCM]init_lcm_power enter 
+[    0.948962]  
+[    0.949009]  (2)[1:swapper/0][BND][Kernel/LCM]: lcm lcm_vgp_ldo get supply ok.
+[    0.949019]  (2)[1:swapper/0][BND][LCM]lcm_get_gpio_infor enter
+[    0.949108]  (2)[1:swapper/0][BND][Kernel/LCM]  bnd_config_gpio() of_get_named_gpio  name=lcm_power_gpio, gpio=476
+[    0.949154]  (2)[1:swapper/0][BND][Kernel/LCM]  bnd_config_gpio() of_get_named_gpio  name=lcm_stbyb_gpio, gpio=386
+[    0.949169]  (2)[1:swapper/0][BND][Kernel/LCM]  bnd_config_gpio() of_get_named_gpio  name=lcm_reset_gpio, gpio=376
+[    0.949289]  (2)[1:swapper/0]log_store: sram header DRAM buff is null.
+[    0.950045]  (2)[1:swapper/0][Thermal/TC/bcct]mtkcooler_bcct_late_init
+[    0.950304]  (2)[1:swapper/0][Thermal/TC/bcct]mtkcooler_bcct_pdrv_probe
+[    0.951704]  (1)[1:swapper/0]Infrared ctrl_init enter....
+[    0.951723]  (1)[1:swapper/0]Infrared ctrl_init ctrl_major < 0.
+[    0.951736]  (1)[1:swapper/0]######### Infrared ctrl_init  111111111111111 ######
+[    0.951741]  (1)[1:swapper/0]######### Infrared ctrl_init  22222222222222222 ######
+[    0.951749]  (1)[1:swapper/0]######### Infrared ctrl_init  33333333333333333333 ######
+[    0.951754]  (1)[1:swapper/0]######### Infrared ctrl_init  444444444444444444444 ######
+[    0.951776]  (1)[1:swapper/0]######### Infrared ctrl_init  555555555555555555 ######
+[    0.951817]  (3)[211:kworker/u8:2]mtk-tpd:[tpd_init_work_callback:748] MediaTek touch panel driver init
+[    0.951819]  (1)[1:swapper/0]Infrared ctrl_init gpio_init.
+[    0.951823]  (1)[1:swapper/0]Infrared GPIO_I2C_SDA = 468
+[    0.951826]  (1)[1:swapper/0]Infrared GPIO_I2C_SCL = 437
+[    0.951829]  (1)[1:swapper/0]Infrared GPIO_I2C_BUSY = 439
+[    0.951923]  (1)[1:swapper/0]Infrared Succedded To Initialize Mobile Ctrl Device.
+[    0.952072]  (1)[1:swapper/0]mt-rtc mt6357-rtc: setting system clock to 2026-11-20 18:54:53 UTC (1795200893)
+[    0.952175]  (1)[1:swapper/0]mtk_charger_probe: starts
+[    0.952183]  (1)[1:swapper/0]mtk_charger_parse_dt: starts
+[    0.952189]  (1)[1:swapper/0]found SwitchCharging
+[    0.952197]  (1)[1:swapper/0]Found primary charger [hl7005]
+[    0.952224]  (1)[1:swapper/0]use default V_CHARGER_MIN_1:4400000
+[    0.952230]  (1)[1:swapper/0]use default V_CHARGER_MIN_2:4200000
+[    0.952236]  (1)[1:swapper/0]use default MAX_DMIVR_CHARGER_CURRENT:1400000
+[    0.952333]  (1)[1:swapper/0]use default PE20_ICHG_LEAVE_THRESHOLD:1000000
+[    0.952339]  (1)[1:swapper/0]use default TA_START_BATTERY_SOC:0
+[    0.952345]  (1)[1:swapper/0]use default TA_STOP_BATTERY_SOC:85
+[    0.952351]  (1)[1:swapper/0]use default high_temp_to_leave_pe40:46
+[    0.952357]  (1)[1:swapper/0]use default high_temp_to_enter_pe40:39
+[    0.952362]  (1)[1:swapper/0]use default low_temp_to_leave_pe40:10
+[    0.952368]  (1)[1:swapper/0]use default low_temp_to_enter_pe40:16
+[    0.952374]  (1)[1:swapper/0]use default pe40_single_charger_input_current:3000
+[    0.952380]  (1)[1:swapper/0]use default pe40_single_charger_current:3000
+[    0.952385]  (1)[1:swapper/0]use default pe40_dual_charger_input_current:3000
+[    0.952392]  (1)[1:swapper/0]use default pe40_dual_charger_chg1_current:2000
+[    0.952397]  (1)[1:swapper/0]use default pe40_dual_charger_chg2_current:2000
+[    0.952403]  (1)[1:swapper/0]use default dual_polling_ieoc :750000
+[    0.952409]  (1)[1:swapper/0]use default pe40_stop_battery_soc:80
+[    0.952415]  (1)[1:swapper/0]use default pe40_max_vbus:11000
+[    0.952421]  (1)[1:swapper/0]use default pe40_max_ibus:3000
+[    0.952427]  (1)[1:swapper/0]use default pe40_r_cable_1a_lower:530
+[    0.952432]  (1)[1:swapper/0]use default pe40_r_cable_2a_lower:390
+[    0.952439]  (1)[1:swapper/0]use default pe40_r_cable_3a_lower:252
+[    0.952445]  (1)[1:swapper/0]use default pd_vbus_upper_bound:10000000
+[    0.952450]  (1)[1:swapper/0]use default pd_vbus_low_bound:5000000
+[    0.952456]  (1)[1:swapper/0]use default pd_ichg_level_threshold:1000000
+[    0.952462]  (1)[1:swapper/0]use default pd_stop_battery_soc:80
+[    0.952467]  (1)[1:swapper/0]use default vsys_watt:5000000
+[    0.952473]  (1)[1:swapper/0]use default ibus_err:14
+[    0.952478]  (1)[1:swapper/0]use default TA_AC_MASTER_CHARGING_CURRENT:1500000
+[    0.952484]  (1)[1:swapper/0]use default TA_AC_SLAVE_CHARGING_CURRENT:1500000
+[    0.952490]  (1)[1:swapper/0]use default SLAVE_MIVR_DIFF:100000
+[    0.952493]  (3)[211:kworker/u8:2]mtk-tpd:[tpd_probe:556] enter tpd_probe, 556
+[    0.952501]  (1)[1:swapper/0]use default CHG2_EFF:90
+[    0.952514]  (1)[1:swapper/0]use default MAX_CHARGING_TIME:43200
+[    0.952520]  (1)[1:swapper/0]use default BC12_CHARGER:0
+[    0.952524]  (1)[1:swapper/0]algorithm name:SwitchCharging
+[    0.952532]  (1)[1:swapper/0]mtk_charger_start_timer: alarm timer start:10 918949306
+[    0.952538] -(1)[1:swapper/0]alarmtimer_enqueue, 10918949306
+[    0.952542]  (3)[211:kworker/u8:2]mtk-tpd:[tpd_get_gpio_info:195] [tpd -1] mt_tpd_pinctrl+++++++++++++++++
+[    0.952549]  (3)[211:kworker/u8:2]mtk-tpd:[tpd_get_gpio_info:241] [tpd-1] mt_tpd_pinctrl----------
+[    0.952569]  (3)[211:kworker/u8:2][BND][Touch] >>>>>> tpd_local_init <<<<<< 
+[    0.952574]  (3)[211:kworker/u8:2][BND][Touch][Bnd_items_config_TP] in.
+[    0.952585]  (3)[211:kworker/u8:2][BND][Touch] [_tp_pmic_config]
+[    0.952592]  (3)[211:kworker/u8:2][BND][Touch] [_tp_pmic_config] items_key = ro.odm.touchpanel.power.num, STR_PMIC = vgp1 .
+[    0.952597]  (3)[211:kworker/u8:2][BND][Touch] [_tp_pmic_config] regulator get cust tp node failed!
+[    0.952617]  (3)[211:kworker/u8:2]
+[    0.952617]  [BND][Touch] [tp_list_config] name_tp_mode =P863_10_TP
+[    0.952714]  (1)[1:swapper/0]*** Error : can't find PD adapter ***
+[    0.952787]  (3)[211:kworker/u8:2]ldo vldo28 enable
+[    0.952796]  (1)[1:swapper/0]mtk_charger_get_atm_mode: atm_enabled = 0
+[    0.953802]  (3)[211:kworker/u8:2][PMIC] [pmic_enable_interrupt] No callback at intNo=27
+[    0.953810]  (1)[1:swapper/0]vbus0: disabling
+[    0.953821]  (1)[1:swapper/0]vs1: disabling
+[    0.953827]  (1)[1:swapper/0]vs1: couldn't disable: -1
+[    0.953849]  (1)[1:swapper/0]vcore: disabling
+[    0.953855]  (1)[1:swapper/0]vcore: couldn't disable: -1
+[    0.953865]  (1)[1:swapper/0]vproc: disabling
+[    0.953871]  (1)[1:swapper/0]vproc: couldn't disable: -1
+[    0.953893]  (1)[1:swapper/0]vxo22: disabling
+[    0.953899]  (1)[1:swapper/0]vxo22: couldn't disable: -1
+[    0.953928]  (1)[1:swapper/0]vcn33_bt: disabling
+[    0.953934]  (1)[1:swapper/0]ldo vcn33_bt disable
+[    0.953938]  (1)[1:swapper/0]vcn33_bt: couldn't disable: -1
+[    0.953949]  (1)[1:swapper/0]vcn33_wifi: disabling
+[    0.953955]  (1)[1:swapper/0]vcn33_wifi: couldn't disable: -1
+[    0.953966]  (1)[1:swapper/0]vcn18: disabling
+[    0.953971]  (1)[1:swapper/0]ldo vcn18 disable
+[    0.953975]  (1)[1:swapper/0]vcn18: couldn't disable: -1
+[    0.954387]  (3)[1:swapper/0]vsram_others: disabling
+[    0.954394]  (3)[1:swapper/0]vsram_others: couldn't disable: -1
+[    0.954405]  (3)[1:swapper/0]vsram_proc: disabling
+[    0.954411]  (3)[1:swapper/0]vsram_proc: couldn't disable: -1
+[    0.954415]  (1)[211:kworker/u8:2][BND][Touch] >>>>>> tpd_i2c_probe <<<<<< 
+[    0.954420]  (1)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 0
+[    0.954434]  (3)[1:swapper/0]vaux18: disabling
+[    0.954439]  (3)[1:swapper/0]vaux18: couldn't disable: -1
+[    0.954450]  (3)[1:swapper/0]vaud28: disabling
+[    0.954455]  (3)[1:swapper/0]ldo vaud28 disable
+[    0.954460]  (3)[1:swapper/0]vaud28: couldn't disable: -1
+[    0.954470]  (3)[1:swapper/0]vio28: disabling
+[    0.954476]  (3)[1:swapper/0]vio28: couldn't disable: -1
+[    0.959633]  (0)[221:charger_thread]Vbat=3967,Ibat=4313,I=0,VChr=5005,T=25,Soc=-1:-1,CT:0:0 hv:1 pd:0:0
+[    1.061692]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 1
+[    1.061745]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_as_int:159] [tpd] tpd_gpio_as_int
+[    1.085903]  (2)[154:kworker/2:1]CDP, block
+[    1.121610]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 0
+[    1.149698]  (1)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 1
+[    1.178263]  (1)[211:kworker/u8:2][BND][Touch] I read reg 0xf0 is 0
+[    1.190066]  (1)[211:kworker/u8:2][BND][Touch] I write reg 0xf0 0x12
+[    1.202277]  (1)[211:kworker/u8:2][BND][Touch] I read reg 0xf0 is 0x12
+[    1.373678]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw start <<<<<<<<<<<<<<<<< 
+[    1.477739] -(0)[210:dc_trim_thread]mt635x_auxadc_read_raw: 80 callbacks suppressed
+[    1.477757]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6948, adc_result=26952
+[    1.481412]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6947, adc_result=26951
+[    1.485040]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x694e, adc_result=26958
+[    1.488670]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x694f, adc_result=26959
+[    1.548033]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6927, adc_result=26919
+[    1.885650]  (1)[16:kworker/1:0]mt_brightness_set_pmic...here...
+[    1.898875]  (1)[16:kworker/1:0][BND][Charger][psc5425a] disable otg!
+[    1.898906]  (1)[16:kworker/1:0]------------[ cut here ]------------
+[    1.898929]  (1)[16:kworker/1:0]WARNING: CPU: 1 PID: 16 at /home/bnd_Customer/bnd_xy/Q_10.0_105/Q_mt816x_v1/Q_816x/kernel-4.14/drivers/regulator/core.c:2264 _regulator_disable+0x184/0x18c
+[    1.898936]  (1)[16:kworker/1:0]unbalanced disables for vbus0
+[    1.898942]  (1)[16:kworker/1:0]Modules linked in:
+[    1.898954] -(1)[16:kworker/1:0]CPU: 1 PID: 16 Comm: kworker/1:0 Tainted: G        W       4.14.141 #1
+[    1.898959] -(1)[16:kworker/1:0]Hardware name: MT8168B (DT)
+[    1.898978] -(1)[16:kworker/1:0]Workqueue: events extcon_register_dwork
+[    1.898985] -(1)[16:kworker/1:0]Call trace:
+[    1.898996] -(1)[16:kworker/1:0][<ffffff800808d29c>] dump_backtrace+0x0/0x4b0
+[    1.899004] -(1)[16:kworker/1:0][<ffffff800808d760>] show_stack+0x14/0x1c
+[    1.899014] -(1)[16:kworker/1:0][<ffffff8008dc8518>] dump_stack+0xc4/0xfc
+[    1.899022] -(1)[16:kworker/1:0][<ffffff80080afe20>] __warn+0xdc/0x168
+[    1.899028] -(1)[16:kworker/1:0][<ffffff80080aff1c>] warn_slowpath_fmt+0x70/0x94
+[    1.899035] -(1)[16:kworker/1:0][<ffffff80084eaf88>] _regulator_disable+0x184/0x18c
+[    1.899042] -(1)[16:kworker/1:0][<ffffff80084eadd0>] regulator_disable+0x30/0x64
+[    1.899048] -(1)[16:kworker/1:0][<ffffff800896a358>] extcon_register_dwork+0x9c/0x108
+[    1.899056] -(1)[16:kworker/1:0][<ffffff80080d5a08>] process_one_work+0x210/0x4e0
+[    1.899062] -(1)[16:kworker/1:0][<ffffff80080d6068>] worker_thread+0x390/0x520
+[    1.899070] -(1)[16:kworker/1:0][<ffffff80080db218>] kthread+0x154/0x18c
+[    1.899077] -(1)[16:kworker/1:0][<ffffff8008085d28>] ret_from_fork+0x10/0x18
+[    1.899082]  (1)[16:kworker/1:0]---[ end trace 26c1441b4822ef81 ]---
+[    1.986475]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw end <<<<<<<<<<<<<<<<< 
+[    2.005683]  (1)[211:kworker/u8:2][BND][Touch] >>>>>> init_chip suscesse <<<<<< 
+[    2.018896]  (0)[211:kworker/u8:2][BND][Touch] func gsl_seperate_type, buf_first = 0x00,0x00,0x00,0x03
+[    2.029339]  (0)[211:kworker/u8:2][BND][Touch] func gsl_seperate_type, buf_second = 0x00,0x00,0x00,0x00
+[    2.029346]  (0)[211:kworker/u8:2][BND][Touch] func gsl_seperate_type, gsl_seperate_type = 1 
+[    2.029360]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 0
+[    2.053619]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 1
+[    2.082318]  (1)[211:kworker/u8:2][BND][Touch] I read reg 0xf0 is 0
+[    2.094066]  (1)[211:kworker/u8:2][BND][Touch] I write reg 0xf0 0x12
+[    2.106671]  (0)[211:kworker/u8:2][BND][Touch] I read reg 0xf0 is 0x12
+[    2.277687]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw start <<<<<<<<<<<<<<<<< 
+[    2.484050] -(0)[210:dc_trim_thread]mt635x_auxadc_read_raw: 121 callbacks suppressed
+[    2.484068]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x692e, adc_result=26926
+[    2.489269]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6929, adc_result=26921
+[    2.492897]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x692f, adc_result=26927
+[    2.496398]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6929, adc_result=26921
+[    2.529306]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6948, adc_result=26952
+[    2.890412]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw end <<<<<<<<<<<<<<<<< 
+[    2.950629]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>> check mem read 0xb0 = 0 0 0 0 <<<<<< 
+[    2.950659]  (1)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 0
+[    2.977726]  (1)[211:kworker/u8:2]mtk-tpd:[tpd_gpio_output:168] tpd_gpio_output pin = 0, level = 1
+[    3.006366]  (1)[211:kworker/u8:2][BND][Touch] I read reg 0xf0 is 0
+[    3.018065]  (1)[211:kworker/u8:2][BND][Touch] I write reg 0xf0 0x12
+[    3.030358]  (1)[211:kworker/u8:2][BND][Touch] I read reg 0xf0 is 0x12
+[    3.201711]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw start <<<<<<<<<<<<<<<<< 
+[    3.517336] -(0)[210:dc_trim_thread]mt635x_auxadc_read_raw: 111 callbacks suppressed
+[    3.517355]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6975, adc_result=26997
+[    3.521007]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6970, adc_result=26992
+[    3.524638]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6970, adc_result=26992
+[    3.528268]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6978, adc_result=27000
+[    3.531906]  (0)[210:dc_trim_thread]mt635x-auxadc mt635x-auxadc: name:HPOFS_CAL, channel=9, adc_out=0x6975, adc_result=26997
+[    3.823321]  (0)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw end <<<<<<<<<<<<<<<<< 
+[    3.841673]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_cfg_adjust check start <<<<<<<<<<<<<<<<< 
+[    4.003756]  (0)[210:dc_trim_thread]accdet_late_init()  now init accdet!
+[    4.006798]  (0)[210:dc_trim_thread]accdet_init() done.
+[    4.006861]  (0)[210:dc_trim_thread]accdet_init_once() done.
+[    4.351320]  (0)[211:kworker/u8:2][BND][Touch] fuc:cfg_adjust, b8: 1 13 0 10
+[    4.351352]  (0)[211:kworker/u8:2][BND][Touch] [match_gsl_tp_id] GSL_TP_ID_USED = 255, name_tp_mode = P863_10_TP.
+[    4.351358]  (0)[211:kworker/u8:2]
+[    4.351358] [BND][Touch] >>>>>>>>>> [match_gsl_tp_id] ID  10 0 13 0 <<<<<<<<<< 
+[    4.351365]  (0)[211:kworker/u8:2]
+[    4.351365] [BND][Touch] >>>>>>>>>> [match_gsl_tp_id] ID  10 0 13 40 <<<<<<<<<< 
+[    4.351372]  (0)[211:kworker/u8:2]
+[    4.351372] [BND][Touch] >>>>>>>>>> [match_gsl_tp_id] ID  10 0 13 80 <<<<<<<<<< 
+[    4.351379]  (0)[211:kworker/u8:2]
+[    4.351379] [BND][Touch] >>>>>>>>>> [match_gsl_tp_id] ID  10 0 13 c0 <<<<<<<<<< 
+[    4.351385]  (0)[211:kworker/u8:2]
+[    4.351385] [BND][Touch] >>>>>>>>>> [match_gsl_tp_id] ID  10 0 13 1 <<<<<<<<<< 
+[    4.521833]  (1)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw start <<<<<<<<<<<<<<<<< 
+[    8.026464]  (0)[211:kworker/u8:2][BND][Touch] >>>>>>>>>>>>>>>>> gsl_load_fw end <<<<<<<<<<<<<<<<< 
+[    8.150564]  (0)[211:kworker/u8:2][BND][Touch] tpd_i2c_probe () : queue gsl_monitor_workqueue
+[    8.151072]  (0)[211:kworker/u8:2][BND][Touch] ==tpd_i2c_probe end==
+[    8.151099]  (0)[211:kworker/u8:2]BOOTPROF:      8151.097019:probe: probe=i2c_device_probe drv=mtk-tpd(0xffffff800956c140)  7196.710171ms
+[    8.151254]  (0)[211:kworker/u8:2][BND][Touch] >>>>>> tpd_local_init end <<<<<< 
+[    8.151262]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_probe:665] tpd_probe, tpd_driver_name=gslX680
+[    8.151996]  (0)[211:kworker/u8:2]mtk-tpd:[tpd_probe:718] Cap touch panel driver
+[    8.152152]  (0)[211:kworker/u8:2]input: mtk-tpd as /devices/virtual/input/input2
+[    8.152236]  (0)[211:kworker/u8:2]BOOTPROF:      8152.233788:probe: probe=platform_drv_probe drv=mtk-tpd(0xffffff800956be00)  7199.729863ms
+[    8.153436]  (1)[1:swapper/0][mtk_svs] no "calibration-data" from dts? disable mon mode
+[    8.153463]  (1)[1:swapper/0][mtk_svs] M_HW_RES0: 0x00000030
+[    8.153469]  (1)[1:swapper/0][mtk_svs] M_HW_RES1: 0xa3efdd45
+[    8.153474]  (1)[1:swapper/0][mtk_svs] M_HW_RES2: 0x44950000
+[    8.154140]  (1)[1:swapper/0]BUCK vproc set FPWM mode:1 pass
+[    8.155029] -(0)[225:irq/180-mtk-svs][mtk_svs] SVS_CPU_LITTLE: svs_init01_isr_handler: VDN74:0x181e262e, VDN30:0x343c424a, DCVALUES:0x04310288
+[    8.155326]  (1)[1:swapper/0]BUCK vproc set FPWM mode:0 pass
+[    8.155390] -(0)[225:irq/180-mtk-svs][mtk_svs] SVS_CPU_LITTLE: svs_init02_isr_handler: VOP74:0x1e242c34, VOP30:0x3a424850, DCVALUES:0x04310000
+[    8.156210]  (1)[1:swapper/0]BOOTPROF:      8156.203634:initcall: svs_init  7201.684478ms
+[    8.156363]  (1)[1:swapper/0][BND][SPM] >>>>>>>>>>>>>> START set  spm_apsrc_req 
+[    8.156363]  
+[    8.156372]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_apsrc_req, val = 0x1
+[    8.156395]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_apsrc_req, val = 0x1
+[    8.156402]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_apsrc_req, val = 0x1
+[    8.156409]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_apsrc_req, val = 0x1
+[    8.156416]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_ddren_req, val = 0x1
+[    8.156422]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_ddren_req, val = 0x1
+[    8.156428]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_ddren_req, val = 0x1
+[    8.156435]  (1)[1:swapper/0][SPM] pwr_ctrl: cmd = spm_ddren_req, val = 0x1
+[    8.156441]  (1)[1:swapper/0][BND][SPM] >>>>>>>>>>>>>> END set  spm_apsrc_req 
+[    8.156441]  
+[    8.156491]  (1)[1:swapper/0]ALSA device list:
+[    8.156501]  (1)[1:swapper/0]  #0: mt-snd-card
+[    8.157189]  (0)[1:swapper/0]VFS: Cannot open root device "(null)" or unknown-block(0,0): error -6
+[    8.157196]  (0)[1:swapper/0]Please append a correct "root=" boot option; here are the available partitions:
+[    8.157208]  (0)[1:swapper/0]0100            4096 ram0 
+[    8.157209]  (0)[1:swapper/0] (driver?)
+[    8.157221]  (0)[1:swapper/0]0101            4096 ram1 
+[    8.157222]  (0)[1:swapper/0] (driver?)
+[    8.157233]  (0)[1:swapper/0]0102            4096 ram2 
+[    8.157234]  (0)[1:swapper/0] (driver?)
+[    8.157245]  (0)[1:swapper/0]0103            4096 ram3 
+[    8.157246]  (0)[1:swapper/0] (driver?)
+[    8.157257]  (0)[1:swapper/0]0104            4096 ram4 
+[    8.157257]  (0)[1:swapper/0] (driver?)
+[    8.157268]  (0)[1:swapper/0]0105            4096 ram5 
+[    8.157269]  (0)[1:swapper/0] (driver?)
+[    8.157280]  (0)[1:swapper/0]0106            4096 ram6 
+[    8.157281]  (0)[1:swapper/0] (driver?)
+[    8.157292]  (0)[1:swapper/0]0107            4096 ram7 
+[    8.157293]  (0)[1:swapper/0] (driver?)
+[    8.157304]  (0)[1:swapper/0]0108            4096 ram8 
+[    8.157304]  (0)[1:swapper/0] (driver?)
+[    8.157316]  (0)[1:swapper/0]0109            4096 ram9 
+[    8.157316]  (0)[1:swapper/0] (driver?)
+[    8.157327]  (0)[1:swapper/0]010a            4096 ram10 
+[    8.157328]  (0)[1:swapper/0] (driver?)
+[    8.157339]  (0)[1:swapper/0]010b            4096 ram11 
+[    8.157340]  (0)[1:swapper/0] (driver?)
+[    8.157351]  (0)[1:swapper/0]010c            4096 ram12 
+[    8.157352]  (0)[1:swapper/0] (driver?)
+[    8.157363]  (0)[1:swapper/0]010d            4096 ram13 
+[    8.157364]  (0)[1:swapper/0] (driver?)
+[    8.157375]  (0)[1:swapper/0]010e            4096 ram14 
+[    8.157375]  (0)[1:swapper/0] (driver?)
+[    8.157386]  (0)[1:swapper/0]010f            4096 ram15 
+[    8.157387]  (0)[1:swapper/0] (driver?)
+[    8.157415]  (0)[1:swapper/0]b300        15298560 mmcblk0 
+[    8.157416]  (0)[1:swapper/0] driver: mmcblk
+[    8.157427]  (0)[1:swapper/0]  b301            3072 mmcblk0p1 910e79ef-e2d9-4057-a164-7b29bfb94352
+[    8.157429]  (0)[1:swapper/0]
+[    8.157440]  (0)[1:swapper/0]  b302            1024 mmcblk0p2 795081af-9a38-4eb2-8b78-02e84a1ef2a4
+[    8.157440]  (0)[1:swapper/0]
+[    8.157451]  (0)[1:swapper/0]  b303           15360 mmcblk0p3 d9c8abe2-3061-49cf-9901-65078cb0014d
+[    8.157452]  (0)[1:swapper/0]
+[    8.157463]  (0)[1:swapper/0]  b304           15360 mmcblk0p4 bd377e01-9bd6-45b1-b6ae-11332f951c8e
+[    8.157463]  (0)[1:swapper/0]
+[    8.157474]  (0)[1:swapper/0]  b305           15360 mmcblk0p5 bdabc110-eb27-47c9-be73-b979a40abdbb
+[    8.157474]  (0)[1:swapper/0]
+[    8.157485]  (0)[1:swapper/0]  b306            5120 mmcblk0p6 40388f0d-db55-4187-9254-5ae20458a2f9
+[    8.157486]  (0)[1:swapper/0]
+[    8.157497]  (0)[1:swapper/0]  b307           10240 mmcblk0p7 f13a7997-8332-41d1-bbb9-a3ea1d4cd9f4
+[    8.157497]  (0)[1:swapper/0]
+[    8.157508]  (0)[1:swapper/0]  b308           10240 mmcblk0p8 f24b46c5-57e8-45a2-a953-03069693f9ea
+[    8.157509]  (0)[1:swapper/0]
+[    8.157520]  (0)[1:swapper/0]  b309           49152 mmcblk0p9 1b305bdc-9d81-4c43-aabc-afc2919088f5
+[    8.157520]  (0)[1:swapper/0]
+[    8.157531]  (0)[1:swapper/0]  b30a            8192 mmcblk0p10 16a9de58-9577-40ba-a9cc-fb6004dcf619
+[    8.157532]  (0)[1:swapper/0]
+[    8.157542]  (0)[1:swapper/0]  b30b             256 mmcblk0p11 1a8b7a91-dec2-490a-b87e-0b0bf991acca
+[    8.157543]  (0)[1:swapper/0]
+[    8.157554]  (0)[1:swapper/0]  b30c            1024 mmcblk0p12 ce6b1b8c-8eb1-43fa-a8e2-623fc73dce22
+[    8.157554]  (0)[1:swapper/0]
+[    8.157565]  (0)[1:swapper/0]  b30d            1024 mmcblk0p13 4cb0a949-2136-4dd7-a6fc-c3baca2d222d
+[    8.157565]  (0)[1:swapper/0]
+[    8.157575]  (0)[1:swapper/0]  b30e            1024 mmcblk0p14 ba356a35-40f2-4d71-86db-92367f26dbcf
+[    8.157576]  (0)[1:swapper/0]
+[    8.157660]  (0)[1:swapper/0]  b30f           32768 mmcblk0p15 1556116f-593e-4628-9a3d-6cff016931ff
+[    8.157661]  (0)[1:swapper/0]
+[    8.157672]  (0)[1:swapper/0]  b310           32768 mmcblk0p16 bf6fe940-4604-44d3-8047-29d4e2946701
+[    8.157673]  (0)[1:swapper/0]
+[    8.157683]  (0)[1:swapper/0]  b311             512 mmcblk0p17 2eefac17-beab-429e-b438-76dda6a631b0
+[    8.157684]  (0)[1:swapper/0]
+[    8.157694]  (0)[1:swapper/0]  b312            8192 mmcblk0p18 e24d9767-7f58-4784-9193-d652b04925ff
+[    8.157695]  (0)[1:swapper/0]
+[    8.157705]  (0)[1:swapper/0]  b313            8192 mmcblk0p19 41aec2bf-1367-4ffa-a0df-65b0ad1b5bec
+[    8.157706]  (0)[1:swapper/0]
+[    8.157718]  (0)[1:swapper/0]  b314           10240 mmcblk0p20 020150e6-49d3-4cc5-905b-871f9058c8fc
+[    8.157718]  (0)[1:swapper/0]
+[    8.157729]  (0)[1:swapper/0]  b315            1024 mmcblk0p21 c71033f7-d68d-4d7f-aed0-0ba470ccc9ab
+[    8.157729]  (0)[1:swapper/0]
+[    8.157740]  (0)[1:swapper/0]  b316            5120 mmcblk0p22 8bb9e1f3-634f-4dff-9857-fd670a37004b
+[    8.157741]  (0)[1:swapper/0]
+[    8.157751]  (0)[1:swapper/0]  b317            5120 mmcblk0p23 1811e894-3eaa-4554-bdb3-492f9d5269d9
+[    8.157752]  (0)[1:swapper/0]
+[    8.157763]  (0)[1:swapper/0]  b318            2048 mmcblk0p24 854f7104-fe46-4de5-95b8-ba00946963c8
+[    8.157763]  (0)[1:swapper/0]
+[    8.157774]  (0)[1:swapper/0]  b319            2048 mmcblk0p25 14eccddd-a1f4-42e3-82e9-0074a006f7b5
+[    8.157775]  (0)[1:swapper/0]
+[    8.157786]  (0)[1:swapper/0]  b31a           32768 mmcblk0p26 5a171eab-3bec-46a7-8f8c-67b1c009f7bf
+[    8.157786]  (0)[1:swapper/0]
+[    8.157797]  (0)[1:swapper/0]  b31b            4096 mmcblk0p27 09d6b616-4503-49d7-95b7-9359531ed09b
+[    8.157798]  (0)[1:swapper/0]
+[    8.157809]  (0)[1:swapper/0]  b31c           11520 mmcblk0p28 e167e512-1712-46f7-b523-9a170a5d5cfc
+[    8.157809]  (0)[1:swapper/0]
+[    8.157820]  (0)[1:swapper/0]  b31d            4096 mmcblk0p29 b3ff9ed3-422e-428f-af2b-6af5bd903449
+[    8.157821]  (0)[1:swapper/0]
+[    8.157831]  (0)[1:swapper/0]  b31e            4096 mmcblk0p30 78e4cd78-d7a3-4ccd-9e25-195a0e61b6e0
+[    8.157832]  (0)[1:swapper/0]
+[    8.157842]  (0)[1:swapper/0]  b31f            4096 mmcblk0p31 b4d392d2-f2c5-4aa9-b128-17abc880bb67
+[    8.157843]  (0)[1:swapper/0]
+[    8.157853]  (0)[1:swapper/0]  103:00000    2752512 mmcblk0p32 aeeb7588-f14b-47cf-acda-75a81c1ca5fe
+[    8.157854]  (0)[1:swapper/0]
+[    8.157865]  (0)[1:swapper/0]  103:00001     114688 mmcblk0p33 f68b165f-ab12-4940-9e1f-6a275c51fbfe
+[    8.157866]  (0)[1:swapper/0]
+[    8.157876]  (0)[1:swapper/0]  103:00002   12125676 mmcblk0p34 dc8ad74d-a2b1-4009-ad5c-273545934f6c
+[    8.157877]  (0)[1:swapper/0]
+[    8.157898]  (0)[1:swapper/0]b360            4096 mmcblk0rpmb 
+[    8.157899]  (0)[1:swapper/0] (driver?)
+[    8.157910]  (0)[1:swapper/0]b340            4096 mmcblk0boot1 
+[    8.157911]  (0)[1:swapper/0] (driver?)
+[    8.157923]  (0)[1:swapper/0]b320            4096 mmcblk0boot0 
+[    8.157923]  (0)[1:swapper/0] (driver?)
+[    8.157933] -(0)[1:swapper/0]Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0)
+[    8.157941] -(0)[1:swapper/0]SMP: stopping secondary CPUs
+[    8.158120] -(0)[1:swapper/0]disable aee kernel api
+[    8.158121] -(0)[1:swapper/0]Kernel Offset: disabled
+[    8.158130] -(0)[1:swapper/0]Modules linked in:
+[    8.158144] -(0)[1:swapper/0]CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W       4.14.141 #1
+[    8.158149] -(0)[1:swapper/0]Hardware name: MT8168B (DT)
+[    8.158155] -(0)[1:swapper/0]Call trace:
+[    8.158171] -(0)[1:swapper/0][<ffffff800808d29c>] dump_backtrace+0x0/0x4b0
+[    8.158178] -(0)[1:swapper/0][<ffffff800808d760>] show_stack+0x14/0x1c
+[    8.158189] -(0)[1:swapper/0][<ffffff8008dc8518>] dump_stack+0xc4/0xfc
+[    8.158200] -(0)[1:swapper/0][<ffffff800873ae60>] mrdump_common_die+0xa4/0xcc
+[    8.158207] -(0)[1:swapper/0][<ffffff800873af28>] ipanic+0xa0/0xcc
+[    8.158215] -(0)[1:swapper/0][<ffffff80080db920>] atomic_notifier_call_chain+0x4c/0x84
+[    8.158223] -(0)[1:swapper/0][<ffffff80080af89c>] panic+0x13c/0x274
+[    8.158232] -(0)[1:swapper/0][<ffffff8009371310>] mount_block_root+0x1bc/0x2d0
+[    8.158238] -(0)[1:swapper/0][<ffffff80093717c8>] prepare_namespace+0x1c4/0x200
+[    8.158244] -(0)[1:swapper/0][<ffffff8009371018>] kernel_init_freeable+0x210/0x234
+[    8.158253] -(0)[1:swapper/0][<ffffff8008ddc3dc>] kernel_init+0x10/0x214
+[    8.158260] -(0)[1:swapper/0][<ffffff8008085d28>] ret_from_fork+0x10/0x18
+[    8.158557] -(0)[1:swapper/0]mrdump: cpu[0] tsk:000000004b41ec37 ti:0000000041057c5f
+[    8.159417] -(0)[1:swapper/0]mrdump: add MSDC:0x0 sz:0x0 failed
+[    8.159422] -(0)[1:swapper/0]mrdump: add UFS:0x0 sz:0x0 failed
+[    8.159482] -(0)[1:swapper/0]mrdump: add CCCI:0xffffff80096ff618 sz:0x0 failed
+[    8.159558] -(0)[1:swapper/0]SMP: stopping secondary CPUs
+[   10.909925] -(0)[1:swapper/0]SMP: failed to stop secondary CPUs 0-3

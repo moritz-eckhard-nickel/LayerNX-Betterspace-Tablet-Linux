@@ -1,0 +1,45 @@
+#!/sbin/openrc-run
+# MT8168 CONNSYS: Stock-Module laden, wmt_loader/wmt_launcher ersetzen, WLAN einschalten.
+description="Betterspace V5x: WLAN-Chip (MediaTek CONNSYS) starten"
+FW=/lib/firmware/postmarketos
+
+depend() {
+	need moritz-v5x-devnodes
+	before wpa_supplicant networking net
+}
+
+start() {
+	ebegin "Starte MediaTek CONNSYS"
+	echo -n "$FW" > /sys/module/firmware_class/parameters/path 2>/dev/null
+	modprobe wmt_drv || { eend 1 "wmt_drv nicht geladen"; return 1; }
+	moritz-wmt-launcher -p "$FW" loader || ewarn "wmt loader meldet Fehler"
+	start-stop-daemon --start --background --make-pidfile \
+		--pidfile /run/moritz-wmt-launcher.pid \
+		--exec /usr/sbin/moritz-wmt-launcher -- -p "$FW" launcher
+	sleep 1
+	modprobe wmt_chrdev_wifi
+	modprobe wlan_drv_gen4m
+	mdev -s
+	i=0
+	while [ ! -e /dev/wmtWifi ] && [ $i -lt 20 ]; do sleep 0.5; mdev -s; i=$((i+1)); done
+	echo 1 > /dev/wmtWifi
+	i=0
+	while [ ! -e /sys/class/net/wlan0 ] && [ $i -lt 30 ]; do sleep 0.5; i=$((i+1)); done
+	if [ ! -e /sys/class/net/wlan0 ]; then
+		eend 1 "wlan0 ist nicht erschienen"
+		return 1
+	fi
+	# Ohne Android-NVRAM-Dienst waehlt der Treiber bei jedem Start eine zufaellige MAC.
+	if [ -n "$WLAN_MAC" ]; then
+		ip link set wlan0 down
+		ip link set wlan0 address "$WLAN_MAC"
+	fi
+	eend 0
+}
+
+stop() {
+	ebegin "Stoppe MediaTek CONNSYS-WLAN"
+	echo 0 > /dev/wmtWifi 2>/dev/null
+	start-stop-daemon --stop --pidfile /run/moritz-wmt-launcher.pid
+	eend 0
+}

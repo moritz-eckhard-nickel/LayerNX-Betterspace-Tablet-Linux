@@ -1,0 +1,32 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+# MT8168 CONNSYS-Firmware (WLAN/BT/WMT) aus /vendor/firmware des eigenen Geraets.
+pkgname=firmware-betterspace-v5x
+pkgver=1
+pkgrel=0
+pkgdesc="Betterspace V5x connsys firmware (from device)"
+arch="aarch64"
+url="https://nura.eco"
+license="proprietary"
+options="!strip !check !archcheck !tracedeps"
+source="
+	soc1_0_patch_mcu_1a_1_hdr.bin
+	soc1_0_ram_bt_1a_1_hdr.bin
+	soc1_0_ram_mcu_1a_1_hdr.bin
+	soc1_0_ram_wifi_1a_1_hdr.bin
+	WIFI_RAM_CODE_soc1_0_1a_1.bin
+	WMT_SOC.cfg
+"
+
+package() {
+	for f in $source; do
+		install -Dm644 "$srcdir"/$f "$pkgdir"/usr/lib/firmware/postmarketos/$f
+	done
+}
+sha512sums="
+93115acc3095217d0d8bb67a4f7e7cbc6b56d5199fe0c8e4b2cb788dcc456a3301ea250d7e702ba2764747154294eb27b324c7a087ab8668b018baf54991f08b  soc1_0_patch_mcu_1a_1_hdr.bin
+e63ea702117232b109e3d43c24e4961b870d5ac75141b808a3d80434a547e7496246593ecd791441d3e697fa713955fd33b9b15c484bcd406695d1e3f05d7ab8  soc1_0_ram_bt_1a_1_hdr.bin
+07ef39fb5125dcd005fc672a67685101516032f2ada9bc8e82e33dccf4a80694741365f2d30e5bf638e883f8632f4bd0165e9fbb69614b35f6ecdacce3cd58c9  soc1_0_ram_mcu_1a_1_hdr.bin
+be3cfd5ddc02ac56427394bf0133984671fc84ef7a3af7b6787a49789501ec7196d01a0200e7ee74313025e51a2b36ec410c44b8444af14caf02f33e432a9686  soc1_0_ram_wifi_1a_1_hdr.bin
+169f1601695df87e4802472a30b54f7d2ed9c097681f8a0290fa6df666f9135707ad9220803d7457d66261e3ab8fbcaeeaf38dcd642ec7d69248d1ddd23833cf  WIFI_RAM_CODE_soc1_0_1a_1.bin
+8a65c860cfd2f784e58f631bca5b17688f203237ef1bf9342b053aafacc3ccc27ae8707cfd62641c3dfec09f6ded91df93c49d91de87d6b256f7e3d6fae16a4b  WMT_SOC.cfg
+"

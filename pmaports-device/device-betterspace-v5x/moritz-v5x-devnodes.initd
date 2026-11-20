@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+# Stock-Kernel ohne devtmpfs/VT: Geraeteknoten und Hilfs-Symlinks anlegen.
+description="Betterspace V5x: /dev-Ergaenzungen (Touch-Symlink, Xorg-tty)"
+
+depend() {
+	need mdev
+	before moritz-v5x-xsession sshd
+}
+
+start() {
+	ebegin "Ergaenze /dev fuer Betterspace V5x"
+	mdev -s
+	# Touchscreen (mtk-tpd) stabil als /dev/input/touchscreen
+	for n in /sys/class/input/event*; do
+		if [ "$(cat "$n/device/name" 2>/dev/null)" = "mtk-tpd" ]; then
+			ln -sf "/dev/input/$(basename "$n")" /dev/input/touchscreen
+		fi
+	done
+	# Xorg braucht ein oeffnbares "VT"-Geraet; der Kernel hat kein CONFIG_VT
+	[ -e /dev/tty1 ] || ln -sf /dev/null /dev/tty1
+	[ -e /dev/tty0 ] || ln -sf /dev/null /dev/tty0
+	chmod 0666 /dev/null /dev/zero /dev/full /dev/random /dev/urandom /dev/tty /dev/ptmx 2>/dev/null
+	chgrp video /dev/fb0 2>/dev/null; chmod 0660 /dev/fb0 2>/dev/null
+	chgrp input /dev/input/event* 2>/dev/null; chmod 0660 /dev/input/event* 2>/dev/null
+	# Hintergrundbeleuchtung (unter Android setzt das die Light-HAL)
+	echo 200 > /sys/class/leds/lcd-backlight/brightness 2>/dev/null
+	eend 0
+}

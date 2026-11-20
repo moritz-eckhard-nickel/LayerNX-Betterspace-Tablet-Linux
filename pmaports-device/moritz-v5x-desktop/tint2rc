@@ -1,0 +1,90 @@
+# tint2 fuer das Betterspace V5x (Touch, Querformat 1280x800)
+#-------------------------------------
+# Hintergruende (ID 1, 2, 3 in dieser Reihenfolge)
+# 1: Leiste
+rounded = 0
+border_width = 0
+background_color = #3b4252 100
+border_color = #3b4252 100
+# 2: Knoepfe / aktives Fenster
+rounded = 6
+border_width = 1
+background_color = #4c566a 100
+border_color = #88c0d0 100
+# 3: inaktive Fenster
+rounded = 6
+border_width = 0
+background_color = #434c5e 100
+border_color = #434c5e 100
+
+#-------------------------------------
+# Leiste
+panel_items = PPTSC
+panel_size = 100% 64
+panel_margin = 0 0
+panel_padding = 4 4 6
+panel_background_id = 1
+panel_position = bottom center horizontal
+panel_layer = top
+panel_dock = 0
+wm_menu = 0
+strut_policy = follow_size
+autohide = 0
+font_shadow = 0
+mouse_effects = 1
+
+#-------------------------------------
+# Knopf 1: Menue
+button = new
+button_text = ☰ Menü
+button_lclick_command = jgmenu_run
+button_font = DejaVu Sans Bold 15
+button_font_color = #eceff4 100
+button_padding = 14 6
+button_background_id = 2
+button_centered = 1
+
+# Knopf 2: Bildschirmtastatur
+button = new
+button_text = Tastatur
+button_lclick_command = moritz-v5x-keyboard
+button_font = DejaVu Sans Bold 15
+button_font_color = #eceff4 100
+button_padding = 14 6
+button_background_id = 2
+button_centered = 1
+
+#-------------------------------------
+# Fensterliste
+taskbar_mode = single_desktop
+taskbar_padding = 4 2 6
+taskbar_background_id = 0
+taskbar_active_background_id = 0
+task_text = 1
+task_icon = 1
+task_centered = 1
+task_maximum_size = 240 56
+task_padding = 8 4 6
+task_font = DejaVu Sans 13
+task_font_color = #d8dee9 100
+task_active_font_color = #eceff4 100
+task_background_id = 3
+task_active_background_id = 2
+task_iconified_background_id = 3
+mouse_left = toggle_iconify
+
+#-------------------------------------
+# Systray (z. B. Netzwerk-Applet)
+systray_padding = 4 2 4
+systray_background_id = 0
+systray_icon_size = 40
+
+#-------------------------------------
+# Uhr
+time1_format = %H:%M
+time2_format = %a %d.%m.
+time1_font = DejaVu Sans Bold 15
+time2_font = DejaVu Sans 10
+clock_font_color = #eceff4 100
+clock_padding = 10 0
+clock_background_id = 0

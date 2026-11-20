@@ -1,0 +1,9 @@
+^sep()
+Terminal,xterm,utilities-terminal
+Bildschirmtastatur,moritz-v5x-keyboard,input-keyboard
+^sep()
+System ▸,^checkout(system),preferences-system
+
+^tag(system)
+Neu starten …,moritz-v5x-power reboot,system-reboot
+Ausschalten …,moritz-v5x-power poweroff,system-shutdown

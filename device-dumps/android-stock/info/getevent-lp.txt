@@ -1,0 +1,27 @@
+add device 1: /dev/input/event0
+  name:     "ACCDET"
+  events:
+    KEY (0001): KEY_VOLUMEDOWN        KEY_VOLUMEUP          KEY_PLAYPAUSE         KEY_VOICECOMMAND     
+    SW  (0005): SW_HEADPHONE_INSERT   SW_MICROPHONE_INSERT  SW_LINEOUT_INSERT     SW_JACK_PHYSICAL_INS    
+  input props:
+    <none>
+add device 2: /dev/input/event2
+  name:     "mtk-tpd"
+  events:
+    KEY (0001): BTN_TOUCH            
+    ABS (0003): ABS_X                 : value 0, min 0, max 1280, fuzz 0, flat 0, resolution 1280
+                ABS_Y                 : value 0, min 0, max 800, fuzz 0, flat 0, resolution 800
+                ABS_PRESSURE          : value 0, min 0, max 255, fuzz 0, flat 0, resolution 0
+                ABS_MT_TOUCH_MAJOR    : value 0, min 0, max 100, fuzz 0, flat 0, resolution 0
+                ABS_MT_TOUCH_MINOR    : value 0, min 0, max 100, fuzz 0, flat 0, resolution 0
+                ABS_MT_POSITION_X     : value 0, min 0, max 1280, fuzz 0, flat 0, resolution 0
+                ABS_MT_POSITION_Y     : value 0, min 0, max 800, fuzz 0, flat 0, resolution 0
+                ABS_MT_TRACKING_ID    : value 0, min 0, max 10, fuzz 0, flat 0, resolution 0
+  input props:
+    INPUT_PROP_DIRECT
+add device 3: /dev/input/event1
+  name:     "mtk-kpd"
+  events:
+    KEY (0001): KEY_VOLUMEDOWN        KEY_VOLUMEUP          KEY_POWER            
+  input props:
+    <none>

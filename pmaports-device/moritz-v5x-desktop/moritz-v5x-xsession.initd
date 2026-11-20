@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+# Startet Xorg (als root, kein logind) und die Openbox-Sitzung als Benutzer.
+description="Betterspace V5x: grafische Oberflaeche (Xorg + Openbox)"
+supervisor=supervise-daemon
+command=/usr/bin/xinit
+command_args="/usr/libexec/moritz-v5x/session-as-user -- /usr/bin/Xorg :0 vt1 -sharevts -novtswitch -keeptty -nolisten tcp -logfile /var/log/Xorg.0.log"
+respawn_delay=5
+respawn_max=0
+
+depend() {
+	need moritz-v5x-devnodes localmount
+	after moritz-v5x-wifi
+}

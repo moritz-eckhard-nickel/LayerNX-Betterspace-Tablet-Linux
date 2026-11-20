@@ -1,0 +1,189 @@
+diff --git a/main/postmarketos-initramfs/00-initramfs-base.files b/main/postmarketos-initramfs/00-initramfs-base.files
+index 513901311a..9a07c48a7f 100644
+--- a/main/postmarketos-initramfs/00-initramfs-base.files
++++ b/main/postmarketos-initramfs/00-initramfs-base.files
+@@ -1,12 +1,10 @@
+ /bin/busybox
+-/bin/busybox-extras
+ /etc/deviceinfo
+ /etc/unudhcpd.conf
+-/sbin/blkid
+-/usr/bin/iskey
+-/usr/bin/beebzzr
+-/usr/bin/unudhcpd
+-/usr/sbin/losetup
++/usr/share/initramfs/shims/blkid:/sbin/blkid
++/usr/share/initramfs/shims/losetup:/usr/sbin/losetup
++/usr/share/initramfs/shims/iskey:/usr/bin/iskey
++/usr/share/initramfs/shims/beebzzr:/usr/bin/beebzzr
+ /usr/share/deviceinfo/deviceinfo
+ /usr/share/initramfs/init_functions.sh:/init_functions.sh
+ /usr/share/initramfs/init.sh:/init
+diff --git a/main/postmarketos-initramfs/00-initramfs-extra-base.files b/main/postmarketos-initramfs/00-initramfs-extra-base.files
+index 396667ce66..90221872fe 100644
+--- a/main/postmarketos-initramfs/00-initramfs-extra-base.files
++++ b/main/postmarketos-initramfs/00-initramfs-extra-base.files
+@@ -32,3 +32,10 @@
+ /usr/share/initramfs/init_2nd.sh:/init_2nd.sh
+ /usr/share/initramfs/init_functions_2nd.sh:/init_functions_2nd.sh
+ /usr/share/libinput/*.quirks
++# moritz-betterspace-v5x: aus Stufe 1 hierher verschoben (Ramdisk-Groessenlimit des Bootloaders)
++/bin/busybox-extras
++/sbin/blkid
++/usr/sbin/losetup
++/usr/bin/iskey
++/usr/bin/beebzzr
++/usr/bin/unudhcpd
+diff --git a/main/postmarketos-initramfs/APKBUILD b/main/postmarketos-initramfs/APKBUILD
+index 277c64ed80..0c65b29995 100644
+--- a/main/postmarketos-initramfs/APKBUILD
++++ b/main/postmarketos-initramfs/APKBUILD
+@@ -2,7 +2,7 @@
+ maintainer="Casey Connolly <kcxt@postmarketos.org>"
+ pkgname=postmarketos-initramfs
+ pkgver=3.11.0
+-pkgrel=1
++pkgrel=101
+ pkgdesc="Base files for the postmarketOS initramfs / initramfs-extra"
+ url="https://postmarketos.org"
+ options="!check"  # no tests
+@@ -44,6 +44,10 @@ source="
+ 	00-default-extra.modules
+ 	00-initramfs-base.dirs
+ 	00-initramfs-base.files
++	shim-blkid
++	shim-losetup
++	shim-iskey
++	shim-beebzzr
+ 	00-initramfs-extra-base.files
+ 	init.sh
+ 	init_functions.sh
+@@ -95,6 +99,9 @@ package() {
+ 		-t "$pkgdir"/usr/share/mkinitfs/modules-extra/
+ 	mkdir -p "$pkgdir"/etc/mkinitfs/modules-extra
+ 
++	for s in blkid losetup iskey beebzzr; do
++		install -Dm755 "$srcdir"/shim-$s "$pkgdir"/usr/share/initramfs/shims/$s
++	done
+ 	install -Dm644 "$srcdir"/00-initramfs-base.files \
+ 		-t "$pkgdir"/usr/share/mkinitfs/files/
+ 	mkdir -p "$pkgdir"/etc/mkinitfs/files
+@@ -113,10 +120,14 @@ sha512sums="
+ 22cdd663c8d153781284511140b7c994cd60f0231a2819dafa67f5a11e2963ac6e392e8f7a9e3b75e7fe5d6d7b0b5e262e1ff1a695637354a124560a5ec3ed8d  00-default.modules
+ ace852ba267b3408998970df6042603c8bec1d033066d1c30ed65f1be955fee8644b57882898f10228ec43b912f8f03718b34ddd741b431e5a5c2e76f060a494  00-default-extra.modules
+ 9c0e8f6f61d5da191e03a1aa9d5d0ceb5baf1eae6dbb9bfb0af59817783525119ac8394b135f303f7b6434a3eab0b49185fb90379e06823db847a4999c75ce33  00-initramfs-base.dirs
+-9fcc506ac6bbeacc83da4ce9d6bd6503f6ef34e454d38c2bc29b23d63df219a16676a237da66631486964ff12ebd99521a67a2ce571d5db5c085e98688b9a58f  00-initramfs-base.files
+-6d91270b96ce0c745391174201dde63b43a73ae6456c2e1138046beef3548580588fedbeae7cc914079162e99343b45d82c6e6a7ee1d03829aae7697ae52f575  00-initramfs-extra-base.files
+-bd72e8b6345a46ec13516c64d78d4fa1a9a18a8db9ab04aac605f9708629453dc65b6fbccd96b58eeb1ea68102ddbcae9dc6b369255c6c6c1fb18ce0bd43ec79  init.sh
+-85bc25e72ce67a2b9ae91bf5486707b35b8a118f527ae7d95f8ce45da5ec61bd77987f69963843a9db7baf692c5635a233f5fbada8417f545866bc4b95c32ba5  init_functions.sh
++ebd0ae2ed88780880de514efc52d747dbf1c63a705497f361e12401bfd2c370820d443356159543ae1c45c09c5c83c7eea1beccb631dd77aff87fa1696045829  00-initramfs-base.files
++98215107e27ccc844c173cd06cca795777dbe5f3546b32d66e66c19233229044f4ca07e1b79050214dd48aa1736c0b2d22c1cf4324bdef380dfb352ce565d9b6  shim-blkid
++fdde250d362f97ac20c542318059d445ff651f37ed904cfa87f3db546c132ace138368e721b51fe716753eb217a6c1c63d165cd362bf2dae4960bf0cb1c6ba89  shim-losetup
++1873a2cbc672726339bfb208ae936cd11edaa1b4eabcdaf92552c7a9f18491bb2cf92330b1323d5720ef91aaf8040eb62873523cbe7725c506e7107f1e054b10  shim-iskey
++ffe92e4358df2686fc334a19c8ae87468e1894aac4dd387be269f09dee20b8c0c357eef6b9626a6454533200712c00929f5f8453335ba7677d569579b52ec377  shim-beebzzr
++629d8a6fd4176f10232a303dbdd2a377b4e8604922b9e30b5ad0de58742c0bd7ec19eb704717b56b5a8c11ca5aef9f8ddcbfc1a6fb0d0cfbe236f7f955b7c1cf  00-initramfs-extra-base.files
++4b94cfe938f970fbbc14762915e0e14d2680dab1246735c8142d333b15a7fa8d1e5ac9560e8851c80255a0cd70f3ca54664664da12d00cfb7c7afee529c5a226  init.sh
++cc9e7669698a22c885ac1089529c15fe831d523b9367d49fc77826e53dc1134b5d05afead42100bfe5f75e86dff110435bce3aa1d317622bf0c7411f70dc117d  init_functions.sh
+ 6201869d3731bdbe4330ffe1c6cf66ab48918b4693153e5ad648f87fa1a28c93095a218de66ce9b24d8f13df92042959591293b26fbc64279480a015ea23ce06  init_2nd.sh
+ 4eca94327274511011967cde1f663b00b1a8182f7dddc3ba19d5c1f0ac094087a154a250c140ca70ac75a2e7c5bb70b03e94fa5eca63a5393efc4a23d025e1c3  init_functions_2nd.sh
+ 675e7d5bee39b2df7d322117f8dcaccc274d61beaf4d50ead19bbf2109446d64b1c0aa0c5b4f9846eb6c1c403418f28f6364eff4537ba41120fbfcbc484b7da7  mdev.conf
+diff --git a/main/postmarketos-initramfs/init.sh b/main/postmarketos-initramfs/init.sh
+index 052ac52906..fb5a36933a 100644
+--- a/main/postmarketos-initramfs/init.sh
++++ b/main/postmarketos-initramfs/init.sh
+@@ -29,7 +29,7 @@ INITRAMFS_PKG_VERSION="<<INITRAMFS_PKG_VERSION>>"
+ 
+ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ /bin/busybox --install -s
+-/bin/busybox-extras --install -s
++[ -x /bin/busybox-extras ] && /bin/busybox-extras --install -s
+ 
+ # Mount everything, set up logging, modules, mdev
+ mount_proc_sys_dev
+diff --git a/main/postmarketos-initramfs/init_functions.sh b/main/postmarketos-initramfs/init_functions.sh
+index c0cf2736be..e41e5a2de2 100644
+--- a/main/postmarketos-initramfs/init_functions.sh
++++ b/main/postmarketos-initramfs/init_functions.sh
+@@ -270,7 +270,13 @@ mount_proc_sys_dev() {
+ 	# mdev
+ 	mount -t proc -o nodev,noexec,nosuid proc /proc || echo "Couldn't mount /proc"
+ 	mount -t sysfs -o nodev,noexec,nosuid sysfs /sys || echo "Couldn't mount /sys"
+-	mount -t devtmpfs -o mode=0755,nosuid dev /dev || echo "Couldn't mount /dev"
++	if ! mount -t devtmpfs -o mode=0755,nosuid dev /dev; then
++		# moritz-betterspace-v5x: Downstream-Kernel ohne CONFIG_DEVTMPFS.
++		# /dev als tmpfs und mit mdev aus /sys befuellen.
++		mount -t tmpfs -o mode=0755,nosuid dev /dev || echo "Couldn't mount /dev"
++		mdev -s
++		echo "devtmpfs fehlt: /dev per tmpfs+mdev angelegt" > /dev/kmsg
++	fi
+ 	mount -t tmpfs -o nosuid,nodev,mode=0755 run /run || echo "Couldn't mount /run"
+ 
+ 	modprobe libcomposite 2>/dev/null || true
+diff --git a/main/postmarketos-initramfs/shim-beebzzr b/main/postmarketos-initramfs/shim-beebzzr
+new file mode 100644
+index 0000000000..cb09dbc74b
+--- /dev/null
++++ b/main/postmarketos-initramfs/shim-beebzzr
+@@ -0,0 +1,3 @@
++#!/bin/sh
++# Stufe-1-Ersatz: kein Vibrationsmotor
++exit 0
+diff --git a/main/postmarketos-initramfs/shim-blkid b/main/postmarketos-initramfs/shim-blkid
+new file mode 100644
+index 0000000000..58e470ade9
+--- /dev/null
++++ b/main/postmarketos-initramfs/shim-blkid
+@@ -0,0 +1,13 @@
++#!/bin/sh
++# moritz-betterspace-v5x: Busybox-Ersatz fuer util-linux blkid in Stufe 1
++# (der MT8168-Bootloader verkraftet nur ~1,9 MB unkomprimierte Ramdisk).
++# initramfs-extra bringt danach das echte blkid mit.
++case "$1" in
++	--uuid) exec busybox findfs "UUID=$2" ;;
++	--label) exec busybox findfs "LABEL=$2" ;;
++	--match-token)
++		k="${2%%=*}"; v="${2#*=}"
++		busybox blkid | grep -F "$k=\"$v\""
++		;;
++	*) exec busybox blkid "$@" ;;
++esac
+diff --git a/main/postmarketos-initramfs/shim-iskey b/main/postmarketos-initramfs/shim-iskey
+new file mode 100644
+index 0000000000..0d3a2f9a16
+--- /dev/null
++++ b/main/postmarketos-initramfs/shim-iskey
+@@ -0,0 +1,3 @@
++#!/bin/sh
++# Stufe-1-Ersatz: keine Taste gedrueckt
++exit 1
+diff --git a/main/postmarketos-initramfs/shim-losetup b/main/postmarketos-initramfs/shim-losetup
+new file mode 100644
+index 0000000000..ceaad17bec
+--- /dev/null
++++ b/main/postmarketos-initramfs/shim-losetup
+@@ -0,0 +1,25 @@
++#!/bin/sh
++# moritz-betterspace-v5x: Busybox-Ersatz fuer util-linux losetup in Stufe 1
++show=0; part=""; free=0; file=""
++while [ $# -gt 0 ]; do
++	case "$1" in
++		--show) show=1 ;;
++		-Pf|-fP) part="-P"; free=1 ;;
++		-P) part="-P" ;;
++		-f) free=1 ;;
++		--direct-io=*) ;;
++		--sector-size) shift ;;
++		-d) shift; exec busybox losetup -d "$1" ;;
++		-*) ;;
++		*) file="$1" ;;
++	esac
++	shift
++done
++if [ -n "$file" ]; then
++	dev="$(busybox losetup -f)" || exit 1
++	busybox losetup $part "$dev" "$file" || exit 1
++	[ "$show" = 1 ] && echo "$dev"
++	exit 0
++fi
++[ "$free" = 1 ] && exec busybox losetup -f
++exec busybox losetup -a

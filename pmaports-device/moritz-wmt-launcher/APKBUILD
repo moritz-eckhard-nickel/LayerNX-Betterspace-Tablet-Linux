@@ -1,0 +1,21 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+pkgname=moritz-wmt-launcher
+pkgver=1
+pkgrel=0
+pkgdesc="Replacement for MediaTek wmt_loader/wmt_launcher (MT8168 connsys)"
+arch="aarch64"
+url="https://nura.eco"
+license="GPL-2.0-only"
+options="!check"
+source="moritz-wmt-launcher.c"
+
+build() {
+	${CC:-gcc} $CFLAGS -Wall -O2 -o moritz-wmt-launcher "$srcdir"/moritz-wmt-launcher.c $LDFLAGS
+}
+
+package() {
+	install -Dm755 moritz-wmt-launcher "$pkgdir"/usr/sbin/moritz-wmt-launcher
+}
+sha512sums="
+36188789bdfe0931d98017694429f42771a3b76a73448bbf7b7d72d03c093ae0400b171a992c14cde037a72088be90a594560069e26ba02ea095e1f88d609ef1  moritz-wmt-launcher.c
+"

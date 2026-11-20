@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Openbox fuer Betterspace V5x: grosse Titelleisten, Fenster maximiert -->
+<openbox_config xmlns="http://openbox.org/3.4/rc">
+  <resistance><strength>10</strength><screen_edge_strength>20</screen_edge_strength></resistance>
+  <focus><focusNew>yes</focusNew><followMouse>no</followMouse></focus>
+  <placement><policy>Smart</policy><center>yes</center></placement>
+  <theme>
+    <name>Clearlooks</name>
+    <titleLayout>NLIMC</titleLayout>
+    <keepBorder>yes</keepBorder>
+    <font place="ActiveWindow"><name>DejaVu Sans</name><size>16</size><weight>Bold</weight></font>
+    <font place="InactiveWindow"><name>DejaVu Sans</name><size>16</size></font>
+    <font place="MenuHeader"><name>DejaVu Sans</name><size>16</size></font>
+    <font place="MenuItem"><name>DejaVu Sans</name><size>16</size></font>
+  </theme>
+  <desktops><number>1</number></desktops>
+  <margins><top>0</top><bottom>0</bottom><left>0</left><right>0</right></margins>
+  <keyboard>
+    <keybind key="A-F4"><action name="Close"/></keybind>
+    <keybind key="A-Tab"><action name="NextWindow"/></keybind>
+  </keyboard>
+  <mouse>
+    <dragThreshold>12</dragThreshold>
+    <doubleClickTime>400</doubleClickTime>
+    <context name="Titlebar">
+      <mousebind button="Left" action="Drag"><action name="Move"/></mousebind>
+      <mousebind button="Left" action="DoubleClick"><action name="ToggleMaximize"/></mousebind>
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+    </context>
+    <context name="Frame">
+      <mousebind button="A-Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+      <mousebind button="A-Left" action="Drag"><action name="Move"/></mousebind>
+    </context>
+    <context name="Client">
+      <mousebind button="Left" action="Press"><action name="Focus"/><action name="Raise"/></mousebind>
+    </context>
+    <context name="Close"><mousebind button="Left" action="Click"><action name="Close"/></mousebind></context>
+    <context name="Maximize"><mousebind button="Left" action="Click"><action name="ToggleMaximize"/></mousebind></context>
+    <context name="Iconify"><mousebind button="Left" action="Click"><action name="Iconify"/></mousebind></context>
+    <context name="Root">
+      <mousebind button="Left" action="Click"><action name="Execute"><command>jgmenu_run</command></action></mousebind>
+    </context>
+  </mouse>
+  <applications>
+    <application class="*" type="normal"><maximized>yes</maximized></application>
+    <application class="svkbd*">
+      <decor>no</decor><focus>no</focus><layer>above</layer><skip_taskbar>yes</skip_taskbar>
+      <maximized>no</maximized>
+      <position force="yes"><x>0</x><y>416</y></position>
+      <size><width>1280</width><height>320</height></size>
+    </application>
+  </applications>
+</openbox_config>
