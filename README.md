@@ -153,3 +153,15 @@ Extra-Pakete in `pmbootstrap.cfg`: `moritz-v5x-desktop,evtest,iw,nano,htop,e2fsp
 | postmarketOS/Nura, Alpine Linux und alle Pakete im Rootfs-Image | jeweilige Lizenzen der Pakete |
 
 Siehe auch [THIRD-PARTY.md](THIRD-PARTY.md).
+
+## Automatischer Systemtest
+
+`scripts/moritz-systemtest.sh` prüft auf dem Tablet (als root) Boot, Dienste, Netzwerk, Hardware,
+Grafik, alle Programme (Einstellungen, PIN-Pad, Webview starten wirklich ein Fenster), Branding und Zugang:
+
+```sh
+scp scripts/moritz-systemtest.sh root@172.16.42.1:/tmp/ && ssh root@172.16.42.1 sh /tmp/moritz-systemtest.sh
+```
+
+Letztes Ergebnis (v0.0.2, echtes Gerät): **74 PASS, 0 FAIL, 0 WARN** – siehe `docs/SYSTEMTEST-v0.0.2.txt`.
+Nicht automatisch prüfbar: echte Touch-Gesten, Power-Taste drücken, Akkuschutz-Zyklus über Stunden.

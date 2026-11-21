@@ -24,3 +24,6 @@
 /build/layernx-*.img
 /build/release.log
 /build/es-*
+build/rel002/
+build/release002.log
+build/systemtest-*.txt
