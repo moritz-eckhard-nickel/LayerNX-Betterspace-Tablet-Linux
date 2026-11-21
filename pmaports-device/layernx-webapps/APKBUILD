@@ -1,7 +1,7 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=layernx-webapps
 pkgver=1
-pkgrel=7
+pkgrel=11
 pkgdesc="LayerNX-Tablet-Linux: Web-Apps (Chromium, eigene Profile), Power-Tasten-Regeln mit PIN"
 url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
 arch="aarch64"
@@ -23,9 +23,9 @@ package() {
 	install -Dm755 "$srcdir"/layernx-powerkey "$pkgdir"/usr/bin/layernx-powerkey
 }
 sha512sums="
-4e7eb892bcdcad335f5fbfc185455d65a083f464bc9a204e39ba7304a8328199f87108764dfb1d253d44ec4c16156a7ca642ef8408de0efa8e18d64e5bc7d95b  layernx-webapp
-33c6bb7ff05e495a8b7ac773b9d2252e0362820072bf3becaf46c019fda331608213e114962913ceabe3bb63bd2a56623d0e99ef3eca324d93ee60faa29cae64  layernx-powerkey
-657228d2474331f19ab58f8c6ebe517547026177652e86c1777f42e44df1d031ca41d319938ebeabc8d1428d75f21b3b5d5d925243a027cc744a0fd54a8e4af4  layernx-webview.c
+6a9993442e08637d61f1cf7ed6a5fa5e113b86c60ddcf4bd6a04eb4e61b05680b7f68545cbe62abf9a3d5a730c810a1c57f21565c9ba5a959eed10c55c764971  layernx-webapp
+2e3376a835612e558810a4eb4c68bb364ea89a4cdb2d04055e4bfeff6d4b40117953606e22cad273fbd3af872ae28609398ae10be680b652d690af7fcad1f659  layernx-powerkey
+fd4bbed6a3d72c89af321997ea2e7b3f4c8784c5964fed4e1a562ce50fc5ffc1d6d827aa41d6c6c42bb9a237fe95c2b1943a894784f736cfd9b1f480be33dd37  layernx-webview.c
 936f2c1bd6f6c9df766b706b77563e7d17df4c5a764cbfd392ed26c25418f673a3dc3b8c124aa36e95156476c99a913dceea09fe2d33b7fc07936b4998ac8abc  layernx-pinpad.c
 346660278dbf653f4f27f3dee57cfb0e5988f557f50499049db19ae9b35fc0304d58e84189769e3a4a29f18c1b963a5279b75e3803f4a9278d0eb36a3e3aabb5  layernx-pin
 "

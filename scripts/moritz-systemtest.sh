@@ -24,7 +24,7 @@ chk "Kernel 4.14.141" sh -c 'uname -r | grep -q 4.14.141'
 
 echo "-- Dienste"
 for s in mdev moritz-v5x-devnodes moritz-v5x-wifi moritz-v5x-usbnet wpa_supplicant networking sshd \
-	moritz-v5x-touch moritz-v5x-fbrefresh moritz-v5x-keys moritz-v5x-xsession layernx-hostname; do
+	moritz-v5x-touch moritz-v5x-fbrefresh moritz-v5x-keys moritz-v5x-xsession layernx-hostname layernx-audio layernx-pulse; do
 	if svc "$s"; then ok "Dienst $s"; else bad "Dienst $s"; fi
 done
 if svc layernx-akkuschutz; then ok "Dienst layernx-akkuschutz" "(an)"; else ok "Dienst layernx-akkuschutz" "(aus, Standard)"; fi
@@ -50,10 +50,27 @@ v=$(cat /sys/class/power_supply/battery/voltage_now); [ "$v" -gt 3300000 ] && ok
 pc=$(moritz-v5x-status prozent); [ "$pc" -ge 0 ] 2>/dev/null && ok "Akku-Schaetzung" "(~$pc%)" || bad "Akku-Schaetzung"
 chk "Ladesteuerung erreichbar" test -w /proc/mtk_battery_cmd/current_cmd
 
+echo "-- Ton"
+export PULSE_SERVER=/var/run/pulse/native
+chk "PulseAudio: Mikrofon-Quelle" sh -c 'pactl list short sources | grep -q "^[0-9]*[[:space:]]mikrofon"'
+chk "PulseAudio: Lautsprecher" sh -c 'pactl list short sinks | grep -q "^[0-9]*[[:space:]]lautsprecher"'
+chk "Mikrofon-Signalweg (MICBIAS an)" sh -c 'amixer -c0 cget name="Audio_MICBIAS0_Switch" | grep -q "values=1"'
+chk "Lautsprecher-Verstaerker an" sh -c 'amixer -c0 cget name="Ext_Speaker_Amp_Switch" | grep -q "values=1"'
+rm -f /tmp/st-mic.wav
+if su "$U" -c "arecord -q -d 1 -f S16_LE -r 16000 -c 1 /tmp/st-mic.wav" >/dev/null 2>&1; then
+	r=$(od -An -v -td2 -w2 -j44 /tmp/st-mic.wav | awk '{L+=$1*$1; n++} END{printf "%d", n ? sqrt(L/n) : 0}')
+	[ "$r" -gt 0 ] && ok "Aufnahme als Benutzer (ALSA->Pulse)" "(rms $r)" || bad "Aufnahme als Benutzer (ALSA->Pulse)" "(nur Stille)"
+else bad "Aufnahme als Benutzer (ALSA->Pulse)"; fi
+rm -f /tmp/st-mic.wav
+chk "Wiedergabe (stummer Ton)" sh -c 'pactl set-sink-mute lautsprecher 1; paplay /usr/share/layernx/ton-test.wav; r=$?; pactl set-sink-mute lautsprecher 0; exit $r'
+unset PULSE_SERVER
+
 echo "-- Grafik"
 chk "Xorg laeuft" pgrep -x Xorg
 chk "Openbox laeuft" pgrep -x openbox
 chk "tint2 laeuft" pgrep -x tint2
+chk "Tastatur-Dienst laeuft" pgrep -x layernx-tastatu
+chk "AT-SPI (Tastatur-Automatik)" pgrep -f at-spi2-registryd
 chk "Dreh-Treiber moritz-xf86-video-fbdev" apk info -e moritz-xf86-video-fbdev
 chk "Xorg: Rotate CCW" grep -q '"Rotate" "CCW"' /etc/X11/xorg.conf.d/10-moritz-v5x.conf
 chk "Xorg -nocursor" sh -c 'cat /proc/$(pgrep -x Xorg)/cmdline | tr "\0" " " | grep -q nocursor'
@@ -74,11 +91,17 @@ gui "Einstellungen" "env -i HOME=\$HOME DISPLAY=:0 PATH=/usr/bin:/bin layernx-ei
 gui "PIN-Pad" "layernx-pinpad --titel Test" '^LayerNX PIN$' layernx-pinpad
 printf '<html><head><title>LNXTEST</title></head><body>ok</body></html>' > /tmp/lnxtest.html; chmod 644 /tmp/lnxtest.html
 gui "Webview (WebKitGTK)" "layernx-webview --titel LNXTEST --profil /tmp/st-profil file:///tmp/lnxtest.html" '^LNXTEST$' layernx-webview
+asu "layernx-tastatur an" >/dev/null 2>&1; sleep 2
+if asu "xdotool search --onlyvisible --class LayerNX-Tastatur" >/dev/null 2>&1 && [ -f /tmp/layernx-tastatur.bereich ]; then ok "Tastatur oeffnet (Touch-Bereich gesetzt)"; else bad "Tastatur oeffnet (Touch-Bereich gesetzt)"; fi
+wa=$(asu "xprop -root _NET_WORKAREA" | awk -F', ' '{print $4}')
+[ "$wa" = 416 ] && ok "Tastatur reserviert Platz" "(Arbeitsflaeche 1280x416)" || bad "Tastatur reserviert Platz" "($wa)"
+asu "layernx-tastatur aus" >/dev/null 2>&1; sleep 2
+if ! asu "xdotool search --onlyvisible --class LayerNX-Tastatur" >/dev/null 2>&1 && [ ! -f /tmp/layernx-tastatur.bereich ]; then ok "Tastatur schliesst"; else bad "Tastatur schliesst"; fi
 chk "Chromium vorhanden" chromium --version
 chk "Terminal lxterminal" which lxterminal
 chk "fastfetch mit LayerNX-Konfig" sh -c 'fastfetch --config /usr/share/layernx/fastfetch.jsonc --pipe true | grep -q LayerNX'
 for t in layernx-update layernx-display layernx-akku layernx-webapp layernx-pin layernx-powerkey layernx-einstellungen-helfer \
-	moritz-wmt-launcher moritz-v5x-status moritz-v5x-bootanim cloudflared tailscale bash; do chk "Befehl $t" which $t; done
+	moritz-wmt-launcher moritz-v5x-status moritz-v5x-bootanim layernx-tastatur layernx-webview pactl cloudflared tailscale bash; do chk "Befehl $t" which $t; done
 chk "layernx-display status" layernx-display status
 chk "layernx-akku status" layernx-akku status
 

@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+description="LayerNX: PulseAudio (systemweit: Mikrofon und Lautsprecher fuer alle Programme)"
+supervisor=supervise-daemon
+command=/usr/bin/pulseaudio
+command_args="--system --daemonize=no --disallow-exit --disallow-module-loading --exit-idle-time=-1 --log-target=syslog -nF /etc/pulse/layernx.pa"
+# Zustand (Lautstaerke, Stumm) dauerhaft statt in /var/run
+supervise_daemon_args="--env PULSE_STATE_PATH=/var/lib/pulse"
+respawn_delay=3
+depend() { need layernx-audio; after moritz-v5x-devnodes; }
+start_pre() { checkpath -d -o pulse:pulse -m 0700 /var/lib/pulse; }
+start_post() {
+	# erster Start: Lautsprecher auf 70 % statt 100 %
+	[ -e /var/lib/pulse/.layernx-lautstaerke ] && return 0
+	sleep 2
+	PULSE_SERVER=/var/run/pulse/native pactl set-sink-volume lautsprecher 70% 2>/dev/null && touch /var/lib/pulse/.layernx-lautstaerke
+	return 0
+}

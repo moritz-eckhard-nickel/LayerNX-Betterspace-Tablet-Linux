@@ -1,7 +1,3 @@
 #!/bin/sh
-# Bildschirmtastatur (svkbd) ein-/ausschalten; Position per Openbox-Regel (unten, ueber der Leiste)
-if pgrep -x svkbd-mobile-in >/dev/null; then
-	pkill -x svkbd-mobile-in
-else
-	svkbd-mobile-intl -g 1280x320+0+416 -fn "DejaVu Sans:bold:size=18" >/dev/null 2>&1 &
-fi
+# Bildschirmtastatur (layernx-tastatur) ein-/ausschalten. Ohne Argument: umschalten.
+exec layernx-tastatur "${1:-umschalten}"

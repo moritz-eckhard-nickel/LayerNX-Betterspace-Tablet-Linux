@@ -1,8 +1,8 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=moritz-v5x-desktop
 pkgver=1
-pkgrel=18
-pkgdesc="Schlanke Touch-Oberflaeche (Xorg fbdev + Openbox + tint2 + svkbd) fuer das Betterspace V5x"
+pkgrel=20
+pkgdesc="Schlanke Touch-Oberflaeche (Xorg fbdev + Openbox + tint2 + layernx-tastatur) fuer das Betterspace V5x"
 url="https://nura.eco"
 arch="noarch"
 license="MIT"
@@ -12,7 +12,7 @@ depends="
 	font-dejavu
 	jgmenu
 	openbox
-	svkbd
+	layernx-tastatur
 	tint2
 	xf86-input-evdev
 	moritz-xf86-video-fbdev
@@ -33,6 +33,7 @@ depends="
 	lxterminal
 	fastfetch
 	layernx-webapps
+	layernx-audio
 	layernx-einstellungen
 	procps
 "
@@ -76,12 +77,12 @@ sha512sums="
 a64a890ca4a2d79daa6a149204f811bbbc1031b132790836b40592a5d481c45bee7c182317478a2b0e3e35472ed6bb1e7149ed3376b69adf62bdd89115d55e98  10-moritz-v5x.conf
 f9a4ecc39097a2d4260b94d692d220c0630118a362171e564f2d4377cc52ccb22a3474bd3ded91bd64be8d48f88db8da4b1d6c0d2bdb8f044ed5988a4b784168  moritz-v5x-xsession.initd
 0db84864738bb08a147eafcbf53c3d1ff6a5f9e4f194f31642dd2e727f097a1d33108439f3c08e87571f411f764ea6b9297a7515b020bca42a3c17061ae11bd5  session-as-user
-8a3b9d8eb7b104eddc2dcf23c9b7c51d7959d2831c52d337f843cd4aedfbc77b4a58391a7bb67e5741afdc6e3311c9dffe4be360c1125238f32b88c6aeee8830  moritz-v5x-session
-d568089b5f8d66239f8ec8cac264436ae187228bb28cdfe98ad094ae26a7b813898f0789b50819a56da42f06a7adca83bb59bfde18465f586b91cbe627890f9d  moritz-v5x-keyboard
+546f1d15d3ff82e1ade4c973b7bd840b379ee109a098b487be0f4baf35c30a8f4cd1ba886f90ea9180e3ab7e7510524951ae702cc9ddb18ae09be84af9a3650a  moritz-v5x-session
+d43c7f88ccb79a948afeba2ffa8a99bd193e0db8cb0343610248c0d43316a0b40a5257d39c4ed5ef7e99b66960a6919769f3da6a8caf73c139f280bd07048b5c  moritz-v5x-keyboard
 90a79273f83d62c6faaefc90425201065df0812ed07f24a4ebb6e9994dab253656d1dcc2465d6b263a0b86e56a97f6b4720d8e4290cf306d7a3fc7622c66891e  jgmenu-append.csv
 1ee8b6d17c4035c27c092fdbb5512477cb41106b103942cf88f077cbdef5d8de6292fdf867cdd6ad1d028cc697f926a4e23e421ffeeb23de0fb58fd655c90e9f  jgmenurc
 6b939ed0d24ab876558baf3b570add3306f96b13553dbe24cf985b8a4a6337322155039ec9cc66d4f45bf2d731ce6fe097eb2666afe5183c28884d71a4e69a5b  tint2rc
-1afd6b34d60f4ae1001f41b08cb62b22c9c5f1070c7c34bd37cac2a7372b737625764828c6cabf1eb77a722d6d38e1b0b40bc04d1de55dfc7239945d6d70427d  openbox-rc.xml
+58263409debdd540329597206fced7cbf2fa565f0854225f4713c2852c68da75a6396ece7ed2b58844cba4e683b71195cb1b52c41a8ab1a5ca11117e1bca5620  openbox-rc.xml
 9934402d2a5b207c0106cfe19aa3b9b568978eb3c233511568dc7bdb4cfcdcf2a242db6c55dd954aab5431bf1a65c0b5c75aaede4cefdee20d75c0c9e8ebd8c2  moritz-v5x-doas.conf
 fb822185d3dac4bce9933826d450cf5f1fd0397af1460d6038ab0253721e568f7cbbf2852c07315784e8d387849093a984348b2698a3959b77ea3714d64523dc  moritz-v5x-power
 308d95040608a77cd9ff44e01153240c25e7e0173ef64f7204ab38e43a95b122714c9ce47bf6e7cdbcc9fc5fb2dd7d6ec8538472dd4f268d5152b3629d305029  Xresources

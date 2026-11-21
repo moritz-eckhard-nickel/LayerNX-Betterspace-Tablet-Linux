@@ -107,7 +107,8 @@ alle Tablets haben ab Werk `root` / `lnx`, auch per SSH. Standardmäßig existie
 ## 5. Ersteinrichtung
 
 Am einfachsten per Touch: **Menü → Einstellungen** (WLAN suchen und verbinden, Hostname,
-Helligkeit, PIN, Akkuschutz, SSH, Tailscale, Updates). Alternativ per SSH:
+Helligkeit, Ton, PIN, Akkuschutz, SSH, Tailscale, Updates). Die Bildschirmtastatur geht
+bei Textfeldern von selbst auf; sonst Knopf „Tastatur“ in der Leiste. Alternativ per SSH:
 
 ```sh
 # WLAN
@@ -159,6 +160,7 @@ fastfetch-Logo), Bootlogo: `scripts/moritz-mklogo.py ORIGINAL-logo.img LOGO.png 
 
 ## Bekannte Grenzen (dem Menschen ehrlich sagen)
 
-- Kein Bluetooth (Stock-Kernel ohne `CONFIG_BT`), kein Audio, keine Kameras, keine GPU.
+- Kein Bluetooth (Stock-Kernel ohne `CONFIG_BT`), keine Kameras, keine GPU, kein Vibrationsmotor.
+- Ton: Lautsprecher und eingebautes Mikrofon gehen (PulseAudio). Mikrofon in Web-Apps nur über https/localhost.
 - Akkustand ist eine Schätzung aus der Spannung.
 - Browser/Web-Apps ohne Sandbox (Kernel ohne Namespaces) – nur vertrauenswürdige Seiten.

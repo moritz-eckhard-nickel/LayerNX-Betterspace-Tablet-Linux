@@ -17,7 +17,7 @@ apps_open() {
 	ids=$(asuser "xprop -root _NET_CLIENT_LIST" 2>/dev/null | sed 's/.*#//; s/,/ /g')
 	for w in $ids; do
 		t=$(asuser "xprop -id $w _NET_WM_WINDOW_TYPE _NET_WM_STATE WM_CLASS" 2>/dev/null)
-		case "$t" in *svkbd*|*jgmenu*|*tint2*) continue ;; esac
+		case "$t" in *svkbd*|*layernx-tastatur*|*jgmenu*|*tint2*) continue ;; esac
 		case "$t" in *_NET_WM_WINDOW_TYPE_DOCK*|*_NET_WM_WINDOW_TYPE_DESKTOP*) continue ;; esac
 		log "app offen: $w"
 		return 0

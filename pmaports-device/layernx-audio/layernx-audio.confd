@@ -1,0 +1,7 @@
+# LayerNX: Mikrofon und Lautsprecher
+# Mikrofon (eingebautes Analog-Mikrofon am MT6357, Eingang ADC1)
+# Modus: ACCMODE DCCMODE DCCECMDIFFMODE DCCECMSINGLEMODE (am Geraet gemessen: DCCECMSINGLEMODE am lautesten)
+MIC_MODUS=DCCECMSINGLEMODE
+# analoge Vorverstaerkung: 0Db 6Db 12Db 18Db 24Db
+MIC_PGA=24Db
+# Software-Verstaerkung: /etc/pulse/layernx.pa (set-source-volume)

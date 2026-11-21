@@ -1,7 +1,7 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=moritz-v5x-tools
 pkgver=1
-pkgrel=10
+pkgrel=11
 pkgdesc="Betterspace V5x: Touch-Bruecke und Framebuffer-Refresher"
 url="https://nura.eco"
 arch="aarch64"
@@ -44,7 +44,7 @@ package() {
 	install -Dm755 "$srcdir"/moritz-v5x-fbrefresh.initd "$pkgdir"/etc/init.d/moritz-v5x-fbrefresh
 }
 sha512sums="
-dea9c187d0225a4d72a7b65258c6f41fd545b0d2add7f55e46809444418d4cf7f0b452f213a6b00b78ce222b0b6eed599cb2942bdb1c4e8b546ab101c882ad4c  moritz-v5x-touch.c
+a887032cccee7ee5e22f6ef6718ad5c20b1f8560a0b6c68d4a7b9208ac04d32b3235bf6790bd9d4a537fb5b63eaab0e041e095f862be47eb261693cb2a2528cc  moritz-v5x-touch.c
 a36be05e8313fb34bf9f82cb2211ddb78bcbfa6af4194785ef78b66005f0bee5048c8630ff7c1370bedcdb284acad0cacfb38ace1b35bd214d553e75a834a5d4  moritz-v5x-fbrefresh.c
 666c9116ed708a904f48a326ed7575b36d0bc739280c1d995a408bd051142d403905f0dc4b7fb38a83759447f5daf857025bdff1056d209dda632d8c758593ac  moritz-v5x-touch.initd
 3b72b1ad701109fc7fc5871255723a2d2ac60443cf9509fc0b7c65ea6733949d1f06ddd0ee62bb48e2fe8b905fc259441248f32c159581a5ceec17986f277e93  moritz-v5x-fbrefresh.initd

@@ -1,0 +1,18 @@
+#!/usr/bin/pulseaudio -nF
+# LayerNX-Tablet-Linux: systemweiter PulseAudio-Server
+# Mikrofon = hw:0,3 (VUL), Lautsprecher = hw:0,0 (DL1); Signalwege schaltet /etc/init.d/layernx-audio.
+# Die Hardware nimmt nur feste Raten (48 kHz); PulseAudio rechnet fuer alle Programme um.
+# Lautstaerke/Stumm ueber Neustarts merken (Zustand in /var/lib/pulse, siehe layernx-pulse)
+load-module module-device-restore
+load-module module-stream-restore
+load-module module-alsa-source device=hw:0,3 source_name=mikrofon rate=48000 channels=2 tsched=0 fragments=4 fragment_size=1920
+update-source-proplist mikrofon device.description="Eingebautes Mikrofon"
+# Software-Verstaerkung: das Analog-Mikrofon ist sehr leise (65536 = 100 %)
+set-source-volume mikrofon 163840
+# Lautsprecher = hw:0,0 (DL1), Signalweg schaltet ebenfalls /etc/init.d/layernx-audio
+load-module module-alsa-sink device=hw:0,0 sink_name=lautsprecher rate=48000 channels=2 tsched=0 fragments=4 fragment_size=3840
+update-sink-proplist lautsprecher device.description="Lautsprecher"
+set-default-source mikrofon
+set-default-sink lautsprecher
+load-module module-native-protocol-unix auth-anonymous=1
+load-module module-suspend-on-idle timeout=5

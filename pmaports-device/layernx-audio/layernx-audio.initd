@@ -1,0 +1,32 @@
+#!/sbin/openrc-run
+# Schaltet die Aufnahme-Signalwege, die unter Android der Audio-HAL setzt
+# (sonst: "ASoC: no backend DAIs enabled for VUL_FE").
+description="LayerNX: Mikrofon- und Lautsprecher-Signalweg (ALSA-Mixer)"
+depend() { after moritz-v5x-devnodes mdev; before layernx-pulse; }
+a() { amixer -q -c0 cset name="$1" "$2" >/dev/null 2>&1 || ewarn "Mixer: $1=$2 fehlgeschlagen"; }
+start() {
+	ebegin "Mikrofon- und Lautsprecher-Signalweg schalten"
+	[ -e /dev/snd/controlC0 ] || { eend 1 "keine Soundkarte"; return 1; }
+	# AFE: ADDA-Uplink (I03/I04) -> VUL-Speicher (O09/O10) = PCM hw:0,3 "MultiMedia1_Capture"
+	a 'O09 I03 Switch' 1; a 'O10 I04 Switch' 1
+	a 'AIN Mux' 'INT ADC'
+	# Codec MT6357: Mikrofon-Vorspannung, ADC1/2 ueber Preamp an Eingang 1
+	a 'Audio_MICBIAS0_Switch' On
+	a 'Audio_MIC1_Mode_Select' "${MIC_MODUS:-DCCECMSINGLEMODE}"
+	a 'Audio_MIC2_Mode_Select' "${MIC_MODUS:-DCCECMSINGLEMODE}"
+	a 'Audio_Preamp1_Switch' IN_ADC1; a 'Audio_Preamp2_Switch' IN_ADC1
+	a 'Audio_ADC_1_Sel' Preamp; a 'Audio_ADC_2_Sel' Preamp
+	a 'Audio_ADC_1_Switch' On; a 'Audio_ADC_2_Switch' On
+	a 'Audio_PGA1_Setting' "${MIC_PGA:-24Db}"; a 'Audio_PGA2_Setting' "${MIC_PGA:-24Db}"
+	# Wiedergabe: DL1 (I05/I06) -> O03/O04 -> interner Codec -> Lautsprecher-Verstaerker
+	# (am Geraet ermittelt: erst mit Ext_Speaker_Amp hoerbar)
+	a 'O03 I05 Switch' on; a 'O04 I06 Switch' on; a 'INT ADDA O03_O04 Switch' on
+	a 'AUD_CLK_BUF_Switch' On
+	a 'Speaker_Amp_Switch' On; a 'Ext_Speaker_Amp_Switch' On
+	eend 0
+}
+stop() {
+	a 'Audio_ADC_1_Switch' Off; a 'Audio_ADC_2_Switch' Off; a 'Audio_MICBIAS0_Switch' Off
+	a 'Ext_Speaker_Amp_Switch' Off; a 'Speaker_Amp_Switch' Off
+	return 0
+}

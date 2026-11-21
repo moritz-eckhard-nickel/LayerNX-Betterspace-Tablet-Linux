@@ -89,7 +89,7 @@ Zusätzlich: `deviceinfo_create_initfs_extra="true"` + Busybox-Shims (Initramfs-
 ## 7. Offene Punkte
 
 - Akkuanzeige: `capacity=-1` (MediaTek GM3.0-Fuel-Gauge braucht den Android-Daemon `fuelgauged`).
-- Bluetooth, Audio, Kameras, Sensoren, GPU (Mali, kein Mesa-Treiber für diesen Kernel): nicht eingerichtet.
+- Bluetooth, Kopfhörer, Kameras, Sensoren, GPU (Mali, kein Mesa-Treiber für diesen Kernel): nicht eingerichtet (Ton: siehe Abschnitt 9).
 - `rc-service wpa_supplicant restart` meldet eine udev-Fehlermeldung (kosmetisch).
 - Eigener Kernel aus Quellen (würde GPL-Quelltextfrage lösen): ILI9881C- und CST1xx-Treiber müssten portiert werden.
 
@@ -116,3 +116,27 @@ Zusätzlich: `deviceinfo_create_initfs_extra="true"` + Busybox-Shims (Initramfs-
 | Akkuschutz | max. 50 % | `/proc/mtk_battery_cmd/current_cmd` („0 1“ = Laden aus) + Dienst | Schalten **[GETESTET]**, Pendeln **[UNGETESTET]** |
 | Bluetooth | Maus/Tastatur/Lautsprecher | Stock-Kernel ohne `CONFIG_BT` → BlueZ unmöglich; nur Userspace-Stack (BTstack) denkbar | offen |
 | Sandbox | Chromium/WebKit | Kernel ohne Namespaces → Sandbox aus (`--no-sandbox` bzw. `WEBKIT_DISABLE_SANDBOX…`) | bekannt |
+
+---
+
+## 9. Ton, Mikrofon in Web-Apps, Bildschirmtastatur (21.11.2026)
+
+| Thema | Problem / Ziel | Lösung | Status |
+|---|---|---|---|
+| Soundkarte | unter Linux „kein Audio“ angenommen | `mt-snd-card` (MT8168-AFE + MT6357) läuft im Stock-Kernel, 13 PCMs | geprüft |
+| Aufnahme | `ASoC: no backend DAIs enabled for VUL_FE` | Signalweg wie der Android-HAL schalten: `O09 I03`/`O10 I04`, `AIN Mux=INT ADC`, MICBIAS0, Preamp `IN_ADC1`, ADC über Preamp, PGA 24 dB (`/etc/init.d/layernx-audio`) | **[GETESTET]** |
+| Welcher Eingang? | 3 Preamp-Eingänge, Vibration als Prüfsignal half nicht | mit Musik/Stille gemessen: nur `IN_ADC1` reagiert (≈39 → 300–440 RMS), `DCCECMSINGLEMODE` am lautesten | **[GETESTET]** |
+| Mehrere Programme / dsnoop | Kernel ohne `CONFIG_SYSVIPC` → dsnoop/dmix unmöglich | PulseAudio systemweit (`layernx-pulse`), ALSA-Standard = Pulse | **[GETESTET]** |
+| WebKit nimmt falsches Gerät | GStreamer-ALSA listet 13 gleichnamige Geräte, WebKit nimmt das erste (FM) | `layernx-webview` setzt `GST_PLUGIN_FEATURE_RANK=alsadeviceprovider:NONE` → nur Pulse-Quellen | **[GETESTET]** |
+| Rohes `hw:0,3` | `not-negotiated`: Hardware nimmt nur feste Raten | Pulse hält 48 kHz und rechnet um | **[GETESTET]** |
+| Mikrofon-Pegel | Analog-Mikrofon sehr leise | Pulse-Quellenlautstärke 250 % | **[GETESTET]** |
+| Lautsprecher | stumm | `O03 I05`/`O04 I06`, `INT ADDA O03_O04`, `Speaker_Amp` + **`Ext_Speaker_Amp`** (am Gerät per Pieptöne ermittelt: erst mit externem Verstärker hörbar) | **[GETESTET]** gehört |
+| Web-Apps Mikrofon | soll immer gehen | `--mikrofon`: nur Audio-`getUserMedia` erlaubt, alle anderen Rechte abgelehnt; Standard an, aus in Einstellungen → Ton | **[GETESTET]** |
+| Ton ohne Tippen | AudioContext blieb `suspended` | `WebKitWebsitePolicies` Autoplay erlaubt | **[GETESTET]** |
+| Sprach-Web-App | Mikrofon → WebSocket → Antwort abspielen | Testseite mit WebSocket-Echo-Server: 162/162 Pakete hin, zurück, abgespielt; Rückkopplung ohne Echo-Unterdrückung | **[GETESTET]** |
+| Vibration | Tastatur-Haptik | Regler `vibr` schaltet (2,8 V), Motor reagiert nie, unter Android nie vibriert → nicht verbaut; Code entfernt | geprüft |
+| Bildschirmtastatur | svkbd hässlich, keine echte Großstellung | `layernx-tastatur` (GTK3): QWERTZ, Umschalt 1×/2×, Symbol-Ebene, ⌫ wiederholt, `_NET_WM_STRUT` | **[GETESTET]** |
+| Falsche Zeichen | xdotool belegt fehlende Zeichen beim Tippen um (Wettlauf mit MappingNotify) | fehlende Zeichen beim Start einmal fest auf freie Tastencodes, dann XTest direkt | **[GETESTET]** |
+| Falsche Tasten per Touch | 120-ms-Fenster, 2 Finger = Scrollen | Touch-Brücke: im Tastaturbereich (`/tmp/layernx-tastatur.bereich`) jeder Finger sofort ein eigener Druck | **[GETESTET]** von Hand |
+| Automatisch auf/zu | soll überall außer Web-Apps | AT-SPI (`dbus-run-session` in der Sitzung), Fokus auf editierbares Feld/Terminal → auf, sonst zu; Web-Apps ausgenommen | **[GETESTET]** Terminal |
+| Feste WLAN-MAC | nach Neustart neue IP | `WLAN_MAC` in `/etc/conf.d/moritz-v5x-wifi` war leer (lokal gesetzt, nicht im Repo) | behoben |
