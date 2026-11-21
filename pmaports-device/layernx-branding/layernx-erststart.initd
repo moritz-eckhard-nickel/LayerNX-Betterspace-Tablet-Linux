@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+# LayerNX-Standard: nur root (Passwort "lnx"). Beim ERSTEN Start einer Neuinstallation wird
+# der von pmbootstrap angelegte Benutzer entfernt; seine SSH-Schluessel gehen an root.
+# Weitere Benutzer kann man spaeter selbst anlegen (adduser).
+description="LayerNX: Erststart (nur root)"
+depend() { before sshd moritz-v5x-xsession; after localmount; }
+start() {
+	[ -f /etc/layernx/nur-root-ausstehend ] || return 0
+	ebegin "LayerNX-Erststart: Standardbenutzer entfernen, nur root"
+	mkdir -p /root/.ssh && chmod 700 /root/.ssh
+	for u in $(awk -F: '$3 >= 1000 && $3 < 60000 {print $1}' /etc/passwd); do
+		h=$(awk -F: -v u="$u" '$1==u {print $6}' /etc/passwd)
+		[ -f "$h/.ssh/authorized_keys" ] && cat "$h/.ssh/authorized_keys" >> /root/.ssh/authorized_keys
+		deluser --remove-home "$u" 2>/dev/null
+	done
+	[ -f /root/.ssh/authorized_keys ] && chmod 600 /root/.ssh/authorized_keys
+	[ -x /bin/bash ] && sed -i 's|^\(root:.*:\)/bin/[a-z]*sh$|\1/bin/bash|' /etc/passwd
+	rm -f /etc/layernx/nur-root-ausstehend
+	eend 0
+}

@@ -1,5 +1,6 @@
 #!/bin/sh
 # Power-Menue (wie Android) in der grafischen Sitzung des Erst-Benutzers anzeigen
 U="$(awk -F: '$3 >= 1000 && $3 < 60000 {print $1; exit}' /etc/passwd)"
+[ -n "$U" ] || U=root   # LayerNX-Standard: nur root
 pgrep -f "powermenu.csv" >/dev/null 2>&1 && exit 0
 exec su "$U" -c "DISPLAY=:0 jgmenu --config-file=/usr/share/moritz-v5x/powermenu.rc --csv-file=/usr/share/moritz-v5x/powermenu.csv"

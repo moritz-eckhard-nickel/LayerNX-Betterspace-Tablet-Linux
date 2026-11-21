@@ -6,4 +6,13 @@ for u in $(awk -F: '$3 >= 1000 && $3 < 60000 {print $1}' /etc/passwd); do
 	[ -x /bin/bash ] && sed -i "s|^\($u:.*:\)/bin/[a-z]*sh$|\1/bin/bash|" /etc/passwd
 done
 rc-update add layernx-hostname boot 2>/dev/null
+rc-update add layernx-erststart boot 2>/dev/null
+# Standard-root-Passwort "lnx" einmalig setzen, falls root gesperrt ist (aenderbar in Einstellungen -> Geraet).
+# SSH-Login als root mit Passwort bleibt gesperrt (sshd: prohibit-password).
+if [ ! -f /etc/layernx/root-pw-gesetzt ]; then
+	case "$(grep '^root:' /etc/shadow | cut -d: -f2)" in
+		'!'|'*'|'!!'|'') echo 'root:lnx' | chpasswd ;;
+	esac
+	mkdir -p /etc/layernx; touch /etc/layernx/root-pw-gesetzt
+fi
 exit 0

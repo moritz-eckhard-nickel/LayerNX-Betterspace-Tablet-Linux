@@ -5,6 +5,7 @@
 #  - App offen: Taste gesperrt; nur 5x schnell druecken -> PIN-Abfrage -> App schliessen
 #  - Display aus: jeder Druck weckt nur den Bildschirm
 U="$(awk -F: '$3 >= 1000 && $3 < 60000 {print $1; exit}' /etc/passwd)"
+[ -n "$U" ] || U=root   # LayerNX-Standard: nur root
 PINF=/etc/layernx/pin.sha256
 LOG=/tmp/layernx-powerkey.log
 log() { echo "$(date +%T) $*" >> $LOG; }
