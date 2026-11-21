@@ -107,7 +107,7 @@ alle Tablets haben ab Werk `root` / `lnx`, auch per SSH. Standardmäßig existie
 ## 5. Ersteinrichtung
 
 Am einfachsten per Touch: **Menü → Einstellungen** (WLAN suchen und verbinden, Hostname,
-Helligkeit, Ton, PIN, Akkuschutz, SSH, Tailscale, Updates). Die Bildschirmtastatur geht
+Helligkeit, Ton, Second Screen, PIN, Akkuschutz, SSH, Tailscale, Updates). Die Bildschirmtastatur geht
 bei Textfeldern von selbst auf; sonst Knopf „Tastatur“ in der Leiste. Alternativ per SSH:
 
 ```sh
@@ -162,5 +162,7 @@ fastfetch-Logo), Bootlogo: `scripts/moritz-mklogo.py ORIGINAL-logo.img LOGO.png 
 
 - Kein Bluetooth (Stock-Kernel ohne `CONFIG_BT`), keine Kameras, keine GPU, kein Vibrationsmotor.
 - Ton: Lautsprecher und eingebautes Mikrofon gehen (PulseAudio). Mikrofon in Web-Apps nur über https/localhost.
+- Second Screen (Win+K) ist ab Werk **aus** – nur einschalten, wenn der Mensch es will (Einstellungen → Second Screen).
+- Firmen-WLAN mit Zertifikaten: Einstellungen → WLAN → „Firmen-WLAN mit Zertifikat“.
 - Akkustand ist eine Schätzung aus der Spannung.
 - Browser/Web-Apps ohne Sandbox (Kernel ohne Namespaces) – nur vertrauenswürdige Seiten.

@@ -1,0 +1,31 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+pkgname=layernx-second-screen
+pkgver=1
+pkgrel=4
+pkgdesc="LayerNX-Tablet-Linux: Second Screen - Tablet als Miracast-Bildschirm fuer Windows (Win+K), ohne gemeinsames WLAN"
+url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
+arch="aarch64"
+license="MIT"
+options="!check"
+depends="python3 wpa_supplicant wpa_supplicant-openrc busybox-extras iw gst-plugins-base gst-plugins-good gst-plugins-bad gst-libav"
+makedepends="gstreamer-dev gst-plugins-base-dev libx11-dev"
+source="layernx-wfd-anzeige.c layernx-wfd-rtsp.py layernx-second-screen-p2p.py layernx-second-screen.initd layernx-second-screen.confd"
+
+build() {
+	${CC:-gcc} $CFLAGS -Wall -O3 -o layernx-wfd-anzeige "$srcdir"/layernx-wfd-anzeige.c \
+		$(pkg-config --cflags --libs gstreamer-1.0 gstreamer-app-1.0 gstreamer-video-1.0 x11) -lpthread $LDFLAGS
+}
+package() {
+	install -Dm755 layernx-wfd-anzeige "$pkgdir"/usr/bin/layernx-wfd-anzeige
+	install -Dm755 "$srcdir"/layernx-wfd-rtsp.py "$pkgdir"/usr/libexec/layernx/layernx-wfd-rtsp.py
+	install -Dm755 "$srcdir"/layernx-second-screen-p2p.py "$pkgdir"/usr/libexec/layernx/layernx-second-screen-p2p.py
+	install -Dm755 "$srcdir"/layernx-second-screen.initd "$pkgdir"/etc/init.d/layernx-second-screen
+	install -Dm644 "$srcdir"/layernx-second-screen.confd "$pkgdir"/etc/conf.d/layernx-second-screen
+}
+sha512sums="
+b9cc7aff602e85d5fabfb58bfe4e8b1ff46ca98aa04018e6a7b5cf87626c8c9244430dba3b1d16a5bd3fd9d236875435d3df94e5ec451e2467dd5457970452bd  layernx-wfd-anzeige.c
+71dbbfa4af9ff3a6f7966903e71d89e3696764aef3723fcfee397b88d8b518499a97d5a1f50d39b082f96907484dec091fcd281983c740b49179e878a0fa5966  layernx-wfd-rtsp.py
+1f6b4a61becf15a9aeb3b86f17e53922b9516c57cfcad4d82f12134ad9e34d5317b0c42de2a485fef114790c16b50262a36c84644d91c6797622bec8f016491e  layernx-second-screen-p2p.py
+16426b8b03dc3ba03262df3b370adfa2de3cd798aa8f5aaa8ea97747fe0cf3fe71abdc514eca471ee265227863631f650765f006de9ab12bd7b4a2c9b163c6bc  layernx-second-screen.initd
+fc37c0cc8e0966f3c0fcccddea393549391447e1273e57f020971f195f0a361bf355a589d9ee099a3fcc679be741aca516aaf5dfcbd1c07eda1d2b7243fac1bb  layernx-second-screen.confd
+"

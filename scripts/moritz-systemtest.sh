@@ -28,6 +28,12 @@ for s in mdev moritz-v5x-devnodes moritz-v5x-wifi moritz-v5x-usbnet wpa_supplica
 	if svc "$s"; then ok "Dienst $s"; else bad "Dienst $s"; fi
 done
 if svc layernx-akkuschutz; then ok "Dienst layernx-akkuschutz" "(an)"; else ok "Dienst layernx-akkuschutz" "(aus, Standard)"; fi
+if svc layernx-akkuwaechter; then ok "Dienst layernx-akkuwaechter" "(Tiefentladeschutz)"; else bad "Dienst layernx-akkuwaechter"; fi
+if rc-update show default | grep -q layernx-second-screen; then
+	svc layernx-second-screen && ok "Second Screen laeuft" || bad "Second Screen laeuft"
+	[ -e /sys/class/net/p2p0 ] && ok "Wi-Fi Direct (p2p0)" || bad "Wi-Fi Direct (p2p0)"
+	grep -q "P2P_\(LISTEN\|GROUP_ADD\)" /run/layernx-second-screen/p2p.log 2>/dev/null && ok "Second Screen wartet auf Win+K" || bad "Second Screen wartet auf Win+K"
+else ok "Second Screen" "(aus, Standard)"; fi
 for s in tailscale cloudflared; do svc "$s" && warn "Dienst $s" "laeuft (Standard: aus)" || ok "Dienst $s" "(nicht aktiv, Standard)"; done
 
 echo "-- Netzwerk"
@@ -101,7 +107,7 @@ chk "Chromium vorhanden" chromium --version
 chk "Terminal lxterminal" which lxterminal
 chk "fastfetch mit LayerNX-Konfig" sh -c 'fastfetch --config /usr/share/layernx/fastfetch.jsonc --pipe true | grep -q LayerNX'
 for t in layernx-update layernx-display layernx-akku layernx-webapp layernx-pin layernx-powerkey layernx-einstellungen-helfer \
-	moritz-wmt-launcher moritz-v5x-status moritz-v5x-bootanim layernx-tastatur layernx-webview pactl cloudflared tailscale bash; do chk "Befehl $t" which $t; done
+	moritz-wmt-launcher moritz-v5x-status moritz-v5x-bootanim layernx-tastatur layernx-webview layernx-wfd-anzeige pactl cloudflared tailscale bash; do chk "Befehl $t" which $t; done
 chk "layernx-display status" layernx-display status
 chk "layernx-akku status" layernx-akku status
 

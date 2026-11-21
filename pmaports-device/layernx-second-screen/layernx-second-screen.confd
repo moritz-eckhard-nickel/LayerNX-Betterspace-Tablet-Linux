@@ -1,0 +1,5 @@
+# LayerNX Second Screen
+# client = Windows ist Wi-Fi-Direct-Gruppenleiter und bestimmt den Kanal (sein eigener) -> der Laptop
+#          muss nicht zwischen Kanaelen springen (empfohlen)
+# go     = das Tablet ist Gruppenleiter auf dem Kanal seines WLANs (Rueckfall, falls client nicht klappt)
+MODUS=client

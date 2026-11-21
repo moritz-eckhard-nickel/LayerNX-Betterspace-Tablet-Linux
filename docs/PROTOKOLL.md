@@ -140,3 +140,24 @@ Zusätzlich: `deviceinfo_create_initfs_extra="true"` + Busybox-Shims (Initramfs-
 | Falsche Tasten per Touch | 120-ms-Fenster, 2 Finger = Scrollen | Touch-Brücke: im Tastaturbereich (`/tmp/layernx-tastatur.bereich`) jeder Finger sofort ein eigener Druck | **[GETESTET]** von Hand |
 | Automatisch auf/zu | soll überall außer Web-Apps | AT-SPI (`dbus-run-session` in der Sitzung), Fokus auf editierbares Feld/Terminal → auf, sonst zu; Web-Apps ausgenommen | **[GETESTET]** Terminal |
 | Feste WLAN-MAC | nach Neustart neue IP | `WLAN_MAC` in `/etc/conf.d/moritz-v5x-wifi` war leer (lokal gesetzt, nicht im Repo) | behoben |
+
+---
+
+## 10. Second Screen, Firmen-WLAN, Tiefentladeschutz (21.11.2026)
+
+| Thema | Problem / Ziel | Lösung | Status |
+|---|---|---|---|
+| Daten über Neustart | Frage | Rootfs ist ext4 auf `userdata`, alles bleibt; Pulse-Zustand nach `/var/lib/pulse` | geprüft |
+| Tiefentladung | Kernel kennt ohne `fuelgauged` keinen Ladestand (`Soc=-1`) → keine eingebaute Notabschaltung | `layernx-akkuwaechter`: ohne Netzteil 3× < 3450 mV (90 s) → `poweroff` | Logik **[GETESTET]** (Trockenlauf), echter Lauf **[UNGETESTET]** |
+| Wi-Fi Direct | P2P nötig für Miracast ohne gemeinsames Netz | `iw list`: P2P-GO/Client + gleichzeitig managed; MTK legt `p2p0` erst nach `echo P > /dev/wmtWifi` an; `wpa_supplicant` mit P2P+WFD | **[GETESTET]** |
+| Win+K findet Tablet nicht | P2P auf `wlan1` ohne Wirkung | eigene Instanz auf `p2p0`, `device_type` Display, WFD-Subelement (Sink, RTSP 7236) | **[GETESTET]** |
+| „Folgen Sie den Anweisungen…“ | `P2P_CONNECT` ohne bekannten Kanal des Peers → FAIL | `pbc auth` (Windows startet die Verhandlung selbst) | **[GETESTET]** |
+| Gruppe kommt nicht zustande | Tablet als GO: Treiber brauchte 5 s für den Kanal, Windows trat nie bei | erst autonome Gruppe + `WPS_PBC` (ging), dann **Modus `client`**: Windows ist GO, Tablet holt IP per DHCP (ohne Standardroute) | **[GETESTET]** |
+| DHCP | busybox ohne `udhcpd` | `busybox-extras` | **[GETESTET]** |
+| Bildkanal | Windows wartet auf RTSP | eigener Sink: verbindet zu Quelle:7236, M1–M7, Keepalive; bietet 1280×800p30 (VESA 8), H.264 CBP/CHP 4.2, **kein Ton** | **[GETESTET]** |
+| 20–30 s Verzögerung | Drehen+Konvertieren mit GStreamer nur 34 Bilder/s, Warteschlange unbegrenzt | `layernx-wfd-anzeige` (C): appsink nur neuestes Bild, I420→RGBA+Drehung in einem Durchgang auf 4 Kernen direkt in `/dev/fb0`, `FBIOPAN` | **[GETESTET]** 27–30 Bilder/s, Verzögerung kaum spürbar |
+| Schwarzes Bild | Pipeline blieb PAUSED (pulsesink wartete auf Audio) | `async=false`; Ton ganz entfernt (Wunsch) | **[GETESTET]** |
+| Linux-Oberfläche blitzt durch, altes Bild nach Trennen | X zeichnet weiter / weiß nichts vom Framebuffer | schwarzes override-redirect-Fenster während der Sitzung, beim Ende zerstört → X zeichnet neu | **[GETESTET]** |
+| Laptop ruckelte | Tablet als GO auf eigenem Kanal → Kanalspringen am Laptop | Modus `client` (Windows wählt Kanal) | **[GETESTET]** „1a“ |
+| Fremde PCs | nur ein PC erlaubt | erster PC wird in `/etc/layernx/second-screen-pc` gemerkt, andere abgelehnt; „Rechner vergessen“ | **[GETESTET]** Merken; Ablehnen **[UNGETESTET]** (kein zweiter PC) |
+| Firmen-WLAN | Zertifikate aller Art | Dialog in den Einstellungen (PEAP/TTLS/TLS, CA, Client-Zertifikat/.p12, Schlüssel, Domain), Kopie nach `/etc/wpa_supplicant/certs` (600) | Oberfläche **[GETESTET]**, Anmeldung **[UNGETESTET]** |

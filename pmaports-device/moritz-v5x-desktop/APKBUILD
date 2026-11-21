@@ -1,7 +1,7 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=moritz-v5x-desktop
 pkgver=1
-pkgrel=20
+pkgrel=21
 pkgdesc="Schlanke Touch-Oberflaeche (Xorg fbdev + Openbox + tint2 + layernx-tastatur) fuer das Betterspace V5x"
 url="https://nura.eco"
 arch="noarch"
@@ -34,6 +34,7 @@ depends="
 	fastfetch
 	layernx-webapps
 	layernx-audio
+	layernx-second-screen
 	layernx-einstellungen
 	procps
 "

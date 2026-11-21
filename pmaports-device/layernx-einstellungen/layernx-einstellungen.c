@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 /*
  * layernx-einstellungen: Touch-Einstellungen fuer LayerNX-Tablet-Linux
- * Seiten: WLAN, Bluetooth, Display, Ton, Geraet, Akku, Dienste, System.
+ * Seiten: WLAN, Bluetooth, Display, Ton, Second Screen, Geraet, Akku, Dienste, System.
  * WLAN ueber wpa_cli (Gruppe wheel), Root-Aktionen ueber layernx-einstellungen-helfer.
  */
 #include <gtk/gtk.h>
@@ -195,6 +195,128 @@ static void wlan_vergessen(GtkButton *b, gpointer d)
 	g_free(s); wlan_status_update();
 }
 
+
+/* ---------- Firmen-WLAN (WPA2/3-Enterprise) ---------- */
+typedef struct { GtkWidget *ssid, *eap, *ident, *pw, *ca, *cert, *key, *keypw, *domain, *msg; } Ent;
+static GtkWidget *datei_knopf(const char *titel)
+{
+	GtkWidget *b = gtk_file_chooser_button_new(titel, GTK_FILE_CHOOSER_ACTION_OPEN);
+	GtkFileFilter *f = gtk_file_filter_new();
+	gtk_file_filter_set_name(f, "Zertifikate / Schlüssel");
+	const char *muster[] = { "*.pem", "*.crt", "*.cer", "*.der", "*.key", "*.p12", "*.pfx", NULL };
+	for (int i = 0; muster[i]; i++) gtk_file_filter_add_pattern(f, muster[i]);
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(b), f);
+	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(b), g_get_home_dir());
+	return b;
+}
+/* Datei als root nach /etc/wpa_supplicant/certs kopieren; liefert Zielpfad oder NULL */
+static char *zert_install(GtkWidget *knopf, Ent *e)
+{
+	char *q = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(knopf));
+	if (!q) return NULL;
+	char *out = NULL, *err = NULL; int st = 1;
+	gchar *argv[] = { "layernx-einstellungen-helfer", "zertifikat", q, NULL };
+	g_spawn_sync(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &st, NULL);
+	g_free(q);
+	if (st != 0 || !out || !*out) { gtk_label_set_text(GTK_LABEL(e->msg), err && *err ? err : "Zertifikat konnte nicht installiert werden."); g_free(out); g_free(err); return NULL; }
+	g_free(err);
+	return g_strstrip(out);
+}
+static void ent_set(const char *id, const char *k, const char *v, gboolean quote)
+{
+	if (!v || !*v) return;
+	char *q = quote ? g_strdup_printf("\"%s\"", v) : g_strdup(v);
+	g_free(wpa("set_network", id, k, q)); g_free(q);
+}
+static void ent_ok(GtkButton *b, gpointer d)
+{
+	(void)b;
+	Ent *e = d;
+	const char *ssid = gtk_entry_get_text(GTK_ENTRY(e->ssid));
+	char *eap = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(e->eap));
+	if (!*ssid || !eap) { gtk_label_set_text(GTK_LABEL(e->msg), "Bitte Netzwerkname und Methode angeben."); g_free(eap); return; }
+	gboolean tls = g_str_has_prefix(eap, "TLS");
+	char *ca = zert_install(e->ca, e), *cert = tls ? zert_install(e->cert, e) : NULL, *key = tls ? zert_install(e->key, e) : NULL;
+	if (tls && !cert && !key) { gtk_label_set_text(GTK_LABEL(e->msg), "EAP-TLS braucht ein Client-Zertifikat (.p12/.pfx oder .pem + Schlüssel)."); goto ende; }
+	{
+		char *id = wpa("add_network", NULL, NULL, NULL);
+		ent_set(id, "ssid", ssid, TRUE);
+		ent_set(id, "key_mgmt", "WPA-EAP WPA-EAP-SHA256", FALSE);
+		ent_set(id, "ieee80211w", "1", FALSE);
+		ent_set(id, "eap", tls ? "TLS" : (g_str_has_prefix(eap, "TTLS") ? "TTLS" : "PEAP"), FALSE);
+		ent_set(id, "identity", gtk_entry_get_text(GTK_ENTRY(e->ident)), TRUE);
+		if (!tls) {
+			ent_set(id, "password", gtk_entry_get_text(GTK_ENTRY(e->pw)), TRUE);
+			ent_set(id, "phase2", "auth=MSCHAPV2", TRUE);
+		}
+		ent_set(id, "ca_cert", ca, TRUE);
+		ent_set(id, "domain_suffix_match", gtk_entry_get_text(GTK_ENTRY(e->domain)), TRUE);
+		if (tls) {
+			gboolean p12 = (cert && (g_str_has_suffix(cert, ".p12") || g_str_has_suffix(cert, ".pfx")));
+			if (p12) ent_set(id, "private_key", cert, TRUE);
+			else { ent_set(id, "client_cert", cert, TRUE); ent_set(id, "private_key", key ? key : cert, TRUE); }
+			ent_set(id, "private_key_passwd", gtk_entry_get_text(GTK_ENTRY(e->keypw)), TRUE);
+		}
+		g_free(wpa("select_network", id, NULL, NULL));
+		g_free(wpa("save_config", NULL, NULL, NULL));
+		g_free(id);
+		gtk_label_set_text(GTK_LABEL(wlan_status), "Verbinde (Firmen-WLAN) …");
+		g_timeout_add(9000, scan_done, NULL);
+		gtk_widget_destroy(gtk_widget_get_toplevel(GTK_WIDGET(e->msg)));
+	}
+ende:
+	g_free(eap); g_free(ca); g_free(cert); g_free(key);
+}
+static void ent_eap_changed(GtkComboBox *c, gpointer d)
+{
+	Ent *e = d;
+	gboolean tls = gtk_combo_box_get_active(c) == 2;
+	gtk_widget_set_sensitive(e->pw, !tls);
+	gtk_widget_set_sensitive(e->cert, tls); gtk_widget_set_sensitive(e->key, tls); gtk_widget_set_sensitive(e->keypw, tls);
+}
+static void wlan_firma(GtkButton *b, gpointer d)
+{
+	(void)b; (void)d;
+	static Ent e;
+	GtkWidget *w = gtk_window_new(GTK_WINDOW_TOPLEVEL), *g = gtk_grid_new(), *r = reihe();
+	int z = 0;
+	gtk_window_set_title(GTK_WINDOW(w), "Firmen-WLAN");
+	gtk_window_set_default_size(GTK_WINDOW(w), 1000, 640);
+	gtk_container_set_border_width(GTK_CONTAINER(w), 18);
+	gtk_grid_set_row_spacing(GTK_GRID(g), 8); gtk_grid_set_column_spacing(GTK_GRID(g), 12);
+#define ZEILE(text, widget) do { gtk_grid_attach(GTK_GRID(g), lbl(text, "text"), 0, z, 1, 1); gtk_widget_set_hexpand(widget, TRUE); gtk_grid_attach(GTK_GRID(g), widget, 1, z++, 1, 1); } while (0)
+	e.ssid = gtk_entry_new(); ZEILE("Netzwerkname (SSID)", e.ssid);
+	e.eap = gtk_combo_box_text_new();
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(e.eap), "PEAP (Benutzer + Passwort)");
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(e.eap), "TTLS (Benutzer + Passwort)");
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(e.eap), "TLS (Client-Zertifikat)");
+	gtk_combo_box_set_active(GTK_COMBO_BOX(e.eap), 0);
+	ZEILE("Methode", e.eap);
+	e.ident = gtk_entry_new(); ZEILE("Identität / Benutzer", e.ident);
+	e.pw = gtk_entry_new(); gtk_entry_set_visibility(GTK_ENTRY(e.pw), FALSE); ZEILE("Passwort", e.pw);
+	e.ca = datei_knopf("CA-Zertifikat"); ZEILE("CA-Zertifikat (empfohlen)", e.ca);
+	e.domain = gtk_entry_new(); gtk_entry_set_placeholder_text(GTK_ENTRY(e.domain), "z. B. radius.firma.de (optional)"); ZEILE("Server-Domain", e.domain);
+	e.cert = datei_knopf("Client-Zertifikat"); ZEILE("Client-Zertifikat (.p12/.pem)", e.cert);
+	e.key = datei_knopf("Privater Schlüssel"); ZEILE("Privater Schlüssel (bei .pem)", e.key);
+	e.keypw = gtk_entry_new(); gtk_entry_set_visibility(GTK_ENTRY(e.keypw), FALSE); ZEILE("Schlüssel-Passwort", e.keypw);
+#undef ZEILE
+	e.msg = lbl("Zertifikate werden nach /etc/wpa_supplicant/certs kopiert (nur root lesbar). Dateien z. B. per USB-Stick oder scp ins Home-Verzeichnis legen.", "hinweis");
+	gtk_label_set_line_wrap(GTK_LABEL(e.msg), TRUE);
+	g_signal_connect(e.eap, "changed", G_CALLBACK(ent_eap_changed), &e);
+	ent_eap_changed(GTK_COMBO_BOX(e.eap), &e);
+	GtkWidget *v = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+	gtk_box_pack_start(GTK_BOX(v), g, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(v), e.msg, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(r), btn("⌨", G_CALLBACK(tastatur), NULL), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(r), btn("Verbinden", G_CALLBACK(ent_ok), &e), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(v), r, FALSE, FALSE, 0);
+	/* scrollbar, damit das Fenster ueber die Bildschirmtastatur schrumpfen kann */
+	GtkWidget *sc = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sc), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(sc), v);
+	gtk_container_add(GTK_CONTAINER(w), sc);
+	gtk_widget_show_all(w);
+}
 static GtkWidget *page_wlan(void)
 {
 	GtkWidget *box, *pg = seite("WLAN", &box), *r = reihe(), *sc;
@@ -205,6 +327,8 @@ static GtkWidget *page_wlan(void)
 	gtk_box_pack_start(GTK_BOX(r), btn("Trennen", G_CALLBACK(wlan_trennen), NULL), FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(r), btn("Aktuelles vergessen", G_CALLBACK(wlan_vergessen), NULL), FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), r, FALSE, FALSE, 0);
+	{ GtkWidget *r2 = reihe(); gtk_box_pack_start(GTK_BOX(r2), btn("Firmen-WLAN mit Zertifikat (PEAP/TTLS/TLS) …", G_CALLBACK(wlan_firma), NULL), FALSE, FALSE, 0);
+	  gtk_box_pack_start(GTK_BOX(box), r2, FALSE, FALSE, 0); }
 	gtk_box_pack_start(GTK_BOX(box), lbl("Netzwerk antippen, um zu verbinden:", "hinweis"), FALSE, FALSE, 0);
 	wlan_list = gtk_list_box_new();
 	g_signal_connect(wlan_list, "row-activated", G_CALLBACK(wlan_row), NULL);
@@ -326,6 +450,58 @@ static GtkWidget *page_ton(void)
 		gtk_box_pack_start(GTK_BOX(box), lbl("Standard: an. Web-Apps bekommen nur das Mikrofon, sonst keine Rechte. Gilt ab dem nächsten Start der Web-App.", "hinweis"), FALSE, FALSE, 0);
 	}
 	g_free(m);
+	return pg;
+}
+
+/* ---------- Second Screen ---------- */
+static GtkWidget *ss_switch, *ss_pc, *ss_msg;
+static gboolean ss_lade;
+static void ss_update(void)
+{
+	char *st = run("layernx-einstellungen-helfer second-screen status"), *pc = NULL;
+	ss_lade = TRUE;
+	gtk_switch_set_active(GTK_SWITCH(ss_switch), g_str_has_prefix(st, "an"));
+	ss_lade = FALSE;
+	if (g_file_get_contents("/etc/layernx/second-screen-pc", &pc, NULL, NULL) && *pc) {
+		char *name = strchr(g_strstrip(pc), ' ');
+		char *t = g_strdup_printf("Gekoppelter PC: %s (nur dieser darf sich verbinden)", name ? name + 1 : pc);
+		gtk_label_set_text(GTK_LABEL(ss_pc), t); g_free(t);
+	} else gtk_label_set_text(GTK_LABEL(ss_pc), "Noch kein PC gekoppelt – der erste, der sich verbindet, wird gemerkt.");
+	g_free(st); g_free(pc);
+}
+static void ss_set(GtkWidget *w, GParamSpec *ps, gpointer d)
+{
+	(void)ps; (void)d;
+	if (ss_lade) return;
+	char *o = run(gtk_switch_get_active(GTK_SWITCH(w)) ? "layernx-einstellungen-helfer second-screen an" : "layernx-einstellungen-helfer second-screen aus");
+	gtk_label_set_text(GTK_LABEL(ss_msg), o); g_free(o); ss_update();
+}
+static void ss_vergessen(GtkButton *b, gpointer d)
+{
+	(void)b; (void)d;
+	char *o = run("layernx-einstellungen-helfer second-screen vergessen");
+	gtk_label_set_text(GTK_LABEL(ss_msg), o); g_free(o); ss_update();
+}
+static GtkWidget *page_second_screen(void)
+{
+	GtkWidget *box, *pg = seite("Second Screen", &box), *r = reihe(), *r2 = reihe();
+	char *h = run("hostname"), *t;
+	ss_switch = gtk_switch_new();
+	g_signal_connect(ss_switch, "notify::active", G_CALLBACK(ss_set), NULL);
+	gtk_box_pack_start(GTK_BOX(r), lbl("Second Screen (drahtloser Bildschirm für Windows)", "text"), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(r), ss_switch, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), r, FALSE, FALSE, 0);
+	t = g_strdup_printf("Am PC: Win+K → „%s“ wählen. Mit Win+P „Erweitern“ oder „Duplizieren“ wählen. "
+		"Kein gemeinsames WLAN nötig (Wi-Fi Direct). Nur Bild, kein Ton.", h);
+	gtk_box_pack_start(GTK_BOX(box), lbl(t, "hinweis"), FALSE, FALSE, 0);
+	ss_pc = lbl("", "text");
+	gtk_box_pack_start(GTK_BOX(box), ss_pc, FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(r2), btn("Rechner vergessen", G_CALLBACK(ss_vergessen), NULL), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), r2, FALSE, FALSE, 0);
+	ss_msg = lbl("Der Name in Windows ist der Gerätename (Einstellungen → Gerät).", "hinweis");
+	gtk_box_pack_start(GTK_BOX(box), ss_msg, FALSE, FALSE, 0);
+	ss_update();
+	g_free(h); g_free(t);
 	return pg;
 }
 
@@ -532,6 +708,7 @@ int main(int argc, char **argv)
 	gtk_stack_add_titled(GTK_STACK(stack), page_bt(), "bt", "Bluetooth");
 	gtk_stack_add_titled(GTK_STACK(stack), page_display(), "display", "Display");
 	gtk_stack_add_titled(GTK_STACK(stack), page_ton(), "ton", "Ton");
+	gtk_stack_add_titled(GTK_STACK(stack), page_second_screen(), "second", "Second Screen");
 	gtk_stack_add_titled(GTK_STACK(stack), page_geraet(), "geraet", "Gerät");
 	gtk_stack_add_titled(GTK_STACK(stack), page_akku(), "akku", "Akku & Strom");
 	gtk_stack_add_titled(GTK_STACK(stack), page_dienste(), "dienste", "Dienste");

@@ -1,4 +1,4 @@
-== LayerNX-Systemtest 2026-11-21 11:26:36 auf LNXTL-GT3Y
+== LayerNX-Systemtest 2026-11-21 12:58:26 auf LNXTL-GT3Y
 -- Boot & Kernel
 PASS  cmdline bootopt                    
 PASS  cmdline initrd                     
@@ -21,6 +21,10 @@ PASS  Dienst layernx-hostname
 PASS  Dienst layernx-audio               
 PASS  Dienst layernx-pulse               
 PASS  Dienst layernx-akkuschutz          (an)
+PASS  Dienst layernx-akkuwaechter        (Tiefentladeschutz)
+PASS  Second Screen laeuft               
+PASS  Wi-Fi Direct (p2p0)                
+PASS  Second Screen wartet auf Win+K     
 PASS  Dienst tailscale                   (nicht aktiv, Standard)
 PASS  Dienst cloudflared                 (nicht aktiv, Standard)
 -- Netzwerk
@@ -35,7 +39,7 @@ PASS  Touch-Bruecke /dev/input/moritz-touch
 PASS  Gestengeraet /dev/input/moritz-gestures 
 PASS  Power-Taste nur von moritz-v5x-keys 
 PASS  Hintergrundbeleuchtung             (255)
-PASS  Akkuspannung                       (4228000 uV)
+PASS  Akkuspannung                       (4227000 uV)
 PASS  Akku-Schaetzung                    (~100%)
 PASS  Ladesteuerung erreichbar           
 -- Ton
@@ -43,7 +47,7 @@ PASS  PulseAudio: Mikrofon-Quelle
 PASS  PulseAudio: Lautsprecher           
 PASS  Mikrofon-Signalweg (MICBIAS an)    
 PASS  Lautsprecher-Verstaerker an        
-PASS  Aufnahme als Benutzer (ALSA->Pulse) (rms 2092)
+PASS  Aufnahme als Benutzer (ALSA->Pulse) (rms 1290)
 PASS  Wiedergabe (stummer Ton)           
 -- Grafik
 PASS  Xorg laeuft                        
@@ -60,7 +64,7 @@ PASS  Framebuffer lesbar
 -- Programme (startet, Fenster erscheint, kein Absturz)
 PASS  Einstellungen                      (1s)
 PASS  PIN-Pad                            (1s)
-PASS  Webview (WebKitGTK)                (1s)
+PASS  Webview (WebKitGTK)                (2s)
 PASS  Tastatur oeffnet (Touch-Bereich gesetzt) 
 PASS  Tastatur reserviert Platz          (Arbeitsflaeche 1280x416)
 PASS  Tastatur schliesst                 
@@ -79,6 +83,7 @@ PASS  Befehl moritz-v5x-status
 PASS  Befehl moritz-v5x-bootanim         
 PASS  Befehl layernx-tastatur            
 PASS  Befehl layernx-webview             
+PASS  Befehl layernx-wfd-anzeige         
 PASS  Befehl pactl                       
 PASS  Befehl cloudflared                 
 PASS  Befehl tailscale                   
@@ -96,7 +101,7 @@ PASS  sshd erlaubt root
 PASS  root-Passwort gesetzt              
 PASS  Erststart erledigt/nicht noetig    
 -- System
-PASS  Speicher frei                      (8195 MB)
-PASS  RAM verfuegbar                     (1786 MB)
+PASS  Speicher frei                      (8097 MB)
+PASS  RAM verfuegbar                     (1775 MB)
 PASS  dmesg ohne Oops/Panic              
-== Ergebnis: 90 PASS, 0 FAIL, 0 WARN
+== Ergebnis: 95 PASS, 0 FAIL, 0 WARN
