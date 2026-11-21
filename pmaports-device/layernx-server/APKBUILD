@@ -1,0 +1,41 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+# Server-/Admin-Ausstattung fuer LayerNX-Tablet-Linux: Shell, Basiswerkzeuge,
+# Tailscale und cloudflared (vorinstalliert, NICHT aktiviert), Update- und Display-Befehle.
+pkgname=layernx-server
+pkgver=1
+pkgrel=2
+_cfver=2026.11.1
+pkgdesc="LayerNX-Tablet-Linux server tools (bash, tailscale, cloudflared, layernx-update)"
+url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
+arch="aarch64"
+license="MIT AND Apache-2.0"
+options="!check !strip"
+depends="bash bash-completion coreutils curl wget rsync htop nano less tmux git openssh-sftp-server ca-certificates tailscale tailscale-openrc"
+source="
+	layernx-update
+	layernx-display
+	layernx-display.confd
+	layernx-akku
+	layernx-akkuschutz.initd
+	layernx-akkuschutz.confd
+	cloudflared-$_cfver::https://github.com/cloudflare/cloudflared/releases/download/$_cfver/cloudflared-linux-arm64
+"
+
+package() {
+	install -Dm755 "$srcdir"/layernx-update "$pkgdir"/usr/bin/layernx-update
+	install -Dm755 "$srcdir"/layernx-display "$pkgdir"/usr/bin/layernx-display
+	install -Dm755 "$srcdir"/layernx-akku "$pkgdir"/usr/bin/layernx-akku
+	install -Dm755 "$srcdir"/layernx-akkuschutz.initd "$pkgdir"/etc/init.d/layernx-akkuschutz
+	install -Dm644 "$srcdir"/layernx-akkuschutz.confd "$pkgdir"/etc/conf.d/layernx-akkuschutz
+	install -Dm644 "$srcdir"/layernx-display.confd "$pkgdir"/etc/conf.d/layernx-display
+	install -Dm755 "$srcdir"/cloudflared-$_cfver "$pkgdir"/usr/bin/cloudflared
+}
+sha512sums="
+1f933f5edc2aebcf899037676ef7c2f1c6b0b7ace4484e3cad839eafc3eb77ebfc46270d63a334147449382389b03f5bdc7d385d523029a1ec16b2aae1c45bf0  layernx-update
+c48c1acd17e367b46c4caf8037bf103f82eadbd7be127e8ec45f0894dd758702ae2e2ee2361081dc9991f5c7afd2ea84f3523a512e87b9513418d837be9da262  layernx-display
+503f2f9cfd67f99ff3481687e36def5e1ec6f7b4a065945debbc1e61e5bee00312b4045082537ebbf2163f05c7d458ad3f20272b9bb0e4aa115e66678ccd86ef  layernx-display.confd
+f513a04555cca51f38a8062d6d0d121a80708a014dc280fa90dd314d5aceeb886fd6e35402b5efb250172f2272822fd6347129f51000fef33996c98cbff40e41  layernx-akku
+bffc9e64b5bf2949269c6cce8acf66124209217c917e6e6039ba712ebaee44f61afe345d451a6d9cee5ad019cb899013ebbb0037bcb28833aa43bdd119e9bf62  layernx-akkuschutz.initd
+007007f1559f0ce90b4063df9419d561c88a182b9a3d4d4744eb75611b958916af623b737fc66e2c54d00b9e8ce2f53105edaa1e541d644840f803f6828702c2  layernx-akkuschutz.confd
+4ac455b3864d06d1ebd40fe0802f55e15fb8a30cc5527d3ea3ae1e6976d6bf90157c38977af8b8ce11396734c73dc2c50e6fcbd42dfdb05557ed31e337d35058  cloudflared-2026.11.1
+"

@@ -1,0 +1,8 @@
+#!/sbin/openrc-run
+description="LayerNX: Akkuschutz (Ladegrenze fuer Serverbetrieb)"
+supervisor=supervise-daemon
+command=/bin/sh
+command_args="-c 'while :; do . /etc/conf.d/layernx-akkuschutz 2>/dev/null; if [ \"\$AKKUSCHUTZ\" = an ]; then p=\$(moritz-v5x-status prozent); if [ \"\$p\" -ge \"\${MAX:-50}\" ]; then echo \"0 1\" > /proc/mtk_battery_cmd/current_cmd; elif [ \"\$p\" -le \"\${MIN:-45}\" ]; then echo \"0 0\" > /proc/mtk_battery_cmd/current_cmd; fi; fi; sleep 60; done'"
+respawn_delay=10
+depend() { after moritz-v5x-devnodes; }
+stop_post() { echo "0 0" > /proc/mtk_battery_cmd/current_cmd 2>/dev/null; return 0; }

@@ -1,0 +1,34 @@
+#!/bin/sh
+# layernx-pin aendern|entfernen - PIN fuer das Verlassen von Vollbild-Apps verwalten
+# (nur ueber das Menue im entsperrten Homescreen erreichbar; Eingabe per layernx-pinpad)
+PINF=/etc/layernx/pin.sha256
+[ "$(id -u)" = 0 ] || exec doas /usr/bin/layernx-pin "$@"
+U="$(awk -F: '$3 >= 1000 && $3 < 60000 {print $1; exit}' /etc/passwd)"
+asuser() { su "$U" -c "DISPLAY=:0 $*"; }
+pad() { asuser "layernx-pinpad --titel '$1' --hinweis '$2'" 2>/dev/null; }
+hash() { printf '%s' "$1" | sha256sum | cut -d' ' -f1; }
+alte_pin_pruefen() {
+	[ -s "$PINF" ] || return 0
+	h=""
+	for v in 1 2 3; do
+		p=$(pad "Alte PIN eingeben" "$h") || return 1
+		[ "$(hash "$p")" = "$(cat $PINF)" ] && return 0
+		h="Falsche PIN – noch $((3 - v)) Versuch(e)"
+	done
+	return 1
+}
+case "$1" in
+	aendern)
+		alte_pin_pruefen || exit 0
+		h="4 Ziffern"
+		for v in 1 2 3; do
+			p1=$(pad "Neue PIN festlegen" "$h") || exit 0
+			p2=$(pad "Neue PIN wiederholen" "") || exit 0
+			if [ "$p1" = "$p2" ]; then mkdir -p /etc/layernx; umask 077; hash "$p1" > "$PINF"; exit 0; fi
+			h="PINs stimmten nicht überein – bitte neu"
+		done ;;
+	entfernen)
+		alte_pin_pruefen || exit 0
+		rm -f "$PINF" ;;
+	*) echo "usage: layernx-pin aendern|entfernen" >&2; exit 2 ;;
+esac

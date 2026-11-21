@@ -1,0 +1,105 @@
+diff -ru a/src/fbdev.c b/src/fbdev.c
+--- a/src/fbdev.c	2026-11-21 00:16:50.703377073 +0100
++++ b/src/fbdev.c	2026-11-21 00:28:33.382910728 +0100
+@@ -685,10 +685,100 @@
+ #endif
+ }
+ 
++/*
++ * LayerNX-Tablet-Linux (Betterspace V5x): schnelle 90-Grad-Drehung fuer 32 bpp.
++ * Die generische shadowUpdateRotatePacked() schreibt den Framebuffer spaltenweise
++ * (verstreute Zugriffe auf ungecachten/write-combining Speicher). Hier wird jedes
++ * Damage-Rechteck in 32x32-Kacheln gedreht, und innerhalb einer Kachel werden die
++ * Ziel-Zeilen fortlaufend geschrieben. Abbildung (RR_Rotate_90, "CCW"):
++ *   fb_x = y,  fb_y = (Breite_quer - 1) - x
++ */
++#ifdef __ARM_NEON
++#include <arm_neon.h>
++#endif
++#define LNX_TILE 32
++static void
++fbdevUpdateRotateFast(ScreenPtr pScreen, shadowBufPtr pBuf)
++{
++    ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
++    FBDevPtr fPtr = FBDEVPTR(pScrn);
++    PixmapPtr pShadow = pBuf->pPixmap;
++    RegionPtr damage = DamageRegion(pBuf->pDamage);
++    FbBits *shaBits;
++    FbStride shaStride;
++    int shaBpp, shaXoff, shaYoff, nbox;
++    BoxPtr pbox;
++    CARD32 *src, *dst;
++    int sstride, dstride, W, H;
++
++    if (fPtr->rotate != FBDEV_ROTATE_CCW || pScrn->bitsPerPixel != 32 || !fPtr->fbstart) {
++        shadowUpdateRotatePacked(pScreen, pBuf);
++        return;
++    }
++    fbGetDrawable(&pShadow->drawable, shaBits, shaStride, shaBpp, shaXoff, shaYoff);
++    (void)shaBpp; (void)shaXoff; (void)shaYoff;
++    src = (CARD32 *) shaBits;
++    sstride = shaStride * (int) sizeof(FbBits) / 4;
++    dst = (CARD32 *) fPtr->fbstart;
++    dstride = fbdevHWGetLineLength(pScrn) / 4;
++    W = pShadow->drawable.width;
++    H = pShadow->drawable.height;
++    nbox = RegionNumRects(damage);
++    pbox = RegionRects(damage);
++    while (nbox--) {
++        int x1 = max(pbox->x1, 0), y1 = max(pbox->y1, 0);
++        int x2 = min(pbox->x2, W), y2 = min(pbox->y2, H);
++        int tx, ty, x, y;
++        pbox++;
++        for (ty = y1; ty < y2; ty += LNX_TILE) {
++            int ye = min(ty + LNX_TILE, y2);
++            for (tx = x1; tx < x2; tx += LNX_TILE) {
++                int xe = min(tx + LNX_TILE, x2);
++                x = tx;
++#ifdef __ARM_NEON
++                /* 4x4-Bloecke per NEON transponieren */
++                for (; x + 4 <= xe; x += 4) {
++                    for (y = ty; y + 4 <= ye; y += 4) {
++                        const CARD32 *s0 = src + (size_t)y * sstride + x;
++                        uint32x4_t r0 = vld1q_u32(s0);
++                        uint32x4_t r1 = vld1q_u32(s0 + sstride);
++                        uint32x4_t r2 = vld1q_u32(s0 + 2 * sstride);
++                        uint32x4_t r3 = vld1q_u32(s0 + 3 * sstride);
++                        uint32x4x2_t t01 = vtrnq_u32(r0, r1);
++                        uint32x4x2_t t23 = vtrnq_u32(r2, r3);
++                        CARD32 *d0 = dst + (size_t)(W - 1 - x) * dstride + y;
++                        vst1q_u32(d0, vcombine_u32(vget_low_u32(t01.val[0]), vget_low_u32(t23.val[0])));
++                        vst1q_u32(d0 - dstride, vcombine_u32(vget_low_u32(t01.val[1]), vget_low_u32(t23.val[1])));
++                        vst1q_u32(d0 - 2 * dstride, vcombine_u32(vget_high_u32(t01.val[0]), vget_high_u32(t23.val[0])));
++                        vst1q_u32(d0 - 3 * dstride, vcombine_u32(vget_high_u32(t01.val[1]), vget_high_u32(t23.val[1])));
++                    }
++                    /* Rest-Zeilen (ye nicht durch 4 teilbar) skalar */
++                    for (; y < ye; y++) {
++                        const CARD32 *s = src + (size_t)y * sstride + x;
++                        dst[(size_t)(W - 1 - x) * dstride + y] = s[0];
++                        dst[(size_t)(W - 2 - x) * dstride + y] = s[1];
++                        dst[(size_t)(W - 3 - x) * dstride + y] = s[2];
++                        dst[(size_t)(W - 4 - x) * dstride + y] = s[3];
++                    }
++                }
++#endif
++                for (; x < xe; x++) {
++                    CARD32 *d = dst + (size_t)(W - 1 - x) * dstride + ty;
++                    const CARD32 *s = src + (size_t)ty * sstride + x;
++                    for (y = ty; y < ye; y++) {
++                        *d++ = *s;
++                        s += sstride;
++                    }
++                }
++            }
++        }
++    }
++}
++
+ static void
+ fbdevUpdateRotatePacked(ScreenPtr pScreen, shadowBufPtr pBuf)
+ {
+-    shadowUpdateRotatePacked(pScreen, pBuf);
++    fbdevUpdateRotateFast(pScreen, pBuf);
+ }
+ 
+ static void

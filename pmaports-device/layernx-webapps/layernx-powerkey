@@ -1,0 +1,67 @@
+#!/bin/sh
+# layernx-powerkey short|hold|multi5  (aufgerufen von moritz-v5x-keys, laeuft als root)
+# Regeln:
+#  - Homescreen (keine App offen): short = Display an/aus, hold = Power-Menue
+#  - App offen: Taste gesperrt; nur 5x schnell druecken -> PIN-Abfrage -> App schliessen
+#  - Display aus: jeder Druck weckt nur den Bildschirm
+U="$(awk -F: '$3 >= 1000 && $3 < 60000 {print $1; exit}' /etc/passwd)"
+PINF=/etc/layernx/pin.sha256
+LOG=/tmp/layernx-powerkey.log
+log() { echo "$(date +%T) $*" >> $LOG; }
+log "aufruf: $1"
+asuser() { su "$U" -c "DISPLAY=:0 $*"; }
+display_on() { [ "$(cat /sys/class/leds/lcd-backlight/brightness 2>/dev/null)" -gt 0 ] 2>/dev/null; }
+
+apps_open() {
+	ids=$(asuser "xprop -root _NET_CLIENT_LIST" 2>/dev/null | sed 's/.*#//; s/,/ /g')
+	for w in $ids; do
+		t=$(asuser "xprop -id $w _NET_WM_WINDOW_TYPE _NET_WM_STATE WM_CLASS" 2>/dev/null)
+		case "$t" in *svkbd*|*jgmenu*|*tint2*) continue ;; esac
+		case "$t" in *_NET_WM_WINDOW_TYPE_DOCK*|*_NET_WM_WINDOW_TYPE_DESKTOP*) continue ;; esac
+		log "app offen: $w"
+		return 0
+	done
+	log "keine app offen (fenster: $ids)"
+	return 1
+}
+
+pad() { asuser "layernx-pinpad --titel '$1' --hinweis '$2'" 2>/dev/null; }
+hash() { printf '%s' "$1" | sha256sum | cut -d' ' -f1; }
+
+case "$1" in
+	short)
+		if ! display_on; then layernx-display on; exit 0; fi
+		apps_open && exit 0
+		layernx-display off ;;
+	hold)
+		if ! display_on; then layernx-display on; exit 0; fi
+		apps_open && exit 0
+		moritz-v5x-powermenu & ;;
+	multi5)
+		display_on || layernx-display on
+		apps_open || exit 0
+		WIN=$(asuser "xdotool getactivewindow" 2>/dev/null)
+		[ -n "$WIN" ] && asuser "xdotool windowminimize $WIN" 2>/dev/null
+		restore() { [ -n "$WIN" ] && asuser "xdotool windowactivate $WIN" 2>/dev/null; }
+		if [ ! -s "$PINF" ]; then
+			h="4 Ziffern zum Verlassen von Vollbild-Apps"
+			for v in 1 2 3; do
+				p1=$(pad "Neue PIN festlegen" "$h") || { restore; exit 0; }
+				p2=$(pad "PIN wiederholen" "") || { restore; exit 0; }
+				[ "$p1" = "$p2" ] && break
+				h="PINs stimmten nicht überein – bitte neu"; p1=""
+			done
+			[ -n "$p1" ] || { restore; exit 0; }
+			mkdir -p /etc/layernx; umask 077; hash "$p1" > "$PINF"; log "PIN festgelegt"
+		else
+			h=""; ok=0
+			for v in 1 2 3; do
+				p=$(pad "PIN eingeben" "$h") || { restore; exit 0; }
+				[ "$(hash "$p")" = "$(cat $PINF)" ] && { ok=1; break; }
+				h="Falsche PIN – noch $((3 - v)) Versuch(e)"; log "falsche PIN"
+			done
+			[ $ok = 1 ] || { restore; exit 0; }
+		fi
+		log "App wird geschlossen: $WIN"
+		[ -n "$WIN" ] && { asuser "xdotool windowclose $WIN" 2>/dev/null || asuser "xdotool windowkill $WIN"; } ;;
+esac

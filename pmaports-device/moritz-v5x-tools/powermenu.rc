@@ -1,0 +1,14 @@
+stay_alive = 0
+position_mode = center
+menu_width = 420
+item_height = 72
+font = DejaVu Sans Bold 20
+icon_size = 40
+menu_border = 3
+menu_radius = 10
+color_menu_bg = #0b0b10 100
+color_menu_border = #4931fd 100
+color_norm_fg = #eceff4 100
+color_sel_bg = #4931fd 100
+color_sel_fg = #ffffff 100
+color_sep_fg = #4931fd 60

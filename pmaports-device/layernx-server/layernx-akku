@@ -1,0 +1,23 @@
+#!/bin/sh
+# layernx-akku schutz an [MAX [MIN]] | schutz aus | status
+# Akkuschutz fuer Serverbetrieb: Laden stoppt bei MAX %, startet wieder bei MIN %
+# (MediaTek: /proc/mtk_battery_cmd/current_cmd "0 1" = Laden aus, "0 0" = Laden an).
+CONF=/etc/conf.d/layernx-akkuschutz
+CMD=/proc/mtk_battery_cmd/current_cmd
+[ "$(id -u)" = 0 ] || exec doas /usr/bin/layernx-akku "$@"
+AKKUSCHUTZ=aus; MAX=50; MIN=45
+[ -f $CONF ] && . $CONF
+save() { printf 'AKKUSCHUTZ=%s\nMAX=%s\nMIN=%s\n' "$AKKUSCHUTZ" "$MAX" "$MIN" > $CONF; }
+case "$1 $2" in
+	"schutz an")
+		[ -n "$3" ] && MAX=$3; [ -n "$4" ] && MIN=$4; [ -z "$4" ] && [ -n "$3" ] && MIN=$((MAX - 5))
+		AKKUSCHUTZ=an; save; rc-update add layernx-akkuschutz default >/dev/null 2>&1; rc-service layernx-akkuschutz restart >/dev/null 2>&1
+		echo "Akkuschutz an: Laden stoppt bei ${MAX}%, startet wieder bei ${MIN}%" ;;
+	"schutz aus")
+		AKKUSCHUTZ=aus; save; rc-service layernx-akkuschutz stop >/dev/null 2>&1; echo "0 0" > $CMD
+		echo "Akkuschutz aus: Laden normal" ;;
+	"status "*|"status")
+		st=$(cat /sys/class/power_supply/battery/status); pct=$(moritz-v5x-status prozent)
+		echo "Akkuschutz: $AKKUSCHUTZ (max ${MAX}%, min ${MIN}%) | Akku ~${pct}% | $st | Ladebefehl: $(cat $CMD)" ;;
+	*) echo "usage: layernx-akku schutz an [MAX [MIN]] | schutz aus | status" >&2; exit 2 ;;
+esac

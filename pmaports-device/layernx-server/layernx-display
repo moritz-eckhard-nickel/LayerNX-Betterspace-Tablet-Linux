@@ -1,0 +1,25 @@
+#!/bin/sh
+# layernx-display on|off|toggle|status|brightness <0-99>
+# Helligkeit 0-99 wird linear auf 1..255 (Hintergrundbeleuchtung) abgebildet und in
+# /etc/conf.d/layernx-display gespeichert (wird beim Start gesetzt). 0 = dunkelste Stufe, nicht aus.
+BL=/sys/class/leds/lcd-backlight/brightness
+CONF=/etc/conf.d/layernx-display
+[ "$(id -u)" = 0 ] || exec doas /usr/bin/layernx-display "$@"
+BRIGHTNESS=200
+[ -f $CONF ] && . $CONF
+cur=$(cat $BL 2>/dev/null || echo 0)
+case "${1:-toggle}" in
+	off) echo 0 > $BL; rc-service moritz-v5x-fbrefresh stop >/dev/null 2>&1 ;;
+	on) rc-service moritz-v5x-fbrefresh start >/dev/null 2>&1; echo "$BRIGHTNESS" > $BL ;;
+	toggle) if [ "$cur" -gt 0 ]; then "$0" off; else "$0" on; fi ;;
+	status) if [ "$cur" -gt 0 ]; then echo "an (Stufe $(( (cur - 1) * 99 / 254 )) von 99)"; else echo aus; fi ;;
+	brightness)
+		v="$2"
+		case "$v" in ''|*[!0-9]*) echo "Zahl 0-99 angeben" >&2; exit 2 ;; esac
+		[ "$v" -gt 99 ] && v=99
+		raw=$(( 1 + v * 254 / 99 ))
+		echo "BRIGHTNESS=$raw" > $CONF
+		[ "$cur" -gt 0 ] && echo "$raw" > $BL
+		echo "Helligkeit $v/99 (Rohwert $raw/255)" ;;
+	*) echo "usage: layernx-display on|off|toggle|status|brightness <0-99>" >&2; exit 2 ;;
+esac

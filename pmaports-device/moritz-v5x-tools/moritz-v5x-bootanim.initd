@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+description="LayerNX: Boot-Animation auf dem Framebuffer (bis die Oberflaeche startet)"
+pidfile=/run/moritz-v5x-bootanim.pid
+depend() {
+	need moritz-v5x-devnodes
+}
+start() {
+	ebegin "Starte Boot-Animation"
+	rm -f /run/moritz-v5x-bootanim.stop
+	start-stop-daemon --start --background --make-pidfile --pidfile $pidfile \
+		--exec /usr/bin/moritz-v5x-bootanim -- /usr/share/layernx/bootanim 30
+	eend $?
+}
+stop() {
+	touch /run/moritz-v5x-bootanim.stop
+	start-stop-daemon --stop --pidfile $pidfile --retry 15 2>/dev/null
+	return 0
+}

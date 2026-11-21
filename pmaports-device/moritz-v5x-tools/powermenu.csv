@@ -1,0 +1,6 @@
+Display aus,doas /usr/bin/layernx-display off,video-display
+^sep()
+Neu starten,doas reboot,system-reboot
+Ausschalten,doas poweroff,system-shutdown
+^sep()
+Abbrechen,true,process-stop

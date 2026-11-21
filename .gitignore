@@ -6,3 +6,18 @@
 /build/apks/
 /build/*.xwd
 /build/fb0.raw.gz
+# Rohdaten / Zwischenstaende
+/build/*.raw
+/build/*.raw.gz
+/build/apks/
+/build/release-*.img
+/build/install.log
+/build/push.log
+/branding/src/bootanim/
+/branding/src/logo-zip/
+# Bildschirmfotos mit LAN-IP in der Leiste
+/build/x8*.png
+/build/x9.png
+/build/chr.png
+/build/fbc.png
+/build/pin.png

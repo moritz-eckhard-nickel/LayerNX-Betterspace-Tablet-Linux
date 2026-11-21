@@ -1,0 +1,13 @@
+#!/bin/sh
+# layernx-update: aktualisiert LayerNX-Tablet-Linux komplett
+# (Alpine/pmOS-Pakete inkl. Tailscale, danach cloudflared per Selbst-Update)
+set -e
+[ "$(id -u)" = 0 ] || exec doas "$0" "$@"
+echo "== Paketquellen und Pakete (apk)"
+apk update
+apk upgrade --available
+if command -v cloudflared >/dev/null; then
+	echo "== cloudflared"
+	cloudflared update || echo "cloudflared: kein Update oder Update fehlgeschlagen"
+fi
+echo "== fertig"

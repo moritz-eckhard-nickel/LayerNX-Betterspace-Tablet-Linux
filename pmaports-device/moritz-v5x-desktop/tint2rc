@@ -4,22 +4,22 @@
 # 1: Leiste
 rounded = 0
 border_width = 0
-background_color = #3b4252 100
-border_color = #3b4252 100
+background_color = #0b0b10 100
+border_color = #0b0b10 100
 # 2: Knoepfe / aktives Fenster
 rounded = 6
 border_width = 1
-background_color = #4c566a 100
-border_color = #88c0d0 100
+background_color = #4931fd 100
+border_color = #7a6bff 100
 # 3: inaktive Fenster
 rounded = 6
 border_width = 0
-background_color = #434c5e 100
-border_color = #434c5e 100
+background_color = #1e1a3a 100
+border_color = #1e1a3a 100
 
 #-------------------------------------
 # Leiste
-panel_items = PPTSC
+panel_items = PPTESEC
 panel_size = 100% 64
 panel_margin = 0 0
 panel_padding = 4 4 6
@@ -78,6 +78,31 @@ mouse_left = toggle_iconify
 systray_padding = 4 2 4
 systray_background_id = 0
 systray_icon_size = 40
+
+#-------------------------------------
+# Executor 1: IP-Adresse
+execp = new
+execp_command = moritz-v5x-status ip
+execp_interval = 10
+execp_continuous = 0
+execp_markup = 0
+execp_font = DejaVu Sans Bold 13
+execp_font_color = #eceff4 100
+execp_padding = 10 0
+execp_background_id = 0
+execp_centered = 1
+
+# Executor 2: Stromquelle + Akku (geschaetzt)
+execp = new
+execp_command = moritz-v5x-status akku
+execp_interval = 10
+execp_continuous = 0
+execp_markup = 0
+execp_font = DejaVu Sans Bold 13
+execp_font_color = #eceff4 100
+execp_padding = 10 0
+execp_background_id = 0
+execp_centered = 1
 
 #-------------------------------------
 # Uhr

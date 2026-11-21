@@ -1,0 +1,52 @@
+#!/bin/sh
+# Statusanzeige fuer tint2 (LayerNX-Tablet-Linux):
+#   moritz-v5x-status akku  -> Stromquelle + geschaetzter Akkustand
+#   moritz-v5x-status ip    -> IP-Adresse (WLAN, sonst USB)
+# Der Stock-Kernel liefert capacity=-1 (Android-fuelgauged fehlt), daher Schaetzung
+# aus der Akkuspannung; beim Laden wird der Spannungsanstieg (I*R) abgezogen.
+PS=/sys/class/power_supply
+rd() { cat "$1" 2>/dev/null; }
+
+akku() {
+	src=""
+	[ "$(rd $PS/ac/online)" = 1 ] && src="Netz"
+	[ -z "$src" ] && [ "$(rd $PS/usb/online)" = 1 ] && src="USB"
+	[ -z "$src" ] && [ "$(rd $PS/charger/online)" = 1 ] && src="Netz"
+	cap=$(rd $PS/battery/capacity)
+	if [ -n "$cap" ] && [ "$cap" -ge 0 ] 2>/dev/null; then
+		pct=$cap
+	else
+		uv=$(rd $PS/battery/voltage_now); ua=$(rd $PS/battery/current_now)
+		st=$(rd $PS/battery/status)
+		pct=$(awk -v uv="${uv:-0}" -v ua="${ua:-0}" -v st="$st" 'BEGIN{
+			v=uv/1000000.0
+			if (st=="Charging" && ua>0) v-= (ua/1000000.0)*0.15
+			n=split("3.30 3.40 3.50 3.60 3.65 3.70 3.75 3.80 3.90 4.00 4.10 4.20",V," ")
+			split("0 3 8 18 25 35 45 55 68 80 90 100",P," ")
+			if (v<=V[1]) {print 0; exit}
+			if (v>=V[n]) {print 100; exit}
+			for (i=1;i<n;i++) if (v<V[i+1]) {printf "%d\n", P[i]+(P[i+1]-P[i])*(v-V[i])/(V[i+1]-V[i]); exit}
+		}')
+	fi
+	[ "$1" = nur_zahl ] && { echo "$pct"; return; }
+	if [ -n "$src" ]; then
+		echo "⚡ $src ~${pct}%"
+	else
+		echo "Akku ~${pct}%"
+	fi
+}
+
+ip4() {
+	for i in wlan0 usb0 rndis0; do
+		a=$(/usr/sbin/ip -4 addr show "$i" 2>/dev/null | awk '/inet /{sub(/\/.*/,"",$2); print $2; exit}')
+		[ -n "$a" ] && { echo "$a"; return; }
+	done
+	echo "offline"
+}
+
+case "$1" in
+	akku) akku ;;
+	prozent) akku nur_zahl ;;
+	ip) ip4 ;;
+	*) echo "$(ip4)  $(akku)" ;;
+esac
