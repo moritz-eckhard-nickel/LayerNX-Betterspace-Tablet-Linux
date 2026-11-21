@@ -100,6 +100,11 @@ sudo ip link set $IF up && sudo ip addr add 172.16.42.2/24 dev $IF
 ssh root@172.16.42.1            # Passwort: lnx (Standard, nur root)
 ```
 
+> **Release v0.0.4:** Dort ist root nach der Installation gesperrt (pmbootstrap führt nach dem
+> Setzen von `lnx` noch `passwd -l root` aus), SSH meldet „Permission denied“. Dann den Menschen
+> bitten, am Tablet **Einstellungen → Gerät → Passwort ändern** (root) zu setzen, und damit
+> einloggen. Ab dem nächsten Release setzt `layernx-erststart` `lnx` beim ersten Start.
+
 **Sofort das root-Passwort ändern lassen** (Einstellungen → Gerät → Passwort ändern, oder `passwd`):
 alle Tablets haben ab Werk `root` / `lnx`, auch per SSH. Standardmäßig existiert nur `root`
 (der Build-Benutzer wird beim ersten Start entfernt). Hostname ist automatisch `LNXTL-XXXX`.

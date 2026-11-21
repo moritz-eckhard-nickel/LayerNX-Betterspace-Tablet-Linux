@@ -8,7 +8,8 @@ done
 rc-update add layernx-hostname boot 2>/dev/null
 rc-update add layernx-erststart boot 2>/dev/null
 # Standard-root-Passwort "lnx" einmalig setzen, falls root gesperrt ist (aenderbar in Einstellungen -> Geraet).
-# SSH-Login als root mit Passwort bleibt gesperrt (sshd: prohibit-password).
+# Hinweis: pmbootstrap sperrt root danach wieder (passwd -l) -> layernx-erststart setzt "lnx" beim ersten Start erneut.
+# SSH-Login als root mit Passwort ist erlaubt (/etc/ssh/sshd_config.d/10-layernx.conf: PermitRootLogin yes).
 if [ ! -f /etc/layernx/root-pw-gesetzt ]; then
 	case "$(grep '^root:' /etc/shadow | cut -d: -f2)" in
 		'!'|'*'|'!!'|'') echo 'root:lnx' | chpasswd ;;

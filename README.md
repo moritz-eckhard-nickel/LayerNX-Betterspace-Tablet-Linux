@@ -56,6 +56,8 @@ postmarketOS/Nura-Projekt** und wird von diesen Projekten weder unterstützt noc
 | Kopfhörer-Ausgang, Kameras, Sensoren, GPU | ❌ / nicht eingerichtet |
 | Vibration | ❌ kein Motor verbaut (der Gerätebaum nennt einen, er reagiert nie) |
 
+**Handbuch mit allen Funktionen: [docs/WIKI.md](docs/WIKI.md).**
+
 Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgeschichte inkl. aller Fehlversuche).
 
 ## Aufbau
@@ -81,7 +83,7 @@ Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgesch
 | `device-dumps/android-stock/` | vollständige Dumps des Original-Androids (**proprietär**, Seriennummer/MACs geschwärzt) |
 | `images/` | `layernx-v5x-boot.img` (passend zum neuesten Release); das Rootfs-Image liegt unter **[Releases](https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux/releases)** (zu groß für Git) |
 | `build/` | Testprotokolle (pstore/ramoops), Screenshots, Touch-Messungen |
-| `docs/` | Protokoll |
+| `docs/` | Handbuch ([WIKI.md](docs/WIKI.md)), Protokoll, Systemtests |
 
 ## Installation mit KI-Agent
 
@@ -111,6 +113,8 @@ interaktiv durch Prüfung, Entsperren, Flashen und Ersteinrichtung (inkl. Treibe
    > ⚠️ **Alle LayerNX-Tablets haben ab Werk denselben Zugang `root` / `lnx`, auch per SSH.**
    > Passwort sofort ändern: **Einstellungen → Gerät → Passwort ändern** (oder `passwd`).
    > Standardmäßig gibt es nur `root`; weitere Benutzer bei Bedarf selbst anlegen (`adduser`).
+   > **Release v0.0.4:** root ist dort nach dem Flashen gesperrt, `lnx` geht nicht – am Tablet
+   > Einstellungen → Gerät → Passwort ändern. Behoben ab dem nächsten Release.
 6. WLAN einrichten: `/etc/wpa_supplicant/wpa_supplicant.conf` (z. B. `wpa_passphrase SSID PASSWORT`), dann `rc-service wpa_supplicant restart`.
    Feste MAC: `WLAN_MAC` in `/etc/conf.d/moritz-v5x-wifi`.
 
