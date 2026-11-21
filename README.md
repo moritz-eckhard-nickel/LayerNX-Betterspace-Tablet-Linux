@@ -69,7 +69,7 @@ Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgesch
 | `patches/` | Patch für `postmarketos-initramfs` (devtmpfs-Fallback, kleine Stufe 1) |
 | `scripts/` | Build-Wrapper, Android-Dump, Preloader-Fastboot-Trick, Diagnose |
 | `device-dumps/android-stock/` | vollständige Dumps des Original-Androids (**proprietär**, Seriennummer/MACs geschwärzt) |
-| `images/` | `layernx-v5x-boot.img`; das Rootfs-Image liegt unter **[Releases](https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux/releases)** (zu groß für Git) |
+| `images/` | `layernx-v5x-boot.img` (passend zum neuesten Release); das Rootfs-Image liegt unter **[Releases](https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux/releases)** (zu groß für Git) |
 | `build/` | Testprotokolle (pstore/ramoops), Screenshots, Touch-Messungen |
 | `docs/` | Protokoll |
 
@@ -88,10 +88,11 @@ interaktiv durch Prüfung, Entsperren, Flashen und Ersteinrichtung (inkl. Treibe
    `fastboot --disable-verity --disable-verification flash vbmeta device-dumps/android-stock/img/vbmeta.img`
 4. Rootfs und Kernel flashen:
    ```sh
-   # Rootfs-Image aus den Releases laden (layernx-v5x-rootfs.sparse.img)
-   fastboot flash userdata layernx-v5x-rootfs.sparse.img
-   fastboot flash boot images/layernx-v5x-boot.img
-   fastboot flash logo branding/out/layernx-logo.img   # optional: LayerNX-Bootlogo
+   # alle Images aus DEMSELBEN Release laden (boot.img und Rootfs gehören zusammen)
+   gh release download --pattern '*.img' --pattern SHA256SUMS.txt -D release/ && (cd release && sha256sum -c SHA256SUMS.txt)
+   fastboot flash userdata release/layernx-v5x-rootfs.sparse.img
+   fastboot flash boot     release/layernx-v5x-boot.img
+   fastboot flash logo     release/layernx-logo.img   # optional: LayerNX-Bootlogo
    fastboot reboot
    ```
    > Hinweis: Alle Bestandteile dieser Images wurden am Gerät getestet; das fertige Gesamtimage als
