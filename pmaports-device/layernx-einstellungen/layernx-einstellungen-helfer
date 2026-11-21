@@ -9,6 +9,8 @@ case "$1" in
 		echo "$n" > /etc/hostname
 		if grep -q "^127.0.1.1" /etc/hosts; then sed -i "s/^127\.0\.1\.1 .*/127.0.1.1 $n/" /etc/hosts; else echo "127.0.1.1 $n" >> /etc/hosts; fi
 		hostname "$n"; mkdir -p /etc/layernx; touch /etc/layernx/hostname-vergeben
+		# Second Screen meldet sich unter dem Hostnamen -> neu starten, falls aktiv
+		rc-service layernx-second-screen status >/dev/null 2>&1 && rc-service layernx-second-screen restart >/dev/null 2>&1
 		echo "Hostname: $n" ;;
 	ssh)
 		case "$2" in
@@ -32,5 +34,24 @@ case "$1" in
 		IFS= read -r pw
 		[ -n "$pw" ] || { echo "Leeres Passwort" >&2; exit 2; }
 		printf '%s:%s\n' "$u" "$pw" | chpasswd && echo "Passwort für $u geändert" ;;
-	*) echo "usage: hostname NAME | ssh an|aus | tailscale start|stop|up|status | passwort benutzer|root" >&2; exit 2 ;;
+	second-screen)
+		case "$2" in
+			an) rc-update add layernx-second-screen default >/dev/null; rc-service layernx-second-screen start >/dev/null 2>&1 && echo "Second Screen an" ;;
+			aus) rc-update del layernx-second-screen default >/dev/null 2>&1; rc-service layernx-second-screen stop >/dev/null 2>&1; echo "Second Screen aus" ;;
+			vergessen) rm -f /etc/layernx/second-screen-pc
+				rc-service layernx-second-screen status >/dev/null 2>&1 && rc-service layernx-second-screen restart >/dev/null 2>&1
+				echo "Rechner vergessen – der nächste, der sich verbindet, wird gemerkt" ;;
+			status) rc-service layernx-second-screen status >/dev/null 2>&1 && echo an || echo aus ;;
+			*) echo "second-screen an|aus|vergessen|status" >&2; exit 2 ;;
+		esac ;;
+	zertifikat)
+		# Zertifikat/Schluessel fuer Firmen-WLAN nach /etc/wpa_supplicant/certs kopieren (nur root lesbar)
+		q="$2"; [ -f "$q" ] || { echo "Datei nicht gefunden: $q" >&2; exit 2; }
+		case "$q" in *.pem|*.crt|*.cer|*.der|*.key|*.p12|*.pfx) ;; *) echo "Nur .pem .crt .cer .der .key .p12 .pfx" >&2; exit 2 ;; esac
+		[ "$(stat -c %s "$q")" -le 1048576 ] || { echo "Datei zu groß" >&2; exit 2; }
+		d=/etc/wpa_supplicant/certs; mkdir -p $d; chmod 700 $d
+		n=$(basename "$q" | tr -c 'A-Za-z0-9._\n-' '_')
+		cp "$q" "$d/$n" && chmod 600 "$d/$n" && echo "$d/$n" ;;
+	zertifikate) ls -1 /etc/wpa_supplicant/certs 2>/dev/null ;;
+	*) echo "usage: hostname NAME | ssh an|aus | tailscale start|stop|up|status | passwort benutzer|root | second-screen an|aus|vergessen|status | zertifikat DATEI | zertifikate" >&2; exit 2 ;;
 esac

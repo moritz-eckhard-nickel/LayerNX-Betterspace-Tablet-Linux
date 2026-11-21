@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+# Schutz vor Tiefentladung: der Stock-Kernel kennt ohne Android-Daemon keinen Ladestand (Soc=-1)
+# und schaltet deshalb bei leerem Akku nicht selbst ab. Dieser Dienst faehrt das System sauber
+# herunter, wenn ohne Netzteil die Akkuspannung 3 Messungen lang (90 s) unter AUS_MV liegt.
+description="LayerNX: Akku-Waechter (sauber ausschalten statt Tiefentladung)"
+supervisor=supervise-daemon
+command=/bin/sh
+command_args="-c 'n=0; while :; do . /etc/conf.d/layernx-akkuwaechter 2>/dev/null; v=\$(cat /sys/class/power_supply/battery/voltage_now 2>/dev/null); v=\$((\${v:-9999999}/1000)); netz=0; for s in usb ac; do [ \"\$(cat /sys/class/power_supply/\$s/online 2>/dev/null)\" = 1 ] && netz=1; done; if [ \$netz = 0 ] && [ \$v -lt \${AUS_MV:-3450} ]; then n=\$((n+1)); logger -t layernx-akkuwaechter \"Akku \${v} mV (\$n/3)\"; else n=0; fi; if [ \$n -ge 3 ]; then logger -t layernx-akkuwaechter \"Akku leer (\${v} mV) - fahre herunter\"; sync; poweroff; sleep 60; fi; sleep 30; done'"
+respawn_delay=10
+depend() { after moritz-v5x-devnodes; }

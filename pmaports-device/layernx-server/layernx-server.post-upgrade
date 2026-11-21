@@ -1,0 +1,3 @@
+#!/bin/sh
+rc-update add layernx-akkuwaechter default 2>/dev/null
+exit 0

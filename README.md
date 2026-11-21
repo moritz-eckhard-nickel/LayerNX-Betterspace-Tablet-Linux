@@ -43,9 +43,12 @@ postmarketOS/Nura-Projekt** und wird von diesen Projekten weder unterstützt noc
 | Ton: eingebautes Mikrofon + Lautsprecher über PulseAudio (systemweit, alle Programme, ALSA leitet weiter), Lautstärke/Stumm/Testton in den Einstellungen | ✅ getestet |
 | Web-Apps mit Mikrofon + Ton: Mikrofon **immer erlaubt** (sonst keine Rechte), Wiedergabe ohne vorheriges Tippen; Mikrofon → WebSocket → Lautsprecher getestet | ✅ getestet (Mikrofon nur bei **https**/localhost) |
 | Web-Apps (`layernx-webapp`, WebKitGTK oder Chromium), Vollbild, eigene Profile/Cookies, selbst signierte Zertifikate optional | ✅ getestet |
-| Einstellungen-App (WLAN suchen/verbinden, Display, Ton, Hostname, PIN, Mikrofon für Web-Apps, Akkuschutz, SSH, Tailscale, Updates) | ✅ installiert, Bedienung per Touch noch **ungetestet** |
+| Einstellungen-App (WLAN suchen/verbinden, Firmen-WLAN, Display, Ton, Second Screen, Hostname, PIN, Mikrofon für Web-Apps, Akkuschutz, SSH, Tailscale, Updates) | ✅ installiert, Bedienung per Touch noch **ungetestet** |
 | Power-Taste: kurz = Display, halten = Power-Menü; bei offener App gesperrt, 5× = PIN-Pad (Scrambling) | ✅ getestet |
 | Helligkeit `layernx-display brightness 0-99`, Display aus/an | ✅ getestet |
+| **Second Screen:** Tablet als drahtloser Bildschirm für Windows (**Win+K**, Erweitern/Duplizieren), über Wi-Fi Direct **ohne gemeinsames WLAN**, ~30 Bilder/s 1280×800, kaum Verzögerung, nur Bild (Ton bleibt am PC); der erste PC wird gekoppelt, andere abgelehnt; in den Einstellungen ein/aus (Standard: aus) | ✅ getestet (Windows-Laptop) |
+| Firmen-WLAN (WPA2/3-Enterprise: PEAP, TTLS, EAP-TLS) mit CA-/Client-Zertifikaten (.pem/.crt/.der/.p12/.pfx) in den Einstellungen | ⚠️ Oberfläche getestet, Anmeldung an echtem Firmen-WLAN **ungetestet** |
+| Tiefentladeschutz: Akku-Wächter fährt ohne Netzteil bei < 3,45 V sauber herunter | ⚠️ Logik getestet, echte Abschaltung bei leerem Akku **ungetestet** |
 | Akkuschutz für Serverbetrieb (`layernx-akku schutz an 50`) | ⚠️ Schalten getestet, Pendeln 45–50 % noch **ungetestet** |
 | Tailscale, cloudflared (vorinstalliert, nicht aktiviert) | ✅ installiert, Aktivierung ungetestet |
 | Akkuanzeige | ⚠️ nur Schätzung aus der Spannung (Kernel liefert `capacity=-1`) |
@@ -66,10 +69,11 @@ Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgesch
 | `pmaports-device/moritz-v5x-tools/` | Touch-Brücke mit Gesten, Framebuffer-Refresher, Boot-Animation, Power-Tasten-Dienst (C, MIT) |
 | `pmaports-device/moritz-v5x-desktop/` | Oberfläche: Xorg-Konfiguration, Openbox, tint2, jgmenu, lxterminal, Sitzung (D-Bus/AT-SPI) |
 | `pmaports-device/layernx-tastatur/` | Bildschirmtastatur (GTK3, XTest, AT-SPI-Automatik) |
+| `pmaports-device/layernx-second-screen/` | Miracast-Empfänger: Wi-Fi-Direct-Dienst, RTSP-Steuerkanal (Python), Anzeige `layernx-wfd-anzeige` (C, GStreamer, 4 Kerne, direkt in den Framebuffer) |
 | `pmaports-device/layernx-audio/` | Mixer-Signalwege Mikrofon/Lautsprecher, PulseAudio-Systemdienst, ALSA→Pulse, Testton |
 | `pmaports-device/moritz-xf86-video-fbdev/` | fbdev-Treiber mit eigener gekachelter NEON-Drehung (MIT, Patch auf xf86-video-fbdev) |
 | `pmaports-device/layernx-branding/` | Bootanimation, Hintergrund, os-release, fastfetch, Hostname `LNXTL-XXXX` |
-| `pmaports-device/layernx-server/` | bash & Werkzeuge, Tailscale, cloudflared, `layernx-update`, `layernx-display`, `layernx-akku` |
+| `pmaports-device/layernx-server/` | bash & Werkzeuge, Tailscale, cloudflared, `layernx-update`, `layernx-display`, `layernx-akku`, Akku-Wächter |
 | `pmaports-device/layernx-einstellungen/` | Touch-Einstellungen (GTK3) + Root-Helfer |
 | `pmaports-device/layernx-webapps/` | `layernx-webapp`, `layernx-webview` (WebKitGTK), `layernx-pinpad`, `layernx-pin`, Power-Tasten-Regeln |
 | `patches/` | Patch für `postmarketos-initramfs` (devtmpfs-Fallback, kleine Stufe 1) |
@@ -169,10 +173,30 @@ Grafik, alle Programme (Einstellungen, PIN-Pad, Webview starten wirklich ein Fen
 scp scripts/moritz-systemtest.sh root@172.16.42.1:/tmp/ && ssh root@172.16.42.1 sh /tmp/moritz-systemtest.sh
 ```
 
-Ergebnis v0.0.2: **74 PASS** (`docs/SYSTEMTEST-v0.0.2.txt`). Aktueller Stand mit Ton und Tastatur (echtes Gerät,
-Pakete nach v0.0.2): **90 PASS, 0 FAIL, 0 WARN** (`docs/SYSTEMTEST-aktuell.txt`).
+Ergebnis v0.0.2: **74 PASS** (`docs/SYSTEMTEST-v0.0.2.txt`). Aktueller Stand mit Ton, Tastatur, Second Screen und
+Akku-Wächter (echtes Gerät, nach Neustart): **95 PASS, 0 FAIL, 0 WARN** (`docs/SYSTEMTEST-aktuell.txt`).
 Nicht automatisch prüfbar: echte Touch-Gesten, Power-Taste drücken, Hören (Lautsprecher und Mikrofon wurden
 von Hand geprüft), Akkuschutz-Zyklus über Stunden.
+
+## Second Screen (Win+K)
+
+1. Tablet: **Einstellungen → Second Screen** einschalten (Standard: aus).
+2. Windows: **Win+K** → Tablet-Namen (= Hostname, z. B. `LNXTL-XXXX`) wählen. **Win+P** → „Erweitern“.
+3. Der **erste** PC, der sich verbindet, wird gemerkt und künftig ohne Nachfrage angenommen; alle anderen werden
+   abgelehnt, bis er unter „Rechner vergessen“ gelöscht wird.
+
+- Läuft über **Wi-Fi Direct** parallel zum normalen WLAN – PC und Tablet müssen nicht im selben Netz sein.
+- Standard-Modus `client`: Windows ist Gruppenleiter und wählt den Kanal (kein Kanalspringen am Laptop).
+  Rückfall `MODUS=go` in `/etc/conf.d/layernx-second-screen`.
+- 1280×800, ~30 Bilder/s, nur Bild (Ton bleibt am PC). Während der Verbindung wird die Oberfläche abgedeckt,
+  danach wieder angezeigt. Am besten mit Netzteil betreiben (Dekodieren nutzt ~2 von 4 Kernen).
+- Protokolle: `/run/layernx-second-screen/`.
+
+## Firmen-WLAN mit Zertifikat
+
+Einstellungen → WLAN → **„Firmen-WLAN mit Zertifikat“**: PEAP/TTLS (Benutzer + Passwort) oder EAP-TLS
+(Client-Zertifikat). Zertifikate (.pem/.crt/.cer/.der/.key/.p12/.pfx) z. B. per USB-Stick oder `scp` ins
+Home-Verzeichnis legen und im Dialog auswählen; sie werden nach `/etc/wpa_supplicant/certs/` (nur root) kopiert.
 
 ## Mikrofon und Ton in Web-Apps
 

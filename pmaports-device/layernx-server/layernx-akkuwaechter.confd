@@ -1,0 +1,3 @@
+# Unter dieser Akkuspannung (mV, ohne Netzteil, 90 s lang) faehrt das Tablet sauber herunter.
+# 3450 mV entspricht grob 3-5 % Restladung unter Last.
+AUS_MV=3450
