@@ -1,5 +1,8 @@
 #!/bin/sh
-# layernx-webapp add NAME URL [vollbild] [chromium] [tls-ignorieren] | remove NAME | list | start NAME | gui
+# layernx-webapp add NAME URL [vollbild] [chromium] [tls-ignorieren] [kein-mikrofon] | mikrofon NAME an|aus | remove NAME | list | start NAME | gui
+# Mikrofon: Web-Apps duerfen IMMER das Mikrofon nutzen (sonst nichts: Kamera, Standort,
+# Benachrichtigungen usw. werden abgelehnt). Abschalten: Einstellungen -> Geraet -> Mikrofon
+# (alle Web-Apps, Datei ~/.config/layernx/mikrofon-aus) oder je App: layernx-webapp mikrofon NAME aus.
 # Standard-Engine: layernx-webview (WebKitGTK, auf diesem Geraet deutlich fluessiger als Chromium)
 # Jede Web-App bekommt ein eigenes, dauerhaftes Chromium-Profil (Cookies, Logins bleiben).
 # Chromium laeuft mit --no-sandbox: der Stock-Kernel hat keine Namespaces (CONFIG_NAMESPACES=n).
@@ -11,9 +14,9 @@ case "$1" in
 	add)
 		valid "$2" || exit 2; [ -n "$3" ] || { echo "URL fehlt" >&2; exit 2; }
 		mode=fenster; [ "$4" = vollbild ] && mode=vollbild
-		engine=webkit; tls=nein
-		for o in "$4" "$5" "$6"; do case "$o" in chromium) engine=chromium ;; tls-ignorieren) tls=ja ;; esac; done
-		printf 'URL=%s\nMODE=%s\nENGINE=%s\nTLS_IGNORIEREN=%s\n' "$3" "$mode" "$engine" "$tls" > "$D/$2.conf"
+		engine=webkit; tls=nein; mic=ja
+		for o in "$4" "$5" "$6" "$7"; do case "$o" in chromium) engine=chromium ;; tls-ignorieren) tls=ja ;; mikrofon) mic=ja ;; kein-mikrofon) mic=nein ;; esac; done
+		printf 'URL=%s\nMODE=%s\nENGINE=%s\nTLS_IGNORIEREN=%s\nMIKROFON=%s\n' "$3" "$mode" "$engine" "$tls" "$mic" > "$D/$2.conf"
 		cat > "$A/layernx-web-$2.desktop" <<DESK
 [Desktop Entry]
 Type=Application
@@ -24,14 +27,22 @@ Icon=web-browser
 Categories=Network;LayerNX;
 DESK
 		echo "Web-App $2 angelegt ($mode): $3" ;;
+	mikrofon)
+		valid "$2" || exit 2; [ -f "$D/$2.conf" ] || { echo "Web-App $2 gibt es nicht" >&2; exit 1; }
+		case "$3" in an) v=ja ;; aus) v=nein ;; *) echo "usage: layernx-webapp mikrofon NAME an|aus" >&2; exit 2 ;; esac
+		sed -i '/^MIKROFON=/d' "$D/$2.conf"; echo "MIKROFON=$v" >> "$D/$2.conf"
+		echo "Mikrofon fuer $2: $3 (gilt ab dem naechsten Start der Web-App)" ;;
 	remove)
 		valid "$2" || exit 2
 		rm -f "$D/$2.conf" "$A/layernx-web-$2.desktop"; echo "entfernt (Profil bleibt in $D/$2-profil)" ;;
 	list)
-		for f in "$D"/*.conf; do [ -f "$f" ] || continue; . "$f"; echo "$(basename "$f" .conf)  $MODE  ${ENGINE:-webkit}  $URL"; ENGINE=; done ;;
+		for f in "$D"/*.conf; do [ -f "$f" ] || continue; . "$f"; m="  mikrofon"; [ "$MIKROFON" = nein ] && m="  ohne-mikrofon"
+			echo "$(basename "$f" .conf)  $MODE  ${ENGINE:-webkit}  $URL$m"; ENGINE=; MIKROFON=; done ;;
 	start)
-		valid "$2" || exit 2; ENGINE=webkit; TLS_IGNORIEREN=nein; . "$D/$2.conf" || exit 1
+		valid "$2" || exit 2; ENGINE=webkit; TLS_IGNORIEREN=nein; MIKROFON=ja; . "$D/$2.conf" || exit 1
 		T=""; [ "$TLS_IGNORIEREN" = ja ] && T="--tls-ignorieren"
+		[ -e "$HOME/.config/layernx/mikrofon-aus" ] && MIKROFON=nein
+		[ "$MIKROFON" = ja ] && T="$T --mikrofon"
 		if [ "$ENGINE" != chromium ]; then
 			if [ "$MODE" = vollbild ]; then exec layernx-webview $T --vollbild --titel "$2" --profil "$D/$2-profil" "$URL"
 			else exec layernx-webview $T --titel "$2" --profil "$D/$2-profil" "$URL"; fi
@@ -39,6 +50,7 @@ DESK
 		set -- --user-data-dir="$D/$2-profil" --no-sandbox --test-type --no-first-run --password-store=basic \
 			--disable-gpu --touch-events=enabled --enable-features=TouchpadOverscrollHistoryNavigation \
 			--disable-pinch --overscroll-history-navigation=0
+		[ "$MIKROFON" = ja ] && set -- "$@" --use-fake-ui-for-media-stream
 		if [ "$MODE" = vollbild ]; then exec chromium "$@" --kiosk "$URL"
 		else exec chromium "$@" --app="$URL" --start-maximized; fi ;;
 	gui)
@@ -51,5 +63,5 @@ DESK
 		[ "$m" = Vollbild ] && m=vollbild || m=fenster
 		tt=""; [ "$t" = Ja ] && tt=tls-ignorieren
 		out=$("$0" add "$n" "$u" "$m" $tt 2>&1) && zenity --info --text="$out" || zenity --error --text="$out" ;;
-	*) echo "usage: layernx-webapp add NAME URL [vollbild] | remove NAME | list | start NAME | gui" >&2; exit 2 ;;
+	*) echo "usage: layernx-webapp add NAME URL [vollbild] [chromium] [tls-ignorieren] [kein-mikrofon] | mikrofon NAME an|aus | remove NAME | list | start NAME | gui" >&2; exit 2 ;;
 esac

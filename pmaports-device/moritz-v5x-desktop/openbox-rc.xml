@@ -41,11 +41,10 @@
   </mouse>
   <applications>
     <application class="*" type="normal"><maximized>yes</maximized></application>
-    <application class="svkbd*">
-      <decor>no</decor><focus>no</focus><layer>above</layer><skip_taskbar>yes</skip_taskbar>
+    <application class="LayerNX-Tastatur">
+      <decor>no</decor><focus>no</focus><layer>above</layer><skip_taskbar>yes</skip_taskbar><skip_pager>yes</skip_pager>
       <maximized>no</maximized>
       <position force="yes"><x>0</x><y>416</y></position>
-      <size><width>1280</width><height>320</height></size>
     </application>
   </applications>
 </openbox_config>

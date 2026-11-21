@@ -1,0 +1,102 @@
+== LayerNX-Systemtest 2026-11-21 11:26:36 auf LNXTL-GT3Y
+-- Boot & Kernel
+PASS  cmdline bootopt                    
+PASS  cmdline initrd                     
+PASS  boot-Partition = /boot/boot.img    
+PASS  logo-Partition gueltig             
+PASS  Kernel 4.14.141                    
+-- Dienste
+PASS  Dienst mdev                        
+PASS  Dienst moritz-v5x-devnodes         
+PASS  Dienst moritz-v5x-wifi             
+PASS  Dienst moritz-v5x-usbnet           
+PASS  Dienst wpa_supplicant              
+PASS  Dienst networking                  
+PASS  Dienst sshd                        
+PASS  Dienst moritz-v5x-touch            
+PASS  Dienst moritz-v5x-fbrefresh        
+PASS  Dienst moritz-v5x-keys             
+PASS  Dienst moritz-v5x-xsession         
+PASS  Dienst layernx-hostname            
+PASS  Dienst layernx-audio               
+PASS  Dienst layernx-pulse               
+PASS  Dienst layernx-akkuschutz          (an)
+PASS  Dienst tailscale                   (nicht aktiv, Standard)
+PASS  Dienst cloudflared                 (nicht aktiv, Standard)
+-- Netzwerk
+PASS  WLAN-IP                            
+PASS  Internet (ping 1.1.1.1)            
+PASS  DNS (dl-cdn.alpinelinux.org)       
+PASS  apk update                         
+PASS  USB-Netz 172.16.42.1               
+-- Hardware
+PASS  WLAN-Chip (/dev/wmtWifi)           
+PASS  Touch-Bruecke /dev/input/moritz-touch 
+PASS  Gestengeraet /dev/input/moritz-gestures 
+PASS  Power-Taste nur von moritz-v5x-keys 
+PASS  Hintergrundbeleuchtung             (255)
+PASS  Akkuspannung                       (4228000 uV)
+PASS  Akku-Schaetzung                    (~100%)
+PASS  Ladesteuerung erreichbar           
+-- Ton
+PASS  PulseAudio: Mikrofon-Quelle        
+PASS  PulseAudio: Lautsprecher           
+PASS  Mikrofon-Signalweg (MICBIAS an)    
+PASS  Lautsprecher-Verstaerker an        
+PASS  Aufnahme als Benutzer (ALSA->Pulse) (rms 2092)
+PASS  Wiedergabe (stummer Ton)           
+-- Grafik
+PASS  Xorg laeuft                        
+PASS  Openbox laeuft                     
+PASS  tint2 laeuft                       
+PASS  Tastatur-Dienst laeuft             
+PASS  AT-SPI (Tastatur-Automatik)        
+PASS  Dreh-Treiber moritz-xf86-video-fbdev 
+PASS  Xorg: Rotate CCW                   
+PASS  Xorg -nocursor                     
+PASS  Xorg-Log ohne echte (EE)           (kbd/libinput-Suche ist erwartet)
+PASS  Bildschirm 1280x800 quer           
+PASS  Framebuffer lesbar                 
+-- Programme (startet, Fenster erscheint, kein Absturz)
+PASS  Einstellungen                      (1s)
+PASS  PIN-Pad                            (1s)
+PASS  Webview (WebKitGTK)                (1s)
+PASS  Tastatur oeffnet (Touch-Bereich gesetzt) 
+PASS  Tastatur reserviert Platz          (Arbeitsflaeche 1280x416)
+PASS  Tastatur schliesst                 
+PASS  Chromium vorhanden                 
+PASS  Terminal lxterminal                
+PASS  fastfetch mit LayerNX-Konfig       
+PASS  Befehl layernx-update              
+PASS  Befehl layernx-display             
+PASS  Befehl layernx-akku                
+PASS  Befehl layernx-webapp              
+PASS  Befehl layernx-pin                 
+PASS  Befehl layernx-powerkey            
+PASS  Befehl layernx-einstellungen-helfer 
+PASS  Befehl moritz-wmt-launcher         
+PASS  Befehl moritz-v5x-status           
+PASS  Befehl moritz-v5x-bootanim         
+PASS  Befehl layernx-tastatur            
+PASS  Befehl layernx-webview             
+PASS  Befehl pactl                       
+PASS  Befehl cloudflared                 
+PASS  Befehl tailscale                   
+PASS  Befehl bash                        
+PASS  layernx-display status             
+PASS  layernx-akku status                
+-- Branding
+PASS  os-release LayerNX                 
+PASS  Hostname LNXTL-XXXX                (LNXTL-GT3Y)
+PASS  Hintergrundbild                    
+PASS  Boot-Animation                     (201 Bilder)
+PASS  Openbox-Theme LayerNX              
+-- Sicherheit & Zugang
+PASS  sshd erlaubt root                  
+PASS  root-Passwort gesetzt              
+PASS  Erststart erledigt/nicht noetig    
+-- System
+PASS  Speicher frei                      (8195 MB)
+PASS  RAM verfuegbar                     (1786 MB)
+PASS  dmesg ohne Oops/Panic              
+== Ergebnis: 90 PASS, 0 FAIL, 0 WARN

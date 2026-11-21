@@ -1,0 +1,7 @@
+#!/bin/sh
+rc-update add layernx-audio default 2>/dev/null
+rc-update add layernx-pulse default 2>/dev/null
+for u in root $(awk -F: '$3 >= 1000 && $3 < 60000 {print $1}' /etc/passwd); do
+	addgroup "$u" audio 2>/dev/null; addgroup "$u" pulse-access 2>/dev/null
+done
+exit 0

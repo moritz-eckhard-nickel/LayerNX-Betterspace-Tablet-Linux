@@ -75,12 +75,15 @@ static void abs_setup(int fd, int code, int max)
  * IDLE: kein Finger. PENDING: erster Finger liegt < HOLD_MS, noch keine
  * Entscheidung (nichts an X gemeldet). TOUCH: normale Beruehrung (MT-Slots
  * laufen). SCROLL: zwei Finger -> Mausrad. LONG: Langdruck -> Rechtsklick,
- * Rest der Beruehrung wird verschluckt. */
+ * Rest der Beruehrung wird verschluckt. KBD: Finger landet im Bereich der
+ * Bildschirmtastatur (/tmp/layernx-tastatur.bereich "y0 y1", nur solange sie
+ * offen ist) -> sofort als Beruehrung melden, keine Gesten; jeder neue Finger
+ * beendet den vorigen Druck und wird selbst ein neuer Druck (schnelles Tippen). */
 #define HOLD_MS 120
 #define LONG_MS 600
 #define MOVE_TOL 18
 #define WHEEL_STEP 45
-enum { IDLE, PENDING, TOUCH, SCROLL, LONG };
+enum { IDLE, PENDING, TOUCH, SCROLL, LONG, KBD };
 static int out = -1, gfd = -1, twofinger = 1, state = IDLE;
 static int fx[NSLOT], fy[NSLOT], fid[NSLOT], nf;
 static int sid[NSLOT], sx[NSLOT], sy[NSLOT], active, next_tid = 1, cur_slot = -1;
@@ -125,6 +128,50 @@ static void push_slots(void)
 
 static void end_touch(void) { int n = nf; nf = 0; push_slots(); nf = n; }
 
+/* Bildschirmtastatur: Bereich lesen (Datei existiert nur, solange sie offen ist) */
+static int kbd_y0 = -1, kbd_y1 = -1;
+static int im_tastaturbereich(int y)
+{
+	FILE *f = fopen("/tmp/layernx-tastatur.bereich", "r");
+	int a, b, ok = 0;
+	if (f) { if (fscanf(f, "%d %d", &a, &b) == 2) { kbd_y0 = a; kbd_y1 = b; ok = 1; } fclose(f); }
+	return ok && y >= kbd_y0 && y < kbd_y1;
+}
+
+/* genau einen Finger (Index j) als einzige Beruehrung melden */
+static int kbd_id = -1, prev_ids[NSLOT], prev_n;
+static void report_only(int j)
+{
+	int sx_ = fx[j], sy_ = fy[j], si = fid[j], n = nf;
+	int ox = fx[0], oy = fy[0], oi = fid[0];
+	fx[0] = sx_; fy[0] = sy_; fid[0] = si; nf = 1;
+	push_slots();
+	fx[0] = ox; fy[0] = oy; fid[0] = oi; nf = n;
+}
+static int war_da(int id) { int k; for (k = 0; k < prev_n; k++) if (prev_ids[k] == id) return 1; return 0; }
+static void ids_merken(void) { int k; prev_n = nf; for (k = 0; k < nf; k++) prev_ids[k] = fid[k]; }
+
+static void kbd_frame(void)
+{
+	int j, neu = -1, aktiv = -1;
+	for (j = 0; j < nf; j++) {
+		if (fid[j] == kbd_id) aktiv = j;
+		else if (!war_da(fid[j])) neu = j;
+	}
+	if (neu >= 0) {                       /* neuer Finger: alten Druck beenden, neuen melden */
+		if (kbd_id >= 0) { int n = nf; nf = 0; push_slots(); nf = n; }
+		kbd_id = fid[neu];
+		report_only(neu);
+	} else if (aktiv >= 0) {
+		report_only(aktiv);               /* Finger bewegt sich (bleibt ein Druck) */
+	} else if (kbd_id >= 0) {
+		int n = nf; nf = 0; push_slots(); nf = n;   /* gemeldeter Finger ist weg */
+		kbd_id = -1;
+	}
+	if (nf == 0) { state = IDLE; kbd_id = -1; }
+	ids_merken();
+}
+
 static void right_click(void)
 {
 	/* Zeiger steht schon an der Position (absolutes Geraet), Rechtsklick ueber Gestengeraet */
@@ -143,6 +190,7 @@ static void frame(void)
 	long now = ms();
 	switch (state) {
 	case IDLE:
+		if (nf >= 1 && im_tastaturbereich(fy[0])) { state = KBD; kbd_id = -1; prev_n = 0; kbd_frame(); break; }
 		if (nf >= 1) { state = PENDING; t_down = now; x0 = fx[0]; y0 = fy[0]; moved = 0;
 			if (nf >= 2 && twofinger) { state = SCROLL; lasty = (fy[0]+fy[1])/2; lastx = (fx[0]+fx[1])/2; accy = accx = 0; } }
 		break;
@@ -173,6 +221,9 @@ static void frame(void)
 		break;
 	case LONG:
 		if (nf == 0) state = IDLE;
+		break;
+	case KBD:
+		kbd_frame();
 		break;
 	}
 }

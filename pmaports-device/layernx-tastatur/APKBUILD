@@ -1,0 +1,23 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+pkgname=layernx-tastatur
+pkgver=1
+pkgrel=2
+pkgdesc="LayerNX-Tablet-Linux: Bildschirmtastatur (QWERTZ, Umschalt/Feststelltaste, automatisch ein/aus)"
+url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
+arch="aarch64"
+license="MIT"
+options="!check"
+depends="at-spi2-core dbus font-dejavu"
+makedepends="gtk+3.0-dev at-spi2-core-dev libx11-dev libxtst-dev"
+source="layernx-tastatur.c"
+
+build() {
+	${CC:-gcc} $CFLAGS -Wall -O2 -o layernx-tastatur "$srcdir"/layernx-tastatur.c \
+		$(pkg-config --cflags --libs gtk+-3.0 atspi-2 x11 xtst) $LDFLAGS
+}
+package() {
+	install -Dm755 layernx-tastatur "$pkgdir"/usr/bin/layernx-tastatur
+}
+sha512sums="
+fbb2202d2d1eb62b34f0704ecf48e611a6bb5ff3d2918c9582c8642fca9c6d9b5a7beace414ca88ac50b401c899e21b714c5837e72bfb0767c89966b453f0fbf  layernx-tastatur.c
+"

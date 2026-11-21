@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 /*
  * layernx-einstellungen: Touch-Einstellungen fuer LayerNX-Tablet-Linux
- * Seiten: WLAN, Bluetooth, Display, Geraet, Akku, Dienste, System.
+ * Seiten: WLAN, Bluetooth, Display, Ton, Geraet, Akku, Dienste, System.
  * WLAN ueber wpa_cli (Gruppe wheel), Root-Aktionen ueber layernx-einstellungen-helfer.
  */
 #include <gtk/gtk.h>
+#include <glib/gstdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -70,7 +71,7 @@ static GtkWidget *seite(const char *titel, GtkWidget **box)
 	return sc;
 }
 static GtkWidget *reihe(void) { return gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12); }
-static void tastatur(GtkButton *b, gpointer d) { (void)b; (void)d; run_bg("moritz-v5x-keyboard"); }
+static void tastatur(GtkButton *b, gpointer d) { (void)b; (void)d; run_bg("layernx-tastatur umschalten"); }
 
 /* ---------- WLAN ---------- */
 static void wlan_status_update(void)
@@ -175,10 +176,10 @@ static void wlan_row(GtkListBox *lb, GtkListBoxRow *r, gpointer d)
 	gtk_window_set_default_size(GTK_WINDOW(dlg), 560, -1);
 	gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_OK);
 	gtk_widget_show_all(dlg);
-	run_bg("moritz-v5x-keyboard");
+	run_bg("layernx-tastatur an");
 	if (gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_OK)
 		wlan_connect(ssid, gtk_entry_get_text(GTK_ENTRY(e)));
-	run_bg("sh -c 'pgrep -x svkbd-mobile-in >/dev/null && moritz-v5x-keyboard'");
+	run_bg("layernx-tastatur aus");
 	gtk_widget_destroy(dlg); g_free(t);
 }
 static void wlan_trennen(GtkButton *b, gpointer d) { (void)b; (void)d; g_free(run("wpa_cli -i wlan0 disconnect")); wlan_status_update(); }
@@ -254,6 +255,80 @@ static GtkWidget *page_display(void)
 	return pg;
 }
 
+static gchar *mic_aus_datei(void) { return g_build_filename(g_get_home_dir(), ".config", "layernx", "mikrofon-aus", NULL); }
+static void mic_set(GtkWidget *w, GParamSpec *ps, gpointer d)
+{
+	(void)ps; (void)d;
+	gchar *f = mic_aus_datei();
+	if (gtk_switch_get_active(GTK_SWITCH(w))) g_unlink(f);
+	else {
+		gchar *dir = g_path_get_dirname(f);
+		g_mkdir_with_parents(dir, 0700); g_file_set_contents(f, "", 0, NULL); g_free(dir);
+	}
+	g_free(f);
+}
+
+/* ---------- Ton ---------- */
+static GtkWidget *ton_scale, *ton_stumm;
+static gboolean ton_lade = FALSE;
+static int pactl_zahl(const char *cmd)
+{
+	char *o = run(cmd), *p = strchr(o, '%');
+	int v = -1;
+	if (p) { while (p > o && g_ascii_isdigit(p[-1])) p--; v = atoi(p); }
+	g_free(o);
+	return v;
+}
+static void ton_changed(GtkRange *r, gpointer d)
+{
+	(void)d;
+	if (ton_lade) return;
+	char *cmd = g_strdup_printf("pactl set-sink-volume @DEFAULT_SINK@ %d%%", (int)gtk_range_get_value(r));
+	run_bg(cmd); g_free(cmd);
+}
+static void stumm_set(GtkWidget *w, GParamSpec *ps, gpointer d)
+{
+	(void)ps; (void)d;
+	if (ton_lade) return;
+	run_bg(gtk_switch_get_active(GTK_SWITCH(w)) ? "pactl set-sink-mute @DEFAULT_SINK@ 1" : "pactl set-sink-mute @DEFAULT_SINK@ 0");
+}
+static void ton_test(GtkButton *b, gpointer d) { (void)b; (void)d; run_bg("paplay /usr/share/layernx/ton-test.wav"); }
+static GtkWidget *page_ton(void)
+{
+	GtkWidget *box, *pg = seite("Ton", &box), *rs = reihe(), *rt = reihe();
+	int v = pactl_zahl("pactl get-sink-volume @DEFAULT_SINK@");
+	char *m = run("pactl get-sink-mute @DEFAULT_SINK@");
+	ton_lade = TRUE;
+	gtk_box_pack_start(GTK_BOX(box), lbl("Lautstärke Lautsprecher (0–100 %):", "text"), FALSE, FALSE, 0);
+	ton_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+	gtk_range_set_value(GTK_RANGE(ton_scale), v >= 0 ? v : 70);
+	g_signal_connect(ton_scale, "value-changed", G_CALLBACK(ton_changed), NULL);
+	gtk_box_pack_start(GTK_BOX(box), ton_scale, FALSE, FALSE, 0);
+	ton_stumm = gtk_switch_new();
+	gtk_switch_set_active(GTK_SWITCH(ton_stumm), strstr(m, "yes") != NULL);
+	g_signal_connect(ton_stumm, "notify::active", G_CALLBACK(stumm_set), NULL);
+	gtk_box_pack_start(GTK_BOX(rs), lbl("Stumm", "text"), FALSE, FALSE, 0);
+	gtk_box_pack_end(GTK_BOX(rs), ton_stumm, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), rs, FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(rt), btn("Testton abspielen", G_CALLBACK(ton_test), NULL), FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), rt, FALSE, FALSE, 0);
+	if (v < 0) gtk_box_pack_start(GTK_BOX(box), lbl("Tondienst nicht erreichbar (rc-service layernx-pulse status).", "hinweis"), FALSE, FALSE, 0);
+	ton_lade = FALSE;
+	{
+		GtkWidget *rm = reihe(), *sw = gtk_switch_new();
+		gchar *f = mic_aus_datei();
+		gtk_switch_set_active(GTK_SWITCH(sw), !g_file_test(f, G_FILE_TEST_EXISTS));
+		g_free(f);
+		g_signal_connect(sw, "notify::active", G_CALLBACK(mic_set), NULL);
+		gtk_box_pack_start(GTK_BOX(rm), lbl("Mikrofon für Web-Apps erlauben", "text"), FALSE, FALSE, 0);
+		gtk_box_pack_end(GTK_BOX(rm), sw, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(box), rm, FALSE, FALSE, 12);
+		gtk_box_pack_start(GTK_BOX(box), lbl("Standard: an. Web-Apps bekommen nur das Mikrofon, sonst keine Rechte. Gilt ab dem nächsten Start der Web-App.", "hinweis"), FALSE, FALSE, 0);
+	}
+	g_free(m);
+	return pg;
+}
+
 /* ---------- Geraet ---------- */
 static void host_set(GtkButton *b, gpointer d)
 {
@@ -319,7 +394,7 @@ static GtkWidget *page_geraet(void)
 		gtk_box_pack_start(GTK_BOX(box), r4, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(r5), btn("Passwort speichern", G_CALLBACK(pw_set), NULL), FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(box), r5, FALSE, FALSE, 0);
-		pw_msg = lbl("root-Anmeldung per SSH mit Passwort ist aus Sicherheitsgründen gesperrt.", "hinweis");
+		pw_msg = lbl("Ab Werk: root / lnx (auch per SSH) – bitte ändern.", "hinweis");
 		gtk_box_pack_start(GTK_BOX(box), pw_msg, FALSE, FALSE, 0);
 	}
 	g_free(h);
@@ -456,6 +531,7 @@ int main(int argc, char **argv)
 	gtk_stack_add_titled(GTK_STACK(stack), page_wlan(), "wlan", "WLAN");
 	gtk_stack_add_titled(GTK_STACK(stack), page_bt(), "bt", "Bluetooth");
 	gtk_stack_add_titled(GTK_STACK(stack), page_display(), "display", "Display");
+	gtk_stack_add_titled(GTK_STACK(stack), page_ton(), "ton", "Ton");
 	gtk_stack_add_titled(GTK_STACK(stack), page_geraet(), "geraet", "Gerät");
 	gtk_stack_add_titled(GTK_STACK(stack), page_akku(), "akku", "Akku & Strom");
 	gtk_stack_add_titled(GTK_STACK(stack), page_dienste(), "dienste", "Dienste");

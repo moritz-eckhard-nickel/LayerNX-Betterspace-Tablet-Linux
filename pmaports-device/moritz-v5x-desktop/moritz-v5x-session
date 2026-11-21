@@ -1,6 +1,10 @@
 #!/bin/sh
 # Openbox-Sitzung fuer das Betterspace V5x (Touch, Hochformat)
 export DISPLAY="${DISPLAY:-:0}"
+# eigener D-Bus fuer die Sitzung (AT-SPI: Tastatur geht bei Textfeldern automatisch auf)
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && command -v dbus-run-session >/dev/null; then
+	exec dbus-run-session -- "$0" "$@"
+fi
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/runtime-$(id -u)}"
 mkdir -p "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
 C=/usr/share/moritz-v5x
@@ -16,5 +20,6 @@ mkdir -p "$HOME/.config/lxterminal"
 xsetroot -solid "#000000"
 [ -f /usr/share/layernx/background.png ] && feh --no-fehbg --bg-fill /usr/share/layernx/background.png
 xset s off -dpms 2>/dev/null
+layernx-tastatur >>"$HOME/.cache/moritz-v5x-session.log" 2>&1 &
 tint2 -c "$C/tint2rc" >>"$HOME/.cache/moritz-v5x-session.log" 2>&1 &
 exec openbox --config-file "$C/openbox-rc.xml" >>"$HOME/.cache/moritz-v5x-session.log" 2>&1

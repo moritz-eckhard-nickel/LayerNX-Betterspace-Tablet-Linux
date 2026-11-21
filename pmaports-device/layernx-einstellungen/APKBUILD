@@ -1,13 +1,13 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=layernx-einstellungen
 pkgver=1
-pkgrel=4
+pkgrel=7
 pkgdesc="LayerNX-Tablet-Linux: Touch-Einstellungen (WLAN, Display, Geraet, Akku, Dienste, System)"
 url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
 arch="aarch64"
 license="MIT"
 options="!check"
-depends="wpa_supplicant layernx-server layernx-webapps"
+depends="wpa_supplicant layernx-server layernx-webapps layernx-audio pulseaudio-utils"
 makedepends="gtk+3.0-dev"
 source="layernx-einstellungen.c layernx-einstellungen-helfer"
 
@@ -20,6 +20,6 @@ package() {
 	install -Dm755 "$srcdir"/layernx-einstellungen-helfer "$pkgdir"/usr/bin/layernx-einstellungen-helfer
 }
 sha512sums="
-a761968f926106743f2f71ef6b4b0d7e3d657e2457466244898758f67094537b3cc860393c436ffcb4ecbec05a7e1581965d92185cb877ed22dc331dfea226f6  layernx-einstellungen.c
+1b30f25f20132b8150ce988a1dd5e275ec48c0179700a5f6747ffc43a7e1fdb6ae9c365748468a77b4f255bb0c46d9d2dcfc2daafc50cca5566c6f4f9992ed8d  layernx-einstellungen.c
 98c7385d1bb0fb35704a52110b08d1266189b8a181f0839e5099601d62d0e71cee6d1a331814f1faa054836a99f19763f6eba776d094330969dd1b6565c380c4  layernx-einstellungen-helfer
 "

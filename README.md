@@ -38,16 +38,20 @@ postmarketOS/Nura-Projekt** und wird von diesen Projekten weder unterstützt noc
 | Display 1280×800 quer, eigener schneller Dreh-Treiber (`moritz-xf86-video-fbdev`, ~3,5× mehr FPS) | ✅ getestet |
 | Touch: echte Touch-Events (MT), 2-Finger-Scrollen, Langdruck = Rechtsklick, kein Mauszeiger | ✅ getestet |
 | Openbox-Oberfläche im LayerNX-Design (#4931fd), Leiste mit IP, Strom/Akku, Uhr | ✅ getestet |
-| Terminal (lxterminal + bash + fastfetch mit Scribbles), Bildschirmtastatur | ✅ getestet |
+| Terminal (lxterminal + bash + fastfetch mit Scribbles) | ✅ getestet |
+| Bildschirmtastatur `layernx-tastatur`: QWERTZ mit Umlauten, Umschalt (1× = ein Großbuchstabe, 2× = feststellen), Symbol-Ebene, geht bei Textfeldern automatisch auf/zu (nicht in Web-Apps: Knopf „Tastatur“), Fenster rücken darüber, eigener Touch-Bereich für schnelles Tippen | ✅ getestet |
+| Ton: eingebautes Mikrofon + Lautsprecher über PulseAudio (systemweit, alle Programme, ALSA leitet weiter), Lautstärke/Stumm/Testton in den Einstellungen | ✅ getestet |
+| Web-Apps mit Mikrofon + Ton: Mikrofon **immer erlaubt** (sonst keine Rechte), Wiedergabe ohne vorheriges Tippen; Mikrofon → WebSocket → Lautsprecher getestet | ✅ getestet (Mikrofon nur bei **https**/localhost) |
 | Web-Apps (`layernx-webapp`, WebKitGTK oder Chromium), Vollbild, eigene Profile/Cookies, selbst signierte Zertifikate optional | ✅ getestet |
-| Einstellungen-App (WLAN suchen/verbinden, Display, Hostname, PIN, Akkuschutz, SSH, Tailscale, Updates) | ✅ installiert, Bedienung per Touch noch **ungetestet** |
+| Einstellungen-App (WLAN suchen/verbinden, Display, Ton, Hostname, PIN, Mikrofon für Web-Apps, Akkuschutz, SSH, Tailscale, Updates) | ✅ installiert, Bedienung per Touch noch **ungetestet** |
 | Power-Taste: kurz = Display, halten = Power-Menü; bei offener App gesperrt, 5× = PIN-Pad (Scrambling) | ✅ getestet |
 | Helligkeit `layernx-display brightness 0-99`, Display aus/an | ✅ getestet |
 | Akkuschutz für Serverbetrieb (`layernx-akku schutz an 50`) | ⚠️ Schalten getestet, Pendeln 45–50 % noch **ungetestet** |
 | Tailscale, cloudflared (vorinstalliert, nicht aktiviert) | ✅ installiert, Aktivierung ungetestet |
 | Akkuanzeige | ⚠️ nur Schätzung aus der Spannung (Kernel liefert `capacity=-1`) |
 | Bluetooth | ❌ Stock-Kernel ohne `CONFIG_BT` (nur Userspace-Stack wie BTstack denkbar) |
-| Audio, Kameras, Sensoren, GPU | ❌ / nicht eingerichtet |
+| Kopfhörer-Ausgang, Kameras, Sensoren, GPU | ❌ / nicht eingerichtet |
+| Vibration | ❌ kein Motor verbaut (der Gerätebaum nennt einen, er reagiert nie) |
 
 Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgeschichte inkl. aller Fehlversuche).
 
@@ -60,7 +64,9 @@ Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgesch
 | `pmaports-device/firmware-betterspace-v5x/` | **MediaTek-CONNSYS-Firmware** (proprietär) |
 | `pmaports-device/moritz-wmt-launcher/` | freier Nachbau von `wmt_loader`/`wmt_launcher` (C, GPL-2.0) |
 | `pmaports-device/moritz-v5x-tools/` | Touch-Brücke mit Gesten, Framebuffer-Refresher, Boot-Animation, Power-Tasten-Dienst (C, MIT) |
-| `pmaports-device/moritz-v5x-desktop/` | Oberfläche: Xorg-Konfiguration, Openbox, tint2, jgmenu, svkbd, lxterminal |
+| `pmaports-device/moritz-v5x-desktop/` | Oberfläche: Xorg-Konfiguration, Openbox, tint2, jgmenu, lxterminal, Sitzung (D-Bus/AT-SPI) |
+| `pmaports-device/layernx-tastatur/` | Bildschirmtastatur (GTK3, XTest, AT-SPI-Automatik) |
+| `pmaports-device/layernx-audio/` | Mixer-Signalwege Mikrofon/Lautsprecher, PulseAudio-Systemdienst, ALSA→Pulse, Testton |
 | `pmaports-device/moritz-xf86-video-fbdev/` | fbdev-Treiber mit eigener gekachelter NEON-Drehung (MIT, Patch auf xf86-video-fbdev) |
 | `pmaports-device/layernx-branding/` | Bootanimation, Hintergrund, os-release, fastfetch, Hostname `LNXTL-XXXX` |
 | `pmaports-device/layernx-server/` | bash & Werkzeuge, Tailscale, cloudflared, `layernx-update`, `layernx-display`, `layernx-akku` |
@@ -163,5 +169,19 @@ Grafik, alle Programme (Einstellungen, PIN-Pad, Webview starten wirklich ein Fen
 scp scripts/moritz-systemtest.sh root@172.16.42.1:/tmp/ && ssh root@172.16.42.1 sh /tmp/moritz-systemtest.sh
 ```
 
-Letztes Ergebnis (v0.0.2, echtes Gerät): **74 PASS, 0 FAIL, 0 WARN** – siehe `docs/SYSTEMTEST-v0.0.2.txt`.
-Nicht automatisch prüfbar: echte Touch-Gesten, Power-Taste drücken, Akkuschutz-Zyklus über Stunden.
+Ergebnis v0.0.2: **74 PASS** (`docs/SYSTEMTEST-v0.0.2.txt`). Aktueller Stand mit Ton und Tastatur (echtes Gerät,
+Pakete nach v0.0.2): **90 PASS, 0 FAIL, 0 WARN** (`docs/SYSTEMTEST-aktuell.txt`).
+Nicht automatisch prüfbar: echte Touch-Gesten, Power-Taste drücken, Hören (Lautsprecher und Mikrofon wurden
+von Hand geprüft), Akkuschutz-Zyklus über Stunden.
+
+## Mikrofon und Ton in Web-Apps
+
+- Web-Apps (`layernx-webview`) dürfen **immer** das Mikrofon benutzen – sonst nichts (Kamera, Standort,
+  Benachrichtigungen werden abgelehnt). Abschalten: **Einstellungen → Ton → „Mikrofon für Web-Apps erlauben“**
+  oder je App `layernx-webapp mikrofon NAME aus`.
+- Browser geben das Mikrofon nur über **https** oder **localhost** frei (WebSocket dann `wss://`).
+  Selbst signiertes Zertifikat: Web-App mit `tls-ignorieren` anlegen.
+- Ton wird ohne vorheriges Tippen abgespielt (Autoplay erlaubt).
+- Keine Echo-Unterdrückung: Spielt die Seite Ton ab, während das Mikrofon läuft, hört das Mikrofon mit
+  (Rückkopplung). Mikrofon während der Wiedergabe stumm schalten.
+- Kommandozeile: `arecord -d 5 test.wav`, `aplay test.wav`, `pactl …` (alles über PulseAudio).

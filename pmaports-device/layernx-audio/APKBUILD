@@ -1,0 +1,46 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+pkgname=layernx-audio
+pkgver=1
+pkgrel=3
+pkgdesc="LayerNX-Tablet-Linux: Mikrofon und Lautsprecher (MT8168/MT6357) fuer alle Programme ueber PulseAudio"
+url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
+arch="noarch"
+license="MIT"
+options="!check"
+builddir="$srcdir"
+makedepends="python3"
+depends="alsa-utils alsa-plugins-pulse pulseaudio pulseaudio-alsa pulseaudio-utils gst-plugins-base gst-plugins-good"
+install="$pkgname.post-install $pkgname.post-upgrade"
+source="layernx-audio.initd layernx-audio.confd layernx-pulse.initd layernx.pa asound.conf"
+
+build() {
+	# kurzer Testton (zwei weiche Toene, 48 kHz Stereo)
+	python3 - <<'PY'
+import math, struct, wave
+w = wave.open("ton-test.wav", "wb"); w.setnchannels(2); w.setsampwidth(2); w.setframerate(48000)
+d = bytearray()
+for f, l in ((659.25, 0.22), (987.77, 0.38)):
+    n = int(48000 * l)
+    for i in range(n):
+        env = min(1, i / 480) * math.exp(-4 * i / n)
+        v = int(14000 * env * math.sin(2 * math.pi * f * i / 48000))
+        d += struct.pack("<hh", v, v)
+w.writeframes(bytes(d)); w.close()
+PY
+}
+
+package() {
+	install -Dm755 "$srcdir"/layernx-audio.initd "$pkgdir"/etc/init.d/layernx-audio
+	install -Dm644 "$srcdir"/layernx-audio.confd "$pkgdir"/etc/conf.d/layernx-audio
+	install -Dm755 "$srcdir"/layernx-pulse.initd "$pkgdir"/etc/init.d/layernx-pulse
+	install -Dm644 "$srcdir"/layernx.pa "$pkgdir"/etc/pulse/layernx.pa
+	install -Dm644 "$srcdir"/asound.conf "$pkgdir"/etc/asound.conf
+	install -Dm644 ton-test.wav "$pkgdir"/usr/share/layernx/ton-test.wav
+}
+sha512sums="
+6321895d9b08b14f2b9cbdff9472725b8fbf2871ae2e6c3c9463fb4ed5b8d5c7bb0ea96827d318e8fda0ed8c5857479e97c67db975084e383f4da2639677c3c7  layernx-audio.initd
+d1657674d06fb8f42902b99d126700b63845d01cf915b04aa2831307c8194b709d6f98a22ad5936872007167e7bb836386cc4dff161d94403299e24ad6da7bcc  layernx-audio.confd
+3f19c82a9c0c9b1633fe196b1ef4539c9fe4d37a8ee55b0b47a5d9a6bcbace03c46553433d751a670d2980a51fe5522de2b89a39e1af848e0b6c0c17df35b892  layernx-pulse.initd
+c2fcb8c1342d71b868c05df782035aab4a1a942f1cb2d8ac732c4cfdfaef21f65eddab0e68fe3368be655b32e67039cad887c700955b2648116723e909f51372  layernx.pa
+131b1d0a2e7a30880400afe90f3e78a6a10c73c557db926e0f8e969eb7e139658b09b98a2baf406fc5977790f9901a51031af205d671a8e5f9dd2eab184818e9  asound.conf
+"
