@@ -15,6 +15,13 @@ start() {
 	done
 	[ -f /root/.ssh/authorized_keys ] && chmod 600 /root/.ssh/authorized_keys
 	[ -x /bin/bash ] && sed -i 's|^\(root:.*:\)/bin/[a-z]*sh$|\1/bin/bash|' /etc/passwd
+	# Standard-root-Passwort "lnx" HIER (am Geraet) setzen, nicht nur in post-install:
+	# pmbootstrap fuehrt nach der Paketinstallation "passwd -l root" aus (setup_login in
+	# pmb/install/_install.py) und sperrt damit das in post-install gesetzte Passwort ("!" vor
+	# dem Hash). Gesperrt/leer -> "lnx". Ein vom Benutzer gesetztes Passwort bleibt unangetastet.
+	case "$(grep '^root:' /etc/shadow | cut -d: -f2)" in
+		'!'*|'*'|'') echo 'root:lnx' | chpasswd ;;
+	esac
 	rm -f /etc/layernx/nur-root-ausstehend
 	eend 0
 }
