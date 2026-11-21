@@ -1,0 +1,9 @@
+#!/bin/sh
+# os-release von LayerNX-Tablet-Linux setzen (Original bleibt in /usr/lib/os-release)
+rm -f /etc/os-release
+cp /usr/share/layernx/os-release /etc/os-release
+for u in $(awk -F: '$3 >= 1000 && $3 < 60000 {print $1}' /etc/passwd); do
+	[ -x /bin/bash ] && sed -i "s|^\($u:.*:\)/bin/[a-z]*sh$|\1/bin/bash|" /etc/passwd
+done
+rc-update add layernx-hostname boot 2>/dev/null
+exit 0

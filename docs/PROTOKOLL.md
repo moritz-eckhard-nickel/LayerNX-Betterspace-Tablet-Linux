@@ -92,3 +92,27 @@ Zusätzlich: `deviceinfo_create_initfs_extra="true"` + Busybox-Shims (Initramfs-
 - Bluetooth, Audio, Kameras, Sensoren, GPU (Mali, kein Mesa-Treiber für diesen Kernel): nicht eingerichtet.
 - `rc-service wpa_supplicant restart` meldet eine udev-Fehlermeldung (kosmetisch).
 - Eigener Kernel aus Quellen (würde GPL-Quelltextfrage lösen): ILI9881C- und CST1xx-Treiber müssten portiert werden.
+
+---
+
+## 8. Ausbau zum Tablet-System (20./21.11.2026)
+
+| Thema | Problem / Ziel | Lösung | Status |
+|---|---|---|---|
+| Strom/Akku | `capacity=-1` | Schätzung aus `voltage_now` (I·R-Korrektur beim Laden), Quelle aus `usb`/`ac` | **[GETESTET]** microUSB, Netz, Akku |
+| Bootlogo | „betterspace“ | MTK-`logo.img` analysiert (42 Bilder 1280×800 BGRA, zlib), Bild 0 ersetzt (`scripts/moritz-mklogo.py`) | **[GETESTET]** |
+| Rotes „NX“ beim Übergang | LK schreibt BGRA, `mtkfb` liest RGBA | Boot-Animation überdeckt den Moment | **[GETESTET]** |
+| Boot-Animation | Scribbles, min. 1 Durchlauf | `moritz-v5x-bootanim` (libpng, dreht in den Hochkant-Puffer), Xorg wartet | **[GETESTET]** |
+| Branding | Name, Farben #4931fd | `layernx-branding`, Openbox-Theme LayerNX, os-release, Hostname `LNXTL-XXXX` | **[GETESTET]** |
+| Touch | wirkte wie Maus | Brücke liefert MT Typ B (XI2-Touch), 120-ms-Fenster für 2-Finger-Scrollen, Langdruck = Rechtsklick, `-nocursor` | **[GETESTET]** |
+| Langdruck ohne Wirkung | Zeitprüfung lief nie (Touch sendet ständig) | `tick()` nach jedem Frame | **[GETESTET]** |
+| Power-Taste | kurz/halten/5× + PIN | `moritz-v5x-keys` + `layernx-powerkey` + `layernx-pinpad` (Scrambling) | **[GETESTET]** |
+| Power-Taste nach 1× tot | Kindprozess (supervise-daemon) erbte den EVIOCGRAB-fd | `O_CLOEXEC` | **[GETESTET]** |
+| Browser | Ruckeln | Messung: Xorg-Drehung kostet bis 98 % eines Kerns; WebKitGTK flüssiger als Chromium | **[GETESTET]** |
+| Hardware-Drehung | gewünscht | `CONFIG_MTK_LCM_PHYSICAL_ROTATION_HW` aus → nicht möglich | geprüft |
+| Schnelle Drehung | ShadowFB-Rotate generisch | Patch in xf86-video-fbdev: nur Damage-Rechtecke, 32×32-Kacheln, NEON-4×4-Transponieren | **[GETESTET]** 5 → 17 FPS |
+| Web-Apps | WebUI wie Echo Show | `layernx-webview` (WebKitGTK, Profil je App, Vollbild, TLS-Ausnahme optional) | **[GETESTET]** inkl. OPNsense |
+| Server | bash, Tailscale, cloudflared, Updates | `layernx-server`, `layernx-update` | installiert **[GETESTET]**, Aktivierung **[UNGETESTET]** |
+| Akkuschutz | max. 50 % | `/proc/mtk_battery_cmd/current_cmd` („0 1“ = Laden aus) + Dienst | Schalten **[GETESTET]**, Pendeln **[UNGETESTET]** |
+| Bluetooth | Maus/Tastatur/Lautsprecher | Stock-Kernel ohne `CONFIG_BT` → BlueZ unmöglich; nur Userspace-Stack (BTstack) denkbar | offen |
+| Sandbox | Chromium/WebKit | Kernel ohne Namespaces → Sandbox aus (`--no-sandbox` bzw. `WEBKIT_DISABLE_SANDBOX…`) | bekannt |

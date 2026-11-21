@@ -1,0 +1,6 @@
+#!/bin/sh
+rc-update add moritz-v5x-touch default
+rc-update add moritz-v5x-fbrefresh default
+rc-update add moritz-v5x-bootanim sysinit
+rc-update add moritz-v5x-keys default
+exit 0

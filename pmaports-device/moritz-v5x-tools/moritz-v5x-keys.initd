@@ -1,0 +1,7 @@
+#!/sbin/openrc-run
+description="LayerNX: Power-Taste (kurz = Display, halten = Power-Menue)"
+supervisor=supervise-daemon
+command=/usr/bin/moritz-v5x-keys
+respawn_delay=2
+respawn_max=0
+depend() { need moritz-v5x-devnodes; }

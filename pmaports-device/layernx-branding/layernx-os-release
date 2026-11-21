@@ -1,0 +1,7 @@
+NAME="LayerNX-Tablet-Linux"
+PRETTY_NAME="LayerNX-Tablet-Linux (Betterspace V5x)"
+ID=layernx
+ID_LIKE="postmarketos alpine"
+VERSION_ID="2026.11"
+HOME_URL="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
+VARIANT="basiert auf postmarketOS/Nura v26.06 und Alpine Linux 3.24 (kein offizielles postmarketOS-Projekt)"

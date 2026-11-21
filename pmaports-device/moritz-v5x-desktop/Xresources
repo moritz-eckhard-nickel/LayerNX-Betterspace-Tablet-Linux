@@ -1,9 +1,9 @@
 ! Betterspace V5x: gut lesbare Terminals auf 1280x800
 XTerm*faceName: DejaVu Sans Mono
 XTerm*faceSize: 14
-XTerm*background: #2e3440
+XTerm*background: #0b0b10
 XTerm*foreground: #eceff4
-XTerm*cursorColor: #88c0d0
+XTerm*cursorColor: #4931fd
 XTerm*scrollBar: false
 XTerm*saveLines: 5000
 XTerm*locale: true

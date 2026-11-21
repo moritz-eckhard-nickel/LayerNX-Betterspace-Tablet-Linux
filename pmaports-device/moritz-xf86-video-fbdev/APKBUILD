@@ -1,0 +1,49 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+# Alpine-Paket + LayerNX-Patch: schnelle gekachelte 90-Grad-Drehung (Betterspace V5x, Panel hochkant)
+pkgname=moritz-xf86-video-fbdev
+_realname=xf86-video-fbdev
+pkgver=0.5.0
+pkgrel=1
+provides="xf86-video-fbdev=$pkgver-r100"
+replaces="xf86-video-fbdev"
+builddir="$srcdir/$_realname-$pkgver"
+pkgdesc="fbdev video driver with LayerNX fast tiled rotation (Betterspace V5x)"
+url="https://www.x.org"
+arch="all"
+license="MIT"
+makedepends="xorg-server-dev libxi-dev util-macros xorgproto"
+source="https://www.x.org/releases/individual/driver/$_realname-$pkgver.tar.bz2
+	fix-build.patch
+	layernx-fast-rotate.patch
+	"
+
+prepare() {
+	default_prepare
+	update_config_sub
+}
+
+build() {
+	export CFLAGS="${CFLAGS/-fno-plt}"
+	export CXXFLAGS="${CXXFLAGS/-fno-plt}"
+	export LDFLAGS="$LDFLAGS -Wl,-z,lazy"
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr
+	make
+}
+
+check() {
+	make check
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+	rm -rf "$pkgdir"/usr/share/man
+}
+
+sha512sums="
+c1217b943bbe3301b3c2a8649ed1004c3c67b02607bd56bbc14f6dfa05e7f0184332c81a6a19595514745501ed88526aee932e555779b7c3a8233646b0979448  xf86-video-fbdev-0.5.0.tar.bz2
+19c6680d8e8b0ba3903fb76438b54f294a1715b93d50e1cb2ef95bb04770add5fdad1df4260ab7eb00bb26578baa79b7cfed3f7fa6cba70348611cc3797af3ee  fix-build.patch
+df671a7d2d7e1444646fa8bc56a5fb7be6c9b8ec376d1439bfe2f8802a397444a0ddbff64a2daec2c21b14c3eb9ea0b019b19d2a94ca7325fd975312b21207c3  layernx-fast-rotate.patch
+"

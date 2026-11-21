@@ -1,35 +1,58 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=moritz-v5x-tools
 pkgver=1
-pkgrel=0
+pkgrel=9
 pkgdesc="Betterspace V5x: Touch-Bruecke und Framebuffer-Refresher"
 url="https://nura.eco"
 arch="aarch64"
 license="MIT"
 options="!check"
-makedepends="linux-headers"
-install="$pkgname.post-install"
+makedepends="linux-headers libpng-dev"
+install="$pkgname.post-install $pkgname.post-upgrade"
 source="
 	moritz-v5x-touch.c
 	moritz-v5x-fbrefresh.c
 	moritz-v5x-touch.initd
 	moritz-v5x-fbrefresh.initd
+	moritz-v5x-bootanim.c
+	moritz-v5x-bootanim.initd
+	moritz-v5x-keys.c
+	moritz-v5x-keys.initd
+	moritz-v5x-powermenu
+	powermenu.csv
+	powermenu.rc
 "
 
 build() {
 	${CC:-gcc} $CFLAGS -Wall -O2 -o moritz-v5x-touch "$srcdir"/moritz-v5x-touch.c $LDFLAGS
+	${CC:-gcc} $CFLAGS -Wall -O2 -o moritz-v5x-bootanim "$srcdir"/moritz-v5x-bootanim.c $LDFLAGS -lpng
+	${CC:-gcc} $CFLAGS -Wall -O2 -o moritz-v5x-keys "$srcdir"/moritz-v5x-keys.c $LDFLAGS
 	${CC:-gcc} $CFLAGS -Wall -O2 -o moritz-v5x-fbrefresh "$srcdir"/moritz-v5x-fbrefresh.c $LDFLAGS
 }
 
 package() {
 	install -Dm755 moritz-v5x-touch "$pkgdir"/usr/bin/moritz-v5x-touch
 	install -Dm755 moritz-v5x-fbrefresh "$pkgdir"/usr/bin/moritz-v5x-fbrefresh
+	install -Dm755 moritz-v5x-bootanim "$pkgdir"/usr/bin/moritz-v5x-bootanim
+	install -Dm755 moritz-v5x-keys "$pkgdir"/usr/bin/moritz-v5x-keys
+	install -Dm755 "$srcdir"/moritz-v5x-keys.initd "$pkgdir"/etc/init.d/moritz-v5x-keys
+	install -Dm755 "$srcdir"/moritz-v5x-powermenu "$pkgdir"/usr/bin/moritz-v5x-powermenu
+	install -Dm644 "$srcdir"/powermenu.csv "$pkgdir"/usr/share/moritz-v5x/powermenu.csv
+	install -Dm644 "$srcdir"/powermenu.rc "$pkgdir"/usr/share/moritz-v5x/powermenu.rc
+	install -Dm755 "$srcdir"/moritz-v5x-bootanim.initd "$pkgdir"/etc/init.d/moritz-v5x-bootanim
 	install -Dm755 "$srcdir"/moritz-v5x-touch.initd "$pkgdir"/etc/init.d/moritz-v5x-touch
 	install -Dm755 "$srcdir"/moritz-v5x-fbrefresh.initd "$pkgdir"/etc/init.d/moritz-v5x-fbrefresh
 }
 sha512sums="
-7348a037e7a54ec32a13056ebe3792cf6e37d781d6452e9eb23412f0a9c15c5d3c2f6441583bf0e8b9fe9451f2602e1b9b19ac65f6505079a6b9ead1b73d57f7  moritz-v5x-touch.c
+dea9c187d0225a4d72a7b65258c6f41fd545b0d2add7f55e46809444418d4cf7f0b452f213a6b00b78ce222b0b6eed599cb2942bdb1c4e8b546ab101c882ad4c  moritz-v5x-touch.c
 a36be05e8313fb34bf9f82cb2211ddb78bcbfa6af4194785ef78b66005f0bee5048c8630ff7c1370bedcdb284acad0cacfb38ace1b35bd214d553e75a834a5d4  moritz-v5x-fbrefresh.c
-bc902416824973774195922bc65c1b00fe7f9d8adc1c77621710ea23f7e6f79518659d73dd9dd3eb3dc5bcebe3fa5f2d1d976802906553dbc003cb7d12ccb593  moritz-v5x-touch.initd
+666c9116ed708a904f48a326ed7575b36d0bc739280c1d995a408bd051142d403905f0dc4b7fb38a83759447f5daf857025bdff1056d209dda632d8c758593ac  moritz-v5x-touch.initd
 3b72b1ad701109fc7fc5871255723a2d2ac60443cf9509fc0b7c65ea6733949d1f06ddd0ee62bb48e2fe8b905fc259441248f32c159581a5ceec17986f277e93  moritz-v5x-fbrefresh.initd
+d13bbbea9e3ca35e02387a01a381b41e108e35f5f830ae52ecc69042559f68c0f4e2d7df054888b4f86485175a0b762a309faea54f727e5925bf74455cc2947a  moritz-v5x-bootanim.c
+3559ef86e93222909318a4df267c0e05475d8ce4b2c6ca0a252671dbf7b36d661744b85f7ae7720fe1b2b44f0de3a69f5b2d526c9abeedc4d8aaf237d174ff12  moritz-v5x-bootanim.initd
+ecae85cf350977917de90183e8f311f3b73ea89ad182c7d38c9d46dcd576ff07a09215bb17075f85961f394717c5b5993e17874096ee2abb8124f967928971ee  moritz-v5x-keys.c
+7c2552a15bc8c523bf921dd0b3864911a1257aeef97d6b33efaddb2b7770ee0f2db28d159aaa8eb870d13c41a72b8fdf3ef47ae58974f6c0057c8225f4dbd126  moritz-v5x-keys.initd
+8c4332ce272a0ed06876c926a7dc49357f56e08927b3623bb6eb24084fcec36ff0170611b17366686273be86f8ff97dd0cbe6a2e8369f15b8b98f027af67b221  moritz-v5x-powermenu
+cc27cec1d8f5688c929a410b8800783cabdc6414f33cf87aae7b364ca8fe3d14fdec15dc71dd21d62b4f084cb29bb654f655370b632d917751295eea3dbbb6f4  powermenu.csv
+1665133c7852abcd569df35fe7b46474662c423f43bc04ee8c9988a4cfe232bd80f734e7f36d64696ba9f81e223e38407cf33a5e108e178ed2a08bc77ffe4321  powermenu.rc
 "

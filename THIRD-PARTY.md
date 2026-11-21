@@ -14,6 +14,8 @@
 | `device-dumps/android-stock/img/*.img` | Partitionen boot, recovery, dtbo, vbmeta*, lk, lk2, logo, para, items | MediaTek, LANIX, BND, Google |
 | `device-dumps/android-stock/vendor/*` | `/vendor`, `/apex`, `/system/lib64` | MediaTek, LANIX, BND, Google |
 | `device-dumps/android-stock/unpack/*` | entpacktes Original-boot.img | wie oben |
+| `branding/out/layernx-logo.img` | Original-`logo`-Partition, Bild 0 durch LayerNX-Logo ersetzt; übrige 41 Bilder (Lade-/Akkugrafiken) vom Hersteller | Hersteller / MediaTek |
+| `pmaports-device/layernx-server/` (cloudflared) | GitHub-Release von Cloudflare | Cloudflare, Apache-2.0 |
 | `images/*` | gebaute Images; enthalten die oben genannten Dateien sowie Alpine-/postmarketOS-Pakete | jeweilige Lizenzen |
 | `build/tests/*.img` | Test-boot.img mit Stock-Kernel | wie oben |
 

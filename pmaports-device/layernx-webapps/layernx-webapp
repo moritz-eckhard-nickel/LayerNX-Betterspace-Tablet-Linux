@@ -1,0 +1,55 @@
+#!/bin/sh
+# layernx-webapp add NAME URL [vollbild] [chromium] [tls-ignorieren] | remove NAME | list | start NAME | gui
+# Standard-Engine: layernx-webview (WebKitGTK, auf diesem Geraet deutlich fluessiger als Chromium)
+# Jede Web-App bekommt ein eigenes, dauerhaftes Chromium-Profil (Cookies, Logins bleiben).
+# Chromium laeuft mit --no-sandbox: der Stock-Kernel hat keine Namespaces (CONFIG_NAMESPACES=n).
+D="$HOME/.local/share/layernx-webapps"
+A="$HOME/.local/share/applications"
+mkdir -p "$D" "$A"
+valid() { case "$1" in ''|*[!A-Za-z0-9_-]*) echo "Name nur aus Buchstaben, Ziffern, - und _" >&2; return 1 ;; esac; }
+case "$1" in
+	add)
+		valid "$2" || exit 2; [ -n "$3" ] || { echo "URL fehlt" >&2; exit 2; }
+		mode=fenster; [ "$4" = vollbild ] && mode=vollbild
+		engine=webkit; tls=nein
+		for o in "$4" "$5" "$6"; do case "$o" in chromium) engine=chromium ;; tls-ignorieren) tls=ja ;; esac; done
+		printf 'URL=%s\nMODE=%s\nENGINE=%s\nTLS_IGNORIEREN=%s\n' "$3" "$mode" "$engine" "$tls" > "$D/$2.conf"
+		cat > "$A/layernx-web-$2.desktop" <<DESK
+[Desktop Entry]
+Type=Application
+Name=$2
+Comment=Web-App $3 ($mode)
+Exec=layernx-webapp start $2
+Icon=web-browser
+Categories=Network;LayerNX;
+DESK
+		echo "Web-App $2 angelegt ($mode): $3" ;;
+	remove)
+		valid "$2" || exit 2
+		rm -f "$D/$2.conf" "$A/layernx-web-$2.desktop"; echo "entfernt (Profil bleibt in $D/$2-profil)" ;;
+	list)
+		for f in "$D"/*.conf; do [ -f "$f" ] || continue; . "$f"; echo "$(basename "$f" .conf)  $MODE  ${ENGINE:-webkit}  $URL"; ENGINE=; done ;;
+	start)
+		valid "$2" || exit 2; ENGINE=webkit; TLS_IGNORIEREN=nein; . "$D/$2.conf" || exit 1
+		T=""; [ "$TLS_IGNORIEREN" = ja ] && T="--tls-ignorieren"
+		if [ "$ENGINE" != chromium ]; then
+			if [ "$MODE" = vollbild ]; then exec layernx-webview $T --vollbild --titel "$2" --profil "$D/$2-profil" "$URL"
+			else exec layernx-webview $T --titel "$2" --profil "$D/$2-profil" "$URL"; fi
+		fi
+		set -- --user-data-dir="$D/$2-profil" --no-sandbox --test-type --no-first-run --password-store=basic \
+			--disable-gpu --touch-events=enabled --enable-features=TouchpadOverscrollHistoryNavigation \
+			--disable-pinch --overscroll-history-navigation=0
+		if [ "$MODE" = vollbild ]; then exec chromium "$@" --kiosk "$URL"
+		else exec chromium "$@" --app="$URL" --start-maximized; fi ;;
+	gui)
+		r=$(zenity --forms --title="Web-App hinzufuegen" --width=520 --text="Neue Web-App" \
+			--add-entry="Name (z. B. lnxwebui)" --add-entry="URL (z. B. http://192.168.0.10:5555)" \
+			--add-combo="Darstellung" --combo-values="Fenster|Vollbild" \
+			--add-combo="Selbst signiertes Zertifikat (https im LAN) erlauben?" --combo-values="Nein|Ja" --separator="|") || exit 0
+		n=$(echo "$r" | cut -d'|' -f1); u=$(echo "$r" | cut -d'|' -f2); m=$(echo "$r" | cut -d'|' -f3)
+		t=$(echo "$r" | cut -d'|' -f4)
+		[ "$m" = Vollbild ] && m=vollbild || m=fenster
+		tt=""; [ "$t" = Ja ] && tt=tls-ignorieren
+		out=$("$0" add "$n" "$u" "$m" $tt 2>&1) && zenity --info --text="$out" || zenity --error --text="$out" ;;
+	*) echo "usage: layernx-webapp add NAME URL [vollbild] | remove NAME | list | start NAME | gui" >&2; exit 2 ;;
+esac

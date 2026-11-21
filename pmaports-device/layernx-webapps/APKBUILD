@@ -1,0 +1,31 @@
+# Maintainer: moritz-v5x <noreply@example.org>
+pkgname=layernx-webapps
+pkgver=1
+pkgrel=6
+pkgdesc="LayerNX-Tablet-Linux: Web-Apps (Chromium, eigene Profile), Power-Tasten-Regeln mit PIN"
+url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
+arch="aarch64"
+license="MIT"
+options="!check"
+depends="chromium zenity xprop xdotool font-noto webkit2gtk-4.1"
+makedepends="webkit2gtk-4.1-dev gtk+3.0-dev"
+source="layernx-webapp layernx-powerkey layernx-webview.c layernx-pinpad.c layernx-pin"
+
+build() {
+	${CC:-gcc} $CFLAGS -Wall -O2 -o layernx-pinpad "$srcdir"/layernx-pinpad.c $(pkg-config --cflags --libs gtk+-3.0) $LDFLAGS
+	${CC:-gcc} $CFLAGS -Wall -O2 -o layernx-webview "$srcdir"/layernx-webview.c $(pkg-config --cflags --libs webkit2gtk-4.1 gtk+-3.0) $LDFLAGS
+}
+package() {
+	install -Dm755 "$srcdir"/layernx-webapp "$pkgdir"/usr/bin/layernx-webapp
+	install -Dm755 layernx-pinpad "$pkgdir"/usr/bin/layernx-pinpad
+	install -Dm755 layernx-webview "$pkgdir"/usr/bin/layernx-webview
+	install -Dm755 "$srcdir"/layernx-pin "$pkgdir"/usr/bin/layernx-pin
+	install -Dm755 "$srcdir"/layernx-powerkey "$pkgdir"/usr/bin/layernx-powerkey
+}
+sha512sums="
+4e7eb892bcdcad335f5fbfc185455d65a083f464bc9a204e39ba7304a8328199f87108764dfb1d253d44ec4c16156a7ca642ef8408de0efa8e18d64e5bc7d95b  layernx-webapp
+83cdd8c7be94e4e875ffde32340493d9f736f3bbb929974e8abe6dfcf6c9321bc12c1ae6d2917979ce7e5380d8187ef6200cd1bf5f0b2a55c71cf751dea146f2  layernx-powerkey
+657228d2474331f19ab58f8c6ebe517547026177652e86c1777f42e44df1d031ca41d319938ebeabc8d1428d75f21b3b5d5d925243a027cc744a0fd54a8e4af4  layernx-webview.c
+936f2c1bd6f6c9df766b706b77563e7d17df4c5a764cbfd392ed26c25418f673a3dc3b8c124aa36e95156476c99a913dceea09fe2d33b7fc07936b4998ac8abc  layernx-pinpad.c
+b69ecaef8ad4f1d0e14aa0f1aa86a829cb9febb00ebf53703154818688a366f2652757c497b53749839da59f7b8d407a8d59288aae9e76a2c607bf4fc9188b28  layernx-pin
+"

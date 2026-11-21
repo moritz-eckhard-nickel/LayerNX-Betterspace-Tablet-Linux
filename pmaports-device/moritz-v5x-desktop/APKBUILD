@@ -1,7 +1,7 @@
 # Maintainer: moritz-v5x <noreply@example.org>
 pkgname=moritz-v5x-desktop
 pkgver=1
-pkgrel=3
+pkgrel=17
 pkgdesc="Schlanke Touch-Oberflaeche (Xorg fbdev + Openbox + tint2 + svkbd) fuer das Betterspace V5x"
 url="https://nura.eco"
 arch="noarch"
@@ -15,7 +15,7 @@ depends="
 	svkbd
 	tint2
 	xf86-input-evdev
-	xf86-video-fbdev
+	moritz-xf86-video-fbdev
 	xhost
 	xinit
 	xinput
@@ -27,6 +27,12 @@ depends="
 	xmessage
 	adwaita-icon-theme
 	moritz-v5x-tools
+	layernx-branding
+	feh
+	layernx-server
+	lxterminal
+	fastfetch
+	layernx-webapps
 	procps
 "
 install="$pkgname.post-install"
@@ -43,6 +49,9 @@ source="
 	moritz-v5x-doas.conf
 	moritz-v5x-power
 	Xresources
+	moritz-v5x-status
+	layernx-themerc
+	lxterminal.conf
 "
 
 package() {
@@ -50,26 +59,32 @@ package() {
 	install -Dm755 "$srcdir"/moritz-v5x-xsession.initd "$pkgdir"/etc/init.d/moritz-v5x-xsession
 	install -Dm755 "$srcdir"/session-as-user "$pkgdir"/usr/libexec/moritz-v5x/session-as-user
 	install -Dm755 "$srcdir"/moritz-v5x-session "$pkgdir"/usr/bin/moritz-v5x-session
+	install -Dm755 "$srcdir"/moritz-v5x-status "$pkgdir"/usr/bin/moritz-v5x-status
 	install -Dm755 "$srcdir"/moritz-v5x-power "$pkgdir"/usr/bin/moritz-v5x-power
 	install -Dm755 "$srcdir"/moritz-v5x-keyboard "$pkgdir"/usr/bin/moritz-v5x-keyboard
 	install -Dm644 "$srcdir"/jgmenu-append.csv "$pkgdir"/usr/share/moritz-v5x/jgmenu-append.csv
 	install -Dm644 "$srcdir"/jgmenurc "$pkgdir"/usr/share/moritz-v5x/jgmenurc
+	install -Dm644 "$srcdir"/layernx-themerc "$pkgdir"/usr/share/themes/LayerNX/openbox-3/themerc
+	install -Dm644 "$srcdir"/lxterminal.conf "$pkgdir"/usr/share/moritz-v5x/lxterminal.conf
 	install -Dm644 "$srcdir"/Xresources "$pkgdir"/usr/share/moritz-v5x/Xresources
 	install -Dm644 "$srcdir"/tint2rc "$pkgdir"/usr/share/moritz-v5x/tint2rc
 	install -Dm644 "$srcdir"/openbox-rc.xml "$pkgdir"/usr/share/moritz-v5x/openbox-rc.xml
 	install -Dm600 "$srcdir"/moritz-v5x-doas.conf "$pkgdir"/etc/doas.d/moritz-v5x.conf
 }
 sha512sums="
-c73bf8d31bf8c81f3c78f3bf6144ba0ee979ac5121cde01bd4f9c8a8ddf32ca735fc49b932e675246621ac1182c020e88391a77d296717d1f5e9c1072dc5af21  10-moritz-v5x.conf
-54854fbb2dc81646dbd9a72c5b0a52ee33fcc219f894e5c112d1ab0af0fd9bc323e5646d9edb0983f3d7692c61b9c30736cb43b9130cd398a60ed2b0edd15efa  moritz-v5x-xsession.initd
+a64a890ca4a2d79daa6a149204f811bbbc1031b132790836b40592a5d481c45bee7c182317478a2b0e3e35472ed6bb1e7149ed3376b69adf62bdd89115d55e98  10-moritz-v5x.conf
+f9a4ecc39097a2d4260b94d692d220c0630118a362171e564f2d4377cc52ccb22a3474bd3ded91bd64be8d48f88db8da4b1d6c0d2bdb8f044ed5988a4b784168  moritz-v5x-xsession.initd
 0db84864738bb08a147eafcbf53c3d1ff6a5f9e4f194f31642dd2e727f097a1d33108439f3c08e87571f411f764ea6b9297a7515b020bca42a3c17061ae11bd5  session-as-user
-446deff662db97c4a94e8f1e36c9b30a2e2f495307fdf21169815d60d74962add86590996f862ab170137faca4a332c7cf6b5b7c0904ede1c02582cb60c6b1fb  moritz-v5x-session
+8a3b9d8eb7b104eddc2dcf23c9b7c51d7959d2831c52d337f843cd4aedfbc77b4a58391a7bb67e5741afdc6e3311c9dffe4be360c1125238f32b88c6aeee8830  moritz-v5x-session
 d568089b5f8d66239f8ec8cac264436ae187228bb28cdfe98ad094ae26a7b813898f0789b50819a56da42f06a7adca83bb59bfde18465f586b91cbe627890f9d  moritz-v5x-keyboard
-3efd9bf149f96c6655bb98c31d05dd581f27df09c4bc1d3c3fb3e5b856a2b168d0b8c922b2ff51e3d63e5f7a62b430c8f33b013a7a57e804fa61af4f516b15f9  jgmenu-append.csv
-5b632dc943d28cb23697e66db367bf1bdec0a394b1ca1e67f81088f8258f92f9d44c9d9086104f49881b907f545331f503ad222f0a1662cfb4a3f845727bf0d0  jgmenurc
-8c5a21451a7dc988d44610187547b70e751b822379202f45eb43084ab4decfe798d89c07df17e4cd9402f9880044889dbd7c25017cf6d1869b189ef9e2dd94dd  tint2rc
-c5b532c869bba0633837238a95134d9779b1edf18913beb79bfb9d89bb877a0184f952a5bef174b8fd81e77fe052695c49f663820b2b27c1d130a19d354ae4bb  openbox-rc.xml
-b9f2bc19775aa024dc2d13bd17f0c90d055e977e398ad4fd05ea8137e35fffa2459dafe697147469287f0af6d68c5a213dd9fa40b3d7e2a2000e590907ed6fdb  moritz-v5x-doas.conf
+ae5e077acce0b1e0ef38cd177bcdccfeab828cb622929ac107418505a95eff6e108a01f79b0941fbfe8ee9172fbd14e6e1ac6d6bd4720b12854c907508af9901  jgmenu-append.csv
+1ee8b6d17c4035c27c092fdbb5512477cb41106b103942cf88f077cbdef5d8de6292fdf867cdd6ad1d028cc697f926a4e23e421ffeeb23de0fb58fd655c90e9f  jgmenurc
+6b939ed0d24ab876558baf3b570add3306f96b13553dbe24cf985b8a4a6337322155039ec9cc66d4f45bf2d731ce6fe097eb2666afe5183c28884d71a4e69a5b  tint2rc
+1afd6b34d60f4ae1001f41b08cb62b22c9c5f1070c7c34bd37cac2a7372b737625764828c6cabf1eb77a722d6d38e1b0b40bc04d1de55dfc7239945d6d70427d  openbox-rc.xml
+ed8e07b483c10652fd6047c46c54aeaadd3d79cffd36cbe9207d62fd58b6a1e7d1267c9a325a973f845d83c4a85bfb08fe6c1c5fb0417f1b2a8e664fc19241a8  moritz-v5x-doas.conf
 fb822185d3dac4bce9933826d450cf5f1fd0397af1460d6038ab0253721e568f7cbbf2852c07315784e8d387849093a984348b2698a3959b77ea3714d64523dc  moritz-v5x-power
-dadf760d8023eee422f4e43c4abdc1f2ffff59f31199b50c7634e036e344fab6720c1a08f552170cb1dbb38e3a2d9cc69dfbc79339864b47c8b3ea9cfaea826d  Xresources
+308d95040608a77cd9ff44e01153240c25e7e0173ef64f7204ab38e43a95b122714c9ce47bf6e7cdbcc9fc5fb2dd7d6ec8538472dd4f268d5152b3629d305029  Xresources
+276de97735a57a71feaeafaf2551685d430fe2524a519655bc186e5d51a0ea11759ded29cbcf7c60705780916f127facd2a0bfa72a0f96483f133f7200878df2  moritz-v5x-status
+86613cd96b870bf377f1ba4fd92618aedde79a61fc5e87f821b122a99efe3837d7992f4a49ec5844efa1cf26f006d91849bc134757ec2fcb19e66f9c4b15dfc5  layernx-themerc
+ad891c9f9d5008e6796987018bdce8c7e103f4875911f5d78c8c7f2922807dd622dcc0441409dca1aaa8c4f221f5e4c759f29988b445955b40ef5fb4468ac91a  lxterminal.conf
 "

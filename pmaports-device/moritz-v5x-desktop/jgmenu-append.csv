@@ -1,9 +1,16 @@
 ^sep()
-Terminal,xterm,utilities-terminal
+Terminal,lxterminal,utilities-terminal
 Bildschirmtastatur,moritz-v5x-keyboard,input-keyboard
+Web-App hinzufuegen …,layernx-webapp gui,list-add
 ^sep()
+Einstellungen ▸,^checkout(einstellungen),preferences-desktop
 System ▸,^checkout(system),preferences-system
 
 ^tag(system)
+Display aus (Tippen schaltet nicht ein: per SSH layernx-display on),layernx-display off,video-display
 Neu starten …,moritz-v5x-power reboot,system-reboot
 Ausschalten …,moritz-v5x-power poweroff,system-shutdown
+
+^tag(einstellungen)
+PIN ändern …,layernx-pin aendern,dialog-password
+PIN entfernen …,layernx-pin entfernen,edit-delete

@@ -7,10 +7,14 @@ C=/usr/share/moritz-v5x
 mkdir -p "$HOME/.cache"
 echo "=== Sitzung $(date)" >>"$HOME/.cache/moritz-v5x-session.log"
 mkdir -p "$HOME/.config/jgmenu"
-[ -f "$HOME/.config/jgmenu/jgmenurc" ] || cp "$C/jgmenurc" "$HOME/.config/jgmenu/jgmenurc"
+cp "$C/jgmenurc" "$HOME/.config/jgmenu/jgmenurc"
 cp "$C/jgmenu-append.csv" "$HOME/.config/jgmenu/append.csv"
 xrdb -merge "$C/Xresources"
-xsetroot -solid "#2e3440"
+grep -q layernx-fastfetch "$HOME/.bashrc" 2>/dev/null || echo ". /etc/bash/bashrc.d/layernx-fastfetch.sh" >> "$HOME/.bashrc"
+mkdir -p "$HOME/.config/lxterminal"
+[ -f "$HOME/.config/lxterminal/lxterminal.conf" ] || cp "$C/lxterminal.conf" "$HOME/.config/lxterminal/lxterminal.conf"
+xsetroot -solid "#000000"
+[ -f /usr/share/layernx/background.png ] && feh --no-fehbg --bg-fill /usr/share/layernx/background.png
 xset s off -dpms 2>/dev/null
 tint2 -c "$C/tint2rc" >>"$HOME/.cache/moritz-v5x-session.log" 2>&1 &
 exec openbox --config-file "$C/openbox-rc.xml" >>"$HOME/.cache/moritz-v5x-session.log" 2>&1

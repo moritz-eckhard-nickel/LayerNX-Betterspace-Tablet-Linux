@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+description="LayerNX: eindeutigen Hostnamen LNXTL-XXXX beim ersten Start vergeben"
+depend() { before hostname net; }
+start() {
+	[ -f /etc/layernx/hostname-vergeben ] && return 0
+	mkdir -p /etc/layernx
+	n="LNXTL-$(tr -dc 'A-Z0-9' < /dev/urandom | head -c 4)"
+	ebegin "Setze Hostnamen $n"
+	echo "$n" > /etc/hostname
+	sed -i "s/^127\.0\.1\.1 .*/127.0.1.1 $n/" /etc/hosts 2>/dev/null
+	grep -q "^127.0.1.1" /etc/hosts || echo "127.0.1.1 $n" >> /etc/hosts
+	hostname "$n"
+	touch /etc/layernx/hostname-vergeben
+	eend 0
+}
