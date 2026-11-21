@@ -21,3 +21,5 @@
 /build/chr.png
 /build/fbc.png
 /build/pin.png
+/build/layernx-*.img
+/build/release.log

@@ -71,6 +71,11 @@ Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgesch
 | `build/` | Testprotokolle (pstore/ramoops), Screenshots, Touch-Messungen |
 | `docs/` | Protokoll |
 
+## Installation mit KI-Agent
+
+Repo klonen und **[INSTALL-CLAUDE.md](INSTALL-CLAUDE.md)** einem Agenten wie Claude Code geben – er führt
+interaktiv durch Prüfung, Entsperren, Flashen und Ersteinrichtung (inkl. Treiber, Branding usw.).
+
 ## Installation (Kurzfassung)
 
 > **Datenverlust:** Entsperren und Flashen löschen alle Android-Daten. Auf eigenes Risiko.
@@ -112,6 +117,10 @@ neu starten lassen – es landet ohne Tastendruck im Fastboot-Modus.
 | `cloudflared tunnel login` | cloudflared einrichten |
 
 ## Selbst bauen
+
+**In GitHub Actions:** `.github/workflows/build.yml` (manuell starten oder Tag `v*` pushen → Release mit Images). *Noch nicht in CI gelaufen – ungetestet.*
+
+**Lokal:**
 
 ```sh
 git clone https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git sources/pmbootstrap

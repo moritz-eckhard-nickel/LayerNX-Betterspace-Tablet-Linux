@@ -1,0 +1,109 @@
+# LayerNX-Tablet-Linux: Pakete + Images bauen (pmbootstrap, aarch64 via qemu)
+# - manuell (workflow_dispatch) oder bei Tag "v*"
+# - bei Tag: GitHub-Release mit Images erstellen
+# Status: vorbereitet, noch nicht in CI gelaufen (Actions-Kontingent) -> UNGETESTET
+name: build-images
+
+on:
+  workflow_dispatch:
+    inputs:
+      password:
+        description: "Benutzerpasswort im Image (Benutzer moritz)"
+        required: false
+        default: "moritz"
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  PMB_VERSION: "3.12.1"
+  PMAPORTS_BRANCH: "v26.06"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - name: Platz schaffen
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Host-Pakete
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git python3 openssl android-sdk-libsparse-utils
+
+      - name: pmbootstrap und pmaports holen
+        run: |
+          git clone --depth 1 -b "$PMB_VERSION" https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git sources/pmbootstrap
+          git clone --depth 1 -b "$PMAPORTS_BRANCH" https://gitlab.postmarketos.org/postmarketOS/pmaports.git pmaports
+          cd pmaports && git apply ../patches/postmarketos-initramfs.patch && cd ..
+          for p in pmaports-device/*/; do ln -sfn "../../../$p" "pmaports/device/testing/$(basename "$p")"; done
+
+      - name: pmbootstrap konfigurieren
+        run: |
+          W="$GITHUB_WORKSPACE"
+          mkdir -p ~/.config
+          cat > ~/.config/pmbootstrap_v3.cfg <<CFG
+          [pmbootstrap]
+          device = betterspace-v5x
+          ui = none
+          service_manager = openrc
+          user = moritz
+          hostname = lnxtl
+          timezone = Europe/Berlin
+          locale = de_DE.UTF-8
+          extra_packages = moritz-v5x-desktop,evtest,iw,nano,htop,e2fsprogs,util-linux
+          aports = $W/pmaports
+          work = $W/pmb-work
+          is_default_channel = False
+          build_pkgs_on_install = True
+          ssh_keys = False
+          [providers]
+          [mirrors]
+          CFG
+          yes "" | python3 sources/pmbootstrap/pmbootstrap.py init
+
+      - name: Pakete bauen
+        run: |
+          PMB="python3 sources/pmbootstrap/pmbootstrap.py"
+          # noarch-Paket mit lokalem Patch explizit bauen (sonst nimmt install das Repo-Paket)
+          $PMB build postmarketos-initramfs --arch aarch64
+          for p in pmaports-device/*/; do $PMB build "$(basename "$p")" --arch aarch64; done
+
+      - name: Image bauen
+        run: |
+          PMB="python3 sources/pmbootstrap/pmbootstrap.py"
+          $PMB install --password "${{ github.event.inputs.password || 'moritz' }}"
+          mkdir -p out
+          $PMB export out
+          ls -laL out
+
+      - name: Release-Dateien vorbereiten
+        run: |
+          mkdir -p release
+          cp -L out/boot.img release/layernx-v5x-boot.img
+          img2simg "$(readlink -f out/betterspace-v5x.img)" release/layernx-v5x-rootfs.sparse.img
+          cp branding/out/layernx-logo.img release/layernx-logo.img
+          cd release && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layernx-v5x-images
+          path: release/
+          retention-days: 7
+
+      - name: Release erstellen (nur bei Tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" release/* --title "LayerNX-Tablet-Linux $GITHUB_REF_NAME" \
+            --notes "Automatisch gebaut. Installation: siehe INSTALL-CLAUDE.md / README. Enthält proprietäre Dateien Dritter (siehe THIRD-PARTY.md); Entfernung auf Anfrage an moritz@onlymoritz.de."
