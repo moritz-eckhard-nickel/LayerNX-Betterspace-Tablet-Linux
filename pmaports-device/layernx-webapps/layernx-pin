@@ -4,6 +4,7 @@
 PINF=/etc/layernx/pin.sha256
 [ "$(id -u)" = 0 ] || exec doas /usr/bin/layernx-pin "$@"
 U="$(awk -F: '$3 >= 1000 && $3 < 60000 {print $1; exit}' /etc/passwd)"
+[ -n "$U" ] || U=root   # LayerNX-Standard: nur root
 asuser() { su "$U" -c "DISPLAY=:0 $*"; }
 pad() { asuser "layernx-pinpad --titel '$1' --hinweis '$2'" 2>/dev/null; }
 hash() { printf '%s' "$1" | sha256sum | cut -d' ' -f1; }

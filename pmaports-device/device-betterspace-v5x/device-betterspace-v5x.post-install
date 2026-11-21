@@ -18,6 +18,7 @@ iface lo inet loopback
 auto wlan0
 iface wlan0 inet dhcp
 IF
+[ -s /etc/wpa_supplicant/wpa_supplicant.conf ] || { mkdir -p /etc/wpa_supplicant; printf "ctrl_interface=/run/wpa_supplicant\nctrl_interface_group=wheel\nupdate_config=1\ncountry=DE\n" > /etc/wpa_supplicant/wpa_supplicant.conf; chmod 600 /etc/wpa_supplicant/wpa_supplicant.conf; }
 grep -q wpa_supplicant_args /etc/conf.d/wpa_supplicant 2>/dev/null || echo 'wpa_supplicant_args="-i wlan0 -D nl80211"' >> /etc/conf.d/wpa_supplicant
 rc-update add sshd default
 rc-update add syslog boot

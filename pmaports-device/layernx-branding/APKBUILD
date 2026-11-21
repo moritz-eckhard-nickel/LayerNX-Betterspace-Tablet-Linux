@@ -2,7 +2,7 @@
 # Branding fuer LayerNX-Tablet-Linux: Boot-Animation (Maskottchen Scribbles), Hintergrundbild
 pkgname=layernx-branding
 pkgver=1
-pkgrel=3
+pkgrel=5
 pkgdesc="LayerNX-Tablet-Linux branding (boot animation, wallpaper)"
 url="https://github.com/moritz-eckhard-nickel/LayerNX-Betterspace-Tablet-Linux"
 arch="noarch"
@@ -17,6 +17,8 @@ source="
 	fastfetch-config.jsonc
 	layernx-fastfetch.sh
 	layernx-hostname.initd
+	layernx-erststart.initd
+	10-layernx.conf
 "
 
 package() {
@@ -28,6 +30,8 @@ package() {
 	install -Dm644 "$srcdir"/layernx-fastfetch.sh "$pkgdir"/etc/bash/bashrc.d/layernx-fastfetch.sh
 	install -Dm644 "$srcdir"/layernx-fastfetch.sh "$pkgdir"/etc/profile.d/layernx-fastfetch.sh
 	install -Dm755 "$srcdir"/layernx-hostname.initd "$pkgdir"/etc/init.d/layernx-hostname
+	install -Dm755 "$srcdir"/layernx-erststart.initd "$pkgdir"/etc/init.d/layernx-erststart
+	install -Dm644 "$srcdir"/10-layernx.conf "$pkgdir"/etc/ssh/sshd_config.d/10-layernx.conf
 	install -Dm644 "$srcdir"/layernx-background.png "$pkgdir"/usr/share/layernx/background.png
 }
 sha512sums="
@@ -38,4 +42,6 @@ e3b39fa1718cc3332deb9a9e03a6d5d50e1bc9b39fa0e2a512ad886c9e6c5d490418c044f0278ecb
 688fe658c116c35bf5b881060f71d67eb79befc299680da82489ba1a1244697645d91866768f3425221d0ee3e7f3daa613de6cfc528b99b44eee87f6d5ae2ba5  fastfetch-config.jsonc
 7d90ba37f6ae4f416a12e6c696c7dbda8410c4742d879443dc61844a92389b68add6eb0c9db261e77068045d1acacdcd9a4699f68f35fdfc765434197a259b55  layernx-fastfetch.sh
 42a81aca97ba43b4ab22511be0ac61c9ad92ef28d376744ebb9e4a53d8bf8fe6f7899621f8adebd666842d9930108ee7ccb8e8cde40db8c23864b7972a0b019a  layernx-hostname.initd
+5c6a6bc1c607766b413309a0a708827b4d39e354078995e86f5f6796f3a6006cadc3e2161e71dea12e0caaeca055d889f9729d77be5d582d9422a400b87ed67a  layernx-erststart.initd
+41dc808784e7c1525b7ae54b487ed860b4452d766e3bd03eaba5eb17565418cd8746cd3d3665df84752df1fcd4c0b9aa82144e5624f800a6a6682dbca7af61c6  10-layernx.conf
 "

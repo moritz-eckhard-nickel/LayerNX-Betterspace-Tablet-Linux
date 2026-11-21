@@ -97,23 +97,28 @@ Am Host erscheint ein USB-Netzwerk-Gerät (`18d1:d001`):
 lsusb | grep 18d1
 IF=$(ip -br link | awk '/^enx/{print $1; exit}')
 sudo ip link set $IF up && sudo ip addr add 172.16.42.2/24 dev $IF
-ssh moritz@172.16.42.1          # Passwort: moritz
+ssh root@172.16.42.1            # Passwort: lnx (Standard, nur root)
 ```
 
-Auf dem Tablet sofort: `passwd` (Passwort ändern). Hostname ist automatisch `LNXTL-XXXX`.
+**Sofort das root-Passwort ändern lassen** (Einstellungen → Gerät → Passwort ändern, oder `passwd`):
+alle Tablets haben ab Werk `root` / `lnx`, auch per SSH. Standardmäßig existiert nur `root`
+(der Build-Benutzer wird beim ersten Start entfernt). Hostname ist automatisch `LNXTL-XXXX`.
 
-## 5. Ersteinrichtung (per SSH, mit dem Menschen absprechen)
+## 5. Ersteinrichtung
+
+Am einfachsten per Touch: **Menü → Einstellungen** (WLAN suchen und verbinden, Hostname,
+Helligkeit, PIN, Akkuschutz, SSH, Tailscale, Updates). Alternativ per SSH:
 
 ```sh
 # WLAN
-doas sh -c 'wpa_passphrase "SSID" "PASSWORT" >> /etc/wpa_supplicant/wpa_supplicant.conf'
-doas rc-service wpa_supplicant restart && doas rc-service networking restart
+sh -c 'wpa_passphrase "SSID" "PASSWORT" >> /etc/wpa_supplicant/wpa_supplicant.conf'
+rc-service wpa_supplicant restart && rc-service networking restart
 # feste WLAN-MAC (optional, aus Schritt 1)
-doas sed -i 's/^WLAN_MAC=.*/WLAN_MAC="aa:bb:cc:dd:ee:ff"/' /etc/conf.d/moritz-v5x-wifi
+sed -i 's/^WLAN_MAC=.*/WLAN_MAC="aa:bb:cc:dd:ee:ff"/' /etc/conf.d/moritz-v5x-wifi
 # Updates
 layernx-update
 # optional: Tailscale / cloudflared
-doas rc-update add tailscale default && doas rc-service tailscale start && doas tailscale up
+rc-update add tailscale default && rc-service tailscale start && tailscale up
 cloudflared tunnel login
 # optional: Web-App (z. B. eigene WebUI im Vollbild)
 layernx-webapp add meinewebui http://192.168.x.y:5555 vollbild

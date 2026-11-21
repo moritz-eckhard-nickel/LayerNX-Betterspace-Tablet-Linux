@@ -40,6 +40,7 @@ postmarketOS/Nura-Projekt** und wird von diesen Projekten weder unterstützt noc
 | Openbox-Oberfläche im LayerNX-Design (#4931fd), Leiste mit IP, Strom/Akku, Uhr | ✅ getestet |
 | Terminal (lxterminal + bash + fastfetch mit Scribbles), Bildschirmtastatur | ✅ getestet |
 | Web-Apps (`layernx-webapp`, WebKitGTK oder Chromium), Vollbild, eigene Profile/Cookies, selbst signierte Zertifikate optional | ✅ getestet |
+| Einstellungen-App (WLAN suchen/verbinden, Display, Hostname, PIN, Akkuschutz, SSH, Tailscale, Updates) | ✅ installiert, Bedienung per Touch noch **ungetestet** |
 | Power-Taste: kurz = Display, halten = Power-Menü; bei offener App gesperrt, 5× = PIN-Pad (Scrambling) | ✅ getestet |
 | Helligkeit `layernx-display brightness 0-99`, Display aus/an | ✅ getestet |
 | Akkuschutz für Serverbetrieb (`layernx-akku schutz an 50`) | ⚠️ Schalten getestet, Pendeln 45–50 % noch **ungetestet** |
@@ -63,6 +64,7 @@ Details: [docs/PROTOKOLL.md](docs/PROTOKOLL.md) (vollständige Entwicklungsgesch
 | `pmaports-device/moritz-xf86-video-fbdev/` | fbdev-Treiber mit eigener gekachelter NEON-Drehung (MIT, Patch auf xf86-video-fbdev) |
 | `pmaports-device/layernx-branding/` | Bootanimation, Hintergrund, os-release, fastfetch, Hostname `LNXTL-XXXX` |
 | `pmaports-device/layernx-server/` | bash & Werkzeuge, Tailscale, cloudflared, `layernx-update`, `layernx-display`, `layernx-akku` |
+| `pmaports-device/layernx-einstellungen/` | Touch-Einstellungen (GTK3) + Root-Helfer |
 | `pmaports-device/layernx-webapps/` | `layernx-webapp`, `layernx-webview` (WebKitGTK), `layernx-pinpad`, `layernx-pin`, Power-Tasten-Regeln |
 | `patches/` | Patch für `postmarketos-initramfs` (devtmpfs-Fallback, kleine Stufe 1) |
 | `scripts/` | Build-Wrapper, Android-Dump, Preloader-Fastboot-Trick, Diagnose |
@@ -94,7 +96,10 @@ interaktiv durch Prüfung, Entsperren, Flashen und Ersteinrichtung (inkl. Treibe
    ```
    > Hinweis: Alle Bestandteile dieser Images wurden am Gerät getestet; das fertige Gesamtimage als
    > frischer Flash ist **[UNGETESTET]**.
-5. Login per USB: Host-Interface `172.16.42.2/24`, dann `ssh moritz@172.16.42.1` (Passwort: `moritz` – **sofort mit `passwd` ändern**).
+5. Login per USB: Host-Interface `172.16.42.2/24`, dann `ssh root@172.16.42.1` (Passwort: **`lnx`**).
+   > ⚠️ **Alle LayerNX-Tablets haben ab Werk denselben Zugang `root` / `lnx`, auch per SSH.**
+   > Passwort sofort ändern: **Einstellungen → Gerät → Passwort ändern** (oder `passwd`).
+   > Standardmäßig gibt es nur `root`; weitere Benutzer bei Bedarf selbst anlegen (`adduser`).
 6. WLAN einrichten: `/etc/wpa_supplicant/wpa_supplicant.conf` (z. B. `wpa_passphrase SSID PASSWORT`), dann `rc-service wpa_supplicant restart`.
    Feste MAC: `WLAN_MAC` in `/etc/conf.d/moritz-v5x-wifi`.
 

@@ -3,7 +3,7 @@
 pkgname=device-betterspace-v5x
 pkgdesc="Betterspace V5x / LANIX Ilium Pad X8 (MT8168B)"
 pkgver=1
-pkgrel=5
+pkgrel=6
 url="https://nura.eco"
 license="MIT"
 arch="aarch64"

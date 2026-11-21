@@ -1,0 +1,36 @@
+#!/bin/sh
+# Root-Aktionen fuer layernx-einstellungen (per doas nopass nur dieses Skript)
+[ "$(id -u)" = 0 ] || exec doas /usr/bin/layernx-einstellungen-helfer "$@"
+case "$1" in
+	hostname)
+		n="$2"
+		case "$n" in ''|*[!A-Za-z0-9-]*|-*) echo "Ungültiger Hostname (nur A-Z, a-z, 0-9, -)" >&2; exit 2 ;; esac
+		[ ${#n} -le 63 ] || { echo "Hostname zu lang" >&2; exit 2; }
+		echo "$n" > /etc/hostname
+		if grep -q "^127.0.1.1" /etc/hosts; then sed -i "s/^127\.0\.1\.1 .*/127.0.1.1 $n/" /etc/hosts; else echo "127.0.1.1 $n" >> /etc/hosts; fi
+		hostname "$n"; mkdir -p /etc/layernx; touch /etc/layernx/hostname-vergeben
+		echo "Hostname: $n" ;;
+	ssh)
+		case "$2" in
+			an) rc-update add sshd default >/dev/null; rc-service sshd start ;;
+			aus) rc-update del sshd default >/dev/null; rc-service sshd stop ;;
+		esac ;;
+	tailscale)
+		case "$2" in
+			start) rc-update add tailscale default >/dev/null; rc-service tailscale start ;;
+			stop) tailscale down 2>/dev/null; rc-service tailscale stop; rc-update del tailscale default >/dev/null ;;
+			up) timeout 25 tailscale up --timeout=20s 2>&1 | grep -o "https://[^ ]*" | head -1 ;;
+			status) rc-service tailscale status >/dev/null 2>&1 && tailscale status 2>&1 | head -3 || echo "gestoppt" ;;
+		esac ;;
+	passwort)
+		# Passwort kommt ueber stdin (nie als Argument -> nicht in der Prozessliste)
+		case "$2" in
+			root) u=root ;;
+			benutzer) u="$(awk -F: '$3 >= 1000 && $3 < 60000 {print $1; exit}' /etc/passwd)"; [ -n "$u" ] || u=root ;;
+			*) echo "benutzer|root" >&2; exit 2 ;;
+		esac
+		IFS= read -r pw
+		[ -n "$pw" ] || { echo "Leeres Passwort" >&2; exit 2; }
+		printf '%s:%s\n' "$u" "$pw" | chpasswd && echo "Passwort für $u geändert" ;;
+	*) echo "usage: hostname NAME | ssh an|aus | tailscale start|stop|up|status | passwort benutzer|root" >&2; exit 2 ;;
+esac
